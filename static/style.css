@@ -1,0 +1,19 @@
+#weatherIcons{
+    width:800px;
+    height:600px;
+    background: #0e0f1d;
+    background: -moz-linear-gradient(top, #1f1f3f 0%, #141f31 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1F1F3F), color-stop(100%,#141f31));
+    background: -webkit-linear-gradient(top, #1F1F3F 0%,#141f31 100%);
+}
+
+#back {
+    position: absolute;
+    left: 0;
+    z-index:0;
+}
+
+#front{
+    position: absolute;
+    z-index: 10;
+}
