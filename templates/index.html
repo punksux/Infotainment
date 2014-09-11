@@ -1,0 +1,89 @@
+<!-- suppress all -->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/jquery-2.1.1.min.js"></script>
+    <script src="/static/jquery-ui.js"></script>
+    <script src="/static/jquery.li-scroller.1.0.js"></script>
+    <script src="/static/snowstorm-min.js"></script>
+    <script>
+        snowStorm.flakesMaxActive = 20;
+        snowStorm.followMouse = false;
+        snowStorm.targetElement = 'precip';
+        snowStorm.vMaxX = .25;
+        snowStorm.vMaxY = 6;
+        snowStorm.snowStick = false;
+        snowStorm.flakeWidth = 30;
+        snowStorm.flakeHeight = 30;
+        snowStorm.zIndex = 6;
+        snowStorm.autoStart = false;
+        snowStorm.stop();
+    </script>
+    {% if icon[3] == '' %}<script>snowStorm.stop();</script>{% else %}<script>snowStorm.resume();</script>{% endif %}
+    {% if icon[3] == 'flurries' %}<script>snowStorm.snowCharacter = "<img src='/static/images/flake.png'>";</script>{% endif %}
+    {% if icon[3] == 'rain' %}<script>snowStorm.snowCharacter = "<img src='/static/images/raindrop.png'>";</script>{% endif %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="static/li-scroller.css">
+    <script>
+        $(function(){
+            $("ul#ticker01").liScroll();
+            $( "#content" ).tabs();
+            $('#tabs .ui-tabs-nav a[href="#tabs-1"], #tabs-1').addClass('status1');
+            $('#tabs .ui-tabs-nav a[href="#tabs-2"], #tabs-2').addClass('status2');
+        });
+    </script>
+</head>
+
+<body>
+<div id="content" style="background: {{ background }}">
+         <ul id="tabList">
+            <li><a href="#tabs-1">Home</a></li>
+            <li><a href="#tabs-2">Forecast</a></li>
+         </ul>
+    <div id="tabs-1">
+    <div id="temps">
+        <div id="out">
+            <div id="outLabel">Outside Temp.</div>
+            <div id="outTemp">68</div>
+        </div>
+        {% if icon[0] == 'moon' %}<div id="tom">
+            <div id="tomLabel">Tomorrow</div>
+            <div id="tomTemp">78</div>
+        </div>
+        {% endif %}
+        <div id="in">
+            <div id="inLabel">Inside Temp.</div>
+            <div id="inTemp">72</div>
+        </div>
+    </div>
+
+    {% if icon[0] == 'moon' %}<style>
+    #temps {text-shadow:0 0 15px rgba(255,255,255,0.5);}
+    #content .ui-state-default a {background: #111123;}
+    #content .ui-state-active a {background: #1f1f3f;}
+    </style>{% endif %}
+
+    <div id="weatherIcons">
+        {% if icon[0] == 'moon' %}<div id="moon"><img src="/static/images/moon.png"></div>{% endif %}
+        {% if icon[0] == 'sun' %}<div id="sun"></div>{% endif %}
+        {% if icon[1] != '' %}<div id="mid"><img src="/static/images/{{ icon[1] }}" ></div>{% endif %}
+        {% if icon[2] != '' %}<div id="front"><img src="/static/images/{{ icon[2] }}" ></div>{% endif %}
+        <div id="precip"></div>
+    </div>
+
+    <div id="ticker">
+    <ul id="ticker01">
+        <li><span>10/10/2007</span><a href="#">The first thing ...</a></li>
+        <li><span>10/10/2007</span><a href="#">End up doing is ...</a></li>
+        <li><span>10/10/2007</span><a href="#">The code that you ...</a></li>
+    </ul>
+    </div>
+    </div>
+        <div id="tabs-2">
+            </div>
+</div>
+</body>
+</html>

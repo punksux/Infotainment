@@ -1,19 +1,143 @@
+#content{
+    width:1280px;
+    height:800px;
+    border: 1px solid black;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    font: bold 20px Code;
+}
+
+#temps {
+    float:left;
+    height:600px;
+    width:475px;
+    margin-top:40px;
+    color:white;
+    font:bold 30px Code;
+    /*font-weight: bold;*/
+    text-shadow: 3px 3px 8px #444;
+    display: inline;
+    position: relative;
+    text-align: center;
+}
+
+#out, #in, #tom {
+    width:220px;
+    position:relative;
+    display: inline-block;
+    height: 250px;
+}
+
+#in {
+    display: block;
+    margin: 0 auto
+}
+
+#outTemp, #inTemp, #tomTemp{
+    font-size: 150px;
+    text-align: center;
+    position:relative;
+    top:40px;
+    width:100%;
+}
+
+#outLabel, #inLabel, #tomLabel {
+    font-size: 30px;
+    width:100%;
+    text-align: center;
+    position:relative;
+    top:40px;
+    text-shadow: 2px 2px 4px #444;
+}
+
 #weatherIcons{
     width:800px;
     height:600px;
-    background: #0e0f1d;
-    background: -moz-linear-gradient(top, #1f1f3f 0%, #141f31 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1F1F3F), color-stop(100%,#141f31));
-    background: -webkit-linear-gradient(top, #1F1F3F 0%,#141f31 100%);
+    position: absolute;
+    right:5px;
 }
 
-#back {
+#moon {
     position: absolute;
-    left: 0;
     z-index:0;
+}
+
+#sun {
+    width:420px;
+    height:420px;
+    border-radius: 100%;
+    background-color: white;
+    margin-left: 90px;
+    margin-top: 60px;
+    position: absolute;
+    z-index:0;
+    box-shadow: 0 0 300px yellow, 0 0 50px #ff6500, inset 0 0 100px yellow;
+}
+
+#mid {
+    position: absolute;
+    z-index: 5;
 }
 
 #front{
     position: absolute;
     z-index: 10;
 }
+
+#precip {
+    height:300px;
+    width:90%;
+    position: relative;
+    left:30px;
+    top: 450px;
+    /*border:1px solid white;*/
+    overflow-y: hidden;
+}
+
+#ticker {
+    position: absolute;
+    width:1270px;
+    bottom:5px;
+    left:5px;
+    z-index: 15;
+}
+
+#content {
+    padding: 0px;
+}
+#content .ui-tabs-nav {
+    background: transparent;
+    border-width: 0px 0px 1px 0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+#content .ui-tabs-panel {
+    margin: 0em 0.2em 0.2em 0.2em;
+}
+
+#content .ui-state-default a {
+    color:white;
+    text-shadow: 1px 1px 2px #333;
+    border-bottom: 0;
+
+    font: bold 20px Code;
+    background-color: #afc9e1;
+}
+
+#content .ui-state-default {
+    border-radius:0px;
+    border-color: #6c7a87;;
+}
+
+#content .ui-state-active a {
+    background: #C9E3FB;
+    border: 0;
+}
+
+#tabList .ui-state-active{
+    border-radius:0px;
+    border-bottom: #000000;
+}
+
