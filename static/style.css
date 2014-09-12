@@ -6,6 +6,11 @@
     position: relative;
     margin: 0 auto;
     font: bold 20px Code;
+    border-radius: 0;
+}
+
+#tabs-1 {
+    overflow: hidden;
 }
 
 #temps {
@@ -56,6 +61,7 @@
     height:600px;
     position: absolute;
     right:5px;
+    top:100px;
 }
 
 #moon {
@@ -112,6 +118,8 @@
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
     border-radius: 0px;
+    padding:0;
+    height:53px;
 }
 #content .ui-tabs-panel {
     margin: 0em 0.2em 0.2em 0.2em;
@@ -121,23 +129,35 @@
     color:white;
     text-shadow: 1px 1px 2px #333;
     border-bottom: 0;
+    font: bold 25px Code;
+    background-color: #afc9e1;
+}
 
-    font: bold 20px Code;
+#tabList .ui-state-default{
     background-color: #afc9e1;
 }
 
 #content .ui-state-default {
     border-radius:0px;
-    border-color: #6c7a87;;
+    border-color: #6c7a87;
+    height:51px;
 }
 
 #content .ui-state-active a {
-    background: #C9E3FB;
+    background: #c2ddf5;
     border: 0;
+}
+
+#tabList .ui-state-default{
+    background: #afc9e1;
 }
 
 #tabList .ui-state-active{
     border-radius:0px;
-    border-bottom: #000000;
+    border-bottom: #000000 !important;
+    height:51px;
+    top:0;
+    background: #c2ddf5;
 }
+
 
