@@ -10,21 +10,24 @@ from flask import Flask, request, Response, render_template
 
 app = Flask(__name__)
 
+
 def event_stream():
+    i = 0
     while True:
-        time.sleep(1)
-        yield 'data: %s\n\n' % random.randrange(0,3000)
+        time.sleep(2)
+        yield 'data: ' + (str(random.randrange(32, 104)) + '.' + str(random.randrange(0, 9))) + '\n\n' + \
+        'event: count\n' + \
+        'data: ' + str(i) + '\n\n'
+        i += 1
+
 
 @app.route('/my_event_source')
 def sse_request():
-    return Response(
-            event_stream(),
-            mimetype='text/event-stream')
+    return Response(event_stream(), mimetype='text/event-stream')
 
 @app.route('/')
 def page():
     return render_template('sse.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=801, debug=True)
-
+    app.run(host='0.0.0.0', port=801)

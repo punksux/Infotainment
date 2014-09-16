@@ -16,22 +16,25 @@
 #temps {
     float:left;
     height:600px;
-    width:475px;
+    width:540px;
     margin-top:40px;
     color:white;
-    font:bold 30px Code;
+    font:bold 40px Code;
     /*font-weight: bold;*/
     text-shadow: 3px 3px 8px #444;
     display: inline;
-    position: relative;
     text-align: center;
+    /*border:1px solid #ffffff;*/
+    position: absolute;
+    left:0;
 }
 
 #out, #in, #tom {
-    width:220px;
+    width:250px;
     position:relative;
     display: inline-block;
     height: 250px;
+    /*border:1px solid #ffffff;*/
 }
 
 #in {
@@ -40,7 +43,7 @@
 }
 
 #outTemp, #inTemp, #tomTemp{
-    font-size: 150px;
+    font-size: 180px;
     text-align: center;
     position:relative;
     top:40px;
@@ -48,7 +51,7 @@
 }
 
 #outLabel, #inLabel, #tomLabel {
-    font-size: 30px;
+    font-size: 35px;
     width:100%;
     text-align: center;
     position:relative;
@@ -109,6 +112,42 @@
     z-index: 15;
 }
 
+#clockBox{
+    width:200px;
+    height:55px;
+    border: 0 solid #5382cc;
+    transform: skewX(-45deg);
+    transform-origin: top;
+    border-top-width: 2px;
+    border-left-width: 2px;
+    position:absolute;
+    bottom:0;
+    right:0;
+    background-color: #c9e3fb;
+    z-index: 20;
+}
+
+#clockBoxCover {
+    width:200px;
+    height:55px;
+    position:absolute;
+    bottom:0;
+    right:0;
+    background: #c9e3fb;
+    background: -moz-linear-gradient(left, #c9e3fb 0%, #529be4 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c9e3fb), color-stop(100%,#529be4));
+    background: -webkit-linear-gradient(left, #c9e3fb 0%,#529be4 100%);
+    z-index: 20;
+    color: white;
+    font:bold 40px Code;
+    line-height: 56px;
+    vertical-align: middle;
+    text-align: center;
+    text-shadow: 1px 1px 3px #333;
+}
+
+
+
 #content {
     padding: 0px;
 }
@@ -159,5 +198,6 @@
     top:0;
     background: #c2ddf5;
 }
+
 
 

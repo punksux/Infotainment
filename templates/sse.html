@@ -8,11 +8,11 @@
                     function() {
                         sse = new EventSource('/my_event_source');
                         sse.onmessage = function(message) {
-                            console.log('A message has arrived!');
-                            $('#output').html(message.data);
-                        }
+                            $('#output').html(message.data);};
+                        sse.addEventListener('count', function(message) {
+                            $('#output2').html(message.data);}, false)
 
-                    })
+                    });
 
         </script>
     </head>
@@ -21,9 +21,13 @@
 
         <h2>Demo</h2>
 
-        <ul id="output">
+        <div id="output" style="font-size: 37px;">
 
-        </ul>
+        </div>
+
+        <div id="output2" style="font-size: 37px;">
+poo
+        </div>
 
     </body>
 

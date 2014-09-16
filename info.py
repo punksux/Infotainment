@@ -1,9 +1,12 @@
-from flask import Flask, request, render_template, url_for, redirect
+from flask import Flask, request, render_template, url_for, redirect, Response
 import logging
 import logging.handlers
 from socket import timeout
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
+import random
+import time
+from apscheduler.scheduler import Scheduler
 
 weather_test = 100
 on_pi = False
@@ -18,9 +21,10 @@ templateData = {
     'clouds':  '',
     'sun_moon': '',
     'precip': '',
-    'sunset_hour': '2',
+    'sunset_hour': '22',
     'sunset_minute': '00',
     'background': '',
+    'time': ''
 }
 
 if on_pi:
@@ -35,6 +39,9 @@ app = Flask(__name__)
 
 #logging.basicConfig(filename='errors.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s: %(message)s',
                     #datefmt='%m/%d/%Y %I:%M:%S %p')
+
+sched = Scheduler()
+sched.start()
 
 
 def check_weather():
@@ -77,20 +84,11 @@ def check_weather():
             templateData['sunset_hour'] = parsed_json['sun_phase']['sunset']['hour']
             templateData['sunset_minute'] = parsed_json['sun_phase']['sunset']['minute']
 
-            # print(parsed_json['current_observation']['weather'])
-            # weather = parsed_json['current_observation']['weather'].lower()
-            # precip_check = ['rain', 'snow', 'drizzle']
-            # if any(x in weather for x in precip_check):
-            #     precip = True
-            # else:
-            #     precip = False
-            #
-            # print(precip)
             sun_or_moon()
             set_icon()
             f.close()
     else:
-        icon = "partlysunny"
+        icon = "partlycloudy"
         sun_or_moon()
         set_icon()
         precip = True
@@ -141,7 +139,23 @@ def set_icon():
 
 check_weather()
 
+
+def event_stream():
+        yield 'event: outTemp\n' + \
+              'data: ' + (str(random.randrange(-32, 104))) + '\n\n' + \
+              'event: inTemp\n' + \
+              'data: ' + str(random.randrange(32, 104)) + '\n\n' + \
+              'event: time\n' + \
+              'data: ' + str(datetime.now().time().strftime('%I:%M %p').lstrip("0")) + '\n\n'
+        time.sleep(5)
+
+
 try:
+
+    @app.route('/my_event_source')
+    def sse_request():
+        return Response(event_stream(), mimetype='text/event-stream')
+
     @app.route('/')
     def my_form():
         return render_template("index.html", **templateData)
@@ -150,4 +164,4 @@ try:
         app.run(host='0.0.0.0', port=80)
 
 finally:
-    pass
+    sched.shutdown()
