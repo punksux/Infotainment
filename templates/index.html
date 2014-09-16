@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <script src="/static/jquery-2.1.1.min.js"></script>
     <script src="/static/jquery-ui.js"></script>
-    <script src="/static/jquery.li-scroller.1.0.js"></script>
+    <script src="/static/jquery.webticker.js"></script>
     <script src="/static/snowstorm-min.js"></script>
     <script>
         snowStorm.flakesMaxActive = 20;
@@ -22,47 +22,36 @@
         snowStorm.autoStart = false;
         snowStorm.stop();
     </script>
-    {% if icon[3] == '' %}<script>snowStorm.stop();</script>{% else %}<script>snowStorm.resume();</script>{% endif %}
-    {% if icon[3] == 'flurries' %}<script>snowStorm.snowCharacter = "<img src='/static/images/flake.png'>";</script>{% endif %}
-    {% if icon[3] == 'rain' %}<script>snowStorm.snowCharacter = "<img src='/static/images/raindrop.png'>";</script>{% endif %}
+    <!--{% if icon[3] == '' %}<script>snowStorm.stop();</script>{% else %}<script>snowStorm.resume();</script>{% endif %}-->
+    <!--{% if icon[3] == 'flurries' %}<script>snowStorm.snowCharacter = "<img src='/static/images/flake.png'>";</script>{% endif %}-->
+    <!--{% if icon[3] == 'rain' %}<script>snowStorm.snowCharacter = "<img src='/static/images/raindrop.png'>";</script>{% endif %}-->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="static/li-scroller.css">
     <script>
         $(function(){
-            $("ul#ticker01").liScroll();
+            $("ul#ticker01").webTicker();
             $( "#content" ).tabs();
             $('#tabs .ui-tabs-nav a[href="#tabs-1"], #tabs-1').addClass('status1');
             $('#tabs .ui-tabs-nav a[href="#tabs-2"], #tabs-2').addClass('status2');
         });
     </script>
-    <script type="text/javascript">
-            $(document).ready(
-                    function() {
-                        sse = new EventSource('/my_event_source');
-                            sse.addEventListener('outTemp', function(message) {
-                                jQuery({someValue: $('#outTemp').html()}).animate({someValue: message.data}, {
-	                            duration: 2000,
-	                            easing:'swing',
-	                            step: function() {
-		                            $('#outTemp').text(Math.ceil(this.someValue));
-	                            }
-                                })});
-                            sse.addEventListener('inTemp', function(message) {
-                                jQuery({someValue: $('#inTemp').html()}).animate({someValue: message.data}, {
-	                            duration: 1000,
-	                            easing:'swing',
-	                            step: function() {
-		                            $('#inTemp').text(Math.ceil(this.someValue));
-	                            }
-                                })});
-                            sse.addEventListener('time', function(message) {
-                                $('#clockBoxCover').html(message.data)
-                            });
-
-
-                    });
-
-        </script>
+    <script>
+        var rain = false;
+        $(document).ready(function() {
+        sse = new EventSource('/my_event_source');
+        sse.addEventListener('precip', function(message) {
+        if (message.data == 'rain'){
+            snowStorm.snowCharacter = "<img src='/static/images/raindrop.png'>";
+            $('tomTemp').html('poo');
+            snowStorm.resume();}
+        else if (message.data == 'flurries') {
+            snowStorm.snowCharacter = "<img src='/static/images/flake.png'>";
+            snowStorm.resume();}
+        else {
+            snowStorm.stop();}
+    });
+        });
+    </script>
+    <script src="/static/sse.js"></script>
 </head>
 
 <body>
@@ -78,7 +67,7 @@
             <div id="outLabel">Outside Temp</div>
             <div id="outTemp">102</div>
         </div>
-        {% if icon[0] == 'moon' %}<div id="tom">
+        {% if day_night == 'night' %}<div id="tom">
             <div id="tomLabel">Tomorrow</div>
             <div id="tomTemp">101</div>
         </div>
@@ -89,35 +78,56 @@
         </div>
     </div>
 
-    {% if icon[0] == 'moon' %}<style>
+    {% if day_night == 'night' %}<style>
     #temps {text-shadow:0 0 15px rgba(255,255,255,0.5);}
     #content .ui-state-default a {background: #151532;}
     #content .ui-state-active a {background: #1f1f3f;}
     #tabList .ui-state-default{background: #151532;}
     #tabList .ui-state-active{background: #1f1f3f;}
-    #clockBox, #clockBoxCover {background: #141f31;}
+    #clockBox {background-color: #1f1f3f; border-color: #fff }
+    #clockBoxCover {background: -moz-linear-gradient(left, #1f1f3f 0%, #141f31 100%);}
     </style>{% endif %}
 
     <div id="weatherIcons">
-        {% if icon[0] == 'moon' %}<div id="moon"><img src="/static/images/moon.png"></div>{% endif %}
-        {% if icon[0] == 'sun' %}<div id="sun"></div>{% endif %}
-        {% if icon[1] != '' %}<div id="mid"><img src="/static/images/{{ icon[1] }}" ></div>{% endif %}
-        {% if icon[2] != '' %}<div id="front"><img src="/static/images/{{ icon[2] }}" ></div>{% endif %}
+        <div id="back"></div>
+        <div id="mid"><img src="/static/images/{{ icon[1] }}" ></div>
+        <div id="front"><img src="/static/images/{{ icon[2] }}" ></div>
         <div id="precip"></div>
     </div>
 
     <div id="ticker">
     <ul id="ticker01">
-        <li><span>10/10/2007</span><a href="#">The first thing ...</a></li>
-        <li><span>10/10/2007</span><a href="#">End up doing is ...</a></li>
-        <li><span>10/10/2007</span><a href="#">The code that you ...</a></li>
+        <li onclick="$('#rss1sum, #popupContent, #screenCover').css('display','inline');" id="rss1">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</a></li>
+        <li onclick="$('#rss2sum, #popupContent, #screenCover').css('display','inline');" id="rss2">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</li>
+        <li onclick="$('#rss3sum, #popupContent, #screenCover').css('display','inline');" id="rss3">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</li>
+        <li onclick="$('#rss4sum, #popupContent, #screenCover').css('display','inline');" id="rss4">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</li>
+        <li onclick="$('#rss5sum, #popupContent, #screenCover').css('display','inline');" id="rss5">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</li>
     </ul>
     </div>
+
     <div id="clockBox"></div>
     <div id="clockBoxCover">4:22 PM</div>
     </div>
         <div id="tabs-2">
             </div>
+
+    <div id="popupContent">
+        <div id="rss1sum"></div>
+        <div id="rss2sum"></div>
+        <div id="rss3sum"></div>
+        <div id="rss4sum"></div>
+        <div id="rss5sum"></div>
+    </div>
+
 </div>
+<div id="screenCover"></div>
+<script>
+        $('#popupContent').click(function(){
+            $('#rss1sum, #rss2sum, #rss3sum, #rss4sum, #rss5sum, #popupContent, #screenCover').css('display','none');
+        });
+        $('#screenCover').click(function(){
+            $('#rss1sum, #rss2sum, #rss3sum, #rss4sum, #rss5sum, #popupContent, #screenCover').css('display','none');
+        });
+    </script>
 </body>
 </html>

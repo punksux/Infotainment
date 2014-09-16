@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import random
 import time
 from apscheduler.scheduler import Scheduler
+import feedparser
 
 weather_test = 100
 on_pi = False
@@ -15,16 +16,20 @@ icon = ""
 day = True
 sun_or_moon_icon = ''
 d_n_clouds = ''
+rss_feed = 'http://www.kutv.com/news/features/top-stories/stories/rss.xml'
+#rss_feed = 'http://rss.cnn.com/rss/cnn_topstories.rss'
+feed = []
 
 templateData = {
     'icon': ['', '', ''],
     'clouds':  '',
     'sun_moon': '',
     'precip': '',
-    'sunset_hour': '22',
+    'sunset_hour': '2',
     'sunset_minute': '00',
     'background': '',
-    'time': ''
+    'time': '',
+    'day_night': 'day'
 }
 
 if on_pi:
@@ -42,6 +47,16 @@ app = Flask(__name__)
 
 sched = Scheduler()
 sched.start()
+
+
+def get_rss():
+    global feed
+    feed = feedparser.parse(rss_feed)
+    print(feed['items'][0]['title'])
+
+
+get_rss()
+rss = sched.add_interval_job(get_rss, seconds=5*60)
 
 
 def check_weather():
@@ -88,7 +103,9 @@ def check_weather():
             set_icon()
             f.close()
     else:
-        icon = "partlycloudy"
+        #randt = ['rain', 'clear', 'partlycloudy', 'mostlycloudy', 'flurries']
+        randt = ['rain', 'clear']
+        icon = randt[random.randrange(0, 2)]
         sun_or_moon()
         set_icon()
         precip = True
@@ -106,11 +123,13 @@ def sun_or_moon():
         sun_or_moon_icon = 'sun'
         d_n_clouds = 'day'
         templateData['background'] = '-moz-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);'
+        templateData['day_night'] = 'day'
     else:
         day = False
         sun_or_moon_icon = 'moon'
         d_n_clouds = 'night'
         templateData['background'] = '-moz-linear-gradient(top, #1f1f3f 0%, #141f31 100%);'
+        templateData['day_night'] = 'night'
 
 
 def set_icon():
@@ -138,7 +157,7 @@ def set_icon():
 
 
 check_weather()
-
+weather = sched.add_interval_job(check_weather, seconds=15)
 
 def event_stream():
         yield 'event: outTemp\n' + \
@@ -146,8 +165,37 @@ def event_stream():
               'event: inTemp\n' + \
               'data: ' + str(random.randrange(32, 104)) + '\n\n' + \
               'event: time\n' + \
-              'data: ' + str(datetime.now().time().strftime('%I:%M %p').lstrip("0")) + '\n\n'
-        time.sleep(5)
+              'data: ' + str(datetime.now().time().strftime('%I:%M %p').lstrip("0")) + '\n\n' + \
+              'event: rss1\n' + \
+              'data: ' + feed['items'][0]['title'] + '\n\n' + \
+              'event: rss1sum\n' + \
+              'data: ' + feed['items'][0]['summary'] + '\n\n' + \
+              'event: rss2\n' + \
+              'data: ' + feed['items'][1]['title'] + '\n\n' + \
+              'event: rss2sum\n' + \
+              'data: ' + feed['items'][1]['summary'] + '\n\n' + \
+              'event: rss3\n' + \
+              'data: ' + feed['items'][2]['title'] + '\n\n' + \
+              'event: rss3sum\n' + \
+              'data: ' + feed['items'][2]['summary'] + '\n\n' + \
+              'event: rss4\n' + \
+              'data: ' + feed['items'][3]['title'] + '\n\n' + \
+              'event: rss4sum\n' + \
+              'data: ' + feed['items'][3]['summary'] + '\n\n' + \
+              'event: rss5\n' + \
+              'data: ' + feed['items'][4]['title'] + '\n\n' + \
+              'event: rss5sum\n' + \
+              'data: ' + feed['items'][4]['summary'] + '\n\n' + \
+              'event: iconBack\n' + \
+              'data: ' + templateData['icon'][0] + '\n\n' + \
+              'event: iconMid\n' + \
+              'data: ' + templateData['icon'][1] + '\n\n' + \
+              'event: iconFront\n' + \
+              'data: ' + templateData['icon'][2] + '\n\n' + \
+              'event: precip\n' + \
+              'data: ' + templateData['icon'][3] + '\n\n'
+
+        time.sleep(0)
 
 
 try:
