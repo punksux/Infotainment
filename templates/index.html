@@ -38,16 +38,17 @@
         var rain = false;
         $(document).ready(function() {
         sse = new EventSource('/my_event_source');
-        sse.addEventListener('precip', function(message) {
-        if (message.data == 'rain'){
-            snowStorm.snowCharacter = "<img src='/static/images/raindrop.png'>";
-            $('tomTemp').html('poo');
-            snowStorm.resume();}
-        else if (message.data == 'flurries') {
-            snowStorm.snowCharacter = "<img src='/static/images/flake.png'>";
-            snowStorm.resume();}
-        else {
-            snowStorm.stop();}
+        sse.addEventListener('iconPrecip', function(message) {
+            $('#outLabel').html('poo');
+            if (message.data == 'rain'){
+                snowStorm.snowCharacter = "<img src='/static/images/raindrop.png'>";
+                $('#tomTemp').html('poo');
+                snowStorm.resume();}
+            else if (message.data == 'flurries') {
+                snowStorm.snowCharacter = "<img src='/static/images/flake.png'>";
+                snowStorm.resume();}
+            else {
+                snowStorm.stop();}
     });
         });
     </script>

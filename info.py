@@ -192,7 +192,7 @@ def event_stream():
               'data: ' + templateData['icon'][1] + '\n\n' + \
               'event: iconFront\n' + \
               'data: ' + templateData['icon'][2] + '\n\n' + \
-              'event: precip\n' + \
+              'event: iconPrecip\n' + \
               'data: ' + templateData['icon'][3] + '\n\n'
 
         time.sleep(0)
