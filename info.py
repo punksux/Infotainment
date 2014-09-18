@@ -16,9 +16,17 @@ icon = ""
 day = True
 sun_or_moon_icon = ''
 d_n_clouds = ''
-rss_feed = 'http://www.kutv.com/news/features/top-stories/stories/rss.xml'
-#rss_feed = 'http://rss.cnn.com/rss/cnn_topstories.rss'
+#rss_feed = 'http://www.kutv.com/news/features/top-stories/stories/rss.xml'
+rss_feed = 'http://feeds.abcnews.com/abcnews/topstories'
 feed = []
+feed_titles = []
+feed_summary = []
+weather_website = ('http://api.wunderground.com/api/c5e9d80d2269cb64/conditions/astronomy/forecast10day/q/%s.json' %
+                   location)
+forecastDay = []
+forecastCond = []
+forecastHigh = []
+forecastLow = []
 
 templateData = {
     'icon': ['', '', ''],
@@ -42,8 +50,8 @@ else:
 
 app = Flask(__name__)
 
-#logging.basicConfig(filename='errors.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s: %(message)s',
-                    #datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(filename='errors.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s: %(message)s',
+                    datefmt='%m/%d/%Y %I:%M:%S %p')
 
 sched = Scheduler()
 sched.start()
@@ -51,8 +59,13 @@ sched.start()
 
 def get_rss():
     global feed
+    global feed_titles
+    global feed_summary
     feed = feedparser.parse(rss_feed)
-    print(feed['items'][0]['title'])
+    feed['items'] = feed['items'][:10]
+    for i in feed['items']:
+        feed_titles.append(i['title'])
+        feed_summary.append(i['summary'])
 
 
 get_rss()
@@ -65,7 +78,6 @@ def check_weather():
     if weather_test == 200:
         global something_wrong
         global f
-        weather_website = ('http://api.wunderground.com/api/c5e9d80d2269cb64/conditions/astronomy/q/%s.json' % location)
         if on_pi:
             try:
                 f = urllib2.urlopen(weather_website, timeout=3)
@@ -147,7 +159,8 @@ def set_icon():
     elif filename == "hazy":
         templateData['icon'] = [sun_or_moon_icon, '', 'fog.png', '']
     elif filename == "mostlycloudy" or filename == 'partlysunny':
-        templateData['icon'] = [sun_or_moon_icon, 'cloud-back-' + d_n_clouds + '.png', 'cloud-' + d_n_clouds + '.png', '']
+        templateData['icon'] = [sun_or_moon_icon, 'cloud-back-' + d_n_clouds + '.png', 'cloud-' + d_n_clouds + '.png',
+                                '']
     elif filename == "partlycloudy" or filename == 'mostlysunny':
         templateData['icon'] = [sun_or_moon_icon, '', 'cloud-' + d_n_clouds + '.png', '']
     elif filename == "sleet":
@@ -157,7 +170,8 @@ def set_icon():
 
 
 check_weather()
-weather = sched.add_interval_job(check_weather, seconds=15)
+weather = sched.add_interval_job(check_weather, seconds=60)
+
 
 def event_stream():
         yield 'event: outTemp\n' + \
@@ -166,34 +180,12 @@ def event_stream():
               'data: ' + str(random.randrange(32, 104)) + '\n\n' + \
               'event: time\n' + \
               'data: ' + str(datetime.now().time().strftime('%I:%M %p').lstrip("0")) + '\n\n' + \
-              'event: rss1\n' + \
-              'data: ' + feed['items'][0]['title'] + '\n\n' + \
-              'event: rss1sum\n' + \
-              'data: ' + feed['items'][0]['summary'] + '\n\n' + \
-              'event: rss2\n' + \
-              'data: ' + feed['items'][1]['title'] + '\n\n' + \
-              'event: rss2sum\n' + \
-              'data: ' + feed['items'][1]['summary'] + '\n\n' + \
-              'event: rss3\n' + \
-              'data: ' + feed['items'][2]['title'] + '\n\n' + \
-              'event: rss3sum\n' + \
-              'data: ' + feed['items'][2]['summary'] + '\n\n' + \
-              'event: rss4\n' + \
-              'data: ' + feed['items'][3]['title'] + '\n\n' + \
-              'event: rss4sum\n' + \
-              'data: ' + feed['items'][3]['summary'] + '\n\n' + \
-              'event: rss5\n' + \
-              'data: ' + feed['items'][4]['title'] + '\n\n' + \
-              'event: rss5sum\n' + \
-              'data: ' + feed['items'][4]['summary'] + '\n\n' + \
-              'event: iconBack\n' + \
-              'data: ' + templateData['icon'][0] + '\n\n' + \
-              'event: iconMid\n' + \
-              'data: ' + templateData['icon'][1] + '\n\n' + \
-              'event: iconFront\n' + \
-              'data: ' + templateData['icon'][2] + '\n\n' + \
-              'event: iconPrecip\n' + \
-              'data: ' + templateData['icon'][3] + '\n\n'
+              'event: rssTitle\n' + \
+              'data: ' + json.dumps(feed_titles) + '\n\n' + \
+              'event: rssSum\n' + \
+              'data: ' + json.dumps(feed_summary) + '\n\n' + \
+              'event: icon\n' + \
+              'data: ' + json.dumps(templateData['icon']) + '\n\n'
 
         time.sleep(0)
 

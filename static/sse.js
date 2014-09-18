@@ -19,56 +19,52 @@ $(document).ready(function() {
     sse.addEventListener('time', function(message) {
         $('#clockBoxCover').html(message.data)
     });
-    sse.addEventListener('rss1', function(message) {
-        $('#rss1').html(message.data + ' - ')
+    sse.addEventListener('rssTitle', function(message) {
+        message = JSON.parse(message.data);
+        $('#rss1').html('(1) - ' + message[0] + ' - ');
+        $('#rss2').html(message[1] + ' - ');
+        $('#rss3').html(message[2] + ' - ');
+        $('#rss4').html(message[3] + ' - ');
+        $('#rss5').html(message[4] + ' - ');
+        $('#rss6').html(message[5] + ' - ');
+        $('#rss7').html(message[6] + ' - ');
+        $('#rss8').html(message[7] + ' - ');
+        $('#rss9').html(message[8] + ' - ');
+        $('#rss10').html(message[9] + ' - ');
     });
-    sse.addEventListener('rss1sum', function(message) {
-        $('#rss1sum').html(message.data)
+    sse.addEventListener('rssSum', function(message) {
+        message = JSON.parse(message.data);
+        $('#rss1sum').html(message[0]);
+        $('#rss2sum').html(message[1]);
+        $('#rss3sum').html(message[2]);
+        $('#rss4sum').html(message[3]);
+        $('#rss5sum').html(message[4]);
+        $('#rss6sum').html(message[5]);
+        $('#rss7sum').html(message[6]);
+        $('#rss8sum').html(message[7]);
+        $('#rss9sum').html(message[8]);
+        $('#rss10sum').html(message[9]);
     });
-    sse.addEventListener('rss2', function(message) {
-        $('#rss2').html(message.data + ' - ')
-    });
-    sse.addEventListener('rss2sum', function(message) {
-        $('#rss2sum').html(message.data)
-    });
-    sse.addEventListener('rss3', function(message) {
-        $('#rss3').html(message.data + ' - ')
-    });
-    sse.addEventListener('rss3sum', function(message) {
-        $('#rss3sum').html(message.data)
-    });
-    sse.addEventListener('rss4', function(message) {
-        $('#rss4').html(message.data + ' - ')
-    });
-    sse.addEventListener('rss4sum', function(message) {
-        $('#rss4sum').html(message.data)
-    });
-    sse.addEventListener('rss5', function(message) {
-        $('#rss5').html(message.data + ' - ')
-    });
-    sse.addEventListener('rss5sum', function(message) {
-        $('#rss5sum').html(message.data)
-    });
-    sse.addEventListener('iconBack', function(message) {
-        if (message.data == 'sun'){
+    sse.addEventListener('icon', function(message) {
+        message = JSON.parse(message.data);
+        if (message[0] == 'sun'){
             $('#back').html('<div id="sun"></div>');}
-        else if (message.data == 'moon') {
+        else if (message[0] == 'moon') {
             $('#back').html('<div id="moon"><img src="/static/images/moon.png"></div>');}
         else {
             $('#back').html('');}
-    });
-    sse.addEventListener('iconMid', function(message) {
-        if (message.data == ''){
+
+        if (message[1] == ''){
             $('#mid').css('visibility', 'hidden');}
         else {
-            $('#mid').html('<img src="/static/images/' + message.data + '" >').css('visibility', 'visible');}
-    });
-     sse.addEventListener('iconFront', function(message) {
-        if (message.data == ''){
+            $('#mid').html('<img src="/static/images/' + message[1] + '" >').css('visibility', 'visible');}
+
+        if (message[2] == ''){
             $('#front').css('visibility', 'hidden');}
         else {
-            $('#front').html('<img src="/static/images/' + message.data + '" >').css('visibility', 'visible');}
+            $('#front').html('<img src="/static/images/' + message[2] + '" >').css('visibility', 'visible');}
     });
+
     $("ul#ticker01").webTicker('update');
 });
 

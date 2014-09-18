@@ -22,9 +22,6 @@
         snowStorm.autoStart = false;
         snowStorm.stop();
     </script>
-    <!--{% if icon[3] == '' %}<script>snowStorm.stop();</script>{% else %}<script>snowStorm.resume();</script>{% endif %}-->
-    <!--{% if icon[3] == 'flurries' %}<script>snowStorm.snowCharacter = "<img src='/static/images/flake.png'>";</script>{% endif %}-->
-    <!--{% if icon[3] == 'rain' %}<script>snowStorm.snowCharacter = "<img src='/static/images/raindrop.png'>";</script>{% endif %}-->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script>
         $(function(){
@@ -34,25 +31,29 @@
             $('#tabs .ui-tabs-nav a[href="#tabs-2"], #tabs-2').addClass('status2');
         });
     </script>
+    <script src="/static/sse.js"></script>
     <script>
-        var rain = false;
         $(document).ready(function() {
-        sse = new EventSource('/my_event_source');
+//        sse = new EventSource('/my_event_source');
         sse.addEventListener('iconPrecip', function(message) {
-            $('#outLabel').html('poo');
             if (message.data == 'rain'){
+                $('#outLabel').html('rain');
+                $("#precip").css('visibility', 'visible');
                 snowStorm.snowCharacter = "<img src='/static/images/raindrop.png'>";
-                $('#tomTemp').html('poo');
-                snowStorm.resume();}
+                snowStorm.SnowFlake();}
             else if (message.data == 'flurries') {
+                $('#outLabel').html('snow');
+                $("#precip").css('visibility', 'visible');
                 snowStorm.snowCharacter = "<img src='/static/images/flake.png'>";
-                snowStorm.resume();}
+                snowStorm.SnowFlake();}
             else {
-                snowStorm.stop();}
+                $('#outLabel').html('clear');
+                $("#precip").css('visibility', 'hidden');
+                }
     });
         });
     </script>
-    <script src="/static/sse.js"></script>
+
 </head>
 
 <body>
@@ -60,7 +61,8 @@
          <ul id="tabList">
             <li><a href="#tabs-1">Home</a></li>
             <li><a href="#tabs-2">Forecast</a></li>
-            <li><a href="#tabs-2">Apps</a></li>
+            <li><a href="#tabs-3">Sports</a></li>
+            <li><a href="#tabs-4">Apps</a></li>
          </ul>
     <div id="tabs-1">
     <div id="temps">
@@ -98,37 +100,51 @@
 
     <div id="ticker">
     <ul id="ticker01">
-        <li onclick="$('#rss1sum, #popupContent, #screenCover').css('display','inline');" id="rss1">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</a></li>
-        <li onclick="$('#rss2sum, #popupContent, #screenCover').css('display','inline');" id="rss2">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</li>
-        <li onclick="$('#rss3sum, #popupContent, #screenCover').css('display','inline');" id="rss3">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</li>
-        <li onclick="$('#rss4sum, #popupContent, #screenCover').css('display','inline');" id="rss4">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</li>
-        <li onclick="$('#rss5sum, #popupContent, #screenCover').css('display','inline');" id="rss5">Carbon County man killed in West Ridge mine accidentaccidentaccidentaccidentaccidentaccidentaccident</li>
+        {% for x in range(1,11) %}
+        <li onclick="$('#rss{{ x }}sum, #popupContent, #screenCover').css('display','inline');" id="rss{{ x }}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>{% endfor %}
+
     </ul>
     </div>
+    </div>
+
+
+<!--      Forecast Tab      -->
+    <div id="tabs-2">
+
+        <div id="forecastHolder">
+            {% for x in range(1,6) %}
+            <div id="day{{x}}" class="days">
+                <div id="day{{x}}name" class="name">Sunday</div>
+                <div id="day{{x}}cond" class="conds"></div>
+                <div id="day{{x}}high" class="high">72</div>
+                <div id="day{{x}}low" class="low">68</div>
+            </div>{% endfor %}
+        </div>
+    </div>
+
+    <div id="tabs-3"></div>
+    <div id="tabs-4"></div>
 
     <div id="clockBox"></div>
     <div id="clockBoxCover">4:22 PM</div>
-    </div>
-        <div id="tabs-2">
-            </div>
 
     <div id="popupContent">
-        <div id="rss1sum"></div>
-        <div id="rss2sum"></div>
-        <div id="rss3sum"></div>
-        <div id="rss4sum"></div>
-        <div id="rss5sum"></div>
+        {% for x in range(1,11) %}
+        <div id="rss{{ x }}sum" class="rssSums"></div>{% endfor %}
+
     </div>
 
 </div>
 <div id="screenCover"></div>
 <script>
         $('#popupContent').click(function(){
-            $('#rss1sum, #rss2sum, #rss3sum, #rss4sum, #rss5sum, #popupContent, #screenCover').css('display','none');
+            $('.rssSums, #popupContent, #screenCover').css('display','none');
         });
         $('#screenCover').click(function(){
-            $('#rss1sum, #rss2sum, #rss3sum, #rss4sum, #rss5sum, #popupContent, #screenCover').css('display','none');
+            $('.rssSums, #popupContent, #screenCover').css('display','none');
         });
     </script>
+
+<div id="test">poo</div>
 </body>
 </html>
