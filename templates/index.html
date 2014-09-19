@@ -8,6 +8,7 @@
     <script src="/static/jquery-2.1.1.min.js"></script>
     <script src="/static/jquery-ui.js"></script>
     <script src="/static/jquery.webticker.js"></script>
+    <script src="/static/skycons.js"></script>
     <script src="/static/snowstorm-min.js"></script>
     <script>
         snowStorm.flakesMaxActive = 20;
@@ -32,6 +33,7 @@
         });
     </script>
     <script src="/static/sse.js"></script>
+    <!--   \/\/  Fix snow starting  \/\/-->
     <script>
         $(document).ready(function() {
 //        sse = new EventSource('/my_event_source');
@@ -51,18 +53,42 @@
                 $("#precip").css('visibility', 'hidden');
                 }
     });
+
         });
     </script>
+<script>
+function startTime() {
+    var today=new Date();
+    var am_pm = 'AM'
+    var h=today.getHours();
+    var m=today.getMinutes();
+    var s=today.getSeconds();
+    if (h===12){am_pm = 'PM';}
+    if (h>12){h-=12; am_pm = 'PM';}
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('time').innerHTML = h+":"+m+" "+am_pm;
+    var t = setTimeout(function(){startTime()},3000);
+}
 
+function checkTime(i) {
+    if (i<10) {i = "0" + i};
+    return i;
+}
+</script>
 </head>
 
-<body>
-<div id="content" style="background: {{ background }}">
+<body onload="startTime()">
+
+<div id="night"></div>
+<div id="day"></div>
+<div id="content">
          <ul id="tabList">
             <li><a href="#tabs-1">Home</a></li>
             <li><a href="#tabs-2">Forecast</a></li>
-            <li><a href="#tabs-3">Sports</a></li>
-            <li><a href="#tabs-4">Apps</a></li>
+            <li><a href="#tabs-3">Music</a></li>
+            <li><a href="#tabs-4">Sports</a></li>
+            <li><a href="#tabs-5">Apps</a></li>
          </ul>
     <div id="tabs-1">
     <div id="temps">
@@ -70,26 +96,25 @@
             <div id="outLabel">Outside Temp</div>
             <div id="outTemp">102</div>
         </div>
-        {% if day_night == 'night' %}<div id="tom">
+        <div id="tom">
             <div id="tomLabel">Tomorrow</div>
             <div id="tomTemp">101</div>
         </div>
-        {% endif %}
         <div id="in">
             <div id="inLabel">Inside Temp</div>
             <div id="inTemp">72</div>
         </div>
     </div>
 
-    {% if day_night == 'night' %}<style>
+<!--    {% if day_night == 'night' %}<style>
     #temps {text-shadow:0 0 15px rgba(255,255,255,0.5);}
-    #content .ui-state-default a {background: #151532;}
-    #content .ui-state-active a {background: #1f1f3f;}
-    #tabList .ui-state-default{background: #151532;}
-    #tabList .ui-state-active{background: #1f1f3f;}
-    #clockBox {background-color: #1f1f3f; border-color: #fff }
+    /*#content .ui-state-default a {background: #151532;}*/
+    /*#content .ui-state-active a {background: #1f1f3f;}*/
+    /*#tabList .ui-state-default{background: #151532;}*/
+    /*#tabList .ui-state-active{background: #1f1f3f;}*/
+    /*#clockBox {background-color: #1f1f3f; border-color: #fff }*/
     #clockBoxCover {background: -moz-linear-gradient(left, #1f1f3f 0%, #141f31 100%);}
-    </style>{% endif %}
+    </style>{% endif %}-->
 
     <div id="weatherIcons">
         <div id="back"></div>
@@ -101,7 +126,7 @@
     <div id="ticker">
     <ul id="ticker01">
         {% for x in range(1,11) %}
-        <li onclick="$('#rss{{ x }}sum, #popupContent, #screenCover').css('display','inline');" id="rss{{ x }}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>{% endfor %}
+        <li onclick="$('#rss{{ x }}sum,#screenCover, #popupContent').css('display','block');" id="rss{{ x }}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>{% endfor %}
 
     </ul>
     </div>
@@ -115,27 +140,41 @@
             {% for x in range(1,6) %}
             <div id="day{{x}}" class="days">
                 <div id="day{{x}}name" class="name">Sunday</div>
-                <div id="day{{x}}cond" class="conds"></div>
+                <div id="day{{x}}cond" class="conds"><canvas id="icon{{x}}" width="200" height="300"></canvas></div>
                 <div id="day{{x}}high" class="high">72</div>
                 <div id="day{{x}}low" class="low">68</div>
             </div>{% endfor %}
         </div>
     </div>
 
-    <div id="tabs-3"></div>
+<!--      Music Tab      -->
+    <div id="tabs-3">
+
+    </div>
+<!--      Sports Tab      -->
     <div id="tabs-4"></div>
+<!--      Apps Tab      -->
+    <div id="tabs-5">
+        <div id="appBar">
+            <a href="http://127.0.0.1:5000" target="app">Sprinklers</a>
+            <a href="http://127.0.0.1:5001" target="app">heatLights</a>
+        </div>
+        <iframe name="app" id="appDisplay"></iframe>
+    </div>
 
     <div id="clockBox"></div>
-    <div id="clockBoxCover">4:22 PM</div>
-
+    <div id="clockBoxCover"></div>
+    <div id="clockBoxCoverDay"></div>
+    <div id="time">4:22 PM</div>
+    <div id="screenCover"></div>
     <div id="popupContent">
         {% for x in range(1,11) %}
-        <div id="rss{{ x }}sum" class="rssSums"></div>{% endfor %}
+        <div id="rss{{ x }}sum" class="rssSums">aaaaaaa</div>{% endfor %}
 
     </div>
 
 </div>
-<div id="screenCover"></div>
+
 <script>
         $('#popupContent').click(function(){
             $('.rssSums, #popupContent, #screenCover').css('display','none');

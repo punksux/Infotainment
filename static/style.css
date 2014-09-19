@@ -7,6 +7,42 @@
     margin: 0 auto;
     font: bold 20px Code;
     border-radius: 0;
+    background: transparent;
+    z-index: 2;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+#day {
+    width:1280px;
+    height:800px;
+    overflow: hidden;
+    position: absolute;
+    top:9px;
+    margin: 0 auto;
+    left:0;
+    right:0;
+    font: bold 20px Code;
+    border-radius: 0;
+    background: -moz-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);
+    background: -webkit-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);
+    z-index: 1;
+}
+
+#night {
+    width:1280px;
+    height:800px;
+    overflow: hidden;
+    position: absolute;
+    top:9px;
+    margin: 0 auto;
+    left:0;
+    right:0;
+    font: bold 20px Code;
+    border-radius: 0;
+    background: -moz-linear-gradient(top, #1f1f3f 0%, #141f31 100%);
+    background: -webkit-linear-gradient(top, #1f1f3f 0%, #141f31 100%);
+
 }
 
 #tabs-1 {
@@ -51,6 +87,7 @@
     width:100%;
     height:190px;
     /*border:1px solid #ffffff;*/
+    overflow: hidden;
 }
 
 #outLabel, #inLabel, #tomLabel {
@@ -167,20 +204,37 @@ ul.newsticker li {
     position:absolute;
     bottom:0;
     right:0;
+    background: #141f31;
+    z-index: 20;
+}
+
+#clockBoxCoverDay {
+    width:200px;
+    height:55px;
+    position:absolute;
+    bottom:0;
+    right:0;
     background: #c9e3fb;
     background: -moz-linear-gradient(left, #c9e3fb 0%, #529be4 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c9e3fb), color-stop(100%,#529be4));
     background: -webkit-linear-gradient(left, #c9e3fb 0%,#529be4 100%);
-    z-index: 20;
+    z-index: 21;
+}
+
+#time {
+    width:200px;
+    height:55px;
+    position:absolute;
+    bottom:0;
+    right:0;
     color: white;
     font:bold 45px Code;
+    z-index: 22;
     line-height: 60px;
     vertical-align: middle;
     text-align: center;
     text-shadow: 1px 1px 3px #333;
 }
-
-
 
 #content {
     padding: 0px;
@@ -193,9 +247,11 @@ ul.newsticker li {
     border-radius: 0px;
     padding:0;
     height:53px;
+    outline: none;
 }
 #content .ui-tabs-panel {
     margin: 0em 0.2em 0.2em 0.2em;
+    outline: none;
 }
 
 #content .ui-state-default a {
@@ -204,26 +260,35 @@ ul.newsticker li {
     border-bottom: 0;
     font: bold 25px Code;
     background-color: #afc9e1;
+    outline: none;
 }
+
 
 #tabList .ui-state-default{
     background-color: #afc9e1;
+    outline: none;
 }
+
 
 #content .ui-state-default {
     border-radius:0px;
     border-color: #6c7a87;
     height:51px;
+    outline: none;
 }
+
 
 #content .ui-state-active a {
     background: #c2ddf5;
     border: 0;
+    outline: none;
 }
 
 #tabList .ui-state-default{
     background: #afc9e1;
+    outline: none;
 }
+
 
 #tabList .ui-state-active{
     border-radius:0px;
@@ -231,12 +296,13 @@ ul.newsticker li {
     height:51px;
     top:0;
     background: #c2ddf5;
+    outline: none;
 }
 
 #popupContent {
     width:800px;
     padding:5px;
-    z-index: 100;
+    z-index: 200;
     background-color: rgba(0,0,0,0.5);
     border:3px solid rgba(0,0,0,0.75);
     position: absolute;
@@ -250,6 +316,7 @@ ul.newsticker li {
 
 .rssSums {
     display:none;
+    z-index: 201;
 }
 
 #forecastHolder {
@@ -280,14 +347,16 @@ ul.newsticker li {
     text-align: center;
     line-height: 50px;
     vertical-align: middle;
-    font: bold 30px Code;
-
+    font: bold 40px Code;
+    text-shadow: 2px 2px 3px #333;
 }
 
 .conds {
     width: 100%;
     height:300px;
     border: 1px solid white;
+    text-align: center;
+    padding-top: 0px;
 }
 
 .high {
@@ -297,9 +366,10 @@ ul.newsticker li {
     border: 1px solid white;
     color: black;
     text-align: center;
-    font: bold 70px Code;
+    font: bold 80px Code;
     line-height: 125px;
     vertical-align: middle;
+
 }
 
 .low {
@@ -308,21 +378,48 @@ ul.newsticker li {
     border: 1px solid white;
     color: white;
     text-align: center;
-    font: bold 70px Code;
+    font: bold 80px Code;
     line-height: 125px;
     vertical-align: middle;
+
+}
+
+#appBar {
+    width:1240px;
+    height:75px;
+    border:1px solid black;
+    position:absolute;
+    left: 20px;
+    font: bold 40px Code;
+    color:white;
+}
+
+#appBar a {
+    text-decoration: none;
+    color:white;
+}
+
+#appDisplay {
+    width:1240px;
+    height:600px;
+    margin-top: 0px;
+    border: 0 solid black;
+    position:absolute;
+    top:150px;
+    left: 20px;
+    overflow-y: scroll;
 }
 
 #screenCover {
     position: absolute;
-    top:9px;
+    top:0px;
     margin: 0 auto;
     left:0;
     right:0;
     width:1280px;
     height:800px;
     background-color: rgba(0,0,0,0.5);
-    z-index: 99;
+    z-index: 50;
     display:none;
 }
 
