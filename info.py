@@ -130,7 +130,7 @@ def check_weather():
                 forecast_high.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['high']['fahrenheit'])
                 forecast_low.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['low']['fahrenheit'])
 
-            tom_temp = parsed_json['forecast']['simpleforecast']['forecastday'][i]['high']['fahrenheit']
+            tom_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
             sun_or_moon()
             set_icon()
             f.close()
@@ -155,7 +155,7 @@ def check_weather():
         #     templateData['day_night'] = 'night'
         # else:
         #     templateData['day_night'] = 'day'
-        set_icon()
+        # set_icon()
 
 
 def sun_or_moon():

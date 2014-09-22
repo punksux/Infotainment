@@ -6,17 +6,15 @@ $(document).ready(function() {
             $('#day').fadeOut(1000);
             $('#clockBoxCoverDay').fadeOut(1000);
             $( "#clockBox" ).stop(true).animate({backgroundColor: '#141f31', borderColor: '#fff'}, 1000 );
-            $( "#content .ui-state-default a, #tabList .ui-state-default, #tabList .ui-state-default" ).css('background', "#151532");
-            $( "#content .ui-state-active a" ).css('background',"#1f1f3f");
-            $( "#tabList .ui-state-active" ).css('background',"#1f1f3f");
+            $( "#content .ui-state-default" ).css('background', "#151532");
+            $( "#content .ui-state-active" ).css('background',"#1f1f3f");
             $('#tom').css('display','inline-block');
         } else {
             $('#day').fadeIn(1000);
             $( "#clockBox" ).stop(true).animate({backgroundColor: '#c9e3fb', borderColor: '#5382cc'}, 1000 );
             $('#clockBoxCoverDay').fadeIn(1000);
-            $( "#content .ui-state-default a, #tabList .ui-state-default, #tabList .ui-state-default" ).css('background', "#afc9e1");
-            $( "#content .ui-state-active a").css('background', "#c2ddf5;");
-            $( "#tabList .ui-state-active" ).css('background', "#c2ddf5;");
+            $( "#content .ui-state-default" ).css('background', "#afc9e1");
+            $( "#content .ui-state-active").css('background', "#c2ddf5;");
             $('#tom').css('display','none');
         }
     });
@@ -45,6 +43,7 @@ $(document).ready(function() {
                 $('#tomTemp').text(Math.ceil(this.someValue));
             }
         })});
+//    Figure out how to update rss
     sse.addEventListener('rssTitle', function(message) {
         message = JSON.parse(message.data);
         $('#rss1').html('(1) - ' + message[0] + ' - ');
