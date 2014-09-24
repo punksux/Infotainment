@@ -23,8 +23,10 @@
     right:0;
     font: bold 20px Code;
     border-radius: 0;
-    background: -moz-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);
-    background: -webkit-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);
+    background: url(/static/images/day-partlycloudy-1.jpg);
+    background-size: cover;
+/*    background: -moz-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);
+    background: -webkit-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);*/
     z-index: 1;
 }
 
@@ -39,8 +41,10 @@
     right:0;
     font: bold 20px Code;
     border-radius: 0;
-    background: -moz-linear-gradient(top, #1f1f3f 0%, #141f31 100%);
-    background: -webkit-linear-gradient(top, #1f1f3f 0%, #141f31 100%);
+    background: url(/static/images/night-partlycloudy-1.jpg);
+    background-size: cover;
+/*    background: -moz-linear-gradient(top, #1f1f3f 0%, #141f31 100%);
+    background: -webkit-linear-gradient(top, #1f1f3f 0%, #141f31 100%);*/
 
 }
 
@@ -50,13 +54,13 @@
 
 #temps {
     float:left;
-    height:600px;
-    width:540px;
+    height:620px;
+    width:700px;
     margin-top:40px;
     color:white;
     font:bold 40px Code;
     /*font-weight: bold;*/
-    text-shadow: 3px 3px 8px #444;
+    /*text-shadow: 0 0 15px #333;*/
     display: inline;
     text-align: center;
     /*border:1px solid #ffffff;*/
@@ -65,11 +69,21 @@
     overflow: hidden;
 }
 
+#temps span {
+    font-size: 100px;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 180px;
+    /*border:1px solid #ffffff;*/
+    margin-top:15px;
+    text-shadow: 0 0 6px #333;
+}
+
 #out, #in, #tom {
-    width:260px;
+    width:340px;
     position:relative;
     display: inline-block;
-    height: 250px;
+    height: 300px;
     /*border:1px solid yellow;*/
     top:0;
     overflow: hidden;
@@ -77,18 +91,19 @@
 
 #in {
     display: block;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 #outTemp, #inTemp, #tomTemp{
     font-size: 180px;
     text-align: center;
-    position:relative;
+    position: relative;
+    margin: 0 auto;
     top:40px;
-    width:100%;
-    height:190px;
+    height:220px;
     /*border:1px solid #ffffff;*/
-    overflow: hidden;
+    display: inline-block;
+    text-shadow: 0 0 15px #333;
 }
 
 #outLabel, #inLabel, #tomLabel {
@@ -97,7 +112,7 @@
     text-align: center;
     position:relative;
     top:40px;
-    text-shadow: 2px 2px 4px #444;
+    text-shadow: 0px 0px 8px #333;
 }
 
 #weatherIcons{
@@ -149,15 +164,27 @@
     position: absolute;
     width:1270px;
     bottom:5px;
-    left:5px;
+    left:0px;
     z-index: 15;
 }
 
 .tickercontainer {
-    width:1270px;
+    width:1070px;
     height: 40px;
-    background: #fff;
+    background: rgba(0,0,0,0.5);
     overflow: hidden;
+    transform: skewX(-45deg);
+    transform-origin: top;
+    color: #ffffff;
+    border: 0 solid rgba(0,0,0,0.75);
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    text-shadow: 0 0 2px #333;
+}
+
+.tickercontainer li {
+    transform: skewX(45deg);
+    transform-origin: top;
 }
 
 .tickercontainer .mask {
@@ -187,25 +214,27 @@ ul.newsticker li {
 #clockBox{
     width:200px;
     height:55px;
-    border: 0 solid #5382cc;
+    border: 0 solid rgba(0,0,0,0.75);
     transform: skewX(-45deg);
     transform-origin: top;
-    border-top-width: 2px;
-    border-left-width: 2px;
+    border-top-width: 1px;
+    border-left-width: 1px;
     position:absolute;
     bottom:0;
     right:0;
-    background-color: #c9e3fb;
+    background-color: rgba(0,0,0,0.5);
     z-index: 20;
 }
 
 #clockBoxCover {
-    width:200px;
+    width:70px;
     height:55px;
+    transform: skewX(-45deg);
+    transform-origin: top;
     position:absolute;
     bottom:0;
-    right:0;
-    background: #141f31;
+    right:-69px;
+    background: rgba(0,0,0,0.5);
     z-index: 20;
 }
 
@@ -236,64 +265,6 @@ ul.newsticker li {
     text-align: center;
     text-shadow: 1px 1px 3px #333;
 }
-#content .ui-tabs-nav {
-    background: transparent;
-    border-radius: 0;
-    padding:0;
-    height:53px;
-    outline: none;
-    color:white;
-}
-#content .ui-tabs-panel {
-    /*margin: 0em 0.2em 0.2em 0.2em;*/
-    outline: none;
-}
-
-#content .ui-state-default a {
-    color:white;
-    outline: none;
-}
-
-#tabList .ui-state-default{
-    outline: none;
-}
-
-#content .ui-state-default {
-    border-radius:0;
-    border:0;
-    height:52px;
-    outline: none;
-    background: #afc9e1;
-    text-shadow: 1px 1px 2px #333;
-    font: bold 25px Code;
-}
-
-#content .ui-state-active {
-    background: #c2ddf5;
-}
-
-
-/*#content .ui-state-active a {
-    background: #c2ddf5;
-    border: 0;
-    outline: none;
-}*/
-
-/*#tabList .ui-state-default{
-    background: #afc9e1;
-    outline: none;
-    border: 0;
-}*/
-
-
-/*#tabList .ui-state-active{
-    border-radius:0;
-    border-bottom: #000000 !important;
-    height:52px;
-    top:0;
-    background: #c2ddf5;
-    outline: none;
-}*/
 
 #popupContent {
     width:800px;
@@ -344,7 +315,7 @@ ul.newsticker li {
     line-height: 50px;
     vertical-align: middle;
     font: bold 40px Code;
-    text-shadow: 2px 2px 3px #333;
+    text-shadow: 0px 0px 3px #333;
 }
 
 .conds {
@@ -353,41 +324,48 @@ ul.newsticker li {
     border: 1px solid white;
     text-align: center;
     padding-top: 0px;
+    border-bottom-width: 0;
 }
 
 .high {
     width:100%;
     height: 125px;
-    background-color: #ffffff;
+    background-color: rgba(255,255,255,0.6);
     border: 1px solid white;
-    color: black;
+    color: #333333;
     text-align: center;
     font: bold 80px Code;
     line-height: 125px;
     vertical-align: middle;
-
+    border-bottom-width: 0;
+    border-top-width: 0;
 }
 
 .low {
     width:100%;
     height:125px;
     border: 1px solid white;
+    border-top-width: 0;
     color: white;
     text-align: center;
     font: bold 80px Code;
     line-height: 125px;
     vertical-align: middle;
-
+    text-shadow: 0px 0px 7px #333;
 }
 
 #appBar {
     width:1240px;
-    height:75px;
+    height:100px;
     border:1px solid black;
     position:absolute;
     left: 20px;
-    font: bold 40px Code;
+    top: 55px;
+    font: bold 20px Code;
     color:white;
+    background: rgba(0,0,0,0.5);
+    vertical-align: middle;
+    line-height: 75px;
 }
 
 #appBar a {
@@ -395,20 +373,31 @@ ul.newsticker li {
     color:white;
 }
 
+.apps {
+    display: inline-block;
+    line-height: 20px;
+    text-align: center;
+    width: 150px;
+}
+
+#app1 {
+    width: 150px;
+}
+
 #appDisplay {
-    width:1240px;
+    width:1242px;
     height:600px;
     margin-top: 0px;
     border: 0 solid black;
     position:absolute;
-    top:150px;
+    top:160px;
     left: 20px;
     overflow-y: scroll;
 }
 
 #screenCover {
     position: absolute;
-    top:0px;
+    top:0;
     margin: 0 auto;
     left:0;
     right:0;
@@ -421,9 +410,6 @@ ul.newsticker li {
 
 #test {
     color:black;
-    position: absolute;
-    bottom:0;
-    left:0;
     z-index: 400;
 }
 

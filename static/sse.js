@@ -1,24 +1,15 @@
 $(document).ready(function() {
+    var dayOrNight = '';
+    var icon = '';
     sse = new EventSource('/my_event_source');
     sse.addEventListener('dayNight', function(message) {
         $('#test').html(message.data);
         if (message.data === 'night'){
-            $('#day').fadeOut(1000);
-            $('#clockBoxCoverDay').fadeOut(1000);
-            $( "#clockBox" ).stop(true).animate({backgroundColor: '#141f31', borderColor: '#fff'}, 1000 );
-            $( "#content .ui-state-default" ).css('background', "#151532");
-            $( "#content .ui-state-active" ).css('background',"#1f1f3f");
-            $('#tom').css('display','inline-block');
+            dayOrNight = 'night'
         } else {
-            $('#day').fadeIn(1000);
-            $( "#clockBox" ).stop(true).animate({backgroundColor: '#c9e3fb', borderColor: '#5382cc'}, 1000 );
-            $('#clockBoxCoverDay').fadeIn(1000);
-            $( "#content .ui-state-default" ).css('background', "#afc9e1");
-            $( "#content .ui-state-active").css('background', "#c2ddf5;");
-            $('#tom').css('display','none');
+            dayOrNight = 'day'
         }
     });
-    // ^^^^^^Figure out why tabs are not switching inistantly^^^^^
     sse.addEventListener('outTemp', function(message) {
         jQuery({someValue: $('#outTemp').html()}).animate({someValue: message.data}, {
             duration: 1000,
@@ -71,25 +62,20 @@ $(document).ready(function() {
         $('#rss10sum').html(message[9]);
     });
     sse.addEventListener('icon', function(message) {
-        message = JSON.parse(message.data);
-        if (message[0] == 'sun'){
-            $('#back').html('<div id="sun"></div>');}
-        else if (message[0] == 'moon') {
-            $('#back').html('<div id="moon"><img src="/static/images/moon.png"></div>');}
-        else {
-            $('#back').html('');}
-
-        if (message[1] == ''){
-            $('#mid').css('visibility', 'hidden');}
-        else {
-            $('#mid').html('<img src="/static/images/' + message[1] + '" >').css('visibility', 'visible');}
-
-        if (message[2] == ''){
-            $('#front').css('visibility', 'hidden');}
-        else {
-            $('#front').html('<img src="/static/images/' + message[2] + '" >').css('visibility', 'visible');}
-    });
-
+        $('#test2').html(message.data);
+        if (message.data === 'partlysunny'){icon = 'mostlycloudy'}
+        else if (message.data === 'mostlysunny'){icon = 'partlycloudy'}
+        else if (message.data === 'sunny'){icon = 'clear'}
+        else {icon = message.data}
+        if (dayOrNight === 'day'){
+            $('#day').css('background', 'url(/static/images/day-' + icon + '-1.jpg)').fadeIn(1000);
+            $('#tom').hide(1000);
+        } else {
+            $('#night').css('background', 'url(/static/images/night-' + icon + '-1.jpg)');
+            $('#day').fadeOut(1000);
+            $('#tom').show(1000);
+        }
+});
     sse.addEventListener('forecastDay', function(message) {
         message = JSON.parse(message.data);
         $('#day1name').html(message[0]);
@@ -125,6 +111,7 @@ $(document).ready(function() {
                     message[i] = 'partly-cloudy-day';
                     break;
                 case 'clear':
+                case 'sunny':
                     message[i] = 'clear-day';
                     break;
                 case 'mostlycloudy':
@@ -136,6 +123,15 @@ $(document).ready(function() {
                     break;
                 case 'chancetstorms':
                     message[i] = 'rain';
+                    break;
+                case 'hazy':
+                    message[i] = 'fog';
+                    break;
+                case 'tstorms':
+                    message[i] = 'rain';
+                    break;
+                case 'unknown':
+                    message[i] = 'wind';
                     break;
 
             }
@@ -149,7 +145,8 @@ $(document).ready(function() {
     });
 
 
+
     skycons.play();
-    $("ul#ticker01").webTicker('update');
+    $("ul#ticker01").webTicker('update', 'reset');
 });
 

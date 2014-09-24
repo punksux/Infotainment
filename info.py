@@ -37,23 +37,14 @@ forecast_low_old = []
 icon_old = []
 tom_temp = '0'
 tom_temp_old = '1'
+day_night = 'day'
 day_night_old = ''
 out_temp = '0'
 out_temp_old = '0'
 in_temp = '0'
 in_temp_old = '0'
-
-templateData = {
-    'icon': ['', '', ''],
-    'clouds':  '',
-    'sun_moon': '',
-    'precip': '',
-    'sunset_hour': '2',
-    'sunset_minute': '00',
-    'background': '',
-    'time': '',
-    'day_night': 'day'
-}
+sunset_hour = 2
+sunset_minute = 00
 
 if on_pi:
     import urllib2
@@ -88,7 +79,7 @@ rss = sched.add_interval_job(get_rss, seconds=5*60)
 
 def check_weather():
     global icon, forecast_day, forecast_cond, forecast_high, forecast_low, forecast_day_old, forecast_cond_old
-    global forecast_high_old, forecast_low_old, tom_temp
+    global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night
     if weather_test == 200:
         global something_wrong
         global f
@@ -115,15 +106,13 @@ def check_weather():
 
         if something_wrong:
             logging.error("No Internet")
-            templateData['temp'] = 0.0
         else:
             json_string = f.read()
             parsed_json = json.loads(json_string.decode("utf8"))
-            icon = parsed_json['current_observation']['icon']
-            print(icon)
 
-            templateData['sunset_hour'] = parsed_json['sun_phase']['sunset']['hour']
-            templateData['sunset_minute'] = parsed_json['sun_phase']['sunset']['minute']
+            icon = parsed_json['current_observation']['icon']
+            sunset_hour = int(parsed_json['sun_phase']['sunset']['hour'])
+            sunset_minute = int(parsed_json['sun_phase']['sunset']['minute'])
             for i in range(0, 5):
                 forecast_cond.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['icon'])
                 forecast_day.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['date']['weekday'])
@@ -131,78 +120,46 @@ def check_weather():
                 forecast_low.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['low']['fahrenheit'])
 
             tom_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
-            sun_or_moon()
-            set_icon()
+            day_or_night()
             f.close()
     else:
         def rand_weather():
-            randt = ['rain', 'clear', 'partlycloudy', 'mostlycloudy', 'flurries']
+            randt = ['rain', 'clear', 'partlycloudy', 'mostlycloudy', 'flurries', 'snow', 'sunny', 'sleet',
+                     'partlysunny', 'mostlysunny', 'tstorms', 'cloudy', 'fog', 'hazy']
+            return randt[random.randrange(0, 14)]
+
+        def rand_days():
+            randt = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
             return randt[random.randrange(0, 5)]
 
         def get_rand():
             return random.randrange(60, 90)
 
         icon = rand_weather()
-        sun_or_moon()
+        #day_or_night()
 
         tom_temp = get_rand()
-        forecast_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+        forecast_day = [rand_days(), rand_days(), rand_days(), rand_days(), rand_days()]
         forecast_cond = [rand_weather(), rand_weather(), rand_weather(), rand_weather(), rand_weather()]
         forecast_high = [get_rand(), get_rand(), get_rand(), get_rand(), get_rand()]
         forecast_low = [get_rand(), get_rand(), get_rand(), get_rand(), get_rand()]
 
-        # if templateData['day_night'] == 'day':
-        #     templateData['day_night'] = 'night'
-        # else:
-        #     templateData['day_night'] = 'day'
-        # set_icon()
+        if day_night == 'day':
+            day_night = 'night'
+        else:
+            day_night = 'day'
 
 
-def sun_or_moon():
-    global day
+def day_or_night():
+    global day_night
     global sun_or_moon_icon
-    global d_n_clouds
-    sunset = datetime.now().replace(hour=int(templateData['sunset_hour']), minute=int(templateData['sunset_minute']),
+    sunset = datetime.now().replace(hour=int(sunset_hour), minute=int(sunset_minute),
                                     second=00, microsecond=0)
 
     if (sunset - datetime.now()).total_seconds() > 0:
-        day = True
-        sun_or_moon_icon = 'sun'
-        d_n_clouds = 'day'
-        templateData['background'] = '-moz-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);'
-        #templateData['day_night'] = 'day'
+        day_night = 'day'
     else:
-        day = False
-        sun_or_moon_icon = 'moon'
-        d_n_clouds = 'night'
-        templateData['background'] = '-moz-linear-gradient(top, #1f1f3f 0%, #141f31 100%);'
-        #templateData['day_night'] = 'night'
-
-
-def set_icon():
-    print(icon)
-    filename = (icon.split("/")[len(icon.split("/"))-1]).replace('.gif', '')
-
-    if filename == "clear" or filename == "sunny":
-        templateData['icon'] = [sun_or_moon_icon, '', '', '']
-    elif filename == "cloudy":
-        templateData['icon'] = ['', 'clouds-back-' + d_n_clouds + '.png', 'cloud-' + d_n_clouds + '.png', '']
-    elif filename == "flurries":
-        templateData['icon'] = ['', 'clouds-back-' + d_n_clouds + '.png', 'cloud-' + d_n_clouds + '.png', 'flurries']
-    elif filename == "fog":
-        templateData['icon'] = ['', '', 'fog.png', '']
-    elif filename == "hazy":
-        templateData['icon'] = [sun_or_moon_icon, '', 'fog.png', '']
-    elif filename == "mostlycloudy" or filename == 'partlysunny':
-        templateData['icon'] = [sun_or_moon_icon, 'cloud-back-' + d_n_clouds + '.png', 'cloud-' + d_n_clouds + '.png',
-                                '']
-    elif filename == "partlycloudy" or filename == 'mostlysunny':
-        templateData['icon'] = [sun_or_moon_icon, '', 'cloud-' + d_n_clouds + '.png', '']
-    elif filename == "sleet":
-        templateData['icon'] = ['', 'clouds-' + d_n_clouds + '.png', 'sleet.png']
-    elif filename == "rain":
-        templateData['icon'] = ['', 'clouds-back-' + d_n_clouds + '.png', 'cloud-' + d_n_clouds + '.png', 'rain']
-
+        day_night = 'night'
 
 check_weather()
 weather = sched.add_interval_job(check_weather, seconds=60)
@@ -218,16 +175,17 @@ def get_temps_from_probes():
 get_temps_from_probes()
 temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 
+
 #     --==Streaming Stuff==--
 def event_stream():
-    global icon, forecast_day, forecast_cond, forecast_high, forecast_low, forecast_day_old, forecast_cond_old
+    global icon, forecast_day_old, forecast_cond_old
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old
     yield_me = ''
-    if templateData['day_night'] != day_night_old:
-        print(templateData['day_night'])
-        day_night_old = templateData['day_night']
-        yield_me += 'event: dayNight\n' + 'data: ' + templateData['day_night'] + '\n\n'
+    if day_night != day_night_old:
+        print(day_night)
+        day_night_old = day_night
+        yield_me += 'event: dayNight\n' + 'data: ' + day_night + '\n\n'
     if out_temp != out_temp_old:
         out_temp_old = out_temp
         yield_me += 'event: outTemp\n' + 'data: ' + str(out_temp) + '\n\n'
@@ -244,9 +202,9 @@ def event_stream():
         feed_summary_old = feed_summary
         rss_once = True
         yield_me += 'event: rssSum\n' + 'data: ' + json.dumps(feed_summary) + '\n\n'
-    if templateData['icon'] != icon_old:
-        icon_old = templateData['icon']
-        yield_me += 'event: icon\n' + 'data: ' + json.dumps(templateData['icon']) + '\n\n'
+    if icon != icon_old:
+        icon_old = icon
+        yield_me += 'event: icon\n' + 'data: ' + icon + '\n\n'
     if forecast_day != forecast_day_old:
         forecast_day_old = forecast_day
         yield_me += 'event: forecastDay\n' + 'data: ' + json.dumps(forecast_day) + '\n\n'
@@ -275,7 +233,12 @@ try:
     def my_form():
         global rss_once
         rss_once = False
-        return render_template("index.html", **templateData)
+        return render_template("index.html")
+
+    @app.route('/poo')
+    def try2():
+        print('poo')
+        return redirect(url_for('my_form'))
 
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=80)
