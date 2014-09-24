@@ -1,3 +1,4 @@
+var cover = 1;
 $(document).ready(function() {
     var dayOrNight = '';
     var icon = '';
@@ -62,17 +63,40 @@ $(document).ready(function() {
         $('#rss10sum').html(message[9]);
     });
     sse.addEventListener('icon', function(message) {
-        $('#test2').html(message.data);
+        var rand = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
         if (message.data === 'partlysunny'){icon = 'mostlycloudy'}
         else if (message.data === 'mostlysunny'){icon = 'partlycloudy'}
         else if (message.data === 'sunny'){icon = 'clear'}
         else {icon = message.data}
+        $('#test2').html(icon + ' - ' + rand);
+        if (cover === 1){
+            $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
+                .done(function() {
+                    $('#day').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
+                }).fail(function() {
+                    $('#day').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
+                });
+            $('#night').fadeOut(1000);
+            cover = 2;
+        } else {
+            $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
+                .done(function() {
+                    $('#night').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
+                }).fail(function() {
+                    $('#night').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
+                });
+            $('#day').fadeOut(1000);
+            cover = 1;
+        }
+
+
+
         if (dayOrNight === 'day'){
-            $('#day').css('background', 'url(/static/images/day-' + icon + '-1.jpg)').fadeIn(1000);
+//            $('#day').css('background', 'url(/static/images/day-' + icon + '-1.jpg)').fadeIn(1000);
             $('#tom').hide(1000);
         } else {
-            $('#night').css('background', 'url(/static/images/night-' + icon + '-1.jpg)');
-            $('#day').fadeOut(1000);
+//            $('#night').css('background', 'url(/static/images/night-' + icon + '-1.jpg)');
+//            $('#day').fadeOut(1000);
             $('#tom').show(1000);
         }
 });
@@ -147,6 +171,6 @@ $(document).ready(function() {
 
 
     skycons.play();
-    $("ul#ticker01").webTicker('update', 'reset');
+    $("ul#ticker01").webTicker('update');
 });
 

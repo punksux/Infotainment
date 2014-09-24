@@ -64,11 +64,11 @@ function checkTime(i) {
 
 <div id="content" class="tabcontents">
     <ul id="tabList" class="tabs">
-            <li class="selected"><a href="#view1">Home</a></li>
+            <li ><a href="#view1">Home</a></li>
             <li ><a href="#view2">Forecast</a></li>
             <li><a href="#view3">Music</a></li>
             <li><a href="#view4">Sports</a></li>
-            <li ><a href="#view5">Apps</a></li>
+            <li class="selected"><a href="#view5">Apps</a></li>
          </ul>
 
     <div id="view1">
@@ -124,8 +124,9 @@ function checkTime(i) {
             <a href="http://192.168.1.200:5000" target="app"><div id="app2" class="apps"><img src="/static/images/couch.png" height="70px">CouchPotato</div></a>
             <a href="http://192.168.1.200" target="app"><div id="app3" class="apps"><img src="/static/images/unraid.png" height="70px">UnRaid</div></a>
             <a href="http://192.168.1.200:9091" target="app"><div id="app4" class="apps"><img src="/static/images/transmission.png" height="70px">Transmission</div></a>
-            <a href="http://127.0.0.1:5000" target="app"><div id="app5" class="apps"><img src="/static/images/sprinkler.png" height="70px">Sprinklers</div></a>
-            <a href="http://127.0.0.1:5001" target="app"><div id="app6" class="apps"><img src="/static/images/heatLights.png" height="70px">heatLights</div></a>
+            <a href="http://192.168.1.95:5000" target="app"><div id="app5" class="apps"><img src="/static/images/sprinkler.png" height="70px">Sprinklers</div></a>
+            <a href="http://192.168.1.95:5001" target="app"><div id="app6" class="apps"><img src="/static/images/heatLights.png" height="70px">heatLights</div></a>
+            <a href="about:blank" target="app"><div id="app10" class="apps"><img src="/static/images/close.png" height="70px">Close_App</div></a>
         </div>
         <iframe name="app" id="appDisplay"></iframe>
     </div>

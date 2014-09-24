@@ -325,6 +325,7 @@ ul.newsticker li {
     text-align: center;
     padding-top: 0px;
     border-bottom-width: 0;
+    background: rgba(0,0,0,0.5);
 }
 
 .high {
@@ -352,6 +353,7 @@ ul.newsticker li {
     line-height: 125px;
     vertical-align: middle;
     text-shadow: 0px 0px 7px #333;
+    background: rgba(0,0,0,0.5);
 }
 
 #appBar {
@@ -378,10 +380,12 @@ ul.newsticker li {
     line-height: 20px;
     text-align: center;
     width: 150px;
+    height:95px;
+    position: relative;
 }
 
-#app1 {
-    width: 150px;
+#app10 {
+    float:right;
 }
 
 #appDisplay {

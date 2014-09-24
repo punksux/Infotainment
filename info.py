@@ -136,6 +136,7 @@ def check_weather():
             return random.randrange(60, 90)
 
         icon = rand_weather()
+        print(icon)
         #day_or_night()
 
         tom_temp = get_rand()
@@ -164,8 +165,6 @@ def day_or_night():
 check_weather()
 weather = sched.add_interval_job(check_weather, seconds=60)
 
-rss_once = False
-
 
 def get_temps_from_probes():
     global out_temp, in_temp
@@ -175,16 +174,21 @@ def get_temps_from_probes():
 get_temps_from_probes()
 temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 
+rss_once = False
+day_once = False
+icon_once = False
+
 
 #     --==Streaming Stuff==--
 def event_stream():
-    global icon, forecast_day_old, forecast_cond_old
+    global icon, forecast_day_old, forecast_cond_old, day_once, icon_once
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old
     yield_me = ''
-    if day_night != day_night_old:
+    if day_night != day_night_old or day_once is False:
         print(day_night)
         day_night_old = day_night
+        day_once = True
         yield_me += 'event: dayNight\n' + 'data: ' + day_night + '\n\n'
     if out_temp != out_temp_old:
         out_temp_old = out_temp
@@ -202,8 +206,9 @@ def event_stream():
         feed_summary_old = feed_summary
         rss_once = True
         yield_me += 'event: rssSum\n' + 'data: ' + json.dumps(feed_summary) + '\n\n'
-    if icon != icon_old:
+    if icon != icon_old or icon_once is False:
         icon_old = icon
+        icon_once = True
         yield_me += 'event: icon\n' + 'data: ' + icon + '\n\n'
     if forecast_day != forecast_day_old:
         forecast_day_old = forecast_day
@@ -231,8 +236,10 @@ try:
 
     @app.route('/')
     def my_form():
-        global rss_once
+        global rss_once, day_once, icon_once
         rss_once = False
+        day_once = False
+        icon_once = False
         return render_template("index.html")
 
     @app.route('/poo')
