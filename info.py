@@ -9,7 +9,7 @@ import time
 from apscheduler.scheduler import Scheduler
 import feedparser
 
-weather_test = 100
+weather_test = 200
 on_pi = False
 location = 84123
 icon = ""
@@ -56,20 +56,23 @@ feed_source_old = ''
 city_name = ''
 observation_time = ''
 current_cond = ''
-
+allergy_forecast = []
+predominant_pollen = ''
+allergy_forecast_old = []
+predominant_pollen_old = ''
 
 if on_pi:
     import urllib2
     #import RPi.GPIO as GPIO
     import socket
 else:
-    from urllib.request import urlopen
+    from urllib.request import Request, urlopen
     import urllib.error
 
 app = Flask(__name__)
 
-#logging.basicConfig(filename='errors.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s: %(message)s',
-                    #datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(filename='errors.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s: %(message)s',
+                    datefmt='%m/%d/%Y %I:%M:%S %p')
 
 sched = Scheduler()
 sched.start()
@@ -99,28 +102,30 @@ rss = sched.add_interval_job(get_rss, seconds=1*60)
 def check_weather():
     global icon, forecast_day, forecast_cond, forecast_high, forecast_low, forecast_day_old, forecast_cond_old
     global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night, city_name
-    global observation_time, current_cond
+    global observation_time, current_cond, predominant_pollen, allergy_forecast
     if weather_test == 200:
         global something_wrong
-        global f
+        global f, g
         if on_pi:
             try:
                 f = urllib2.urlopen(weather_website, timeout=3)
                 g = urllib2.urlopen(allergy_website, timeout=3)
                 something_wrong = False
             except urllib2.URLError as e:
-                logging.error('Data not retrieved because %s' % e)
+                logging.error('Data not retrieved because - %s' % e)
                 something_wrong = True
             except socket.timeout:
                 logging.error('Socket timed out')
                 something_wrong = True
         else:
             try:
-                f = urlopen(weather_website, timeout=3)
-                g = urlopen(allergy_website, timeout=3)
+                #f = urlopen(weather_website, timeout=3)
+                req = Request(allergy_website, headers={'User-Agent': 'Mozilla/5.0'})
+                g = urlopen(req, timeout=3)
+
                 something_wrong = False
             except urllib.error.URLError as e:
-                logging.error('Data not retrieved because %s' % e)
+                logging.error('Data not retrieved because - %s' % e)
                 something_wrong = True
             except timeout:
                 logging.error('Socket timed out')
@@ -129,31 +134,39 @@ def check_weather():
         if something_wrong:
             logging.error("No Internet")
         else:
-            json_string = f.read()
-            parsed_json = json.loads(json_string.decode("utf8"))
-
-            icon = parsed_json['current_observation']['icon']
-            city_name = parsed_json['current_observation']['full']
-            observation_time = parsed_json['current_observation']['observation_time']
-            current_cond = parsed_json['current_observation']['weather']
-
-
-            sunset_hour = int(parsed_json['sun_phase']['sunset']['hour'])
-            sunset_minute = int(parsed_json['sun_phase']['sunset']['minute'])
-            for i in range(0, 5):
-                forecast_cond.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['icon'])
-                forecast_day.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['date']['weekday'])
-                forecast_high.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['high']['fahrenheit'])
-                forecast_low.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['low']['fahrenheit'])
-
-            tom_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
-            day_or_night()
-            f.close()
+            # json_string = f.read()
+            # parsed_json = json.loads(json_string.decode("utf8"))
+            #
+            # icon = parsed_json['current_observation']['icon']
+            # city_name = parsed_json['current_observation']['full']
+            # observation_time = parsed_json['current_observation']['observation_time']
+            # current_cond = parsed_json['current_observation']['weather']
+            #
+            # sunset_hour = int(parsed_json['sun_phase']['sunset']['hour'])
+            # sunset_minute = int(parsed_json['sun_phase']['sunset']['minute'])
+            #
+            # for i in range(0, 5):
+            #     forecast_cond.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['icon'])
+            #     forecast_day.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['date']['weekday'])
+            #     forecast_high.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['high']['fahrenheit'])
+            #     forecast_low.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['low']['fahrenheit'])
+            #
+            # tom_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
+            # day_or_night()
+            # f.close()
 
             json_string = g.read()
-            parsed_json = json.loads(json_string.decode("utf8"))
-
-            
+            parsed_json = json.loads(json_string.decode('utf-8'))
+            set = parsed_json.find(':[')
+            set2 = parsed_json.find('],')
+            set3 = parsed_json.find('pp\":\"')
+            set4 = parsed_json.find('\"time')
+            predominant_pollen = parsed_json[set3+6: set4-2]
+            allergy_forecast = parsed_json[set+2: set2]
+            allergy_forecast = allergy_forecast.split(",")
+            print(predominant_pollen)
+            print(allergy_forecast)
+            g.close()
 
     else:
         def rand_weather():
@@ -197,7 +210,7 @@ def day_or_night():
         day_night = 'night'
 
 check_weather()
-weather = sched.add_interval_job(check_weather, seconds=60)
+weather = sched.add_interval_job(check_weather, seconds=30*60)
 
 
 def get_temps_from_probes():
@@ -217,7 +230,8 @@ icon_once = False
 def event_stream():
     global icon, forecast_day_old, forecast_cond_old, day_once, icon_once
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
-    global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old
+    global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old, allergy_forecast_old
+    global predominant_pollen_old
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         print(day_night)
@@ -259,6 +273,12 @@ def event_stream():
     if forecast_low != forecast_low_old:
         forecast_low_old = forecast_low
         yield_me += 'event: forecastLow\n' + 'data: ' + json.dumps(forecast_low) + '\n\n'
+    if allergy_forecast != allergy_forecast_old:
+        allergy_forecast_old = allergy_forecast
+        yield_me += 'event: allergyForecast\n' + 'data: ' + json.dumps(allergy_forecast) + '\n\n'
+    if predominant_pollen != predominant_pollen_old:
+        predominant_pollen_old = predominant_pollen
+        yield_me += 'event: predominantPollen\n' + 'data: ' + predominant_pollen + '\n\n'
 
     yield yield_me
 
