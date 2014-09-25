@@ -25,8 +25,6 @@
     border-radius: 0;
     background: url(/static/images/day-partlycloudy-1.jpg);
     background-size: cover;
-/*    background: -moz-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);
-    background: -webkit-linear-gradient(top, #C9E3FB 0%, #529BE4 100%);*/
     z-index: 1;
 }
 
@@ -43,15 +41,9 @@
     border-radius: 0;
     background: url(/static/images/night-partlycloudy-1.jpg);
     background-size: cover;
-/*    background: -moz-linear-gradient(top, #1f1f3f 0%, #141f31 100%);
-    background: -webkit-linear-gradient(top, #1f1f3f 0%, #141f31 100%);*/
-
 }
 
-#tabs-1 {
-    overflow: hidden;
-}
-
+/*  --== Temp Display ==--  */
 #temps {
     float:left;
     height:620px;
@@ -115,61 +107,29 @@
     text-shadow: 0px 0px 8px #333;
 }
 
-#weatherIcons{
-    width:800px;
+/*  --== Weather Slider ==--  */
+#weatherSlider {
+    width:600px;
     height:600px;
     position: absolute;
-    right:5px;
+    right:0;
     top:100px;
+    background: rgba(0,0,0,0.75);
+    display:none;
 }
 
-#moon {
-    position: absolute;
-    z-index:0;
-}
 
-#sun {
-    width:420px;
-    height:420px;
-    border-radius: 100%;
-    background-color: white;
-    margin-left: 90px;
-    margin-top: 60px;
-    position: absolute;
-    z-index:0;
-    box-shadow: 0 0 300px yellow, 0 0 50px #ff6500, inset 0 0 100px yellow;
-}
-
-#mid {
-    position: absolute;
-    z-index: 5;
-}
-
-#front{
-    position: absolute;
-    z-index: 10;
-}
-
-#precip {
-    height:300px;
-    width:90%;
-    position: relative;
-    left:30px;
-    top: 450px;
-    /*border:1px solid white;*/
-    overflow-y: hidden;
-}
-
+/*  --== RSS Ticker ==--  */
 #ticker {
     position: absolute;
-    width:1270px;
+    width:879px;
     bottom:5px;
-    left:0px;
+    left:191px;
     z-index: 15;
 }
 
 .tickercontainer {
-    width:1070px;
+    width:879px;
     height: 40px;
     background: rgba(0,0,0,0.5);
     overflow: hidden;
@@ -180,6 +140,7 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
     text-shadow: 0 0 2px #333;
+    /*left:180px*/
 }
 
 .tickercontainer li {
@@ -202,6 +163,7 @@ ul.newsticker{
     position: relative;
     list-style-type: none;
     margin:0;
+    border: 1px solid transparent;
 }
 
 ul.newsticker li {
@@ -211,6 +173,39 @@ ul.newsticker li {
     box-sizing:border-box;
 }
 
+.webticker-init {
+    background: transparent;
+    border: 0;
+}
+
+#rssSource{
+    width:200px;
+    height:55px;
+    border: 0 solid rgba(0,0,0,0.75);
+    transform: skewX(-45deg);
+    transform-origin: top;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    position:absolute;
+    bottom:-0;
+    left:0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 20;
+    color: white;
+}
+
+#sourceText {
+    transform: skewX(45deg);
+    transform-origin: top;
+    vertical-align: middle;
+    line-height: 55px;
+    text-align: center;
+    font-size: 20px;
+    margin-left: -30px;
+}
+
+
+/*  --== Clock ==--  */
 #clockBox{
     width:200px;
     height:55px;
@@ -266,6 +261,8 @@ ul.newsticker li {
     text-shadow: 1px 1px 3px #333;
 }
 
+
+/*  --== RSS Popup ==--  */
 #popupContent {
     width:800px;
     padding:5px;
@@ -279,6 +276,11 @@ ul.newsticker li {
     font: bold 45px Code;
     color: white;
     text-shadow: 2px 2px 5px #333;
+
+}
+
+#popupContent a {
+    text-decoration: none;
 }
 
 .rssSums {
@@ -286,10 +288,11 @@ ul.newsticker li {
     z-index: 201;
 }
 
+
+/*  --== Forecast Page ==--  */
 #forecastHolder {
     width:1200px;
     height:600px;
-    /*border: 1px solid white;*/
     position:absolute;
     left: 40px;
     top: 100px;
@@ -298,7 +301,6 @@ ul.newsticker li {
 .days {
     width:226px;
     height:600px;
-    /*border: 1px solid white;*/
     display:inline-block;
     margin-right: 8px;
 }
@@ -356,6 +358,116 @@ ul.newsticker li {
     background: rgba(0,0,0,0.5);
 }
 
+
+/*  --== Sports Page ==--  */
+#sportsContainer {
+    width:1240px;
+    height:684px;
+    /*border:1px solid white;*/
+    background: rgba(0,0,0,0.75);
+    position:absolute;
+    left: 20px;
+    top: 55px;
+    font: bold 20px Code;
+    text-shadow: 0px 0px 8px #333;
+    color: #ffffff;
+}
+
+#scoresContainer {
+    width:615px;
+    height: 670px;
+    margin-left: 5px;
+    margin-top: 5px;
+    border:0 solid rgba(255,255,255,0.5);
+    border-right-width: 1px;
+}
+
+.teamScores {
+    width:580px;
+    height:160px;
+    border:2px solid rgba(255,255,255,0.0);
+    margin-left: 5px;
+    margin-top: 5px;
+    position: relative;
+    /*background: rgba(0,0,0,0.5);*/
+}
+
+.matchup {
+    position:relative;
+    width:370px;
+    height:100%;
+   /* border: 0 solid rgba(255,255,255,0.5);
+    border-right-width: 2px;*/
+    display: inline-block;
+}
+
+.home, .away {
+    width:100%;
+    height: 50%;
+
+}
+
+.home {
+   border: 0 solid rgba(255,255,255,0.0);
+    border-bottom-width: 2px;
+}
+
+.teamName {
+    font: bold 25px Code;
+    text-shadow: 0px 0px 8px #333;
+    width:280px;
+    height:80px;
+    border: 0 solid rgba(255,255,255,0.0);
+    border-right-width: 2px;
+    background: rgba(255,255,255,0.25);
+    display: inline-block;
+}
+
+.logo, .text {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 80px;
+}
+
+.logo {
+    float:left;
+    margin-left: 2px;
+    width:80px;
+    height:80px;
+    text-align: center;
+}
+
+.logo img {
+   vertical-align: middle;
+    line-height: 80px;
+}
+
+.text {
+    text-align: center;
+    width: 190px;
+}
+
+.score {
+    width:82px;
+    height:76px;
+    background: rgba(255,255,255,0.25);
+    border: 2px solid rgba(255,255,255,0.0);
+    position: absolute;
+    right:0;
+    display: inline-block;
+}
+
+.timeLocation {
+    background: rgba(255,255,255,0.25);
+    width:208px;
+    height:162px;
+    position: absolute;
+    right:0;
+    display: inline-block;
+}
+
+/*   --== App Page ==--  */
+
 #appBar {
     width:1240px;
     height:100px;
@@ -399,6 +511,8 @@ ul.newsticker li {
     overflow-y: scroll;
 }
 
+
+/*  --== Extras ==--  */
 #screenCover {
     position: absolute;
     top:0;

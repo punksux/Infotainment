@@ -16,11 +16,17 @@ icon = ""
 day = True
 sun_or_moon_icon = ''
 d_n_clouds = ''
-rss_feed = 'http://www.kutv.com/news/features/top-stories/stories/rss.xml'
+rss_feeds = ['http://www.kutv.com/news/features/top-stories/stories/rss.xml',
+             'http://www.utahutes.com/sports/m-footbl/headline-rss.xml',
+             'http://feeds.bbci.co.uk/news/technology/rss.xml',
+             'http://www.tmz.com/rss.xml']
+rss_sources = ['KSL.com', 'UtahUtes.com', 'BBC Tech', 'TMZ.com']
 #rss_feed = 'http://feeds.abcnews.com/abcnews/topstories'
 
-weather_website = ('http://api.wunderground.com/api/c5e9d80d2269cb64/conditions/astronomy/forecast10day/q/%s.json' %
-                   location)
+weather_website = ('http://api.wunderground.com/api/c5e9d80d2269cb64/conditions/astronomy/forecast10day/alerts/' +
+                   'q/%s.json' % location)
+allergy_website = 'http://www.claritin.com/weatherpollenservice/weatherpollenservice.svc/getforecast/84123'
+
 feed = []
 feed_titles = []
 feed_titles_old = []
@@ -45,6 +51,12 @@ in_temp = '0'
 in_temp_old = '0'
 sunset_hour = 2
 sunset_minute = 00
+feed_source = ''
+feed_source_old = ''
+city_name = ''
+observation_time = ''
+current_cond = ''
+
 
 if on_pi:
     import urllib2
@@ -62,30 +74,39 @@ app = Flask(__name__)
 sched = Scheduler()
 sched.start()
 
+feed_no = 0
 
 #    --==RSS Stuff==--
 def get_rss():
-    global feed, feed_titles, feed_summary, feed_titles_old, feed_summary_old
-    feed = feedparser.parse(rss_feed)
+    global feed, feed_titles, feed_summary, feed_titles_old, feed_summary_old, feed_no, rss_sources, feed_source
+    feed_titles = []
+    feed_summary = []
+    feed = feedparser.parse(rss_feeds[feed_no])
     feed['items'] = feed['items'][:10]
     for i in feed['items']:
         feed_titles.append(i['title'])
         feed_summary.append(i['summary'])
-
+    feed_source = rss_sources[feed_no]
+    if feed_no == len(rss_feeds)-1:
+        feed_no = 0
+    else:
+        feed_no += 1
 
 get_rss()
-rss = sched.add_interval_job(get_rss, seconds=5*60)
+rss = sched.add_interval_job(get_rss, seconds=1*60)
 
 
 def check_weather():
     global icon, forecast_day, forecast_cond, forecast_high, forecast_low, forecast_day_old, forecast_cond_old
-    global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night
+    global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night, city_name
+    global observation_time, current_cond
     if weather_test == 200:
         global something_wrong
         global f
         if on_pi:
             try:
                 f = urllib2.urlopen(weather_website, timeout=3)
+                g = urllib2.urlopen(allergy_website, timeout=3)
                 something_wrong = False
             except urllib2.URLError as e:
                 logging.error('Data not retrieved because %s' % e)
@@ -96,6 +117,7 @@ def check_weather():
         else:
             try:
                 f = urlopen(weather_website, timeout=3)
+                g = urlopen(allergy_website, timeout=3)
                 something_wrong = False
             except urllib.error.URLError as e:
                 logging.error('Data not retrieved because %s' % e)
@@ -111,6 +133,11 @@ def check_weather():
             parsed_json = json.loads(json_string.decode("utf8"))
 
             icon = parsed_json['current_observation']['icon']
+            city_name = parsed_json['current_observation']['full']
+            observation_time = parsed_json['current_observation']['observation_time']
+            current_cond = parsed_json['current_observation']['weather']
+
+
             sunset_hour = int(parsed_json['sun_phase']['sunset']['hour'])
             sunset_minute = int(parsed_json['sun_phase']['sunset']['minute'])
             for i in range(0, 5):
@@ -122,11 +149,18 @@ def check_weather():
             tom_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
             day_or_night()
             f.close()
+
+            json_string = g.read()
+            parsed_json = json.loads(json_string.decode("utf8"))
+
+            
+
     else:
         def rand_weather():
             randt = ['rain', 'clear', 'partlycloudy', 'mostlycloudy', 'flurries', 'snow', 'sunny', 'sleet',
-                     'partlysunny', 'mostlysunny', 'tstorms', 'cloudy', 'fog', 'hazy']
-            return randt[random.randrange(0, 14)]
+                     'partlysunny', 'mostlysunny', 'tstorms', 'cloudy', 'fog', 'hazy', 'chancetstorms', 'chancerain',
+                     'chancesnow', 'unknown']
+            return randt[random.randrange(0, 18)]
 
         def rand_days():
             randt = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
@@ -183,7 +217,7 @@ icon_once = False
 def event_stream():
     global icon, forecast_day_old, forecast_cond_old, day_once, icon_once
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
-    global tom_temp_old, day_night_old, out_temp_old, in_temp_old
+    global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         print(day_night)
@@ -204,8 +238,11 @@ def event_stream():
         yield_me += 'event: rssTitle\n' + 'data: ' + json.dumps(feed_titles) + '\n\n'
     if feed_summary != feed_summary_old or rss_once is False:
         feed_summary_old = feed_summary
-        rss_once = True
         yield_me += 'event: rssSum\n' + 'data: ' + json.dumps(feed_summary) + '\n\n'
+    if feed_source != feed_source_old or rss_once is False:
+        feed_source_old = feed_source
+        rss_once = True
+        yield_me += 'event: rssSource\n' + 'data: ' + feed_source + '\n\n'
     if icon != icon_old or icon_once is False:
         icon_old = icon
         icon_once = True

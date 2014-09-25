@@ -38,16 +38,46 @@ $(document).ready(function() {
 //    Figure out how to update rss
     sse.addEventListener('rssTitle', function(message) {
         message = JSON.parse(message.data);
-        $('#rss1').html('(1) - ' + message[0] + ' - ');
-        $('#rss2').html(message[1] + ' - ');
-        $('#rss3').html(message[2] + ' - ');
-        $('#rss4').html(message[3] + ' - ');
-        $('#rss5').html(message[4] + ' - ');
-        $('#rss6').html(message[5] + ' - ');
-        $('#rss7').html(message[6] + ' - ');
-        $('#rss8').html(message[7] + ' - ');
-        $('#rss9').html(message[8] + ' - ');
-        $('#rss10').html(message[9] + ' - ');
+        $("ul#ticker01").webTicker('update','<li id="rss1">' + message[0] + ' - </li>'+
+                                            '<li id="rss2">' + message[1] + ' - </li>'+
+                                            '<li id="rss3">' + message[2] + ' - </li>'+
+                                            '<li id="rss4">' + message[3] + ' - </li>'+
+                                            '<li id="rss5">' + message[4] + ' - </li>'+
+                                            '<li id="rss6">' + message[5] + ' - </li>'+
+                                            '<li id="rss7">' + message[6] + ' - </li>'+
+                                            '<li id="rss8">' + message[7] + ' - </li>'+
+                                            '<li id="rss9">' + message[8] + ' - </li>'+
+                                            '<li id="rss10">' + message[9] + ' </li>','reset');
+        $('#rss1').click(function(){
+            $('#rss1sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss2').click(function(){
+            $('#rss2sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss3').click(function(){
+            $('#rss3sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss4').click(function(){
+            $('#rss4sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss5').click(function(){
+            $('#rss5sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss6').click(function(){
+            $('#rss6sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss7').click(function(){
+            $('#rss7sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss8').click(function(){
+            $('#rss8sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss9').click(function(){
+            $('#rss9sum, #screenCover, #popupContent').css('display','block');
+        });
+        $('#rss10').click(function(){
+            $('#rss10sum, #screenCover, #popupContent').css('display','block');
+        });
     });
     sse.addEventListener('rssSum', function(message) {
         message = JSON.parse(message.data);
@@ -62,13 +92,17 @@ $(document).ready(function() {
         $('#rss9sum').html(message[8]);
         $('#rss10sum').html(message[9]);
     });
+    sse.addEventListener('rssSource', function(message) {
+        $('div#sourceText').html(message.data);
+    });
     sse.addEventListener('icon', function(message) {
         var rand = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
         if (message.data === 'partlysunny'){icon = 'mostlycloudy'}
         else if (message.data === 'mostlysunny'){icon = 'partlycloudy'}
         else if (message.data === 'sunny'){icon = 'clear'}
+        else if (message.data.slice(0,6) === 'chance'){icon = message.data.slice(6)}
         else {icon = message.data}
-        $('#test2').html(icon + ' - ' + rand);
+        $('#test2').html(message.data + ' - ' + icon + ' - ' + rand);
         if (cover === 1){
             $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
                 .done(function() {
@@ -171,6 +205,6 @@ $(document).ready(function() {
 
 
     skycons.play();
-    $("ul#ticker01").webTicker('update');
+//    $("ul#ticker01").webTicker('update');
 });
 

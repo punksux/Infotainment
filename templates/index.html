@@ -56,24 +56,22 @@ function checkTime(i) {
 </head>
 
 <body onload="startTime()">
-
-
-
 <div id="night"></div>
 <div id="day"></div>
 
 <div id="content" class="tabcontents">
     <ul id="tabList" class="tabs">
-            <li ><a href="#view1">Home</a></li>
+            <li class="selected"><a href="#view1">Home</a></li>
             <li ><a href="#view2">Forecast</a></li>
             <li><a href="#view3">Music</a></li>
-            <li><a href="#view4">Sports</a></li>
-            <li class="selected"><a href="#view5">Apps</a></li>
+            <li ><a href="#view4">Sports</a></li>
+            <li ><a href="#view5">Apps</a></li>
          </ul>
 
+<!--     *** Home Tab ***     -->
     <div id="view1">
     <div id="temps">
-        <div id="out">
+        <div id="out" onclick="$('#weatherSlider').toggle('slide', {direction: 'right'})">
             <div id="outLabel">Outside Temp</div>
             <div id="outTemp">102</div><span>°</span>
         </div>
@@ -87,17 +85,24 @@ function checkTime(i) {
         </div>
     </div>
 
+    <div id="weatherSlider">
+
+    </div>
+
     <div id="ticker">
     <ul id="ticker01">
         {% for x in range(1,11) %}
-        <li onclick="$('#rss{{ x }}sum,#screenCover, #popupContent').css('display','block');" id="rss{{ x }}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>{% endfor %}
+        <li id="rss{{ x }}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>{% endfor %}
 
     </ul>
-    </div>
+
+
+    </div><div id="rssSource"><div id="sourceText"></div></div>
     </div>
 
 
-<!--      Forecast Tab      -->
+
+<!--   ** Forecast Tab **   -->
     <div id="view2">
 
         <div id="forecastHolder">
@@ -111,13 +116,94 @@ function checkTime(i) {
         </div>
     </div>
 
-<!--      Music Tab      -->
+<!--  **  Music Tab **   -->
     <div id="view3">
 
     </div>
-<!--      Sports Tab      -->
-    <div id="view4"></div>
-<!--      Apps Tab      -->
+<!--   ** Sports Tab **   -->
+    <div id="view4">
+        <div id="sportsContainer">
+            <div id="scoresContainer">
+                <div id="utah" class="teamScores">
+                    <div class="matchup">
+                        <div class="home">
+                            <div class="teamName">
+                                <div class="logo"><img src="/static/images/utah.png" height="60px"></div>
+                                <div class="text">Utah Utes</div>
+                            </div>
+                            <div class="score"></div>
+                        </div>
+                        <div class="away">
+                            <div class="teamName">
+                                <div class="logo"></div>
+                                <div class="text"></div>
+                            </div>
+                            <div class="score"></div>
+                        </div>
+                    </div>
+                    <div class="timeLocation"></div>
+                </div>
+                <div id="rsl" class="teamScores">
+                    <div class="matchup">
+                        <div class="home">
+                            <div class="teamName">
+                                <div class="logo"><img src="/static/images/rsl.png" height="60px"></div>
+                                <div class="text">Real Salt Lake</div>
+                            </div>
+                            <div class="score"></div>
+                        </div>
+                        <div class="away">
+                            <div class="teamName">
+                                <div class="logo"></div>
+                                <div class="text"></div>
+                            </div>
+                            <div class="score"></div>
+                        </div>
+                    </div>
+                    <div class="timeLocation"></div>
+                </div>
+                <div id="49ers" class="teamScores">
+                    <div class="matchup">
+                        <div class="home">
+                            <div class="teamName">
+                                <div class="logo"><img src="/static/images/49ers.png" height="45px"></div>
+                                <div class="text">49ers</div>
+                            </div>
+                            <div class="score"></div>
+                        </div>
+                        <div class="away">
+                            <div class="teamName">
+                                <div class="logo"></div>
+                                <div class="text"></div>
+                            </div>
+                            <div class="score"></div>
+                        </div>
+                    </div>
+                    <div class="timeLocation"></div>
+                </div>
+                <div id="kc" class="teamScores">
+                    <div class="matchup">
+                        <div class="home">
+                            <div class="teamName">
+                                <div class="logo"><img src="/static/images/kc.png" height="45px"></div>
+                                <div class="text">Chiefs</div>
+                            </div>
+                            <div class="score"></div>
+                        </div>
+                        <div class="away">
+                            <div class="teamName">
+                                <div class="logo"></div>
+                                <div class="text"></div>
+                            </div>
+                            <div class="score"></div>
+                        </div>
+                    </div>
+                    <div class="timeLocation"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--   ** Apps Tab **   -->
     <div id="view5">
         <div id="appBar">
             <a href="http://192.168.1.200:4040" target="app"><div id="app1" class="apps"><img src="/static/images/subsonic.png" height="70px">Subsonic</div></a>
@@ -126,7 +212,7 @@ function checkTime(i) {
             <a href="http://192.168.1.200:9091" target="app"><div id="app4" class="apps"><img src="/static/images/transmission.png" height="70px">Transmission</div></a>
             <a href="http://192.168.1.95:5000" target="app"><div id="app5" class="apps"><img src="/static/images/sprinkler.png" height="70px">Sprinklers</div></a>
             <a href="http://192.168.1.95:5001" target="app"><div id="app6" class="apps"><img src="/static/images/heatLights.png" height="70px">heatLights</div></a>
-            <a href="about:blank" target="app"><div id="app10" class="apps"><img src="/static/images/close.png" height="70px">Close_App</div></a>
+            <a href="about:blank" target="app"><div id="app10" class="apps"><img src="/static/images/close.png" height="70px">Close</div></a>
         </div>
         <iframe name="app" id="appDisplay"></iframe>
     </div>
@@ -135,6 +221,8 @@ function checkTime(i) {
     <div id="clockBoxCover"></div>
     <div id="time">4:22 PM</div>
 
+
+<!--    ** RSS Popup **    -->
     <div id="screenCover"></div>
     <div id="popupContent">
         {% for x in range(1,11) %}
