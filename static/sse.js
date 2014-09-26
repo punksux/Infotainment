@@ -38,16 +38,16 @@ $(document).ready(function() {
 //    Figure out how to update rss
     sse.addEventListener('rssTitle', function(message) {
         message = JSON.parse(message.data);
-        $("ul#ticker01").webTicker('update','<li id="rss1">' + message[0] + ' - </li>'+
-                                            '<li id="rss2">' + message[1] + ' - </li>'+
-                                            '<li id="rss3">' + message[2] + ' - </li>'+
-                                            '<li id="rss4">' + message[3] + ' - </li>'+
-                                            '<li id="rss5">' + message[4] + ' - </li>'+
-                                            '<li id="rss6">' + message[5] + ' - </li>'+
-                                            '<li id="rss7">' + message[6] + ' - </li>'+
-                                            '<li id="rss8">' + message[7] + ' - </li>'+
-                                            '<li id="rss9">' + message[8] + ' - </li>'+
-                                            '<li id="rss10">' + message[9] + ' </li>','reset');
+        $("ul#ticker01").webTicker('update','<li id="rss1">' + message[0].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss2">' + message[1].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss3">' + message[2].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss4">' + message[3].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss5">' + message[4].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss6">' + message[5].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss7">' + message[6].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss8">' + message[7].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss9">' + message[8].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
+                                            '<li id="rss10">' + message[9].replace('#PrepareU: @Utah_Football', '') + ' </li>','reset');
         $('#rss1').click(function(){
             $('#rss1sum, #screenCover, #popupContent').css('display','block');
         });
@@ -122,15 +122,10 @@ $(document).ready(function() {
             $('#day').fadeOut(1000);
             cover = 1;
         }
-
-
-
         if (dayOrNight === 'day'){
-//            $('#day').css('background', 'url(/static/images/day-' + icon + '-1.jpg)').fadeIn(1000);
             $('#tom').hide(1000);
         } else {
-//            $('#night').css('background', 'url(/static/images/night-' + icon + '-1.jpg)');
-//            $('#day').fadeOut(1000);
+
             $('#tom').show(1000);
         }
 });
@@ -201,10 +196,62 @@ $(document).ready(function() {
         skycons.set("icon5", message[4]);
 
     });
+     sse.addEventListener('allergyForecast', function(message) {
+        message = JSON.parse(message.data);
+        var color = ['','','',''];
+         for (i = 0; i < 5; i++){
+             if (message[i] < 5) {color[i]='#00ff00'}else if (message[i] >= 9){color[i]='#ff0000'}else{color[i]='#E4E368'}
+         }
+         $('#allergyDay1').css({height: parseFloat(message[0])*10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[0] + ' 80%'});
+         $('#allergyDay1:before').css({'border-width': parseFloat(message[0])*10 + 'px 70px 0 0'});
+         $('#allergyDay2').css({height: parseFloat(message[1])*10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[1] + ' 80%' });
+         $('#allergyDay3').css({height: parseFloat(message[2])*10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[2] + ' 80%' });
+         $('#allergyDay4').css({height: parseFloat(message[3])*10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[3] + ' 80%' });
+         $('#allergyNumber1').html(message[0]);
+         $('#allergyNumber2').html(message[1]);
+         $('#allergyNumber3').html(message[2]);
+         $('#allergyNumber4').html(message[3]);
 
+        var d = new Date();
+        var weekday = new Array(7);
+        weekday[0]=  "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
 
+        var plus = [];
+        for (i=1;i<4;i++){
+            if ((d.getDay()+i)>6){
+                plus[i] = (d.getDay()+i)-7;
+            } else {
+                plus[i] = d.getDay()+i
+            }
+        }
+
+        $('#allergyDayName2').html(weekday[plus[1]]);
+        $('#allergyDayName3').html(weekday[plus[2]]);
+        $('#allergyDayName4').html(weekday[plus[3]]);
+
+    });
+    sse.addEventListener('predominantPollen', function(message) {
+       $('#predominantPollen').html(message.data);
+    });
+    sse.addEventListener('fullWeather', function(message) {
+        message = JSON.parse(message.data);
+        $('#cityName').html(message[0]);
+        $('#updateTime').html(message[1]);
+        $('#condition').html('Current Condition: ' + message[2]);
+        $('#sunsetTime').html('Sunset: ' + (parseInt(message[3])-12) + ':' + message[4] + ' PM');
+        $('#sunriseTime').html('Sunrise: ' + message[5] + ':' + message[6] + ' AM');
+        $('#humidity').html('Humidity: ' + message[7]);
+        $('#precip').html('Precipitation: ' + message[8]);
+        $('#wind').html('Wind: ' + message[8]);
+        $('#gif').attr('src','/static/images/radar.gif');
+    });
 
     skycons.play();
-//    $("ul#ticker01").webTicker('update');
 });
 

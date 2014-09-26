@@ -36,11 +36,9 @@ function startTime() {
     var am_pm = 'AM';
     var h=today.getHours();
     var m=today.getMinutes();
-    var s=today.getSeconds();
     if (h===12){am_pm = 'PM';}
     if (h>12){h-=12; am_pm = 'PM';}
     m = checkTime(m);
-    s = checkTime(s);
     document.getElementById('time').innerHTML = h+":"+m+" "+am_pm;
     var t = setTimeout(function(){startTime()},3000);
 }
@@ -85,10 +83,44 @@ function checkTime(i) {
         </div>
     </div>
 
+    <!--    ** Weather Slider **    -->
     <div id="weatherSlider">
-
+        <div id="weatherInfo">
+            <div id="cityName">Murray, UT</div>
+            <div id="updateTime">Now</div>
+            <div id="condition">Current Condition: Partly Cloudy</div>
+            <div id="sunriseTime">Sunrise: 7:15</div>
+            <div id="sunsetTime">Sunset: 22:23</div>
+            <div id="humidity">Humidity: 23%</div>
+            <div id="precip">Precipitation: 0.00 in</div>
+            <div id="wind">Wind: </div>
+        </div>
+        <div id="radarGif"><img src="/static/images/radar.gif" id="gif"></div>
+        <div id="allergyDisplay">
+            <div id="allergyHeader">Allergy Forecast</div>
+            <div id="allergyDays">
+                <div id="allergyDayName1" class="name">Today</div>
+                <div id="allergyDayName2" class="name">1</div>
+                <div id="allergyDayName3" class="name">1</div>
+                <div id="allergyDayName4" class="name">2</div>
+            </div>
+            <div id="graph">
+                <div id="allergyDay1"></div>
+                <div id="allergyDay2"></div>
+                <div id="allergyDay3"></div>
+                <div id="allergyDay4"></div>
+            </div>
+            <div id="allergyNumbers">
+                <div id="allergyNumber1" class="num">1</div>
+                <div id="allergyNumber2" class="num">1</div>
+                <div id="allergyNumber3" class="num">1</div>
+                <div id="allergyNumber4" class="num">1</div>
+            </div>
+            <div id="predominantPollen"></div>
+        </div>
     </div>
 
+    <!--    ** RSS Ticker **    -->
     <div id="ticker">
     <ul id="ticker01">
         {% for x in range(1,11) %}

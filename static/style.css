@@ -115,9 +115,145 @@
     right:0;
     top:100px;
     background: rgba(0,0,0,0.75);
-    display:none;
+    color: #ffffff;
+    /*display:none;*/
 }
 
+#weatherInfo {
+    position:absolute;
+    width: 385px;
+    top: 5px;
+    left:5px;
+}
+
+#cityName, #updateTime {
+    width:100%;
+    text-align: center;
+}
+
+#updateTime {
+    font-size: 15px;
+}
+
+#radarGif {
+    position: absolute;
+    right:5px;
+    top:5px;
+}
+
+#gif {
+    width: 200px;
+    height: 200px;
+}
+
+#allergyDisplay {
+    position: absolute;
+    width:400px;
+    left:100px;
+    bottom:5px;
+  }
+
+
+#predominantPollen, #allergyHeader {
+    width:100%;
+    height:25px;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    position: relative;
+}
+
+#graph {
+    width:400px;
+    height:120px;
+    border:1px solid black;
+    position: relative;
+    background: rgba(255,255,255,0.5);
+    box-shadow: inset 4px 4px 0px rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+#graph:before {
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 120px 370px 0 0;
+    border-color: rgba(255,255,255,0.1) transparent transparent transparent;
+    position:absolute;
+    top:0px;
+    left:1px;
+}
+
+#allergyDay1, #allergyDay2, #allergyDay3, #allergyDay4{
+    display:inline-block;
+    width:80px;
+    height:50px;
+    position:absolute;
+    bottom:0;
+    background:red;
+    left:10px;
+    border-radius: 3px 3px 0 0;
+}
+
+#allergyDay1:before, #allergyDay2:before, #allergyDay3:before, #allergyDay4:before {
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 100px 70px 0 0;
+    border-color: rgba(255,255,255,0.1) transparent transparent transparent;
+    position:absolute;
+    top:2px;
+    left:2px;
+}
+
+#allergyDay2 {
+    left:110px;
+}
+
+#allergyDay3 {
+    left:210px;
+}
+
+#allergyDay4 {
+    left:310px;
+}
+
+#allergyNumbers, #allergyDays {
+    position: relative;
+    width:100%;
+    height:30px;
+}
+
+.num, #allergyDays .name {
+    width:80px;
+    height:25px;
+    color: white;
+    position:absolute;
+    left:10px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 25px;
+    font-size: 15px;
+}
+
+#allergyDays .name {
+    line-height: 40px;
+}
+
+#allergyNumber2, #allergyDayName2.name {
+    left:110px;
+}
+
+#allergyNumber3, #allergyDayName3.name {
+    left:210px;
+}
+
+#allergyNumber4, #allergyDayName4.name {
+    left:310px;
+}
 
 /*  --== RSS Ticker ==--  */
 #ticker {
