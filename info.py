@@ -9,7 +9,7 @@ import time
 from apscheduler.scheduler import Scheduler
 import feedparser
 
-weather_test = 100
+weather_test = 200
 on_pi = False
 location = 84123
 icon = ""
@@ -61,6 +61,10 @@ allergy_forecast_old = []
 predominant_pollen_old = ''
 full_weather = []
 full_weather_old = []
+hourly_temps = []
+hourly_temps_old = []
+alert = []
+alert_old = []
 
 if on_pi:
     import urllib2
@@ -80,6 +84,7 @@ sched.start()
 
 feed_no = 0
 
+
 #    --==RSS Stuff==--
 def get_rss():
     global feed, feed_titles, feed_summary, feed_titles_old, feed_summary_old, feed_no, rss_sources, feed_source
@@ -97,21 +102,21 @@ def get_rss():
         feed_no += 1
 
 get_rss()
-rss = sched.add_interval_job(get_rss, seconds=1*60)
+rss = sched.add_interval_job(get_rss, seconds=2*60)
 
 
 def check_weather():
     global icon, forecast_day, forecast_cond, forecast_high, forecast_low, forecast_day_old, forecast_cond_old
     global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night, city_name
     global observation_time, current_cond, predominant_pollen, allergy_forecast, full_weather, full_weather_old
-    global sunrise_hour, sunrise_minute, relative_humidity, precip_today_string, wind_string
+    global sunrise_hour, sunrise_minute, relative_humidity, precip_today_string, wind_string, hourly_temps, alert
     if weather_test == 200:
         global something_wrong
         global f, g
         if on_pi:
             try:
                 f = urllib2.urlopen(weather_website, timeout=3)
-                g = urllib2.urlopen(allergy_website, timeout=3)
+                g = urllib2.urlopen(allergy_website, headers={'User-Agent': 'Mozilla/5.0'}, timeout=3)
                 something_wrong = False
             except urllib2.URLError as e:
                 logging.error('Data not retrieved because - %s' % e)
@@ -121,9 +126,11 @@ def check_weather():
                 something_wrong = True
         else:
             try:
-                f = urlopen(weather_website, timeout=3)
+                #f = urlopen(weather_website, timeout=3)
+                f = open('weather.json')
                 req = Request(allergy_website, headers={'User-Agent': 'Mozilla/5.0'})
-                g = urlopen(req, timeout=3)
+                #g = urlopen(req, timeout=3)
+                g = open('allergy.json')
 
                 something_wrong = False
             except urllib.error.URLError as e:
@@ -136,11 +143,17 @@ def check_weather():
         if something_wrong:
             logging.error("No Internet")
         else:
-            json_string = f.read()
-            parsed_json = json.loads(json_string.decode("utf8"))
+            hourly_temps = []
+            forecast_cond = []
+            forecast_day = []
+            forecast_high = []
+            forecast_low = []
 
+            json_string = f.read()
+            #parsed_json = json.loads(json_string.decode("utf8"))
+            parsed_json = json.loads(json_string)
             icon = parsed_json['current_observation']['icon']
-            city_name = parsed_json['current_observation']['full']
+            city_name = parsed_json['current_observation']['display_location']['full']
             observation_time = parsed_json['current_observation']['observation_time']
             current_cond = parsed_json['current_observation']['weather']
             relative_humidity = parsed_json['current_observation']['relative_humidity']
@@ -152,6 +165,10 @@ def check_weather():
             sunrise_hour = int(parsed_json['sun_phase']['sunrise']['hour'])
             sunrise_minute = int(parsed_json['sun_phase']['sunrise']['minute'])
 
+            for i in range(0,12):
+                hourly_temps.append(parsed_json['hourly_forecast'][i]['temp']['english'])
+            print(hourly_temps)
+
             for i in range(0, 5):
                 forecast_cond.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['icon'])
                 forecast_day.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['date']['weekday'])
@@ -160,10 +177,20 @@ def check_weather():
 
             tom_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
             day_or_night()
+
+            if parsed_json.get('alerts'):
+                alert_description = parsed_json['alerts'][0]['description']
+                alert_message = parsed_json['alerts'][0]['message']
+                alert = [alert_description, alert_message]
+            else:
+                print('No Alert')
+
+
             f.close()
 
             json_string = g.read()
-            parsed_json = json.loads(json_string.decode('utf-8'))
+            #parsed_json = json.loads(json_string.decode('utf-8'))
+            parsed_json = json.loads(json_string)
             set = parsed_json.find(':[')
             set2 = parsed_json.find('],')
             set3 = parsed_json.find('pp\":\"')
@@ -175,8 +202,8 @@ def check_weather():
             print(allergy_forecast)
             g.close()
 
-            full_weather = [city_name, observation_time, current_cond, sunset_hour, sunset_minute, relative_humidity,
-                            precip_today_string, wind_string]
+            full_weather = [city_name, observation_time, current_cond, sunset_hour, sunset_minute, sunrise_hour,
+                            sunrise_minute, relative_humidity, precip_today_string, wind_string]
 
     else:
         def rand_weather():
@@ -221,9 +248,11 @@ def check_weather():
         sunrise_minute = 12
         relative_humidity = '32%'
         precip_today_string = '0.00 in'
-        wind_string = 'Wind ot of the East at 7MPH'
+        wind_string = 'Wind out of the East at 7MPH'
         full_weather = [city_name, observation_time, current_cond, sunset_hour, sunset_minute, sunrise_hour,
                         sunrise_minute, relative_humidity, precip_today_string, wind_string]
+        hourly_temps = [get_rand(), get_rand(), get_rand(), get_rand(), get_rand(), get_rand(), get_rand(), get_rand(),
+                        get_rand(), get_rand(), get_rand(), get_rand()]
 
 
 def day_or_night():
@@ -238,13 +267,16 @@ def day_or_night():
         day_night = 'night'
 
 check_weather()
-weather = sched.add_interval_job(check_weather, seconds=30)
+weather = sched.add_interval_job(check_weather, seconds=60)
 
 
 def get_temps_from_probes():
     global out_temp, in_temp
-    out_temp = str(random.randrange(-32, 104))
-    in_temp = str(random.randrange(32, 104))
+    if on_pi:
+        pass
+    else:
+        out_temp = str(random.randrange(-32, 104))
+        in_temp = str(random.randrange(32, 104))
 
 get_temps_from_probes()
 temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
@@ -252,6 +284,7 @@ temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 rss_once = False
 day_once = False
 icon_once = False
+alert_once = False
 
 
 #     --==Streaming Stuff==--
@@ -259,7 +292,7 @@ def event_stream():
     global icon, forecast_day_old, forecast_cond_old, day_once, icon_once
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old, allergy_forecast_old
-    global predominant_pollen_old,  full_weather_old
+    global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         print(day_night)
@@ -310,6 +343,14 @@ def event_stream():
     if full_weather != full_weather_old:
         full_weather_old = full_weather
         yield_me += 'event: fullWeather\n' + 'data: ' + json.dumps(full_weather) + '\n\n'
+    if hourly_temps != hourly_temps_old:
+        hourly_temps_old = hourly_temps
+        yield_me += 'event: hourlyTemps\n' + 'data: ' + json.dumps(hourly_temps) + '\n\n'
+    if alert != alert_old or alert_once is False:
+        alert_old = alert
+        print(alert[0])
+        alert_once = True
+        yield_me += 'event: alert\n' + 'data: ' + json.dumps(alert) + '\n\n'
 
     yield yield_me
 
@@ -328,6 +369,7 @@ try:
         rss_once = False
         day_once = False
         icon_once = False
+        alert_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':

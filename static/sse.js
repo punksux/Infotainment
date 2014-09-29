@@ -4,7 +4,7 @@ $(document).ready(function() {
     var icon = '';
     sse = new EventSource('/my_event_source');
     sse.addEventListener('dayNight', function(message) {
-        $('#test').html(message.data);
+//        $('#test').html(message.data);
         if (message.data === 'night'){
             dayOrNight = 'night'
         } else {
@@ -242,14 +242,38 @@ $(document).ready(function() {
     sse.addEventListener('fullWeather', function(message) {
         message = JSON.parse(message.data);
         $('#cityName').html(message[0]);
-        $('#updateTime').html(message[1]);
-        $('#condition').html('Current Condition: ' + message[2]);
+        $('#updateTime').html('Last Update: ' + message[1]);
+        $('#condition').html('Condition: ' + message[2]);
         $('#sunsetTime').html('Sunset: ' + (parseInt(message[3])-12) + ':' + message[4] + ' PM');
         $('#sunriseTime').html('Sunrise: ' + message[5] + ':' + message[6] + ' AM');
         $('#humidity').html('Humidity: ' + message[7]);
         $('#precip').html('Precipitation: ' + message[8]);
-        $('#wind').html('Wind: ' + message[8]);
+        $('#wind').html('Wind: ' + message[9]);
         $('#gif').attr('src','/static/images/radar.gif');
+//        $('#gif').attr('src','http://api.wunderground.com/api/c5e9d80d2269cb64/animatedradar/q/84123.gif?radius=100&width=200&height=200&newmaps=1&noclutter=1&num=15');
+    });
+    sse.addEventListener('hourlyTemps', function(message) {
+        var d = new Date();
+            var i;
+            for (i=0;i<12;i++) {
+                var hours = (d.getHours()+i) % 12;
+                if (hours == 0) {hours += 12;}
+                $('tr#hourlyTimes td:nth-child('+(i+1)+')').html(hours);
+            }
+        message = JSON.parse(message.data);
+        for (i=0;i<12;i++) {
+            $('tr#hourlyTemps td:nth-child(' + (i+1) + ')').html(message[i] + '°');
+        }
+    });
+    sse.addEventListener('alert', function(message) {
+        message = JSON.parse(message.data);
+        $('#test').html(message[0])
+        if (message[0] != ''){
+            $('#alert').html(message[0]).show();
+            $('#alertMessage').html(message[1]);
+        } else {
+            $('#alert').html(message[0]).hide();
+        }
     });
 
     skycons.play();
