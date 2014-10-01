@@ -292,7 +292,7 @@ def event_stream():
     global icon, forecast_day_old, forecast_cond_old, day_once, icon_once
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old, allergy_forecast_old
-    global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old
+    global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old, alert_once
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         print(day_night)
@@ -365,7 +365,7 @@ try:
 
     @app.route('/')
     def my_form():
-        global rss_once, day_once, icon_once
+        global rss_once, day_once, icon_once, alert_once
         rss_once = False
         day_once = False
         icon_once = False

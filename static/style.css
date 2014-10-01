@@ -442,20 +442,22 @@ ul.newsticker li {
 
 
 /*  --== RSS Popup ==--  */
+#popupContainer {
+    vertical-align: middle;
+    line-height: 750px;
+    text-align: center;
+}
+
 #popupContent {
-    width:800px;
     padding:5px;
     z-index: 200;
     background-color: rgba(0,0,0,0.5);
     border:3px solid rgba(0,0,0,0.75);
-    position: absolute;
-    display:none;
-    right:5px;
-    bottom:60px;
+    /*display:none;*/
     font: bold 45px Code;
     color: white;
     text-shadow: 2px 2px 5px #333;
-
+    margin: 0 auto;
 }
 
 #popupContent a {
@@ -466,6 +468,22 @@ ul.newsticker li {
     display:none;
     z-index: 201;
 }
+
+#alertDescription {
+    font: bold 35px Code;
+}
+
+#screenCover {
+    position: absolute;
+    top:0;
+    margin: 0 auto;
+    left:0;
+    right:0;
+    width:1280px;
+    height:800px;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 50;
+    display:none;
 
 
 /*  --== Forecast Page ==--  */
@@ -692,17 +710,7 @@ ul.newsticker li {
 
 
 /*  --== Extras ==--  */
-#screenCover {
-    position: absolute;
-    top:0;
-    margin: 0 auto;
-    left:0;
-    right:0;
-    width:1280px;
-    height:800px;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 50;
-    display:none;
+
 }
 
 #test {

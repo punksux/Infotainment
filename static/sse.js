@@ -49,34 +49,34 @@ $(document).ready(function() {
                                             '<li id="rss9">' + message[8].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
                                             '<li id="rss10">' + message[9].replace('#PrepareU: @Utah_Football', '') + ' </li>','reset');
         $('#rss1').click(function(){
-            $('#rss1sum, #screenCover, #popupContent').css('display','block');
+            $('#rss1sum, #screenCover, #popupContent').css('display','table');
         });
         $('#rss2').click(function(){
-            $('#rss2sum, #screenCover, #popupContent').css('display','block');
+            $('#rss2sum, #screenCover, #popupContent').css('display','inline-block');
         });
         $('#rss3').click(function(){
-            $('#rss3sum, #screenCover, #popupContent').css('display','block');
+            $('#rss3sum, #screenCover, #popupContent').css('display','inline-block');
         });
         $('#rss4').click(function(){
-            $('#rss4sum, #screenCover, #popupContent').css('display','block');
+            $('#rss4sum, #screenCover, #popupContent').css('display','inline-block');
         });
         $('#rss5').click(function(){
-            $('#rss5sum, #screenCover, #popupContent').css('display','block');
+            $('#rss5sum, #screenCover, #popupContent').css('display','inline-block');
         });
         $('#rss6').click(function(){
-            $('#rss6sum, #screenCover, #popupContent').css('display','block');
+            $('#rss6sum, #screenCover, #popupContent').css('display','inline-block');
         });
         $('#rss7').click(function(){
-            $('#rss7sum, #screenCover, #popupContent').css('display','block');
+            $('#rss7sum, #screenCover, #popupContent').css('display','inline-block');
         });
         $('#rss8').click(function(){
-            $('#rss8sum, #screenCover, #popupContent').css('display','block');
+            $('#rss8sum, #screenCover, #popupContent').css('display','inline-block');
         });
         $('#rss9').click(function(){
-            $('#rss9sum, #screenCover, #popupContent').css('display','block');
+            $('#rss9sum, #screenCover, #popupContent').css('display','inline-block');
         });
         $('#rss10').click(function(){
-            $('#rss10sum, #screenCover, #popupContent').css('display','block');
+            $('#rss10sum, #screenCover, #popupContent').css('display','inline-block');
         });
     });
     sse.addEventListener('rssSum', function(message) {
@@ -269,8 +269,10 @@ $(document).ready(function() {
         message = JSON.parse(message.data);
         $('#test').html(message[0])
         if (message[0] != ''){
-            $('#alert').html(message[0]).show();
-            $('#alertMessage').html(message[1]);
+            $('#alert').html(message[0]).show().click(function(){
+            $('#alertDescription, #screenCover, #popupContent').css('display','inline-block');
+            });
+            $('#alertDescription').html(message[1]);
         } else {
             $('#alert').html(message[0]).hide();
         }
