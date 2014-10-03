@@ -55,7 +55,7 @@
     /*text-shadow: 0 0 15px #333;*/
     display: inline;
     text-align: center;
-    border:1px solid #ffffff;
+    /*border:1px solid #ffffff;*/
     position: absolute;
     left:0;
     overflow: hidden;
@@ -108,7 +108,10 @@
 }
 
 #alert {
-    color: #ff3d31;
+    margin-top:-20px;
+    color: #000;
+    text-shadow:0 0 5px black, 0 -10px 25px #ffffff, 0 10px 25px #ffffff, -10px 0 25px #ffffff, 10px 0 25px #ffffff;
+    cursor: pointer;
 }
 
 /*  --== Weather Slider ==--  */
@@ -442,26 +445,31 @@ ul.newsticker li {
 
 
 /*  --== RSS Popup ==--  */
-#popupContainer {
-    vertical-align: middle;
-    line-height: 750px;
-    text-align: center;
-}
 
 #popupContent {
     padding:5px;
     z-index: 200;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.625);
     border:3px solid rgba(0,0,0,0.75);
-    /*display:none;*/
-    font: bold 45px Code;
+    display:none;
     color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 670px;
+    max-width: 1276px;
+    min-width: 800px;
+    font: bold 45px Code;
     text-shadow: 2px 2px 5px #333;
-    margin: 0 auto;
 }
 
 #popupContent a {
     text-decoration: none;
+    color: red;
 }
 
 .rssSums {
@@ -469,22 +477,23 @@ ul.newsticker li {
     z-index: 201;
 }
 
-#alertDescription {
-    font: bold 35px Code;
+#alertDescription span {
+    font: bold 30px Code;
+    line-height: 25px;
 }
 
 #screenCover {
     position: absolute;
-    top:0;
+    top: 0;
     margin: 0 auto;
-    left:0;
-    right:0;
-    width:1280px;
-    height:800px;
-    background-color: rgba(0,0,0,0.5);
+    left: 0;
+    right: 0;
+    width: 1280px;
+    height: 800px;
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 50;
-    display:none;
-
+    display: none;
+}
 
 /*  --== Forecast Page ==--  */
 #forecastHolder {
@@ -611,37 +620,38 @@ ul.newsticker li {
 
 .teamName {
     font: bold 25px Code;
-    text-shadow: 0px 0px 8px #333;
+    text-shadow: 0 0 8px #333;
     width:280px;
     height:80px;
     border: 0 solid rgba(255,255,255,0.0);
     border-right-width: 2px;
     background: rgba(255,255,255,0.25);
     display: inline-block;
+    position: relative;
 }
 
 .logo, .text {
     display: inline-block;
     vertical-align: middle;
     line-height: 80px;
+    position: absolute;
 }
 
 .logo {
-    float:left;
-    margin-left: 2px;
-    width:80px;
-    height:80px;
+    left: 5px;
+    top:10px;
+    width:60px;
+    height:60px;
     text-align: center;
-}
-
-.logo img {
-   vertical-align: middle;
-    line-height: 80px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .text {
     text-align: center;
     width: 190px;
+    left:80px;
 }
 
 .score {
@@ -652,6 +662,10 @@ ul.newsticker li {
     position: absolute;
     right:0;
     display: inline-block;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 76px;
 }
 
 .timeLocation {
@@ -661,6 +675,16 @@ ul.newsticker li {
     position: absolute;
     right:0;
     display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 162px;
+}
+
+.timeText {
+    font-size: 20px;
+    line-height: 30px;
+    vertical-align: middle;
+    display:inline-block;
 }
 
 /*   --== App Page ==--  */
@@ -711,7 +735,6 @@ ul.newsticker li {
 
 /*  --== Extras ==--  */
 
-}
 
 #test {
     color:black;

@@ -8,6 +8,7 @@ import random
 import time
 from apscheduler.scheduler import Scheduler
 import feedparser
+import sports
 
 weather_test = 200
 on_pi = False
@@ -65,6 +66,12 @@ hourly_temps = []
 hourly_temps_old = []
 alert = []
 alert_old = []
+utah_week = []
+utah_week_old = []
+score = None
+utah_score_old = []
+utah_score = []
+
 
 if on_pi:
     import urllib2
@@ -101,7 +108,7 @@ def get_rss():
     else:
         feed_no += 1
 
-get_rss()
+#get_rss()
 rss = sched.add_interval_job(get_rss, seconds=2*60)
 
 
@@ -266,7 +273,7 @@ def day_or_night():
     else:
         day_night = 'night'
 
-check_weather()
+#check_weather()
 weather = sched.add_interval_job(check_weather, seconds=60)
 
 
@@ -285,17 +292,63 @@ rss_once = False
 day_once = False
 icon_once = False
 alert_once = False
+utah_once = False
 
+
+#     --==Sports Stuff==--
+ncaa_team_names = {'ORS': 'Oregon State', 'ASU': 'Arizona State', 'ORE': 'Oregon', 'STA': 'Stanford', 'ARI': 'Arizona',
+                   'COL': 'Colorado', 'UTH': 'Utah'}
+
+
+def utah_weekly(week):
+    global game, utah_week
+    utah_week = sports.get_utah_weekly_schedule(week)
+    game = sched.add_date_job(start_utah_scores, datetime.strptime(utah_week[3], '%Y-%m-%d %H:%M:%S'),
+                              args=[utah_week[0], utah_week[1], utah_week[2]])
+
+    for k, v in ncaa_team_names.items():
+        utah_week[1] = utah_week[1].replace(k, v)
+        utah_week[2] = utah_week[2].replace(k, v)
+
+    utah_week[3] = datetime.strptime(utah_week[3], '%Y-%m-%d %H:%M:%S').strftime('%m-%d-%Y %I:%M %p')
+    print(utah_week)
+
+
+def start_utah_scores(week, home, away):
+    global score
+    score = sched.add_interval_job(utah_scores, args=[week, home, away], seconds=30*60)
+
+
+def utah_scores(week, home, away):
+    global utah_score
+    utah_score = sports.get_boxscore(week, home, away)
+    if utah_score[0] == 'complete':
+        sched.unschedule_job(score)
+        next_game = sched.add_date_job(utah_weekly, datetime.now().replace(day=datetime.now().day+2, hour=0, minute=1,
+                                                                           second=0, microsecond=00), args=(int(week)+1))
+
+
+def utah_season():
+    utah_schedule = sports.get_utah_season_schedule()
+    for i in utah_schedule:
+        if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
+            utah_weekly(i[0])
+            break
+
+utah_season()
+# sched.print_jobs()
+
+#sched.print_jobs()
 
 #     --==Streaming Stuff==--
 def event_stream():
     global icon, forecast_day_old, forecast_cond_old, day_once, icon_once
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old, allergy_forecast_old
-    global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old, alert_once
+    global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old, alert_once, utah_week_old
+    global utah_once, utah_score_old
     yield_me = ''
     if day_night != day_night_old or day_once is False:
-        print(day_night)
         day_night_old = day_night
         day_once = True
         yield_me += 'event: dayNight\n' + 'data: ' + day_night + '\n\n'
@@ -348,9 +401,15 @@ def event_stream():
         yield_me += 'event: hourlyTemps\n' + 'data: ' + json.dumps(hourly_temps) + '\n\n'
     if alert != alert_old or alert_once is False:
         alert_old = alert
-        print(alert[0])
         alert_once = True
         yield_me += 'event: alert\n' + 'data: ' + json.dumps(alert) + '\n\n'
+    if utah_week != utah_week_old or utah_once is False:
+        utah_week_old = utah_week
+        utah_once = True
+        yield_me += 'event: utahInfo\n' + 'data: ' + json.dumps(utah_week) + '\n\n'
+    if utah_score != utah_score_old:
+        utah_score_old = utah_score
+        yield_me += 'event: utahScore\n' + 'data: ' + json.dumps(utah_score) + '\n\n'
 
     yield yield_me
 
@@ -365,11 +424,12 @@ try:
 
     @app.route('/')
     def my_form():
-        global rss_once, day_once, icon_once, alert_once
+        global rss_once, day_once, icon_once, alert_once, utah_once
         rss_once = False
         day_once = False
         icon_once = False
         alert_once = False
+        utah_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':

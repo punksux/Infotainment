@@ -49,7 +49,7 @@ $(document).ready(function() {
                                             '<li id="rss9">' + message[8].replace('#PrepareU: @Utah_Football', '') + ' - </li>'+
                                             '<li id="rss10">' + message[9].replace('#PrepareU: @Utah_Football', '') + ' </li>','reset');
         $('#rss1').click(function(){
-            $('#rss1sum, #screenCover, #popupContent').css('display','table');
+            $('#rss1sum, #screenCover, #popupContent').css('display','block');
         });
         $('#rss2').click(function(){
             $('#rss2sum, #screenCover, #popupContent').css('display','inline-block');
@@ -267,15 +267,30 @@ $(document).ready(function() {
     });
     sse.addEventListener('alert', function(message) {
         message = JSON.parse(message.data);
-        $('#test').html(message[0])
+
         if (message[0] != ''){
             $('#alert').html(message[0]).show().click(function(){
             $('#alertDescription, #screenCover, #popupContent').css('display','inline-block');
             });
-            $('#alertDescription').html(message[1]);
+            $('#alertDescription').html('<pre><span>' + message[1] + '</span></pre>');
         } else {
             $('#alert').html(message[0]).hide();
         }
+    });
+    sse.addEventListener('utahInfo', function(message) {
+        message = JSON.parse(message.data);
+        $('#test').html(message[3]);
+        $('div#utah div.home .text').html(message[1]);
+        $('div#utah div.away .text').html(message[2]);
+        $('div#utah div.home .logo').css('background-image', 'url(/static/images/' + message[1] + '.png)');
+        $('div#utah div.away .logo').css('background-image', 'url(/static/images/' + message[2] + '.png)');
+        $('div#utah .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
+    });
+    sse.addEventListener('utahScore', function(message) {
+        message = JSON.parse(message.data);
+        $('div#utah div.home .score').html(message[3]);
+        $('div#utah div.away .score').html(message[4]);
+        $('div#utah .timeText').html(message[1] + '<br />' + message[2]);
     });
 
     skycons.play();

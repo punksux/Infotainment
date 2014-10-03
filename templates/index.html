@@ -59,10 +59,10 @@ function checkTime(i) {
 
 <div id="content" class="tabcontents">
     <ul id="tabList" class="tabs">
-            <li class="selected"><a href="#view1">Home</a></li>
+            <li ><a href="#view1">Home</a></li>
             <li ><a href="#view2">Forecast</a></li>
             <li><a href="#view3">Music</a></li>
-            <li ><a href="#view4">Sports</a></li>
+            <li class="selected"><a href="#view4">Sports</a></li>
             <li ><a href="#view5">Apps</a></li>
          </ul>
 
@@ -81,7 +81,7 @@ function checkTime(i) {
             <div id="inLabel">Inside Temp</div>
             <div id="inTemp">72</div><span>°</span>
         </div>
-    <div id="alert">Hot</div>
+    <div id="alert"></div>
     </div>
 
 
@@ -197,7 +197,7 @@ function checkTime(i) {
                     <div class="matchup">
                         <div class="home">
                             <div class="teamName">
-                                <div class="logo"><img src="/static/images/utah.png" height="60px"></div>
+                                <div class="logo"></div>
                                 <div class="text">Utah Utes</div>
                             </div>
                             <div class="score"></div>
@@ -210,7 +210,9 @@ function checkTime(i) {
                             <div class="score"></div>
                         </div>
                     </div>
-                    <div class="timeLocation"></div>
+                    <div class="timeLocation">
+                        <div class="timeText"></div>
+                    </div>
                 </div>
                 <div id="rsl" class="teamScores">
                     <div class="matchup">
@@ -293,17 +295,13 @@ function checkTime(i) {
 
 <!--    ** RSS Popup **    -->
     <div id="screenCover"></div>
-    <div id="popupContainer">
-        <div id="popupContent">
-            {% for x in range(1,11) %}
-            <div id="rss{{ x }}sum" class="rssSums">aaaaaaa</div>{% endfor %}
-            <div id="alertDescription" class="rssSums">
-        </div>
+    <div id="popupContent">
+        {% for x in range(1,11) %}
+        <div id="rss{{ x }}sum" class="rssSums">aaaaaaa</div>{% endfor %}
+        <div id="alertDescription" class="rssSums"></div>
     </div>
 
-</div>
-
-<script>
+    <script>
         $('#popupContent').click(function(){
             $('.rssSums, #popupContent, #screenCover').css('display','none');
         });
@@ -311,8 +309,9 @@ function checkTime(i) {
             $('.rssSums, #popupContent, #screenCover').css('display','none');
         });
     </script>
-
+</div>
 <div id="test">poo</div>
 <div id="test2">poo</div>
+
 </body>
 </html>
