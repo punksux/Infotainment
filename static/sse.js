@@ -279,11 +279,10 @@ $(document).ready(function() {
     });
     sse.addEventListener('utahInfo', function(message) {
         message = JSON.parse(message.data);
-        $('#test').html(message[3]);
         $('div#utah div.home .text').html(message[1]);
         $('div#utah div.away .text').html(message[2]);
-        $('div#utah div.home .logo').css('background-image', 'url(/static/images/' + message[1] + '.png)');
-        $('div#utah div.away .logo').css('background-image', 'url(/static/images/' + message[2] + '.png)');
+        $('div#utah div.home .logo').css('background-image', 'url("/static/images/ncaa/' + message[1] + '.png")');
+        $('div#utah div.away .logo').css('background-image', 'url("/static/images/ncaa/' + message[2] + '.png")');
         $('div#utah .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
     });
     sse.addEventListener('utahScore', function(message) {
@@ -292,6 +291,30 @@ $(document).ready(function() {
         $('div#utah div.away .score').html(message[4]);
         $('div#utah .timeText').html(message[1] + '<br />' + message[2]);
     });
+    var sf_info, kc_info;
+    sse.addEventListener('sfInfo', function(message) {
+        message = JSON.parse(message.data);
+        sf_info = message;
+        $('div#49ers div.home .text').html(message[1]);
+        $('div#49ers div.away .text').html(message[2]);
+        $('div#49ers div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1] + '.png")');
+        $('div#49ers div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2] + '.png")');
+        $('div#49ers .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
+    });
+    sse.addEventListener('kcInfo', function(message) {
+        message = JSON.parse(message.data);
+        kc_info = message;
+        $('div#kc div.home .text').html(message[1]);
+        $('div#kc div.away .text').html(message[2]);
+        $('div#kc div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1] + '.png")');
+        $('div#kc div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2] + '.png")');
+        $('div#kc .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
+    });
+    if (sf_info === kc_info){
+        $('div#kc').hide();
+    } else {
+        $('div#kc').show();
+    }
 
     skycons.play();
 });

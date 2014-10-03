@@ -68,9 +68,19 @@ alert = []
 alert_old = []
 utah_week = []
 utah_week_old = []
-score = None
+utah_score_sched = None
+sf_score_sched = None
+kc_score_sched = None
 utah_score_old = []
 utah_score = []
+sf_week = []
+sf_week_old = []
+kc_week = []
+kc_week_old = []
+sf_score = []
+kc_score = []
+sf_score_old = []
+kc_score_old = []
 
 
 if on_pi:
@@ -288,57 +298,95 @@ def get_temps_from_probes():
 get_temps_from_probes()
 temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 
+#     --==Sports Stuff==--
+ncaa_team_names = {'ORS': 'Oregon State', 'ASU': 'Arizona State', 'ORE': 'Oregon', 'STA': 'Stanford', 'ARI': 'Arizona',
+                   'COL': 'Colorado', 'UTH': 'Utah'}
+nfl_team_names = {'SF': 'San Francisco', 'KC': 'Kansas City', 'DAL': 'Dallas', 'CHI': 'Chicago', 'ARI': 'Arizona',
+                  'PHI': 'Philidelphia', 'STL': 'St. Louis', 'DEN': 'Denver', 'NO': 'New Orleans', 'NYG': 'New York',
+                  'WAS': 'Washington', 'SEA': 'Seattle', 'OAK': 'Oakland', 'SD': 'San Diego'}
+
+
+def football_weekly(week, team):
+    global game, utah_week, sf_week, kc_week
+    week_sched = sports.get_weekly_schedule(week, team)
+    game = sched.add_date_job(start_football_scores, datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S'),
+                              args=[week_sched[0], week_sched[1], week_sched[2]])
+
+    week_sched[3] = datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d %I:%M %p')
+    if team == 'UTH':
+        utah_week = week_sched
+        for k, v in ncaa_team_names.items():
+            utah_week[1] = utah_week[1].replace(k, v)
+            utah_week[2] = utah_week[2].replace(k, v)
+    elif team == 'SF':
+        sf_week = week_sched
+        for k, v in nfl_team_names.items():
+            sf_week[1] = sf_week[1].replace(k, v)
+            sf_week[2] = sf_week[2].replace(k, v)
+    elif team == 'KC':
+        kc_week = week_sched
+        for k, v in nfl_team_names.items():
+            kc_week[1] = kc_week[1].replace(k, v)
+            kc_week[2] = kc_week[2].replace(k, v)
+
+
+def start_football_scores(week, home, away):
+    global utah_score_sched, sf_score_sched, kc_score_sched
+    if home == 'UTH' or away == 'UTH':
+        utah_score_sched = sched.add_interval_job(football_scores, args=[week, home, away], seconds=30*60)
+    elif home == 'SF' or away == 'SF':
+        sf_score_sched = sched.add_interval_job(football_scores, args=[week, home, away], seconds=30*60)
+    elif home == 'KC' or away == 'KC':
+        kc_score_sched = sched.add_interval_job(football_scores, args=[week, home, away], seconds=30*60)
+
+
+def football_scores(week, home, away):
+    global utah_score, sf_score, kc_score
+    football_score = sports.get_boxscore(week, home, away)
+
+    if home == 'UTH' or away == 'UTH':
+        utah_score = football_score
+    elif home == 'SF' or away == 'SF':
+        sf_score = football_score
+    elif home == 'KC' or away == 'KC':
+        kc_score = football_score
+
+    if utah_score[0] == 'complete':
+        sched.unschedule_job(utah_score_sched)
+        next_game = sched.add_date_job(football_weekly, datetime.now().replace(day=datetime.now().day+2, hour=0,
+                                                                               minute=1, second=0, microsecond=00),
+                                       args={(int(week)+1), 'UTH'})
+    elif sf_score[0] == 'complete':
+        sched.unschedule_job(sf_score_sched)
+        next_game = sched.add_date_job(football_weekly, datetime.now().replace(day=datetime.now().day+2, hour=0,
+                                                                               minute=1, second=0, microsecond=00),
+                                       args={(int(week)+1), 'SF'})
+    elif kc_score[0] == 'complete':
+        sched.unschedule_job(kc_score_sched)
+        next_game = sched.add_date_job(football_weekly, datetime.now().replace(day=datetime.now().day+2, hour=0,
+                                                                               minute=1, second=0, microsecond=00),
+                                       args={(int(week)+1), 'KC'})
+
+
+def football_season():
+    teams = ['UTH', 'SF', 'KC']
+    for t in teams:
+        schedule = sports.get_season_schedule(t)
+        for i in schedule:
+            if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
+                football_weekly(i[0], t)
+                break
+
+football_season()
+#sched.print_jobs()
+
 rss_once = False
 day_once = False
 icon_once = False
 alert_once = False
 utah_once = False
-
-
-#     --==Sports Stuff==--
-ncaa_team_names = {'ORS': 'Oregon State', 'ASU': 'Arizona State', 'ORE': 'Oregon', 'STA': 'Stanford', 'ARI': 'Arizona',
-                   'COL': 'Colorado', 'UTH': 'Utah'}
-
-
-def utah_weekly(week):
-    global game, utah_week
-    utah_week = sports.get_utah_weekly_schedule(week)
-    game = sched.add_date_job(start_utah_scores, datetime.strptime(utah_week[3], '%Y-%m-%d %H:%M:%S'),
-                              args=[utah_week[0], utah_week[1], utah_week[2]])
-
-    for k, v in ncaa_team_names.items():
-        utah_week[1] = utah_week[1].replace(k, v)
-        utah_week[2] = utah_week[2].replace(k, v)
-
-    utah_week[3] = datetime.strptime(utah_week[3], '%Y-%m-%d %H:%M:%S').strftime('%m-%d-%Y %I:%M %p')
-    print(utah_week)
-
-
-def start_utah_scores(week, home, away):
-    global score
-    score = sched.add_interval_job(utah_scores, args=[week, home, away], seconds=30*60)
-
-
-def utah_scores(week, home, away):
-    global utah_score
-    utah_score = sports.get_boxscore(week, home, away)
-    if utah_score[0] == 'complete':
-        sched.unschedule_job(score)
-        next_game = sched.add_date_job(utah_weekly, datetime.now().replace(day=datetime.now().day+2, hour=0, minute=1,
-                                                                           second=0, microsecond=00), args=(int(week)+1))
-
-
-def utah_season():
-    utah_schedule = sports.get_utah_season_schedule()
-    for i in utah_schedule:
-        if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
-            utah_weekly(i[0])
-            break
-
-utah_season()
-# sched.print_jobs()
-
-#sched.print_jobs()
+sf_once = False
+kc_once = False
 
 #     --==Streaming Stuff==--
 def event_stream():
@@ -346,7 +394,7 @@ def event_stream():
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old, allergy_forecast_old
     global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old, alert_once, utah_week_old
-    global utah_once, utah_score_old
+    global utah_once, utah_score_old, sf_week_old, kc_week_old, sf_once, kc_once, sf_score_old, kc_score_old
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         day_night_old = day_night
@@ -410,6 +458,20 @@ def event_stream():
     if utah_score != utah_score_old:
         utah_score_old = utah_score
         yield_me += 'event: utahScore\n' + 'data: ' + json.dumps(utah_score) + '\n\n'
+    if sf_week != sf_week_old or sf_once is False:
+        sf_week_old = sf_week
+        sf_once = True
+        yield_me += 'event: sfInfo\n' + 'data: ' + json.dumps(sf_week) + '\n\n'
+    if sf_score != sf_score_old:
+        sf_score_old = sf_score
+        yield_me += 'event: sfScore\n' + 'data: ' + json.dumps(sf_score) + '\n\n'
+    if kc_week != kc_week_old or kc_once is False:
+        kc_week_old = kc_week
+        kc_once = True
+        yield_me += 'event: kcInfo\n' + 'data: ' + json.dumps(kc_week) + '\n\n'
+    if kc_score != kc_score_old:
+        kc_score_old = kc_score
+        yield_me += 'event: kcScore\n' + 'data: ' + json.dumps(kc_score) + '\n\n'
 
     yield yield_me
 
@@ -424,12 +486,14 @@ try:
 
     @app.route('/')
     def my_form():
-        global rss_once, day_once, icon_once, alert_once, utah_once
+        global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once
         rss_once = False
         day_once = False
         icon_once = False
         alert_once = False
         utah_once = False
+        sf_once = False
+        kc_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':
