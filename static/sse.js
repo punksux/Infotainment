@@ -284,6 +284,11 @@ $(document).ready(function() {
         $('div#utah div.home .logo').css('background-image', 'url("/static/images/ncaa/' + message[1] + '.png")');
         $('div#utah div.away .logo').css('background-image', 'url("/static/images/ncaa/' + message[2] + '.png")');
         $('div#utah .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
+        if (message[2] === 'BYE'){
+            $('div#utah').hide();
+        } else {
+            $('div#utah').show();
+        }
     });
     sse.addEventListener('utahScore', function(message) {
         message = JSON.parse(message.data);
@@ -291,7 +296,8 @@ $(document).ready(function() {
         $('div#utah div.away .score').html(message[4]);
         $('div#utah .timeText').html(message[1] + '<br />' + message[2]);
     });
-    var sf_info, kc_info;
+    var sf_info = [];
+    var kc_info = [];
     sse.addEventListener('sfInfo', function(message) {
         message = JSON.parse(message.data);
         sf_info = message;
@@ -300,6 +306,11 @@ $(document).ready(function() {
         $('div#49ers div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1] + '.png")');
         $('div#49ers div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2] + '.png")');
         $('div#49ers .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
+        if (message[2] === 'BYE'){
+            $('div#49ers').hide();
+        } else {
+            $('div#49ers').show();
+        }
     });
     sse.addEventListener('kcInfo', function(message) {
         message = JSON.parse(message.data);
@@ -310,11 +321,11 @@ $(document).ready(function() {
         $('div#kc div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2] + '.png")');
         $('div#kc .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
     });
-    if (sf_info === kc_info){
-        $('div#kc').hide();
-    } else {
-        $('div#kc').show();
-    }
+        if (sf_info === kc_info || kc_info[2]=== 'BYE'){
+            $('div#kc').hide();
+        } else {
+            $('div#kc').show();
+        }
     sse.addEventListener('rslInfo', function(message) {
         message = JSON.parse(message.data);
         $('div#rsl div.home .text').html(message[1]);

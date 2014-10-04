@@ -102,16 +102,24 @@ def get_boxscore(week, home, away):
 
     if home == 'UTH' or away == 'UTH':
         website = 'boxscore.json'
+        website = ncaa_boxscore_website
     else:
         website = 'nfl_boxscore.json'
 
-    f = open(website)
+    print(website)
+    f = urlopen(website)
     json_string = f.read()
-    parsed_json = json.loads(json_string.replace("O'", "O"))
+    parsed_json = json.loads(json_string.decode("utf-8"))
 
     status = parsed_json['status']
-    quarter = parsed_json['quarter']
-    clock = parsed_json['clock']
+    if 'quarter' in parsed_json:
+        quarter = parsed_json['quarter']
+    else:
+        quarter = ''
+    if 'clock' in parsed_json:
+        clock = parsed_json['clock']
+    else:
+        clock = ''
     home_points = parsed_json['home_team']['points']
     away_points = parsed_json['away_team']['points']
 
@@ -125,12 +133,13 @@ def get_boxscore(week, home, away):
 #     --== Soccer ==--
 def get_soccer_season():
     global website
-    ncaa_season_website = 'http://api.sportsdatallc.org/soccer-t2/na/matches/schedule.xml?' \
-                          'api_key=q57zpdq4d7mvmtns4uxk92f8 '
+    mls_season_website = 'http://api.sportsdatallc.org/soccer-t2/na/matches/schedule.xml?' \
+                         'api_key=q57zpdq4d7mvmtns4uxk92f8 '
 
     schedule = []
     f = ET.parse('mls_season_sched.xml')
     items = f.getroot()
+
 
     for i in items[0]:
         if i[3].attrib['alias'] == 'SAL' or i[4].attrib['alias'] == 'SAL':
@@ -152,27 +161,25 @@ def get_soccer_season():
 
 def soccer_scores(game_id):
     global website
-    ncaa_season_website = 'http://api.sportsdatallc.org/soccer-t2/na/matches/schedule.xml?' \
-                          'api_key=q57zpdq4d7mvmtns4uxk92f8 '
+    mls_boxscore_website = 'http://api.sportsdatallc.org/soccer-t2/na/matches/%s/boxscore.xml?' \
+                           'api_key=q57zpdq4d7mvmtns4uxk92f8' % game_id
 
     schedule = []
-    f = ET.parse('mls_season_sched.xml')
+    f = ET.parse('mls_boxscore.xml')
     items = f.getroot()
 
-    for i in items[0]:
-        if i[3].attrib['alias'] == 'SAL' or i[4].attrib['alias'] == 'SAL':
-            match_id = i.attrib['id']
-            home = i[3].attrib['name']
-            away = i[4].attrib['name']
-            time = datetime.strptime(i.attrib['scheduled'], '%Y-%m-%dT%H:%M:%SZ')
-            time -= timedelta(hours=6)
-            time = time.strftime('%Y-%m-%d %H:%M:%S')
-            status = i.attrib['status']
-            if 'name' in i[5].attrib:
-                venue = i[5].attrib['name']
-            else:
-                venue = ''
-            schedule.append([match_id, home, away, time, status, venue])
+    if 'score' in items[0][0][5].attrib:
+        home_points = items[0][0][5].attrib['score']
+    else:
+        home_points = '0'
+    if 'score' in items[0][0][6].attrib:
+        away_points = items[0][0][6].attrib['score']
+    else:
+        away_points = '0'
+    status = items[0][0].attrib['status']
+    period = items[0][0].attrib['period']
 
-    return schedule
-#print(str(get_soccer_season()).replace('],', ']\n'))
+    scores = [status, period, home_points, away_points]
+
+    return scores
+

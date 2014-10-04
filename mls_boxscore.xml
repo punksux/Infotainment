@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<boxscore generated="2014-10-04T18:33:13Z" xmlns="http://feed.elasticstats.com/schema/soccer/sr/v2/matches-boxscore.xsd">
+  <matches>
+    <match id="bda96008-743b-4842-8d57-47e0a4ca0055" status="scheduled" scratched="false" season_id="4f1fd8dd-6332-4dc4-a951-acc8e72acc76" period="" scheduled="2014-10-05T23:00:00Z">
+      <coverage lineups="0" tactical_lineups="true" corner_facts="true" extended_facts="true" deep_facts="true" statistics="true"/>
+      <category id="dfc18161-31f9-4fca-8d6b-8d6df641c6fc" name="USA" country_code="USA" country="United States"/>
+      <tournament_group id="b4360831-aaa9-46a4-8319-62006d308eb6" name="Major League Soccer"/>
+      <tournament id="cdc8c40c-684a-4dfa-980d-a54e18231574" name="Major League Soccer" season_id="4f1fd8dd-6332-4dc4-a951-acc8e72acc76"/>
+      <round week="40" number="1" type="table"/>
+      <home id="7acfe02f-86bf-4333-8e8e-9449fbaa17df" name="Chivas USA" alias="CVS" country_code="USA" country="United States" type="team" formation=""/>
+      <away id="b78b9f61-0697-4347-a1b6-b7685a130eb1" name="Real Salt Lake" alias="SAL" country_code="USA" country="United States" type="team" formation=""/>
+      <venue id="cd4298d7-d420-45c3-9167-42432fc7d72d" name="StubHub Center" country_code="USA" city="Los Angeles" capacity="27000" country="United States" coordinates="33.864444,-118.261111"/>
+      <!-- 4761202/5132/5133 -->
+    </match>
+  </matches>
+</boxscore>
