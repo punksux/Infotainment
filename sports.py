@@ -149,4 +149,30 @@ def get_soccer_season():
 
     return schedule
 
+
+def soccer_scores(game_id):
+    global website
+    ncaa_season_website = 'http://api.sportsdatallc.org/soccer-t2/na/matches/schedule.xml?' \
+                          'api_key=q57zpdq4d7mvmtns4uxk92f8 '
+
+    schedule = []
+    f = ET.parse('mls_season_sched.xml')
+    items = f.getroot()
+
+    for i in items[0]:
+        if i[3].attrib['alias'] == 'SAL' or i[4].attrib['alias'] == 'SAL':
+            match_id = i.attrib['id']
+            home = i[3].attrib['name']
+            away = i[4].attrib['name']
+            time = datetime.strptime(i.attrib['scheduled'], '%Y-%m-%dT%H:%M:%SZ')
+            time -= timedelta(hours=6)
+            time = time.strftime('%Y-%m-%d %H:%M:%S')
+            status = i.attrib['status']
+            if 'name' in i[5].attrib:
+                venue = i[5].attrib['name']
+            else:
+                venue = ''
+            schedule.append([match_id, home, away, time, status, venue])
+
+    return schedule
 #print(str(get_soccer_season()).replace('],', ']\n'))

@@ -315,7 +315,14 @@ $(document).ready(function() {
     } else {
         $('div#kc').show();
     }
-
+    sse.addEventListener('rslInfo', function(message) {
+        message = JSON.parse(message.data);
+        $('div#rsl div.home .text').html(message[1]);
+        $('div#rsl div.away .text').html(message[2]);
+        $('div#rsl div.home .logo').css('background-image', 'url("/static/images/mls/' + message[1] + '.png")');
+        $('div#rsl div.away .logo').css('background-image', 'url("/static/images/mls/' + message[2] + '.png")');
+        $('div#rsl .timeText').html(message[3] + '<br />' + message[5]);
+    });
     skycons.play();
 });
 

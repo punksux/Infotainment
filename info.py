@@ -10,7 +10,7 @@ from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
 
-weather_test = 200
+weather_test = 100
 on_pi = False
 location = 84123
 icon = ""
@@ -71,6 +71,7 @@ utah_week_old = []
 utah_score_sched = None
 sf_score_sched = None
 kc_score_sched = None
+soccer_score = None
 utah_score_old = []
 utah_score = []
 sf_week = []
@@ -81,7 +82,10 @@ sf_score = []
 kc_score = []
 sf_score_old = []
 kc_score_old = []
-
+rsl_week = []
+rsl_week_old = []
+rsl_score = []
+rsl_score_old = []
 
 if on_pi:
     import urllib2
@@ -312,7 +316,7 @@ def football_weekly(week, team):
     game = sched.add_date_job(start_football_scores, datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S'),
                               args=[week_sched[0], week_sched[1], week_sched[2]])
 
-    week_sched[3] = datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d %I:%M %p')
+    week_sched[3] = datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
     if team == 'UTH':
         utah_week = week_sched
         for k, v in ncaa_team_names.items():
@@ -380,11 +384,24 @@ def football_season():
 football_season()
 
 
+def soccer_scores(game_id):
+    global rsl_score
+    rsl_score = sports.soccer_scores(game_id)
+    if rsl_score[4] == 'complete':
+        sched.unschedule_job(soccer_score)
+        soccer_next_game = sched.add_date_job(soccer_season, datetime.now().replace(day=datetime.now().day+2, hour=0,
+                                                                                    minute=1, second=0, microsecond=00))
+
+
 def soccer_season():
+    global rsl_week, soccer_score
     schedule = sports.get_soccer_season()
     for i in schedule:
             if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
-                print(i)
+                rsl_week = i
+                soccer_score = sched.add_interval_job(soccer_scores, args=i[0], seconds=30*60,
+                                                      start_date=datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S'))
+                rsl_week[3] = datetime.strptime(rsl_week[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
                 break
 
 soccer_season()
@@ -397,6 +414,7 @@ alert_once = False
 utah_once = False
 sf_once = False
 kc_once = False
+rsl_once = False
 
 #     --==Streaming Stuff==--
 def event_stream():
@@ -405,6 +423,7 @@ def event_stream():
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old, allergy_forecast_old
     global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old, alert_once, utah_week_old
     global utah_once, utah_score_old, sf_week_old, kc_week_old, sf_once, kc_once, sf_score_old, kc_score_old
+    global rsl_week_old, rsl_once, rsl_score_old
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         day_night_old = day_night
@@ -482,6 +501,14 @@ def event_stream():
     if kc_score != kc_score_old:
         kc_score_old = kc_score
         yield_me += 'event: kcScore\n' + 'data: ' + json.dumps(kc_score) + '\n\n'
+    if rsl_week != rsl_week_old or rsl_once is False:
+        rsl_week_old = rsl_week
+        print(rsl_week)
+        rsl_once = True
+        yield_me += 'event: rslInfo\n' + 'data: ' + json.dumps(rsl_week) + '\n\n'
+    if rsl_score != rsl_score_old:
+        rsl_score_old = rsl_score
+        yield_me += 'event: rslScore\n' + 'data: ' + json.dumps(rsl_score) + '\n\n'
 
     yield yield_me
 
@@ -496,7 +523,7 @@ try:
 
     @app.route('/')
     def my_form():
-        global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once
+        global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once, rsl_once
         rss_once = False
         day_once = False
         icon_once = False
@@ -504,6 +531,7 @@ try:
         utah_once = False
         sf_once = False
         kc_once = False
+        rsl_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':
