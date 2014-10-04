@@ -378,6 +378,16 @@ def football_season():
                 break
 
 football_season()
+
+
+def soccer_season():
+    schedule = sports.get_soccer_season()
+    for i in schedule:
+            if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
+                print(i)
+                break
+
+soccer_season()
 #sched.print_jobs()
 
 rss_once = False
