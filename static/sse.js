@@ -11,6 +11,7 @@ $(document).ready(function() {
             dayOrNight = 'day'
         }
     });
+
     sse.addEventListener('outTemp', function(message) {
         jQuery({someValue: $('#outTemp').html()}).animate({someValue: message.data}, {
             duration: 1000,
@@ -286,53 +287,53 @@ $(document).ready(function() {
         $('div#utah .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
         if (message[2] === 'BYE'){
             $('div#utah').hide();
+            $('div#utahCover').hide();
         } else {
             $('div#utah').show();
+            $('div#utahCover').show();
         }
     });
     sse.addEventListener('utahScore', function(message) {
         message = JSON.parse(message.data);
         $('div#utah div.home .score').html(message[3]);
         $('div#utah div.away .score').html(message[4]);
-        $('div#utah .timeText').html(message[1] + '<br />' + message[2]);
+        $('div#utah .timeText').html('Quarter: ' + message[1] + '<br />' + 'Clock: ' + message[2]);
     });
-//    I don't know why this doesnt work\/ \/ \/
-    var sf_info = ['','','','','',''];
-    var kc_info = [];
+    var sf_info = '';
+    var kc_info = '';
     sse.addEventListener('sfInfo', function(message) {
         message = JSON.parse(message.data);
-        var i;
-        for(i=0;i<6;i++) {
-            sf_info[i] = message[i];
-        }
+        sf_info = message[1];
         $('div#49ers div.home .text').html(message[1]);
         $('div#49ers div.away .text').html(message[2]);
-        $('div#49ers div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1] + '.png")');
-        $('div#49ers div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2] + '.png")');
+        $('div#49ers div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1].replace('.', '') + '.png")');
+        $('div#49ers div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2].replace('.', '') + '.png")');
         $('div#49ers .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
         if (message[2] === 'BYE'){
             $('div#49ers').hide();
+            $('div#49ersCover').hide();
         } else {
             $('div#49ers').show();
+            $('div#49ersCover').show();
         }
 
     });
-    $('#test').html(sf_info);
     sse.addEventListener('kcInfo', function(message) {
         message = JSON.parse(message.data);
-        kc_info = message.data.clone();
+        kc_info = message[1];
         $('div#kc div.home .text').html(message[1]);
         $('div#kc div.away .text').html(message[2]);
         $('div#kc div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1] + '.png")');
         $('div#kc div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2] + '.png")');
         $('div#kc .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
+        if (sf_info === kc_info || message[2] === "BYE"){
+            $('div#kc').hide();
+            $('div#kcCover').hide();
+        } else {
+            $('div#kc').show();
+            $('div#kcCover').show();
+        }
     });
-
-    if (sf_info === kc_info || kc_info[2] === 'BYE'){
-        $('div#kc').hide();
-    } else {
-        $('div#kc').show();
-    }
     sse.addEventListener('rslInfo', function(message) {
         message = JSON.parse(message.data);
         $('div#rsl div.home .text').html(message[1]);
@@ -345,8 +346,27 @@ $(document).ready(function() {
         message = JSON.parse(message.data);
         var i;
         for(i=0;i<25;i+=1) {
-            $('div#sportsInfo tr:nth-child(' + (i+1) + ') td:nth-child(2)').html(message[i][0]);
-            $('div#sportsInfo tr:nth-child(' + (i+1) + ') td:nth-child(3)').html(message[i][1] + ' - ' + message[i][2]);
+            $('table#ncaaRankings tr:nth-child(' + (i+1) + ') td:nth-child(2)').html(message[i][0]);
+            $('table#ncaaRankings tr:nth-child(' + (i+1) + ') td:nth-child(3)').html(message[i][1] + ' - ' + message[i][2]);
+        }
+    });
+    sse.addEventListener('pac12Standings', function(message) {
+        message = JSON.parse(message.data);
+        var i;
+        var j = 2;
+        for(i=0;i<12;i+=1) {
+            if (i > 5){j=3}
+            $('table#pac12Standings tr:nth-child(' + (i+j) + ') td:nth-child(1)').html(message[i][0]);
+            $('table#pac12Standings tr:nth-child(' + (i+j) + ') td:nth-child(2)').html(message[i][2] + ' - ' + message[i][3]);
+            $('table#pac12Standings tr:nth-child(' + (i+j) + ') td:nth-child(3)').html(message[i][4] + ' - ' + message[i][5]);
+        }
+    });
+    sse.addEventListener('soccerStandings', function(message) {
+        message = JSON.parse(message.data);
+        var i;
+        for(i=0;i<19;i+=1) {
+            $('table#mlsStandings tr:nth-child(' + (i+2) + ') td:nth-child(2)').html(message[i][0]);
+            $('table#mlsStandings tr:nth-child(' + (i+2) + ') td:nth-child(3)').html(message[i][1] + ' - ' + message[i][2] + ' - ' + message[i][3]);
         }
     });
     skycons.play();

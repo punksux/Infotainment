@@ -193,6 +193,7 @@ function checkTime(i) {
     <div id="view4">
         <div id="sportsContainer">
             <div id="scoresContainer">
+                <div id="utahCover" class="scoreCover"></div>
                 <div id="utah" class="teamScores">
                     <div class="matchup">
                         <div class="home">
@@ -214,6 +215,7 @@ function checkTime(i) {
                         <div class="timeText"></div>
                     </div>
                 </div>
+                <div id="rslCover" class="scoreCover"></div>
                 <div id="rsl" class="teamScores">
                     <div class="matchup">
                         <div class="home">
@@ -235,6 +237,7 @@ function checkTime(i) {
                         <div class="timeText"></div>
                     </div>
                 </div>
+                <div id="49ersCover" class="scoreCover"></div>
                 <div id="49ers" class="teamScores">
                     <div class="matchup">
                         <div class="home">
@@ -256,6 +259,7 @@ function checkTime(i) {
                         <div class="timeText"></div>
                     </div>
                 </div>
+                <div id="kcCover" class="scoreCover"></div>
                 <div id="kc" class="teamScores">
                     <div class="matchup">
                         <div class="home">
@@ -278,7 +282,38 @@ function checkTime(i) {
                     </div>
                 </div>
             </div>
+            <script>
+                $('#utahCover').click(function(){
+                    $('#mlsStandings').hide();
+                    $('#pac12Standings').toggle();
+                    $('#ncaaRankings').toggle();
+
+                });
+                $('#rslCover').click(function(){
+                    $('#pac12Standings').hide();
+                    $('#ncaaRankings').hide();
+                    $('#mlsStandings').toggle();
+                })
+            </script>
+
+
             <div id="sportsInfo">
+                <table id="pac12Standings">
+                    <tr><th height="35px"> Pac 12 North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><td>5</td><td></td><td></td></tr>
+                    <tr><td>6</td><td></td><td></td></tr>
+                    <tr><th height="35px"> Pac 12 South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><td>5</td><td></td><td></td></tr>
+                    <tr><td>6</td><td></td><td></td></tr>
+                </table>
                 <table id="ncaaRankings">
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
@@ -305,6 +340,28 @@ function checkTime(i) {
                     <tr><td>23</td><td></td><td></td></tr>
                     <tr><td>24</td><td></td><td></td></tr>
                     <tr><td>25</td><td></td><td></td></tr>
+                </table>
+                <table id="mlsStandings">
+                    <tr><th></th><th>MLS Standings</th><th class="smallHeader">W - D - L</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><td>5</td><td></td><td></td></tr>
+                    <tr><td>6</td><td></td><td></td></tr>
+                    <tr><td>7</td><td></td><td></td></tr>
+                    <tr><td>8</td><td></td><td></td></tr>
+                    <tr><td>9</td><td></td><td></td></tr>
+                    <tr><td>10</td><td></td><td></td></tr>
+                    <tr><td>11</td><td></td><td></td></tr>
+                    <tr><td>12</td><td></td><td></td></tr>
+                    <tr><td>13</td><td></td><td></td></tr>
+                    <tr><td>14</td><td></td><td></td></tr>
+                    <tr><td>15</td><td></td><td></td></tr>
+                    <tr><td>16</td><td></td><td></td></tr>
+                    <tr><td>17</td><td></td><td></td></tr>
+                    <tr><td>18</td><td></td><td></td></tr>
+                    <tr><td>19</td><td></td><td></td></tr>
                 </table>
             </div>
         </div>

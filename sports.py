@@ -29,7 +29,7 @@ def get_season_schedule(team):
         for j in range(0, len(parsed_json['weeks'][i]['games'])):
             if parsed_json['weeks'][i]['games'][j]['away'] == team or \
                parsed_json['weeks'][i]['games'][j]['home'] == team:
-                week = str(parsed_json['weeks'][i]['number'])
+                week = parsed_json['weeks'][i]['number']
                 home = parsed_json['weeks'][i]['games'][j]['home']
                 away = parsed_json['weeks'][i]['games'][j]['away']
                 time = datetime.strptime(parsed_json['weeks'][i]['games'][j]['scheduled'].split('+')[0],
@@ -49,13 +49,13 @@ def get_season_schedule(team):
                                      '%Y-%m-%dT%H:%M:%S')
             time -= timedelta(hours=6)
             time = time.strftime('%Y-%m-%d %H:%M:%S')
-            schedule.append([str(parsed_json['weeks'][i]['number']), team, 'BYE', time, '', '', ''])
+            schedule.append([parsed_json['weeks'][i]['number'], team, 'BYE', time, '', '', ''])
     f.close()
     return schedule
 
 
 def get_weekly_schedule(week, team):
-    global website
+    global website, week_sched
     ncaa_weekly_website = 'http://api.sportsdatallc.org/ncaafb-t1/%s/REG/%s/schedule.json?' \
                           'api_key=qnhb46ta6f9rzezkfjy7r4n5' % (datetime.now().year, week)
 
@@ -69,32 +69,34 @@ def get_weekly_schedule(week, team):
         website = 'nfl_week_sched.json'
         #website = nfl_season_website
 
-    week = []
+    week_sched = []
     f = open(website)
     json_string = f.read()
     parsed_json = json.loads(json_string.replace("O'", "O"))
     #parsed_json = json.loads(json_string.decode('utf-8'))
-
+    print(str(team))
     for j in range(0, len(parsed_json['games'])):
-            if parsed_json['games'][j]['away'] == team or \
-               parsed_json['games'][j]['home'] == team:
-                week = parsed_json['number']
-                home = parsed_json['games'][j]['home']
-                away = parsed_json['games'][j]['away']
-                time = datetime.strptime(parsed_json['games'][j]['scheduled'].split('+')[0],
-                                         '%Y-%m-%dT%H:%M:%S')
-                time -= timedelta(hours=6)
-                time = time.strftime('%Y-%m-%d %H:%M:%S')
-                status = parsed_json['games'][j]['status']
-                venue = parsed_json['games'][j]['venue']['name']
-                if 'broadcast' in parsed_json['games'][j]:
-                    tv = parsed_json['games'][j]['broadcast']['network']
-                else:
-                    tv = ''
-                week = [week, home, away, time, status, venue, tv]
+        if parsed_json['games'][j]['away'] == team or parsed_json['games'][j]['home'] == team:
+            week = parsed_json['number']
+            home = parsed_json['games'][j]['home']
+            away = parsed_json['games'][j]['away']
+            time = datetime.strptime(parsed_json['games'][j]['scheduled'].split('+')[0],
+                                     '%Y-%m-%dT%H:%M:%S')
+            time -= timedelta(hours=6)
+            time = time.strftime('%Y-%m-%d %H:%M:%S')
+            status = parsed_json['games'][j]['status']
+            venue = parsed_json['games'][j]['venue']['name']
+            if 'broadcast' in parsed_json['games'][j]:
+                tv = parsed_json['games'][j]['broadcast']['network']
+            else:
+                tv = ''
+            week_sched = [week, home, away, time, status, venue, tv]
+            break
+    else:
+        week_sched = [int(week), team, 'BYE', '', '', '', '']
 
     f.close()
-    return week
+    return week_sched
 
 
 def get_boxscore(week, home, away):
@@ -169,14 +171,16 @@ def get_standings(week, team):
         else:
             p12s.append(i)
 
-    sorted(p12n, key=get_key, reverse=True)
-    sorted(p12s, key=get_key, reverse=True)
+    p12n.sort(key=get_key, reverse=True)
+    p12s.sort(key=get_key, reverse=True)
 
     p12 = p12n + p12s
     return p12
 
-print(str(get_standings('7', 'UTH')).replace("],", "]\n"))
+#print(str(get_standings('7', 'UTH')).replace("],", "]\n"))
 #print(str(get_season_schedule('SF')).replace("],", "]\n"))
+
+
 def get_rankings(week, team):
     global rankings_website
     ncaa_rankings_website = 'http://api.sportsdatallc.org/ncaafb-t1/polls/AP25/%s/%s/rankings.json?' \
@@ -252,3 +256,21 @@ def soccer_scores(game_id):
 
     return scores
 
+
+def get_soccer_standings():
+    mls_standings_website = 'http://api.sportsdatallc.org/soccer-t2/na/teams/standing.xml?' \
+                            'api_key=q57zpdq4d7mvmtns4uxk92f8'
+
+    standings = []
+    f = ET.parse('mls_standings.xml')
+    items = f.getroot()
+
+    for i in items[0]:
+        if i.attrib['country'] == 'United States':
+            for j in i[0][0]:
+                standings.append([j.attrib['name'], j.attrib['win'], j.attrib['draw'],
+                                  j.attrib['loss']])
+
+    return standings
+
+print(str(get_soccer_standings()).replace('],', ']\n'))

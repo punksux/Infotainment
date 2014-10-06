@@ -88,6 +88,10 @@ rsl_score = []
 rsl_score_old = []
 ncaa_rankings = []
 ncaa_rankings_old = []
+pac12_standings = []
+pac12_standings_old = []
+soccer_standings = []
+soccer_standings_old = []
 
 if on_pi:
     import urllib2
@@ -313,13 +317,15 @@ nfl_team_names = {'SF': 'San Francisco', 'KC': 'Kansas City', 'DAL': 'Dallas', '
 
 
 def football_weekly(week, team):
-    global game, utah_week, sf_week, kc_week, ncaa_rankings
+    global utah_week, sf_week, kc_week, ncaa_rankings, pac12_standings
     week_sched = sports.get_weekly_schedule(week, team)
     ncaa_rankings = sports.get_rankings(week, 'UTH')
-    game = sched.add_date_job(start_football_scores, datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S'),
-                              args=[week_sched[0], week_sched[1], week_sched[2]])
+    pac12_standings = sports.get_standings(week, 'UTH')
+    #game = sched.add_date_job(start_football_scores, datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S'),
+                              #args=[week_sched[0], week_sched[1], week_sched[2]])
 
-    week_sched[3] = datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
+    if week_sched[2] != 'BYE':
+        week_sched[3] = datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
     if team == 'UTH':
         utah_week = week_sched
         for k, v in ncaa_team_names.items():
@@ -397,8 +403,9 @@ def soccer_scores(game_id):
 
 
 def soccer_season():
-    global rsl_week, soccer_score
+    global rsl_week, soccer_score, soccer_standings
     schedule = sports.get_soccer_season()
+    soccer_standings = sports.get_soccer_standings()
     for i in schedule:
             if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
                 rsl_week = i
@@ -419,6 +426,8 @@ sf_once = False
 kc_once = False
 rsl_once = False
 ncaa_rankings_once = False
+pac12_standings_once = False
+soccer_standings_once = False
 
 #     --==Streaming Stuff==--
 def event_stream():
@@ -427,7 +436,8 @@ def event_stream():
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old, allergy_forecast_old
     global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old, alert_once, utah_week_old
     global utah_once, utah_score_old, sf_week_old, kc_week_old, sf_once, kc_once, sf_score_old, kc_score_old
-    global rsl_week_old, rsl_once, rsl_score_old, ncaa_rankings_old, ncaa_rankings_once
+    global rsl_week_old, rsl_once, rsl_score_old, ncaa_rankings_old, ncaa_rankings_once, pac12_standings_old
+    global pac12_standings_once, soccer_standings_old, soccer_standings_once
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         day_night_old = day_night
@@ -516,6 +526,14 @@ def event_stream():
         ncaa_rankings_old = ncaa_rankings
         ncaa_rankings_once = True
         yield_me += 'event: ncaaRankings\n' + 'data: ' + json.dumps(ncaa_rankings) + '\n\n'
+    if pac12_standings != pac12_standings_old or pac12_standings_once is False:
+        pac12_standings_old = pac12_standings
+        pac12_standings_once = True
+        yield_me += 'event: pac12Standings\n' + 'data: ' + json.dumps(pac12_standings) + '\n\n'
+    if soccer_standings != soccer_standings_old or soccer_standings_once is False:
+        soccer_standings_old = soccer_standings
+        soccer_standings_once = True
+        yield_me += 'event: soccerStandings\n' + 'data: ' + json.dumps(soccer_standings) + '\n\n'
 
     yield yield_me
 
@@ -531,6 +549,7 @@ try:
     @app.route('/')
     def my_form():
         global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once, rsl_once, ncaa_rankings_once
+        global pac12_standings_once, soccer_standings_once
         rss_once = False
         day_once = False
         icon_once = False
@@ -540,6 +559,8 @@ try:
         kc_once = False
         rsl_once = False
         ncaa_rankings_once = False
+        pac12_standings_once = False
+        soccer_standings_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':
