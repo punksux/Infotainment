@@ -16,6 +16,7 @@ def get_season_schedule(team):
 
     if team == 'UTH':
         website = 'season_sched.json'
+
     elif team == 'SF' or team == 'KC':
         website = 'nfl_season_sched.json'
 
@@ -63,13 +64,16 @@ def get_weekly_schedule(week, team):
 
     if team == 'UTH':
         website = 'week_sched.json'
+        #website = ncaa_weekly_website
     elif team == 'SF' or team == 'KC':
         website = 'nfl_week_sched.json'
+        #website = nfl_season_website
 
     week = []
     f = open(website)
     json_string = f.read()
     parsed_json = json.loads(json_string.replace("O'", "O"))
+    #parsed_json = json.loads(json_string.decode('utf-8'))
 
     for j in range(0, len(parsed_json['games'])):
             if parsed_json['games'][j]['away'] == team or \
@@ -88,6 +92,7 @@ def get_weekly_schedule(week, team):
                 else:
                     tv = ''
                 week = [week, home, away, time, status, venue, tv]
+
     f.close()
     return week
 
@@ -102,14 +107,13 @@ def get_boxscore(week, home, away):
 
     if home == 'UTH' or away == 'UTH':
         website = 'boxscore.json'
-        website = ncaa_boxscore_website
+        #website = ncaa_boxscore_website
     else:
         website = 'nfl_boxscore.json'
 
-    print(website)
-    f = urlopen(website)
+    f = open(website)
     json_string = f.read()
-    parsed_json = json.loads(json_string.decode("utf-8"))
+    parsed_json = json.loads(json_string)
 
     status = parsed_json['status']
     if 'quarter' in parsed_json:
@@ -127,7 +131,73 @@ def get_boxscore(week, home, away):
 
     return scores
 
+
+def get_key(item):
+    return item[4]
+
+
+def get_standings(week, team):
+    global standings_website, rankings_website
+    ncaa_standings_website = 'http://api.sportsdatallc.org/ncaafb-t1/teams/FBS/%s/REG/standings.json?' \
+                             'api_key=qnhb46ta6f9rzezkfjy7r4n5' % datetime.now().year
+
+    if team == 'UTH' :
+        standings_website = 'ncaa_standings.json'
+    else:
+        website = 'nfl_boxscore.json'
+
+    f = open(standings_website)
+    json_string = f.read()
+    parsed_json = json.loads(json_string)
+    p12 = []
+    for j in range(0, len(parsed_json['division']['conferences'])):
+        if parsed_json['division']['conferences'][j]['name'] == 'Pac-12':
+            for s in range(0, len(parsed_json['division']['conferences'][j]['teams'])):
+                name = parsed_json['division']['conferences'][j]['teams'][s]['market']
+                subdiv = parsed_json['division']['conferences'][j]['teams'][s]['subdivision']
+                total_wins = parsed_json['division']['conferences'][j]['teams'][s]['overall']['wins']
+                total_losses = parsed_json['division']['conferences'][j]['teams'][s]['overall']['losses']
+                conf_wins = parsed_json['division']['conferences'][j]['teams'][s]['in_conference']['wins']
+                conf_losses = parsed_json['division']['conferences'][j]['teams'][s]['in_conference']['losses']
+                p12.append([name, subdiv, total_wins, total_losses, conf_wins, conf_losses])
+
+    p12n = []
+    p12s = []
+    for i in p12:
+        if i[1] == 'PAC-12-NORTH':
+            p12n.append(i)
+        else:
+            p12s.append(i)
+
+    sorted(p12n, key=get_key, reverse=True)
+    sorted(p12s, key=get_key, reverse=True)
+
+    p12 = p12n + p12s
+    return p12
+
+print(str(get_standings('7', 'UTH')).replace("],", "]\n"))
 #print(str(get_season_schedule('SF')).replace("],", "]\n"))
+def get_rankings(week, team):
+    global rankings_website
+    ncaa_rankings_website = 'http://api.sportsdatallc.org/ncaafb-t1/polls/AP25/%s/%s/rankings.json?' \
+                            'api_key=qnhb46ta6f9rzezkfjy7r4n5' % (datetime.now().year, week)
+
+    if team == 'UTH' :
+        rankings_website = 'ncaa_rankings.json'
+    else:
+        website = 'nfl_boxscore.json'
+
+    f = open(rankings_website)
+    json_string = f.read()
+    parsed_json = json.loads(json_string)
+    rankings = []
+    for i in range(0, len(parsed_json['rankings'])):
+        r = parsed_json['rankings'][i]
+        rankings.append([r['market'], r['wins'], r['losses']])
+
+    return rankings
+
+#print(str(get_rankings(7, 'UTH')).replace('],', ']\n'))
 
 
 #     --== Soccer ==--
@@ -139,7 +209,6 @@ def get_soccer_season():
     schedule = []
     f = ET.parse('mls_season_sched.xml')
     items = f.getroot()
-
 
     for i in items[0]:
         if i[3].attrib['alias'] == 'SAL' or i[4].attrib['alias'] == 'SAL':

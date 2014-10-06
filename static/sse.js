@@ -296,11 +296,15 @@ $(document).ready(function() {
         $('div#utah div.away .score').html(message[4]);
         $('div#utah .timeText').html(message[1] + '<br />' + message[2]);
     });
-    var sf_info = [];
+//    I don't know why this doesnt work\/ \/ \/
+    var sf_info = ['','','','','',''];
     var kc_info = [];
     sse.addEventListener('sfInfo', function(message) {
         message = JSON.parse(message.data);
-        sf_info = message;
+        var i;
+        for(i=0;i<6;i++) {
+            sf_info[i] = message[i];
+        }
         $('div#49ers div.home .text').html(message[1]);
         $('div#49ers div.away .text').html(message[2]);
         $('div#49ers div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1] + '.png")');
@@ -311,21 +315,24 @@ $(document).ready(function() {
         } else {
             $('div#49ers').show();
         }
+
     });
+    $('#test').html(sf_info);
     sse.addEventListener('kcInfo', function(message) {
         message = JSON.parse(message.data);
-        kc_info = message;
+        kc_info = message.data.clone();
         $('div#kc div.home .text').html(message[1]);
         $('div#kc div.away .text').html(message[2]);
         $('div#kc div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1] + '.png")');
         $('div#kc div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2] + '.png")');
         $('div#kc .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
     });
-        if (sf_info === kc_info || kc_info[2]=== 'BYE'){
-            $('div#kc').hide();
-        } else {
-            $('div#kc').show();
-        }
+
+    if (sf_info === kc_info || kc_info[2] === 'BYE'){
+        $('div#kc').hide();
+    } else {
+        $('div#kc').show();
+    }
     sse.addEventListener('rslInfo', function(message) {
         message = JSON.parse(message.data);
         $('div#rsl div.home .text').html(message[1]);
@@ -333,6 +340,14 @@ $(document).ready(function() {
         $('div#rsl div.home .logo').css('background-image', 'url("/static/images/mls/' + message[1] + '.png")');
         $('div#rsl div.away .logo').css('background-image', 'url("/static/images/mls/' + message[2] + '.png")');
         $('div#rsl .timeText').html(message[3] + '<br />' + message[5]);
+    });
+    sse.addEventListener('ncaaRankings', function(message) {
+        message = JSON.parse(message.data);
+        var i;
+        for(i=0;i<25;i+=1) {
+            $('div#sportsInfo tr:nth-child(' + (i+1) + ') td:nth-child(2)').html(message[i][0]);
+            $('div#sportsInfo tr:nth-child(' + (i+1) + ') td:nth-child(3)').html(message[i][1] + ' - ' + message[i][2]);
+        }
     });
     skycons.play();
 });

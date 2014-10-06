@@ -687,6 +687,38 @@ ul.newsticker li {
     display:inline-block;
 }
 
+#sportsInfo {
+    width:600px;
+    height: 670px;
+    /*border:1px solid white;*/
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#sportsInfo table {
+    height: 660px;
+    width: 300px;
+    font-size: 18px;
+    margin: 0 auto;
+}
+
+#sportsInfo table td {
+    /*border:1px solid white;*/
+}
+
+#sportsInfo table td:nth-child(1) {
+    text-align: center;
+}
+
+#sportsInfo table td:nth-child(3) {
+    text-align: center;
+}
+
+#sportsInfo table tr:nth-child(even) {
+    background: rgba(255,255,255,0.25);
+}
+
 /*   --== App Page ==--  */
 
 #appBar {

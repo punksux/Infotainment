@@ -86,6 +86,8 @@ rsl_week = []
 rsl_week_old = []
 rsl_score = []
 rsl_score_old = []
+ncaa_rankings = []
+ncaa_rankings_old = []
 
 if on_pi:
     import urllib2
@@ -311,8 +313,9 @@ nfl_team_names = {'SF': 'San Francisco', 'KC': 'Kansas City', 'DAL': 'Dallas', '
 
 
 def football_weekly(week, team):
-    global game, utah_week, sf_week, kc_week
+    global game, utah_week, sf_week, kc_week, ncaa_rankings
     week_sched = sports.get_weekly_schedule(week, team)
+    ncaa_rankings = sports.get_rankings(week, 'UTH')
     game = sched.add_date_job(start_football_scores, datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S'),
                               args=[week_sched[0], week_sched[1], week_sched[2]])
 
@@ -415,6 +418,7 @@ utah_once = False
 sf_once = False
 kc_once = False
 rsl_once = False
+ncaa_rankings_once = False
 
 #     --==Streaming Stuff==--
 def event_stream():
@@ -423,7 +427,7 @@ def event_stream():
     global tom_temp_old, day_night_old, out_temp_old, in_temp_old, feed_source_old, allergy_forecast_old
     global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old, alert_once, utah_week_old
     global utah_once, utah_score_old, sf_week_old, kc_week_old, sf_once, kc_once, sf_score_old, kc_score_old
-    global rsl_week_old, rsl_once, rsl_score_old
+    global rsl_week_old, rsl_once, rsl_score_old, ncaa_rankings_old, ncaa_rankings_once
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         day_night_old = day_night
@@ -503,12 +507,15 @@ def event_stream():
         yield_me += 'event: kcScore\n' + 'data: ' + json.dumps(kc_score) + '\n\n'
     if rsl_week != rsl_week_old or rsl_once is False:
         rsl_week_old = rsl_week
-        print(rsl_week)
         rsl_once = True
         yield_me += 'event: rslInfo\n' + 'data: ' + json.dumps(rsl_week) + '\n\n'
     if rsl_score != rsl_score_old:
         rsl_score_old = rsl_score
         yield_me += 'event: rslScore\n' + 'data: ' + json.dumps(rsl_score) + '\n\n'
+    if ncaa_rankings != ncaa_rankings_old or ncaa_rankings_once is False:
+        ncaa_rankings_old = ncaa_rankings
+        ncaa_rankings_once = True
+        yield_me += 'event: ncaaRankings\n' + 'data: ' + json.dumps(ncaa_rankings) + '\n\n'
 
     yield yield_me
 
@@ -523,7 +530,7 @@ try:
 
     @app.route('/')
     def my_form():
-        global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once, rsl_once
+        global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once, rsl_once, ncaa_rankings_once
         rss_once = False
         day_once = False
         icon_once = False
@@ -532,6 +539,7 @@ try:
         sf_once = False
         kc_once = False
         rsl_once = False
+        ncaa_rankings_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':
