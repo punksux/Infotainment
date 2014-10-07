@@ -92,6 +92,8 @@ pac12_standings = []
 pac12_standings_old = []
 soccer_standings = []
 soccer_standings_old = []
+nfl_rankings = []
+nfl_rankings_old = []
 
 if on_pi:
     import urllib2
@@ -308,6 +310,7 @@ def get_temps_from_probes():
 get_temps_from_probes()
 temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 
+
 #     --==Sports Stuff==--
 ncaa_team_names = {'ORS': 'Oregon State', 'ASU': 'Arizona State', 'ORE': 'Oregon', 'STA': 'Stanford', 'ARI': 'Arizona',
                    'COL': 'Colorado', 'UTH': 'Utah'}
@@ -317,26 +320,31 @@ nfl_team_names = {'SF': 'San Francisco', 'KC': 'Kansas City', 'DAL': 'Dallas', '
 
 
 def football_weekly(week, team):
-    global utah_week, sf_week, kc_week, ncaa_rankings, pac12_standings
+    global utah_week, sf_week, kc_week, ncaa_rankings, pac12_standings, nfl_rankings, nfl_rank_checked
     week_sched = sports.get_weekly_schedule(week, team)
-    ncaa_rankings = sports.get_rankings(week, 'UTH')
-    pac12_standings = sports.get_standings(week, 'UTH')
     #game = sched.add_date_job(start_football_scores, datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S'),
                               #args=[week_sched[0], week_sched[1], week_sched[2]])
 
+    nfl_rank_checked = False
     if week_sched[2] != 'BYE':
         week_sched[3] = datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
     if team == 'UTH':
+        ncaa_rankings = sports.get_ncaa_rankings(week)
+        pac12_standings = sports.get_ncaa_standings(week)
         utah_week = week_sched
         for k, v in ncaa_team_names.items():
             utah_week[1] = utah_week[1].replace(k, v)
             utah_week[2] = utah_week[2].replace(k, v)
     elif team == 'SF':
+        nfl_rankings = sports.get_nfl_rankings()
+        nfl_rank_checked = True
         sf_week = week_sched
         for k, v in nfl_team_names.items():
             sf_week[1] = sf_week[1].replace(k, v)
             sf_week[2] = sf_week[2].replace(k, v)
     elif team == 'KC':
+        if nfl_rank_checked is False:
+            nfl_rankings = sports.get_nfl_rankings()
         kc_week = week_sched
         for k, v in nfl_team_names.items():
             kc_week[1] = kc_week[1].replace(k, v)
@@ -428,6 +436,7 @@ rsl_once = False
 ncaa_rankings_once = False
 pac12_standings_once = False
 soccer_standings_once = False
+nfl_rankings_once = False
 
 #     --==Streaming Stuff==--
 def event_stream():
@@ -437,7 +446,7 @@ def event_stream():
     global predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old, alert_once, utah_week_old
     global utah_once, utah_score_old, sf_week_old, kc_week_old, sf_once, kc_once, sf_score_old, kc_score_old
     global rsl_week_old, rsl_once, rsl_score_old, ncaa_rankings_old, ncaa_rankings_once, pac12_standings_old
-    global pac12_standings_once, soccer_standings_old, soccer_standings_once
+    global pac12_standings_once, soccer_standings_old, soccer_standings_once, nfl_rankings_old, nfl_rankings_once
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         day_night_old = day_night
@@ -534,6 +543,10 @@ def event_stream():
         soccer_standings_old = soccer_standings
         soccer_standings_once = True
         yield_me += 'event: soccerStandings\n' + 'data: ' + json.dumps(soccer_standings) + '\n\n'
+    if nfl_rankings != nfl_rankings_old or nfl_rankings_once is False:
+        nfl_rankings_old = nfl_rankings
+        nfl_rankings_once = True
+        yield_me += 'event: nflRankings\n' + 'data: ' + json.dumps(nfl_rankings) + '\n\n'
 
     yield yield_me
 
@@ -549,7 +562,7 @@ try:
     @app.route('/')
     def my_form():
         global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once, rsl_once, ncaa_rankings_once
-        global pac12_standings_once, soccer_standings_once
+        global pac12_standings_once, soccer_standings_once, nfl_rankings_once
         rss_once = False
         day_once = False
         icon_once = False
@@ -561,6 +574,7 @@ try:
         ncaa_rankings_once = False
         pac12_standings_once = False
         soccer_standings_once = False
+        nfl_rankings_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':

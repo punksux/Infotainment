@@ -285,6 +285,8 @@ function checkTime(i) {
             <script>
                 $('#utahCover').click(function(){
                     $('#mlsStandings').hide();
+                    $('#nflAFCRankings').hide();
+                    $('#nflNFCRankings').hide();
                     $('#pac12Standings').toggle();
                     $('#ncaaRankings').toggle();
 
@@ -292,8 +294,18 @@ function checkTime(i) {
                 $('#rslCover').click(function(){
                     $('#pac12Standings').hide();
                     $('#ncaaRankings').hide();
+                    $('#nflAFCRankings').hide();
+                    $('#nflNFCRankings').hide();
                     $('#mlsStandings').toggle();
-                })
+
+                });
+                $('#49ersCover, #kcCover').click(function(){
+                    $('#pac12Standings').hide();
+                    $('#ncaaRankings').hide();
+                    $('#mlsStandings').hide();
+                    $('#nflAFCRankings').toggle();
+                    $('#nflNFCRankings').toggle();
+                });
             </script>
 
 
@@ -363,6 +375,51 @@ function checkTime(i) {
                     <tr><td>18</td><td></td><td></td></tr>
                     <tr><td>19</td><td></td><td></td></tr>
                 </table>
+                <table id="nflNFCRankings" class="nflTables">
+                    <tr><th height="35px">NFC East</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><th height="35px">NFC North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><th height="35px">NFC South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><th height="35px">NFC West</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                </table>
+                <table id="nflAFCRankings"  class="nflTables">
+                    <tr><th height="35px">AFC East</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><th height="35px">AFC North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><th height="35px">AFC South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                    <tr><th height="35px">AFC West</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><td>1</td><td></td><td></td></tr>
+                    <tr><td>2</td><td></td><td></td></tr>
+                    <tr><td>3</td><td></td><td></td></tr>
+                    <tr><td>4</td><td></td><td></td></tr>
+                </table>
+
             </div>
         </div>
     </div>

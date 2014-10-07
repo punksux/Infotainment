@@ -4,6 +4,9 @@ import os
 from datetime import datetime, timedelta
 from xml.etree import ElementTree as ET
 
+ncaa_api_key = 'qnhb46ta6f9rzezkfjy7r4n5'
+nfl_api_key = 'rn43y42wvev2xtzswtksk3r5'
+
 
 #     --== Football ==--
 def get_season_schedule(team):
@@ -138,15 +141,12 @@ def get_key(item):
     return item[4]
 
 
-def get_standings(week, team):
+def get_ncaa_standings(week):
     global standings_website, rankings_website
     ncaa_standings_website = 'http://api.sportsdatallc.org/ncaafb-t1/teams/FBS/%s/REG/standings.json?' \
                              'api_key=qnhb46ta6f9rzezkfjy7r4n5' % datetime.now().year
 
-    if team == 'UTH' :
-        standings_website = 'ncaa_standings.json'
-    else:
-        website = 'nfl_boxscore.json'
+    standings_website = 'ncaa_standings.json'
 
     f = open(standings_website)
     json_string = f.read()
@@ -181,15 +181,12 @@ def get_standings(week, team):
 #print(str(get_season_schedule('SF')).replace("],", "]\n"))
 
 
-def get_rankings(week, team):
+def get_ncaa_rankings(week):
     global rankings_website
     ncaa_rankings_website = 'http://api.sportsdatallc.org/ncaafb-t1/polls/AP25/%s/%s/rankings.json?' \
                             'api_key=qnhb46ta6f9rzezkfjy7r4n5' % (datetime.now().year, week)
 
-    if team == 'UTH' :
-        rankings_website = 'ncaa_rankings.json'
-    else:
-        website = 'nfl_boxscore.json'
+    rankings_website = 'ncaa_rankings.json'
 
     f = open(rankings_website)
     json_string = f.read()
@@ -202,6 +199,39 @@ def get_rankings(week, team):
     return rankings
 
 #print(str(get_rankings(7, 'UTH')).replace('],', ']\n'))
+
+
+def get_nfl_rankings():
+    nfl_rankings_website = 'http://api.sportsdatallc.org/nfl-t1/teams/%s/rankings.json?api_key=%s' \
+                           % (datetime.now().year, nfl_api_key)
+
+    nfl_standings_website = 'http://api.sportsdatallc.org/nfl-t1/teams/%s/REG/standings.json?api_key=%s' \
+                            % (datetime.now().year, nfl_api_key)
+
+    f = open('nfl_rankings.json')
+    json_string = f.read()
+    rankings_json = json.loads(json_string)
+    rankings = []
+
+    f = open('nfl_standings.json')
+    json_string = f.read()
+    standings_json = json.loads(json_string)
+
+    for i in rankings_json['conferences']:
+        for j in i['divisions']:
+            for k in j['teams']:
+                rankings.append([j['name'], k['market'], k['name']])
+
+    for h in rankings:
+        for i in standings_json['conferences']:
+            for j in i['divisions']:
+                for k in j['teams']:
+                    if h[1] == k['market']:
+                        h.extend([k['overall']['wins'], k['overall']['losses'],
+                                  k['in_conference']['wins'], k['in_conference']['losses']])
+
+    return rankings
+print(str(get_nfl_rankings()).replace('],', ']\n'))
 
 
 #     --== Soccer ==--
@@ -273,4 +303,4 @@ def get_soccer_standings():
 
     return standings
 
-print(str(get_soccer_standings()).replace('],', ']\n'))
+#print(str(get_soccer_standings()).replace('],', ']\n'))

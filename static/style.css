@@ -779,6 +779,39 @@ ul.newsticker li {
     font-size:20px;
 }
 
+.nflTables {
+    display:none;
+}
+
+#nflNFCRankings {
+    width:290px;
+}
+
+#nflAFCRankings {
+    width:290px;
+    position: absolute;
+    top:0;
+    right:5px;
+}
+
+.nflTables tr:nth-child(5n+1) {
+    background: rgba(255,255,255,0.25);
+    text-align: left;
+    text-indent: 5px;
+}
+
+.nflTables td:nth-child(n+2){
+    text-align: center;
+}
+
+.nflTables .smallHeader {
+    font-size:15px;
+    text-align: center;
+    text-indent: 0;
+}
+
+.nflTables tr
+
 /*   --== App Page ==--  */
 
 #appBar {

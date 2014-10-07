@@ -369,6 +369,24 @@ $(document).ready(function() {
             $('table#mlsStandings tr:nth-child(' + (i+2) + ') td:nth-child(3)').html(message[i][1] + ' - ' + message[i][2] + ' - ' + message[i][3]);
         }
     });
+    sse.addEventListener('nflRankings', function(message) {
+        message = JSON.parse(message.data);
+        var i;
+        var j = 2;
+        for(i=0;i<16;i+=1) {
+            if (i > 3 && i < 8){j=3}else if (i > 7 && i < 12 ){j=4}else if (i > 11){j=5}
+            $('table#nflAFCRankings tr:nth-child(' + (i+j) + ') td:nth-child(1)').html(message[i][1]);
+            $('table#nflAFCRankings tr:nth-child(' + (i+j) + ') td:nth-child(2)').html(message[i][3] + ' - ' + message[i][4]);
+            $('table#nflAFCRankings tr:nth-child(' + (i+j) + ') td:nth-child(3)').html(message[i][5] + ' - ' + message[i][6]);
+        }
+        j = 2;
+        for(i=0;i<16;i+=1) {
+            if (i > 3 && i < 8){j=3}else if (i > 7 && i < 12 ){j=4}else if (i > 11){j=5}
+            $('table#nflNFCRankings tr:nth-child(' + (i+j) + ') td:nth-child(1)').html(message[i+16][1]);
+            $('table#nflNFCRankings tr:nth-child(' + (i+j) + ') td:nth-child(2)').html(message[i+16][3] + ' - ' + message[i][4]);
+            $('table#nflNFCRankings tr:nth-child(' + (i+j) + ') td:nth-child(3)').html(message[i+16][5] + ' - ' + message[i][6]);
+        }
+    });
     skycons.play();
 });
 
