@@ -77,7 +77,6 @@ def get_weekly_schedule(week, team):
     json_string = f.read()
     parsed_json = json.loads(json_string.replace("O'", "O"))
     #parsed_json = json.loads(json_string.decode('utf-8'))
-    print(str(team))
     for j in range(0, len(parsed_json['games'])):
         if parsed_json['games'][j]['away'] == team or parsed_json['games'][j]['home'] == team:
             week = parsed_json['number']
@@ -231,7 +230,7 @@ def get_nfl_rankings():
                                   k['in_conference']['wins'], k['in_conference']['losses']])
 
     return rankings
-print(str(get_nfl_rankings()).replace('],', ']\n'))
+#print(str(get_nfl_rankings()).replace('],', ']\n'))
 
 
 #     --== Soccer ==--

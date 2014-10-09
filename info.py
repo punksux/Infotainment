@@ -10,6 +10,8 @@ from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
 
+eventful_api = 'xJHGrFDwdj5qWgfW'
+
 weather_test = 100
 on_pi = False
 location = 84123
@@ -311,7 +313,7 @@ get_temps_from_probes()
 temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 
 
-#     --==Sports Stuff==--
+####### --==Sports Stuff==-- #######
 ncaa_team_names = {'ORS': 'Oregon State', 'ASU': 'Arizona State', 'ORE': 'Oregon', 'STA': 'Stanford', 'ARI': 'Arizona',
                    'COL': 'Colorado', 'UTH': 'Utah'}
 nfl_team_names = {'SF': 'San Francisco', 'KC': 'Kansas City', 'DAL': 'Dallas', 'CHI': 'Chicago', 'ARI': 'Arizona',

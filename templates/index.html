@@ -61,9 +61,10 @@ function checkTime(i) {
     <ul id="tabList" class="tabs">
             <li ><a href="#view1">Home</a></li>
             <li ><a href="#view2">Forecast</a></li>
-            <li><a href="#view3">Music</a></li>
-            <li class="selected"><a href="#view4">Sports</a></li>
-            <li ><a href="#view5">Apps</a></li>
+            <li class="selected"><a href="#view3">Music</a></li>
+            <li ><a href="#view4">Entertainment</a></li>
+            <li ><a href="#view5">Sports</a></li>
+            <li ><a href="#view6">Apps</a></li>
          </ul>
 
 <!--     *** Home Tab ***     -->
@@ -187,10 +188,36 @@ function checkTime(i) {
 
 <!--  **  Music Tab **   -->
     <div id="view3">
-
+        <div id="musicContainer">
+            <div id="logo"></div>
+            <div id="musicControls">
+                <div id="downButton"></div>
+                <div id="upButton"></div>
+                <div id="playButton"></div>
+                <div id="skipButton"></div>
+                <div id="volumeButton"></div>
+            </div>
+            <div id="infoContainer">
+                <div id="stationList"></div>
+                <div id="songInfo">
+                    <div id="albumArt"></div>
+                    <div id="songName"></div>
+                </div>
+            </div>
+        </div>
     </div>
-<!--   ** Sports Tab **   -->
+
+    <script>
+        $('#playButton').click(function(){$('#playButton').toggleClass('pause')});
+    </script>
+
+<!--  **  Entertainment Tab **   -->
     <div id="view4">
+    </div>
+
+
+<!--   ** Sports Tab **   -->
+    <div id="view5">
         <div id="sportsContainer">
             <div id="scoresContainer">
                 <div id="utahCover" class="scoreCover"></div>
@@ -424,7 +451,7 @@ function checkTime(i) {
         </div>
     </div>
 <!--   ** Apps Tab **   -->
-    <div id="view5">
+    <div id="view6">
         <div id="appBar">
             <a href="http://192.168.1.200:4040" target="app"><div id="app1" class="apps"><img src="/static/images/subsonic.png" height="70px">Subsonic</div></a>
             <a href="http://192.168.1.200:5000" target="app"><div id="app2" class="apps"><img src="/static/images/couch.png" height="70px">CouchPotato</div></a>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>
+    </title>
+<script src="/static/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#result').html('poo');
+         $("#calculate").click(function(){
+            $.ajax(
+            {
+                type: 'post',
+                url: "/poo",
+                data: {
+                    'a': $('input[name="a"]').val(),
+                    'b': $('input[name="b"]').val()
+                },
+                success:function (msg) {
+                    $('#result').text(msg['1']);}
+            });
+        });
+    });
+</script>
+</head>
+<body>
+<h1>jQuery Example</h1>
+
+<p>
+    <input type="text" size="5" name="a" value="5"> +
+    <input type="text" size="5" name="b" value="2"> =
+    <span id="result">?</span>
+
+<p><button id="calculate">calculate server side</button>
+
+
+</body>
+</html>
