@@ -9,8 +9,9 @@ import time
 from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
+import entertainment
 
-eventful_api = 'xJHGrFDwdj5qWgfW'
+
 
 weather_test = 100
 on_pi = False
@@ -96,6 +97,8 @@ soccer_standings = []
 soccer_standings_old = []
 nfl_rankings = []
 nfl_rankings_old = []
+opening_movies = []
+opening_movies_old = []
 
 if on_pi:
     import urllib2
@@ -116,7 +119,7 @@ sched.start()
 feed_no = 0
 
 
-#    --==RSS Stuff==--
+#######  --==RSS Stuff==--  #######
 def get_rss():
     global feed, feed_titles, feed_summary, feed_titles_old, feed_summary_old, feed_no, rss_sources, feed_source
     feed_titles = []
@@ -313,6 +316,13 @@ get_temps_from_probes()
 temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 
 
+#######  --== Entertainment Stuff ==--  #######
+def get_opening_movies():
+    global opening_movies
+    opening_movies = entertainment.get_opening_movies()
+
+get_opening_movies()
+
 ####### --==Sports Stuff==-- #######
 ncaa_team_names = {'ORS': 'Oregon State', 'ASU': 'Arizona State', 'ORE': 'Oregon', 'STA': 'Stanford', 'ARI': 'Arizona',
                    'COL': 'Colorado', 'UTH': 'Utah'}
@@ -439,8 +449,9 @@ ncaa_rankings_once = False
 pac12_standings_once = False
 soccer_standings_once = False
 nfl_rankings_once = False
+opening_movies_once = False
 
-#     --==Streaming Stuff==--
+#######  --==Streaming Stuff==--  #######
 def event_stream():
     global icon, forecast_day_old, forecast_cond_old, day_once, icon_once
     global forecast_high_old, forecast_low_old, icon_old, rss_once, feed_titles_old, feed_summary_old, tom_temp
@@ -449,6 +460,7 @@ def event_stream():
     global utah_once, utah_score_old, sf_week_old, kc_week_old, sf_once, kc_once, sf_score_old, kc_score_old
     global rsl_week_old, rsl_once, rsl_score_old, ncaa_rankings_old, ncaa_rankings_once, pac12_standings_old
     global pac12_standings_once, soccer_standings_old, soccer_standings_once, nfl_rankings_old, nfl_rankings_once
+    global opening_movies_old, opening_movies_once
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         day_night_old = day_night
@@ -549,7 +561,10 @@ def event_stream():
         nfl_rankings_old = nfl_rankings
         nfl_rankings_once = True
         yield_me += 'event: nflRankings\n' + 'data: ' + json.dumps(nfl_rankings) + '\n\n'
-
+    if opening_movies != opening_movies_old or opening_movies_once is False:
+        opening_movies_old = opening_movies
+        opening_movies_once = True
+        yield_me += 'event: openingMovies\n' + 'data: ' + json.dumps(opening_movies) + '\n\n'
     yield yield_me
 
     time.sleep(0)
@@ -564,7 +579,7 @@ try:
     @app.route('/')
     def my_form():
         global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once, rsl_once, ncaa_rankings_once
-        global pac12_standings_once, soccer_standings_once, nfl_rankings_once
+        global pac12_standings_once, soccer_standings_once, nfl_rankings_once, opening_movies_once
         rss_once = False
         day_once = False
         icon_once = False
@@ -577,6 +592,7 @@ try:
         pac12_standings_once = False
         soccer_standings_once = False
         nfl_rankings_once = False
+        opening_movies_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':
