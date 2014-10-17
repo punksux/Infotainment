@@ -1,6 +1,7 @@
 from urllib.request import Request, urlopen
 rotten_tomatoes_type = 'opening'
 import json
+from xml.etree import ElementTree as ET
 
 rotten_tomatoes_api = 'j66zchayd6megzhvzhp33dm9'
 rotten_tomatoes_website = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/%s.json?apikey=%s&limit=10' \
@@ -34,6 +35,7 @@ def get_opening_movies():
 
 #print(str(get_opening_movies()).replace('],', ']\n'))
 
+
 def get_upcoming_movies():
     pass
 
@@ -42,3 +44,28 @@ def get_local_events():
     eventful_api = 'xJHGrFDwdj5qWgfW'
     eventful_website = 'http://api.eventful.com/rest/events/search?app_key=%s&location=Salt+Lake+City+UT&' \
                        'date=This+Week' % eventful_api
+
+
+    f = ET.parse('eventful.xml')
+    items = f.getroot()
+
+    events = []
+
+    for i in items[8]:
+
+        title = i[0].text
+        description = i[2].text
+        start_time = i[3].text
+        stop_time = i[4].text
+        venue = i[12].text
+        if i[36].find('url') is not None:
+            image = i[36][0].text
+        else:
+            image = ''
+
+        events.append([title, description, start_time, stop_time, venue, image])
+
+    return events
+
+
+#print(str(get_local_events()).replace('],', ']\n'))

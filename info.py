@@ -12,7 +12,6 @@ import sports
 import entertainment
 
 
-
 weather_test = 100
 on_pi = False
 location = 84123
@@ -99,6 +98,8 @@ nfl_rankings = []
 nfl_rankings_old = []
 opening_movies = []
 opening_movies_old = []
+local_events = []
+local_events_old = []
 
 if on_pi:
     import urllib2
@@ -321,7 +322,13 @@ def get_opening_movies():
     global opening_movies
     opening_movies = entertainment.get_opening_movies()
 
+
+def get_local_events():
+    global local_events
+    local_events = entertainment.get_local_events()
+
 get_opening_movies()
+get_local_events()
 
 ####### --==Sports Stuff==-- #######
 ncaa_team_names = {'ORS': 'Oregon State', 'ASU': 'Arizona State', 'ORE': 'Oregon', 'STA': 'Stanford', 'ARI': 'Arizona',
@@ -450,6 +457,7 @@ pac12_standings_once = False
 soccer_standings_once = False
 nfl_rankings_once = False
 opening_movies_once = False
+local_events_once = False
 
 #######  --==Streaming Stuff==--  #######
 def event_stream():
@@ -460,7 +468,7 @@ def event_stream():
     global utah_once, utah_score_old, sf_week_old, kc_week_old, sf_once, kc_once, sf_score_old, kc_score_old
     global rsl_week_old, rsl_once, rsl_score_old, ncaa_rankings_old, ncaa_rankings_once, pac12_standings_old
     global pac12_standings_once, soccer_standings_old, soccer_standings_once, nfl_rankings_old, nfl_rankings_once
-    global opening_movies_old, opening_movies_once
+    global opening_movies_old, opening_movies_once, local_events_old, local_events_once
     yield_me = ''
     if day_night != day_night_old or day_once is False:
         day_night_old = day_night
@@ -565,6 +573,11 @@ def event_stream():
         opening_movies_old = opening_movies
         opening_movies_once = True
         yield_me += 'event: openingMovies\n' + 'data: ' + json.dumps(opening_movies) + '\n\n'
+    if local_events != local_events_old or local_events_once is False:
+        local_events_old = local_events
+        local_events_once = True
+        yield_me += 'event: localEvents\n' + 'data: ' + json.dumps(local_events) + '\n\n'
+
     yield yield_me
 
     time.sleep(0)
@@ -579,7 +592,7 @@ try:
     @app.route('/')
     def my_form():
         global rss_once, day_once, icon_once, alert_once, utah_once, sf_once, kc_once, rsl_once, ncaa_rankings_once
-        global pac12_standings_once, soccer_standings_once, nfl_rankings_once, opening_movies_once
+        global pac12_standings_once, soccer_standings_once, nfl_rankings_once, opening_movies_once, local_events_once
         rss_once = False
         day_once = False
         icon_once = False
@@ -593,6 +606,7 @@ try:
         soccer_standings_once = False
         nfl_rankings_once = False
         opening_movies_once = False
+        local_events_once = False
         return render_template("index.html")
 
     if __name__ == '__main__':

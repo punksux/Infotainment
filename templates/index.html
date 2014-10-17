@@ -216,22 +216,58 @@ function checkTime(i) {
         <div id="entContainer">
             <div id="movies">
                 <table id="openingMovies">
-                    <tr><th height="35px" colspan="8">Movies Opening This Week</th></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
-                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><th height="35px" colspan="2">Movies Opening This Week</th><td> </td><td>Critic</td><td>User</td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td colspan="2"></td><td> </td><td> </td><td> </td></tr>
+                </table>
+            </div>
+            <div id="events">
+                <table id="localEvents">
+                    <tr><th height="35px" colspan="2"Events This Week</th><td> </td><td></td><td></td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td><img src=""></td><td> </td><td> </td><td> </td><td> </td></tr>
                 </table>
             </div>
         </div>
     </div>
 
+
+    <script>
+        $('table#openingMovies tr:nth-child(2)').click(function(){
+            $('table#openingMovies tr:nth-child(2n+3)').hide();
+            $('table#openingMovies tr:nth-child(3)').toggle(1000);
+        });
+        $('table#openingMovies tr:nth-child(4)').click(function(){
+            $('table#openingMovies tr:nth-child(2n+3)').hide();
+            $('table#openingMovies tr:nth-child(5)').toggle(1000);
+        })
+    </script>
 
 <!--   ** Sports Tab **   -->
     <div id="view5">

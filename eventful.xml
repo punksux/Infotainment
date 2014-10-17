@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search>
+  <total_items>23</total_items>
+  <page_size>10</page_size>
+  <page_count>3</page_count>
+  <page_number>1</page_number>
+  <page_items/>
+  <first_item/>
+  <last_item/>
+  <search_time>0.132</search_time>
+  <events>
+    <event id="E0-001-073902570-6@2014101500">
+      <title>Believe</title>
+      <url>http://saltlakecity.eventful.com/events/believe-/E0-001-073902570-6@2014101500?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description>Believe is set in 1984 and inspired by true events about Sir Matt Busby, legendary Manchester United football manager, who helps a boy fulfill his dream.
+
+The family drama “Believe”, is set in 1984 and inspired by true events. The film is a funny and touching tale about Sir Matt Busby, legendary Manchester United football manager, who helps a wayward boy fulfill his dream. An act of petty crime by 11 year old Georgie becomes a collision of fate as Sir Matt tracks him down, only to discover that the boy is an extraordinarily gifted footballer and captain of a team of unruly talents. Having lived with football all his life and survived the tragic 1958 Munich plane disaster, in which eight of his young players were killed, Sir Matt is still committed to continue his work of ‘training lads for life’ and so begins a thrilling adventure as Sir Matt Busby, comes out of retirement to transform a young group of scallywags into a dream team.</description>
+      <start_time>2014-10-15 00:00:00</start_time>
+      <stop_time/>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000179460-0</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-utah-united-states-/V0-001-000179460-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Salt Lake City, Utah, United States</venue_name>
+      <venue_display>0</venue_display>
+      <venue_address>Salt Lake City, Utah, United States</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code/>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.6998256</latitude>
+      <longitude>-111.8875436</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>1</all_day>
+      <recur_string>daily until January 1, 2015</recur_string>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-08-13 14:36:53</created>
+      <owner>joseph9edca</owner>
+      <modified>2014-08-13 21:03:21</modified>
+      <performers/>
+      <image>
+        <url>http://s3.evcdn.com/images/small/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s3.evcdn.com/images/thumb/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s3.evcdn.com/images/small/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s3.evcdn.com/images/medium/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-072732788-7">
+      <title>Craft Sabbath</title>
+      <url>http://saltlakecity.eventful.com/events/craft-sabbath-/E0-001-072732788-7?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> : &lt;blockquote&gt;&lt;p&gt;From Craft Sabbath Website:Craft Sabbath is a monthly gathering of Artists and Crafters unique to the Wasatch front. Craft Sabbath celebrates diversity, individuality, and community through creative expression; Hand crafted jewelry, sculpture, clothes, dolls, and other brilliantly crafted discoveries await everyone who attends. Craft Sabbath was created to showcase the best in the local &amp;quot;rebel&amp;quot; craft scene, and that&amp;#39;s exactly what you&amp;#39;ll find. Nothing is mass-produced or imported, the artists are from right here in Utah, and you&amp;#39;re not going to find anything like it at your Aunt Sadie&amp;#39;s craft show!&lt;br&gt;&lt;br&gt; Craft Sabbath is held on the first Sunday of every month (if the first Sunday is a holiday we reschedule for the following Sunday). We are glad to call the Main Library Home at 210 e 400 s in Downtown Salt Lake City.&lt;/p&gt;&lt;/blockquote&gt;</description>
+      <start_time>2014-09-07 00:00:00</start_time>
+      <stop_time>2014-12-07 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000179460-0</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-utah-united-states-/V0-001-000179460-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Salt Lake City, Utah, United States</venue_name>
+      <venue_display>0</venue_display>
+      <venue_address>Salt Lake City, Utah, United States</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code/>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.6998256</latitude>
+      <longitude>-111.8875436</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-07-11 22:03:28</created>
+      <owner>evdb</owner>
+      <modified>2014-07-11 22:03:28</modified>
+      <performers/>
+      <image/>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-074068347-2@2014101712">
+      <title>Family Music Festival and Expo</title>
+      <url>http://saltlakecity.eventful.com/events/family-music-festiva-/E0-001-074068347-2@2014101712?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description>Two day music festival for the entire family.  Plus a great expo with over 80 exhibitors from tons of great local businesses. 
+
+https://www.eventbrite.com/e/family-music-festival-and-expo-tickets-10359388209</description>
+      <start_time>2014-10-17 12:00:00</start_time>
+      <stop_time>2014-10-18 10:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000251780-4</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/university-of-utah-/V0-001-000251780-4?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>University of Utah</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>Central Campus Drive</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84112</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.7667445</latitude>
+      <longitude>-111.8441744</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>0</all_day>
+      <recur_string>daily for 1 times</recur_string>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-08-17 17:11:52</created>
+      <owner>Johndd8db</owner>
+      <modified>2014-08-18 00:01:29</modified>
+      <performers/>
+      <image>
+        <url>http://s3.evcdn.com/images/small/I0-001/016/740/050-0.jpeg_/family-music-festival-and-expo-50.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s3.evcdn.com/images/thumb/I0-001/016/740/050-0.jpeg_/family-music-festival-and-expo-50.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s3.evcdn.com/images/small/I0-001/016/740/050-0.jpeg_/family-music-festival-and-expo-50.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s3.evcdn.com/images/medium/I0-001/016/740/050-0.jpeg_/family-music-festival-and-expo-50.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-075624808-5">
+      <title>Halloween Hoot</title>
+      <url>http://saltlakecity.eventful.com/events/halloween-hoot-/E0-001-075624808-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> Join us Saturday, Oct 18 and 25 and Friday, Oct 31 for this year&amp;#39;s Halloween Hoot! This spook-tacular celebration will have you and your little critters enjoying our straw maze, mystery tour, crafts, treats, special bird encounters, and more. Come in costume for 50% off admission! </description>
+      <start_time>2014-10-10 00:00:00</start_time>
+      <stop_time>2014-11-01 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000297315-2</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/tracy-aviary-/V0-001-000297315-2?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Tracy Aviary</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>589 E 1300 S</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84105</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.7416672</latitude>
+      <longitude>-111.8742946</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-09-28 08:37:09</created>
+      <owner>evdb</owner>
+      <modified>2014-09-28 08:37:09</modified>
+      <performers/>
+      <image>
+        <url>http://s2.evcdn.com/images/small/I0-001/017/022/661-6.jpeg_/halloween-hoot-61.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s2.evcdn.com/images/thumb/I0-001/017/022/661-6.jpeg_/halloween-hoot-61.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s2.evcdn.com/images/small/I0-001/017/022/661-6.jpeg_/halloween-hoot-61.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s2.evcdn.com/images/medium/I0-001/017/022/661-6.jpeg_/halloween-hoot-61.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-073528835-2">
+      <title>Fall Recess Adventure</title>
+      <url>http://saltlakecity.eventful.com/events/fall-recess-adventure-/E0-001-073528835-2?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> Participants will have the opportunity to rock climb on world renown sandstone rock, raft down the famous Colorado River, and camp beneath a blanket of stars. It&amp;#39;s a trip that you will always remember. Two night, three day rafting and climbing adventure in Southern Utah. Spend two days rafting the beautiful Colorado River through Fisher Towers and then spend a day climbing in the beautiful canyons just outside town. </description>
+      <start_time>2014-10-17 00:00:00</start_time>
+      <stop_time>2014-10-17 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-008172478-2</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/splore-/V0-001-008172478-2?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Splore</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>774 East 3300 South</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84106</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.7078</latitude>
+      <longitude>-111.855</longitude>
+      <geocode_type>Zip Code Based GeoCodes</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-08-02 19:27:21</created>
+      <owner>evdb</owner>
+      <modified>2014-08-02 19:27:21</modified>
+      <performers/>
+      <image>
+        <url>http://s3.evcdn.com/images/small/I0-001/016/605/314-7.jpeg_/fall-recess-adventure-14.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s3.evcdn.com/images/thumb/I0-001/016/605/314-7.jpeg_/fall-recess-adventure-14.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s3.evcdn.com/images/small/I0-001/016/605/314-7.jpeg_/fall-recess-adventure-14.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s3.evcdn.com/images/medium/I0-001/016/605/314-7.jpeg_/fall-recess-adventure-14.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-072744757-0">
+      <title>STEM + Art = SteAm Storytime</title>
+      <url>http://saltlakecity.eventful.com/events/stem-art-steam-storytime-/E0-001-072744757-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt;It&amp;#39;s STE[a]M Storytime! Join us for stories, songs, fingerplays, science and art. Recommended for children ages 3-5 with parent or other caring adult, however all ages are welcome.&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-07-16 00:00:00</start_time>
+      <stop_time>2015-05-31 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-001190933-5</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/calvin-s-smith-library-/V0-001-001190933-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Calvin S. Smith Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>810 East 3300 South</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84106</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.6997431</latitude>
+      <longitude>-111.8678704</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-07-12 05:18:17</created>
+      <owner>evdb</owner>
+      <modified>2014-07-12 05:18:17</modified>
+      <performers/>
+      <image/>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-075473405-6">
+      <title>Choose to Work Conference</title>
+      <url>http://saltlakecity.eventful.com/events/choose-work-conference-/E0-001-075473405-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;Statewide Choose to Work Annual Conference&lt;/p&gt;</description>
+      <start_time>2014-10-15 08:30:00</start_time>
+      <stop_time>2014-10-15 14:30:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000206943-1</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/utah-state-library-auditorium-/V0-001-000206943-1?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Utah State Library Auditorium</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>250 North 1950 West</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84116-7901</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.7763330</latitude>
+      <longitude>-111.9479160</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>0</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-09-24 19:43:58</created>
+      <owner>evdb</owner>
+      <modified>2014-09-24 19:43:58</modified>
+      <performers/>
+      <image>
+        <url>http://s3.evcdn.com/images/small/I0-001/016/998/974-6.jpeg_/choose-work-conference-74.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s3.evcdn.com/images/thumb/I0-001/016/998/974-6.jpeg_/choose-work-conference-74.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s3.evcdn.com/images/small/I0-001/016/998/974-6.jpeg_/choose-work-conference-74.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s3.evcdn.com/images/medium/I0-001/016/998/974-6.jpeg_/choose-work-conference-74.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-075318322-8">
+      <title>Member Storytime - Free</title>
+      <url>http://saltlakecity.eventful.com/events/member-storytime-free-/E0-001-075318322-8?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> </description>
+      <start_time>2014-10-15 13:00:00</start_time>
+      <stop_time/>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000217760-6</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/hogle-zoo-/V0-001-000217760-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Hogle Zoo</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>2600 East Sunnyside Avenue</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84108</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.7510194</latitude>
+      <longitude>-111.8143934</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>0</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-09-20 20:40:56</created>
+      <owner>evdb</owner>
+      <modified>2014-09-20 20:40:56</modified>
+      <performers/>
+      <image>
+        <url>http://s1.evcdn.com/images/small/I0-001/015/802/836-8.jpeg_/member-storytime-free-36.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s1.evcdn.com/images/thumb/I0-001/015/802/836-8.jpeg_/member-storytime-free-36.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s1.evcdn.com/images/small/I0-001/015/802/836-8.jpeg_/member-storytime-free-36.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s1.evcdn.com/images/medium/I0-001/015/802/836-8.jpeg_/member-storytime-free-36.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-076228530-6">
+      <title>Doc of the Dead</title>
+      <url>http://saltlakecity.eventful.com/events/doc-dead-/E0-001-076228530-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt;Doc of the Dead delves into the evolution of the zombie genre in film and literature, as well as its impact and influence on pop culture. A rich and entertaining dialogue with zombie authors, filmmakers, and scholars, the film features a host of zombie icons (Max Brooks, George A. Romero, Simon Pegg, Robert Kirkman, Bruce Campbell, and many more!).&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-10-15 00:00:00</start_time>
+      <stop_time>2014-10-15 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000339988-9</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-library-/V0-001-000339988-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Salt Lake City Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>210 East 400 South</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84111</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.760082</latitude>
+      <longitude>-111.884841</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-10-12 03:25:25</created>
+      <owner>evdb</owner>
+      <modified>2014-10-12 03:25:25</modified>
+      <performers/>
+      <image/>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-076228587-4">
+      <title>Particle Fever</title>
+      <url>http://saltlakecity.eventful.com/events/particle-fever-/E0-001-076228587-4?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt;This film follows the inside story of six brilliant scientists seeking to unravel the mysteries of the universe, documenting the successes and setbacks in the planet’s most significant and inspiring scientific breakthrough—the launch of the Large Hadron Collider. Particle Fever is a celebration of discovery, revealing the very human stories behind the tale of this epic experiment.&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-10-21 00:00:00</start_time>
+      <stop_time>2014-10-21 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000339988-9</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-library-/V0-001-000339988-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Salt Lake City Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>210 East 400 South</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84111</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.760082</latitude>
+      <longitude>-111.884841</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-10-12 03:26:12</created>
+      <owner>evdb</owner>
+      <modified>2014-10-12 03:26:12</modified>
+      <performers/>
+      <image/>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+  </events>
+</search>

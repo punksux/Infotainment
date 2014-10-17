@@ -390,16 +390,30 @@ $(document).ready(function() {
     sse.addEventListener('openingMovies', function(message) {
         message = JSON.parse(message.data);
         var i;
+        var j = 2;
         for(i=0;i<10;i+=1) {
-            $('table#openingMovies tr:nth-child(' + (i + 2) + ') td:nth-child(1)').html('<img src="' + message[i][8] + '">');
-            $('table#openingMovies tr:nth-child(' + (i + 2) + ') td:nth-child(2)').html(message[i][0]);
-            $('table#openingMovies tr:nth-child(' + (i + 2) + ') td:nth-child(3)').html(message[i][1]);
-            $('table#openingMovies tr:nth-child(' + (i + 2) + ') td:nth-child(4)').html(message[i][2] + ' min.');
+            $('table#openingMovies tr:nth-child(' + (i + j) + ') td:nth-child(1)').html('<img src="' + message[i][8] + '">');
+            $('table#openingMovies tr:nth-child(' + (i + j) + ') td:nth-child(2)').html(message[i][0]);
             if (message[i][4] != '') {
-                $('table#openingMovies tr:nth-child(' + (i + 2) + ') td:nth-child(5)').html('<img src="/static/images/rottenTomatoes/' + message[i][4] + '.png">');
+                $('table#openingMovies tr:nth-child(' + (i + j) + ') td:nth-child(3)').html('<img src="/static/images/rottenTomatoes/' + message[i][4] + '.png">');
             }
-            $('table#openingMovies tr:nth-child(' + (i+2) + ') td:nth-child(6)').html(message[i][5]);
-            $('table#openingMovies tr:nth-child(' + (i+2) + ') td:nth-child(7)').html(message[i][6]);
+            $('table#openingMovies tr:nth-child(' + (i+j) + ') td:nth-child(4)').html(message[i][5]);
+            $('table#openingMovies tr:nth-child(' + (i+j) + ') td:nth-child(5)').html(message[i][6]);
+
+            $('table#openingMovies tr:nth-child(' + (i+j+1) + ') td:nth-child(1)').html(message[i][7]);
+            $('table#openingMovies tr:nth-child(' + (i+j+1) + ') td:nth-child(3)').html(message[i][1]);
+            $('table#openingMovies tr:nth-child(' + (i+j+1) + ') td:nth-child(4)').html(message[i][2] + ' min.');
+            j +=1
+        }
+    });
+    sse.addEventListener('localEvents', function(message) {
+        message = JSON.parse(message.data);
+        var i;
+        var j = 2;
+        for(i=0;i<10;i+=1) {
+            $('table#localEvents tr:nth-child(' + (i + j) + ') td:nth-child(1)').html('<img src="' + message[i][4] + '">');
+            $('table#localEvents tr:nth-child(' + (i + j) + ') td:nth-child(2)').html(message[i][0]);
+            $('table#localEvents tr:nth-child(' + (i+j) + ') td:nth-child(3)').html(message[i][2]);
         }
     });
     skycons.play();
