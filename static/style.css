@@ -699,8 +699,18 @@ ul.newsticker li {
     top: 10px;
 }
 
-#openingMovies img {
+#entContainer th:nth-child(1) {
+    text-align: left;
+    text-indent: 5px;
+    font-size: 25px;
+}
+
+#openingMovies td:nth-child(1) img {
     height:50px;
+}
+
+#entContainer tr:nth-child(1) {
+    background: rgba(255,255,255,0.25);
 }
 
 #openingMovies td:nth-child(n+4) {
@@ -708,12 +718,8 @@ ul.newsticker li {
     text-align: center;
 }
 
-#openingMovies tr:nth-child(2n+3) {
-    display:none;
-}
-
-#openingMovies td:nth-child(5) img{
-   height:32px;
+#openingMovies td:nth-child(3) img{
+   height:25px;
 }
 
 #localEvents {
@@ -722,6 +728,8 @@ ul.newsticker li {
     right: 10px;
     top: 10px;
 }
+
+
 
 /*  --== Sports Page ==--  */
 #sportsContainer {
