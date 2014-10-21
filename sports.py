@@ -140,7 +140,7 @@ def get_key(item):
     return item[4]
 
 
-def get_ncaa_standings(week):
+def get_ncaa_standings():
     global standings_website, rankings_website
     ncaa_standings_website = 'http://api.sportsdatallc.org/ncaafb-t1/teams/FBS/%s/REG/standings.json?' \
                              'api_key=qnhb46ta6f9rzezkfjy7r4n5' % datetime.now().year

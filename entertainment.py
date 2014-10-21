@@ -1,4 +1,6 @@
 from urllib.request import Request, urlopen
+import urllib
+
 rotten_tomatoes_type = 'opening'
 import json
 from xml.etree import ElementTree as ET
@@ -24,9 +26,13 @@ def get_opening_movies():
             rating_rating = i['ratings']['critics_rating']
         else:
             rating_rating = ''
-        rating_critics = i['ratings']['critics_score']
+        if i['ratings']['critics_score'] == -1:
+            rating_critics = '-'
+        else:
+            rating_critics = i['ratings']['critics_score']
         rating_audience = i['ratings']['audience_score']
         synopsis = i['synopsis']
+        synopsis = synopsis[:synopsis.find('(C)')][:synopsis.find('(c)')]
         poster = i['posters']['detailed']
 
         opening.append([title, rating, runtime, release_date, rating_rating, rating_critics, rating_audience,
@@ -34,7 +40,8 @@ def get_opening_movies():
 
     return opening
 
-#print(str(get_opening_movies()).replace('],', ']\n'))
+
+# print(str(get_opening_movies()).replace('],', ']\n'))
 
 
 def get_upcoming_movies():
@@ -43,9 +50,9 @@ def get_upcoming_movies():
 
 def get_local_events():
     eventful_api = 'xJHGrFDwdj5qWgfW'
-    eventful_website = 'http://api.eventful.com/rest/events/search?app_key=%s&location=Salt+Lake+City+UT&' \
-                       'date=This+Week' % eventful_api
-
+    eventful_website = 'http://api.eventful.com/rest/events/search?app_key=xJHGrFDwdj5qWgfW&' \
+                       'location=Salt+Lake+City+UT&date=This+Week&mature=normal&' \
+                       'category=music%2Ccomedy%2Cart%2Ctechnology%2Cfamily_fun_kids'
 
     f = ET.parse('eventful.xml')
     items = f.getroot()
@@ -58,11 +65,17 @@ def get_local_events():
         description = i[2].text
         start_time = i[3].text
         start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
-        if start_time.strftime('%I:%M') = '00:00':
-            pass
+        if start_time.strftime('%H:%M') == '00:00':
+            start_time = start_time.strftime('%B %d')
         else:
-            start_time = start_time.strftime('%B %d @ %I:%M %p')
+            start_time = start_time.strftime('%B %d <br /> %I:%M %p')
         stop_time = i[4].text
+        if stop_time is not None:
+            stop_time = datetime.datetime.strptime(stop_time, '%Y-%m-%d %H:%M:%S')
+            if stop_time.strftime('%H:%M') == '00:00':
+                stop_time = stop_time.strftime('%B %d')
+            else:
+                stop_time = stop_time.strftime('%B %d %I:%M %p')
         venue = i[12].text
         if i[36].find('url') is not None:
             image = i[36][0].text
@@ -74,4 +87,4 @@ def get_local_events():
     return events
 
 
-#print(str(get_local_events()).replace('],', ']\n'))
+    #print(str(get_local_events()).replace('],', ']\n'))

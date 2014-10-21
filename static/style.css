@@ -104,7 +104,7 @@
     text-align: center;
     position:relative;
     top:40px;
-    text-shadow: 0px 0px 8px #333;
+    text-shadow: 0 0 8px #333;
 }
 
 #alert {
@@ -212,19 +212,19 @@ table{
     border:1px solid black;
     position: relative;
     background: rgba(255,255,255,0.5);
-    box-shadow: inset 4px 4px 0px rgba(255,255,255,0.1);
+    box-shadow: inset 4px 4px 0 rgba(255,255,255,0.1);
     overflow: hidden;
 }
 
 #graph:before {
     content: '';
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-style: solid;
     border-width: 120px 370px 0 0;
     border-color: rgba(255,255,255,0.1) transparent transparent transparent;
     position:absolute;
-    top:0px;
+    top:0;
     left:1px;
 }
 
@@ -241,8 +241,8 @@ table{
 
 #allergyDay1:before, #allergyDay2:before, #allergyDay3:before, #allergyDay4:before {
     content: '';
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-style: solid;
     border-width: 100px 70px 0 0;
     border-color: rgba(255,255,255,0.1) transparent transparent transparent;
@@ -444,13 +444,13 @@ ul.newsticker li {
 }
 
 
-/*  --== RSS Popup ==--  */
+/*  --== Popup ==--  */
 
 #popupContent {
     padding:5px;
     z-index: 200;
-    background-color: rgba(0,0,0,0.625);
-    border:3px solid rgba(0,0,0,0.75);
+    background-color: rgba(0,0,0,0.9);
+    border:3px solid rgba(0,0,0,1);
     display:none;
     color: white;
     position: absolute;
@@ -463,8 +463,10 @@ ul.newsticker li {
     max-height: 670px;
     max-width: 1276px;
     min-width: 800px;
-    font: bold 45px Code;
+    font: bold 40px Code;
     text-shadow: 2px 2px 5px #333;
+    line-height: 50px;
+    text-align: justify;
 }
 
 #popupContent a {
@@ -472,9 +474,10 @@ ul.newsticker li {
     color: red;
 }
 
-.rssSums {
+.popupText {
     display:none;
     z-index: 201;
+    overflow: hidden;
 }
 
 #alertDescription span {
@@ -493,6 +496,32 @@ ul.newsticker li {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 50;
     display: none;
+}
+
+.movieCover {
+    width:1200px;
+    height:644px;
+    font: bold 35px Code;
+    overflow: hidden;
+}
+
+.synopsis {
+    overflow-y: auto;
+    height: 560px;
+    border:0 solid white;
+    border-bottom-width: 1px;
+}
+
+.rating {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+
+.length {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 /*  --== Forecast Page ==--  */
@@ -523,7 +552,7 @@ ul.newsticker li {
     line-height: 50px;
     vertical-align: middle;
     font: bold 40px Code;
-    text-shadow: 0px 0px 3px #333;
+    text-shadow: 0 0 3px #333;
 }
 
 .conds {
@@ -531,7 +560,7 @@ ul.newsticker li {
     height:300px;
     border: 1px solid white;
     text-align: center;
-    padding-top: 0px;
+    padding-top: 0;
     border-bottom-width: 0;
     background: rgba(0,0,0,0.5);
 }
@@ -560,8 +589,34 @@ ul.newsticker li {
     font: bold 80px Code;
     line-height: 125px;
     vertical-align: middle;
-    text-shadow: 0px 0px 7px #333;
+    text-shadow: 0 0 7px #333;
     background: rgba(0,0,0,0.5);
+}
+
+.days.cover {
+    background: transparent;
+    position: absolute;
+    top:0;
+}
+
+#day1cover {
+    left: 1px;
+}
+
+#day2cover {
+    left: 242px;
+}
+
+#day3cover {
+    left: 483px;
+}
+
+#day4cover {
+    left: 724px;
+}
+
+#day5cover {
+    left: 965px;
 }
 
 /*  --== Music Page ==--  */
@@ -574,16 +629,15 @@ ul.newsticker li {
     left: 20px;
     top: 55px;
     font: bold 20px Code;
-    text-shadow: 0px 0px 8px #333;
+    text-shadow: 0 0 8px #333;
     color: #ffffff;
 }
 
 #logo {
     width:108px;
     height: 18px;
-    background: url("/static/images/pandora/pandora-logo.png") ;
     /*background-size: cover;*/
-    background-repeat: no-repeat;
+    background: url("/static/images/pandora/pandora-logo.png") no-repeat;
     /*border:1px solid #ffffff;*/
     position:absolute;
     left: 20px;
@@ -602,9 +656,7 @@ ul.newsticker li {
 }
 
 #downButton {
-    background-image: url(/static/images/pandora/btn_down.png);
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url(/static/images/pandora/btn_down.png) no-repeat center;
     width: 36px;
     height: 47px;
     display: inline-block;
@@ -613,9 +665,7 @@ ul.newsticker li {
 }
 
 #upButton {
-    background-image: url(/static/images/pandora/btn_up.png);
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url(/static/images/pandora/btn_up.png) no-repeat center;
     width: 36px;
     height: 47px;
     display: inline-block;
@@ -631,9 +681,7 @@ ul.newsticker li {
 }
 
 #skipButton {
-    background-image: url(/static/images/pandora/btn_skip.png);
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url(/static/images/pandora/btn_skip.png) no-repeat center;
     width: 36px;
     height: 47px;
     display: inline-block;
@@ -641,9 +689,7 @@ ul.newsticker li {
 }
 
 #volumeButton {
-    background-image: url(/static/images/pandora/volume_icon.png);
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url(/static/images/pandora/volume_icon.png) no-repeat center;
     width: 19px;
     height: 47px;
     display: inline-block;
@@ -681,13 +727,12 @@ ul.newsticker li {
 #entContainer {
     width:1240px;
     height:684px;
-    /*border:1px solid white;*/
     background: rgba(0,0,0,0.75);
     position:absolute;
     left: 20px;
     top: 55px;
     font: bold 20px Code;
-    text-shadow: 0px 0px 8px #333;
+    text-shadow: 0 0 8px #333;
     color: #ffffff;
     overflow: hidden;
 }
@@ -705,6 +750,10 @@ ul.newsticker li {
     font-size: 25px;
 }
 
+#entContainer th:nth-child(n+3) {
+    font-size: 15px;
+}
+
 #openingMovies td:nth-child(1) img {
     height:50px;
 }
@@ -714,7 +763,7 @@ ul.newsticker li {
 }
 
 #openingMovies td:nth-child(n+4) {
-    width: 50px;
+    width: 60px;
     text-align: center;
 }
 
@@ -729,19 +778,33 @@ ul.newsticker li {
     top: 10px;
 }
 
+#localEvents td:nth-child(3) {
+    width:150px;
+    text-align: center;
+}
 
+#localEvents td:nth-child(2) {
+    padding-left: 15px;
+}
+
+#localEvents tr:nth-child(n+2) {
+    height: 56px;
+}
+
+#localEvents th:nth-child(2) {
+    font-size: 15px;
+}
 
 /*  --== Sports Page ==--  */
 #sportsContainer {
     width:1240px;
     height:684px;
-    /*border:1px solid white;*/
     background: rgba(0,0,0,0.75);
     position:absolute;
     left: 20px;
     top: 55px;
     font: bold 20px Code;
-    text-shadow: 0px 0px 8px #333;
+    text-shadow: 0 0 8px #333;
     color: #ffffff;
 }
 
@@ -819,9 +882,8 @@ ul.newsticker li {
     width:60px;
     height:60px;
     text-align: center;
+    background: no-repeat center;
     background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .text {
@@ -1015,7 +1077,7 @@ ul.newsticker li {
 #appDisplay {
     width:1242px;
     height:600px;
-    margin-top: 0px;
+    margin-top: 0;
     border: 0 solid black;
     position:absolute;
     top:160px;

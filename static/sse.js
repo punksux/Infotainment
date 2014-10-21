@@ -173,16 +173,19 @@ $(document).ready(function() {
                     message[i] = 'cloudy';
                     break;
                 case 'flurries':
+                case 'chanceflurries':
+                case 'chancesleet':
+                case 'chancesnow':
+                case 'sleet':
                     message[i] = 'snow';
                     break;
                 case 'chancetstorms':
+                case 'chancerain':
+                case 'tstorms':
                     message[i] = 'rain';
                     break;
                 case 'hazy':
                     message[i] = 'fog';
-                    break;
-                case 'tstorms':
-                    message[i] = 'rain';
                     break;
                 case 'unknown':
                     message[i] = 'wind';
@@ -197,7 +200,17 @@ $(document).ready(function() {
         skycons.set("icon5", message[4]);
 
     });
-     sse.addEventListener('allergyForecast', function(message) {
+    sse.addEventListener('forecastDecription', function(message) {
+        message = JSON.parse(message.data);
+        var i;
+        for (i = 0; i < 5; i++) {
+            $('#day' + (i + 1) + 'description').html(message[i]);
+            (function(e){$('#day' + (e + 1) + 'cover').click(function(){
+                $('#day' + (e + 1) + 'description, #screenCover, #popupContent').css('display','block');
+            });})(i);
+        }
+    });
+    sse.addEventListener('allergyForecast', function(message) {
         message = JSON.parse(message.data);
         var color = ['','','',''];
          for (i = 0; i < 5; i++){
@@ -399,6 +412,13 @@ $(document).ready(function() {
             }
             $('table#openingMovies tr:nth-child(' + (i+j) + ') td:nth-child(4)').html(message[i][5]);
             $('table#openingMovies tr:nth-child(' + (i+j) + ') td:nth-child(5)').html(message[i][6]);
+            $('#movie' + (i +1) + 'sum .synopsis').html(message[i][7]);
+            $('#movie' + (i +1) + 'sum .rating').html('Rating: ' + message[i][1]);
+            $('#movie' + (i +1) + 'sum .length').html('Runtime: ' + message[i][2] + ' min.');
+            (function(e){$('table#openingMovies tr:nth-child(' + (e + j) + ')').click(function(){
+                $('#movie' + (e + 1) + 'sum, #screenCover, #popupContent').css('display','block');
+                $('#popupContent').addClass('movieCover');
+            });})(i);
         }
     });
     sse.addEventListener('localEvents', function(message) {
@@ -411,6 +431,13 @@ $(document).ready(function() {
             }
             $('table#localEvents tr:nth-child(' + (i + j) + ') td:nth-child(2)').html(message[i][0]);
             $('table#localEvents tr:nth-child(' + (i+j) + ') td:nth-child(3)').html(message[i][2]);
+
+            $('#ent' + (i +1) + 'sum .synopsis').html(message[i][1]);
+            $('#ent' + (i +1) + 'sum .rating').html('Venue: ' + message[i][4]);
+            (function(e){$('table#localEvents tr:nth-child(' + (e + j) + ')').click(function(){
+                $('#ent' + (e + 1) + 'sum, #screenCover, #popupContent').css('display','block');
+                $('#popupContent').addClass('movieCover');
+            });})(i);
         }
     });
     skycons.play();

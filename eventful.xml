@@ -1,70 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <search>
-  <total_items>23</total_items>
+  <total_items>116</total_items>
   <page_size>10</page_size>
-  <page_count>3</page_count>
+  <page_count>12</page_count>
   <page_number>1</page_number>
   <page_items/>
   <first_item/>
   <last_item/>
-  <search_time>0.132</search_time>
+  <search_time>0.055</search_time>
   <events>
-    <event id="E0-001-073902570-6@2014101500">
-      <title>Believe</title>
-      <url>http://saltlakecity.eventful.com/events/believe-/E0-001-073902570-6@2014101500?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description>Believe is set in 1984 and inspired by true events about Sir Matt Busby, legendary Manchester United football manager, who helps a boy fulfill his dream.
+    <event id="E0-001-072849912-7">
+      <title>Nick Swardson</title>
+      <url>http://saltlakecity.eventful.com/events/nick-swardson-/E0-001-072849912-7?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description>Don&amp;#39;t miss the comedy of Nick Swardson when he performs at The Depot on October 22nd. Show is seated G.A.
 
-The family drama “Believe”, is set in 1984 and inspired by true events. The film is a funny and touching tale about Sir Matt Busby, legendary Manchester United football manager, who helps a wayward boy fulfill his dream. An act of petty crime by 11 year old Georgie becomes a collision of fate as Sir Matt tracks him down, only to discover that the boy is an extraordinarily gifted footballer and captain of a team of unruly talents. Having lived with football all his life and survived the tragic 1958 Munich plane disaster, in which eight of his young players were killed, Sir Matt is still committed to continue his work of ‘training lads for life’ and so begins a thrilling adventure as Sir Matt Busby, comes out of retirement to transform a young group of scallywags into a dream team.</description>
-      <start_time>2014-10-15 00:00:00</start_time>
+Tickets are on sale now!
+
+Tickets available at all Smith&amp;#39;s Tix locations, charge by phone 801-467-TIXX or toll free at 1-800-888-TIXX, and online at smithstix.com
+
+Tickets are also available at the Depot box office day of show starting at 5PM (excluding club nights &amp; private events) and on Friday&amp;#39;s between 2PM-6PM (excluding holidays)For VIP information please call 801-355-5522 or E-mail depotVIP@email.com
+
+The Depot | 400 W. South Temple | www.depotslc.com | 21+
+
+(while supplies last - subject to change - plus applicable fees where applied - 8 ticket limit)</description>
+      <start_time>2014-10-22 20:00:00</start_time>
       <stop_time/>
       <tz_id/>
       <tz_olson_path/>
       <tz_country/>
       <tz_city/>
       <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000179460-0</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-utah-united-states-/V0-001-000179460-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Salt Lake City, Utah, United States</venue_name>
-      <venue_display>0</venue_display>
-      <venue_address>Salt Lake City, Utah, United States</venue_address>
+      <venue_id>V0-001-000917533-3</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/the-depot-/V0-001-000917533-3?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>The Depot</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>400 West South Temple</venue_address>
       <city_name>Salt Lake City</city_name>
       <region_name>Utah</region_name>
       <region_abbr>UT</region_abbr>
-      <postal_code/>
+      <postal_code>84101</postal_code>
       <country_name>United States</country_name>
       <country_abbr2>US</country_abbr2>
       <country_abbr>USA</country_abbr>
-      <latitude>40.6998256</latitude>
-      <longitude>-111.8875436</longitude>
+      <latitude>40.7693371</latitude>
+      <longitude>-111.8700715</longitude>
       <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>1</all_day>
-      <recur_string>daily until January 1, 2015</recur_string>
+      <all_day>0</all_day>
+      <recur_string/>
       <calendar_count/>
       <comment_count/>
       <link_count/>
       <going_count/>
       <watching_count/>
-      <created>2014-08-13 14:36:53</created>
-      <owner>joseph9edca</owner>
-      <modified>2014-08-13 21:03:21</modified>
-      <performers/>
+      <created>2014-07-15 14:24:32</created>
+      <owner>uconcerts</owner>
+      <modified>2014-10-01 14:06:06</modified>
+      <performers>
+        <performer>
+          <id>P0-001-000004107-9</id>
+          <url>http://eventful.com/performers/nick-swardson-/P0-001-000004107-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+          <name>Nick Swardson</name>
+          <short_bio>Stand-Up / As Seen on TV</short_bio>
+          <creator>laxinonli</creator>
+          <linker>evdb</linker>
+        </performer>
+      </performers>
       <image>
-        <url>http://s3.evcdn.com/images/small/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
+        <url>http://s1.evcdn.com/images/small/I0-001/009/291/584-9.jpeg_/nick-swardson-84.jpeg</url>
         <width>48</width>
         <height>48</height>
         <caption/>
         <thumb>
-          <url>http://s3.evcdn.com/images/thumb/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
+          <url>http://s1.evcdn.com/images/thumb/I0-001/009/291/584-9.jpeg_/nick-swardson-84.jpeg</url>
           <width>48</width>
           <height>48</height>
         </thumb>
         <small>
-          <url>http://s3.evcdn.com/images/small/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
+          <url>http://s1.evcdn.com/images/small/I0-001/009/291/584-9.jpeg_/nick-swardson-84.jpeg</url>
           <width>48</width>
           <height>48</height>
         </small>
         <medium>
-          <url>http://s3.evcdn.com/images/medium/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
+          <url>http://s1.evcdn.com/images/medium/I0-001/009/291/584-9.jpeg_/nick-swardson-84.jpeg</url>
           <width>128</width>
           <height>128</height>
         </medium>
@@ -74,31 +91,94 @@ The family drama “Believe”, is set in 1984 and inspired by true events. The 
       <groups/>
       <going/>
     </event>
-    <event id="E0-001-072732788-7">
-      <title>Craft Sabbath</title>
-      <url>http://saltlakecity.eventful.com/events/craft-sabbath-/E0-001-072732788-7?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> : &lt;blockquote&gt;&lt;p&gt;From Craft Sabbath Website:Craft Sabbath is a monthly gathering of Artists and Crafters unique to the Wasatch front. Craft Sabbath celebrates diversity, individuality, and community through creative expression; Hand crafted jewelry, sculpture, clothes, dolls, and other brilliantly crafted discoveries await everyone who attends. Craft Sabbath was created to showcase the best in the local &amp;quot;rebel&amp;quot; craft scene, and that&amp;#39;s exactly what you&amp;#39;ll find. Nothing is mass-produced or imported, the artists are from right here in Utah, and you&amp;#39;re not going to find anything like it at your Aunt Sadie&amp;#39;s craft show!&lt;br&gt;&lt;br&gt; Craft Sabbath is held on the first Sunday of every month (if the first Sunday is a holiday we reschedule for the following Sunday). We are glad to call the Main Library Home at 210 e 400 s in Downtown Salt Lake City.&lt;/p&gt;&lt;/blockquote&gt;</description>
-      <start_time>2014-09-07 00:00:00</start_time>
-      <stop_time>2014-12-07 00:00:00</stop_time>
+    <event id="E0-001-076199586-8">
+      <title>The Chickadee Society: Spiders</title>
+      <url>http://saltlakecity.eventful.com/events/chickadee-society-spiders-/E0-001-076199586-8?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> Pre-School Story time! We invite you and your preschool age child to join the Chickadee Society here at the Natural History Museum of Utah to read &amp;quot;Diary of a Spider&amp;quot; . This program is designed for the emergent reader and will include examining live spider specimens and more! Be a part of the Chickadee Society the second and fourth Thursday of every month!</description>
+      <start_time>2014-10-23 11:00:00</start_time>
+      <stop_time/>
       <tz_id/>
       <tz_olson_path/>
       <tz_country/>
       <tz_city/>
       <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000179460-0</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-utah-united-states-/V0-001-000179460-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Salt Lake City, Utah, United States</venue_name>
-      <venue_display>0</venue_display>
-      <venue_address>Salt Lake City, Utah, United States</venue_address>
+      <venue_id>V0-001-000687204-6</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/natural-history-museum-of-utah-/V0-001-000687204-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Natural History Museum of Utah</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>301 Wakara Way</venue_address>
       <city_name>Salt Lake City</city_name>
       <region_name>Utah</region_name>
       <region_abbr>UT</region_abbr>
-      <postal_code/>
+      <postal_code>84108</postal_code>
       <country_name>United States</country_name>
       <country_abbr2>US</country_abbr2>
       <country_abbr>USA</country_abbr>
-      <latitude>40.6998256</latitude>
-      <longitude>-111.8875436</longitude>
+      <latitude>40.7641395</latitude>
+      <longitude>-111.8232035</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>0</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-10-11 10:25:38</created>
+      <owner>evdb</owner>
+      <modified>2014-10-11 10:25:38</modified>
+      <performers/>
+      <image>
+        <url>http://s3.evcdn.com/images/small/I0-001/017/078/258-3.jpeg_/chickadee-society-spiders-58.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s3.evcdn.com/images/thumb/I0-001/017/078/258-3.jpeg_/chickadee-society-spiders-58.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s3.evcdn.com/images/small/I0-001/017/078/258-3.jpeg_/chickadee-society-spiders-58.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s3.evcdn.com/images/medium/I0-001/017/078/258-3.jpeg_/chickadee-society-spiders-58.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-072744757-0">
+      <title>STEM + Art = SteAm Storytime</title>
+      <url>http://saltlakecity.eventful.com/events/stem-art-steam-storytime-/E0-001-072744757-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt;It&amp;#39;s STE[a]M Storytime! Join us for stories, songs, fingerplays, science and art. Recommended for children ages 3-5 with parent or other caring adult, however all ages are welcome.&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-07-16 00:00:00</start_time>
+      <stop_time>2015-05-31 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-001190933-5</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/calvin-s-smith-library-/V0-001-001190933-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Calvin S. Smith Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>810 East 3300 South</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84106</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.6997431</latitude>
+      <longitude>-111.8678704</longitude>
       <geocode_type>EVDB Geocoder</geocode_type>
       <all_day>2</all_day>
       <recur_string/>
@@ -107,9 +187,9 @@ The family drama “Believe”, is set in 1984 and inspired by true events. The 
       <link_count/>
       <going_count/>
       <watching_count/>
-      <created>2014-07-11 22:03:28</created>
+      <created>2014-07-12 05:18:17</created>
       <owner>evdb</owner>
-      <modified>2014-07-11 22:03:28</modified>
+      <modified>2014-07-12 05:18:17</modified>
       <performers/>
       <image/>
       <privacy>1</privacy>
@@ -117,62 +197,123 @@ The family drama “Believe”, is set in 1984 and inspired by true events. The 
       <groups/>
       <going/>
     </event>
-    <event id="E0-001-074068347-2@2014101712">
-      <title>Family Music Festival and Expo</title>
-      <url>http://saltlakecity.eventful.com/events/family-music-festiva-/E0-001-074068347-2@2014101712?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description>Two day music festival for the entire family.  Plus a great expo with over 80 exhibitors from tons of great local businesses. 
-
-https://www.eventbrite.com/e/family-music-festival-and-expo-tickets-10359388209</description>
-      <start_time>2014-10-17 12:00:00</start_time>
-      <stop_time>2014-10-18 10:00:00</stop_time>
+    <event id="E0-001-073932475-9">
+      <title>Boo at the Zoo</title>
+      <url>http://saltlakecity.eventful.com/events/boo-zoo-/E0-001-073932475-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> TRICK-OR-TREAT! For over 20 years, kids 12 and younger have donned their costumes to trick-or-treat at the Zoo! Over 20 candy booths are set up throughout Zoo grounds. Trick-or-Treat bags will be provided (while supplies last), or bring your own and join us for one of the biggest events at the Zoo!</description>
+      <start_time>2014-10-25 09:00:00</start_time>
+      <stop_time/>
       <tz_id/>
       <tz_olson_path/>
       <tz_country/>
       <tz_city/>
       <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000251780-4</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/university-of-utah-/V0-001-000251780-4?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>University of Utah</venue_name>
+      <venue_id>V0-001-000217760-6</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/hogle-zoo-/V0-001-000217760-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Hogle Zoo</venue_name>
       <venue_display>1</venue_display>
-      <venue_address>Central Campus Drive</venue_address>
+      <venue_address>2600 East Sunnyside Avenue</venue_address>
       <city_name>Salt Lake City</city_name>
       <region_name>Utah</region_name>
       <region_abbr>UT</region_abbr>
-      <postal_code>84112</postal_code>
+      <postal_code>84108</postal_code>
       <country_name>United States</country_name>
       <country_abbr2>US</country_abbr2>
       <country_abbr>USA</country_abbr>
-      <latitude>40.7667445</latitude>
-      <longitude>-111.8441744</longitude>
+      <latitude>40.7510194</latitude>
+      <longitude>-111.8143934</longitude>
       <geocode_type>EVDB Geocoder</geocode_type>
       <all_day>0</all_day>
-      <recur_string>daily for 1 times</recur_string>
+      <recur_string/>
       <calendar_count/>
       <comment_count/>
       <link_count/>
       <going_count/>
       <watching_count/>
-      <created>2014-08-17 17:11:52</created>
-      <owner>Johndd8db</owner>
-      <modified>2014-08-18 00:01:29</modified>
+      <created>2014-08-14 08:03:24</created>
+      <owner>evdb</owner>
+      <modified>2014-08-31 07:00:46</modified>
       <performers/>
       <image>
-        <url>http://s3.evcdn.com/images/small/I0-001/016/740/050-0.jpeg_/family-music-festival-and-expo-50.jpeg</url>
+        <url>http://s4.evcdn.com/images/small/I0-001/014/935/655-1.jpeg_/boo-zoo-55.jpeg</url>
         <width>48</width>
         <height>48</height>
         <caption/>
         <thumb>
-          <url>http://s3.evcdn.com/images/thumb/I0-001/016/740/050-0.jpeg_/family-music-festival-and-expo-50.jpeg</url>
+          <url>http://s4.evcdn.com/images/thumb/I0-001/014/935/655-1.jpeg_/boo-zoo-55.jpeg</url>
           <width>48</width>
           <height>48</height>
         </thumb>
         <small>
-          <url>http://s3.evcdn.com/images/small/I0-001/016/740/050-0.jpeg_/family-music-festival-and-expo-50.jpeg</url>
+          <url>http://s4.evcdn.com/images/small/I0-001/014/935/655-1.jpeg_/boo-zoo-55.jpeg</url>
           <width>48</width>
           <height>48</height>
         </small>
         <medium>
-          <url>http://s3.evcdn.com/images/medium/I0-001/016/740/050-0.jpeg_/family-music-festival-and-expo-50.jpeg</url>
+          <url>http://s4.evcdn.com/images/medium/I0-001/014/935/655-1.jpeg_/boo-zoo-55.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-075325521-5">
+      <title>Kids Create</title>
+      <url>http://saltlakecity.eventful.com/events/kids-create-/E0-001-075325521-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> Get creative! Art activities for kids. This program is free and no registration is required.&lt;br&gt; &lt;br&gt; For grades K - 6. This program is free, and no registration is required.&lt;br&gt; &lt;br&gt; </description>
+      <start_time>2014-10-22 00:00:00</start_time>
+      <stop_time>2014-10-22 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-005853911-3</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/homeschool-club-murray-library-/V0-001-005853911-3?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Homeschool Club @ Murray Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>166 E 5300 S</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84107</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.6560784</latitude>
+      <longitude>-111.8862035</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-09-21 00:15:21</created>
+      <owner>evdb</owner>
+      <modified>2014-10-18 13:30:49</modified>
+      <performers/>
+      <image>
+        <url>http://s2.evcdn.com/images/small/I0-001/016/974/181-8.jpeg_/kids-create-81.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s2.evcdn.com/images/thumb/I0-001/016/974/181-8.jpeg_/kids-create-81.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s2.evcdn.com/images/small/I0-001/016/974/181-8.jpeg_/kids-create-81.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s2.evcdn.com/images/medium/I0-001/016/974/181-8.jpeg_/kids-create-81.jpeg</url>
           <width>128</width>
           <height>128</height>
         </medium>
@@ -245,229 +386,62 @@ https://www.eventbrite.com/e/family-music-festival-and-expo-tickets-10359388209<
       <groups/>
       <going/>
     </event>
-    <event id="E0-001-073528835-2">
-      <title>Fall Recess Adventure</title>
-      <url>http://saltlakecity.eventful.com/events/fall-recess-adventure-/E0-001-073528835-2?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> Participants will have the opportunity to rock climb on world renown sandstone rock, raft down the famous Colorado River, and camp beneath a blanket of stars. It&amp;#39;s a trip that you will always remember. Two night, three day rafting and climbing adventure in Southern Utah. Spend two days rafting the beautiful Colorado River through Fisher Towers and then spend a day climbing in the beautiful canyons just outside town. </description>
-      <start_time>2014-10-17 00:00:00</start_time>
-      <stop_time>2014-10-17 00:00:00</stop_time>
-      <tz_id/>
-      <tz_olson_path/>
-      <tz_country/>
-      <tz_city/>
-      <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-008172478-2</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/splore-/V0-001-008172478-2?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Splore</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>774 East 3300 South</venue_address>
-      <city_name>Salt Lake City</city_name>
-      <region_name>Utah</region_name>
-      <region_abbr>UT</region_abbr>
-      <postal_code>84106</postal_code>
-      <country_name>United States</country_name>
-      <country_abbr2>US</country_abbr2>
-      <country_abbr>USA</country_abbr>
-      <latitude>40.7078</latitude>
-      <longitude>-111.855</longitude>
-      <geocode_type>Zip Code Based GeoCodes</geocode_type>
-      <all_day>2</all_day>
-      <recur_string/>
-      <calendar_count/>
-      <comment_count/>
-      <link_count/>
-      <going_count/>
-      <watching_count/>
-      <created>2014-08-02 19:27:21</created>
-      <owner>evdb</owner>
-      <modified>2014-08-02 19:27:21</modified>
-      <performers/>
-      <image>
-        <url>http://s3.evcdn.com/images/small/I0-001/016/605/314-7.jpeg_/fall-recess-adventure-14.jpeg</url>
-        <width>48</width>
-        <height>48</height>
-        <caption/>
-        <thumb>
-          <url>http://s3.evcdn.com/images/thumb/I0-001/016/605/314-7.jpeg_/fall-recess-adventure-14.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </thumb>
-        <small>
-          <url>http://s3.evcdn.com/images/small/I0-001/016/605/314-7.jpeg_/fall-recess-adventure-14.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </small>
-        <medium>
-          <url>http://s3.evcdn.com/images/medium/I0-001/016/605/314-7.jpeg_/fall-recess-adventure-14.jpeg</url>
-          <width>128</width>
-          <height>128</height>
-        </medium>
-      </image>
-      <privacy>1</privacy>
-      <calendars/>
-      <groups/>
-      <going/>
-    </event>
-    <event id="E0-001-072744757-0">
-      <title>STEM + Art = SteAm Storytime</title>
-      <url>http://saltlakecity.eventful.com/events/stem-art-steam-storytime-/E0-001-072744757-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> &lt;p&gt;&lt;p&gt;It&amp;#39;s STE[a]M Storytime! Join us for stories, songs, fingerplays, science and art. Recommended for children ages 3-5 with parent or other caring adult, however all ages are welcome.&lt;/p&gt;&lt;/p&gt;</description>
-      <start_time>2014-07-16 00:00:00</start_time>
-      <stop_time>2015-05-31 00:00:00</stop_time>
-      <tz_id/>
-      <tz_olson_path/>
-      <tz_country/>
-      <tz_city/>
-      <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-001190933-5</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/calvin-s-smith-library-/V0-001-001190933-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Calvin S. Smith Library</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>810 East 3300 South</venue_address>
-      <city_name>Salt Lake City</city_name>
-      <region_name>Utah</region_name>
-      <region_abbr>UT</region_abbr>
-      <postal_code>84106</postal_code>
-      <country_name>United States</country_name>
-      <country_abbr2>US</country_abbr2>
-      <country_abbr>USA</country_abbr>
-      <latitude>40.6997431</latitude>
-      <longitude>-111.8678704</longitude>
-      <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>2</all_day>
-      <recur_string/>
-      <calendar_count/>
-      <comment_count/>
-      <link_count/>
-      <going_count/>
-      <watching_count/>
-      <created>2014-07-12 05:18:17</created>
-      <owner>evdb</owner>
-      <modified>2014-07-12 05:18:17</modified>
-      <performers/>
-      <image/>
-      <privacy>1</privacy>
-      <calendars/>
-      <groups/>
-      <going/>
-    </event>
-    <event id="E0-001-075473405-6">
-      <title>Choose to Work Conference</title>
-      <url>http://saltlakecity.eventful.com/events/choose-work-conference-/E0-001-075473405-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> &lt;p&gt;Statewide Choose to Work Annual Conference&lt;/p&gt;</description>
-      <start_time>2014-10-15 08:30:00</start_time>
-      <stop_time>2014-10-15 14:30:00</stop_time>
-      <tz_id/>
-      <tz_olson_path/>
-      <tz_country/>
-      <tz_city/>
-      <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000206943-1</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/utah-state-library-auditorium-/V0-001-000206943-1?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Utah State Library Auditorium</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>250 North 1950 West</venue_address>
-      <city_name>Salt Lake City</city_name>
-      <region_name>Utah</region_name>
-      <region_abbr>UT</region_abbr>
-      <postal_code>84116-7901</postal_code>
-      <country_name>United States</country_name>
-      <country_abbr2>US</country_abbr2>
-      <country_abbr>USA</country_abbr>
-      <latitude>40.7763330</latitude>
-      <longitude>-111.9479160</longitude>
-      <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>0</all_day>
-      <recur_string/>
-      <calendar_count/>
-      <comment_count/>
-      <link_count/>
-      <going_count/>
-      <watching_count/>
-      <created>2014-09-24 19:43:58</created>
-      <owner>evdb</owner>
-      <modified>2014-09-24 19:43:58</modified>
-      <performers/>
-      <image>
-        <url>http://s3.evcdn.com/images/small/I0-001/016/998/974-6.jpeg_/choose-work-conference-74.jpeg</url>
-        <width>48</width>
-        <height>48</height>
-        <caption/>
-        <thumb>
-          <url>http://s3.evcdn.com/images/thumb/I0-001/016/998/974-6.jpeg_/choose-work-conference-74.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </thumb>
-        <small>
-          <url>http://s3.evcdn.com/images/small/I0-001/016/998/974-6.jpeg_/choose-work-conference-74.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </small>
-        <medium>
-          <url>http://s3.evcdn.com/images/medium/I0-001/016/998/974-6.jpeg_/choose-work-conference-74.jpeg</url>
-          <width>128</width>
-          <height>128</height>
-        </medium>
-      </image>
-      <privacy>1</privacy>
-      <calendars/>
-      <groups/>
-      <going/>
-    </event>
-    <event id="E0-001-075318322-8">
-      <title>Member Storytime - Free</title>
-      <url>http://saltlakecity.eventful.com/events/member-storytime-free-/E0-001-075318322-8?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> </description>
-      <start_time>2014-10-15 13:00:00</start_time>
+    <event id="E0-001-073902570-6@2014102100">
+      <title>Believe</title>
+      <url>http://saltlakecity.eventful.com/events/believe-/E0-001-073902570-6@2014102100?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description>Believe is set in 1984 and inspired by true events about Sir Matt Busby, legendary Manchester United football manager, who helps a boy fulfill his dream.
+
+The family drama “Believe”, is set in 1984 and inspired by true events. The film is a funny and touching tale about Sir Matt Busby, legendary Manchester United football manager, who helps a wayward boy fulfill his dream. An act of petty crime by 11 year old Georgie becomes a collision of fate as Sir Matt tracks him down, only to discover that the boy is an extraordinarily gifted footballer and captain of a team of unruly talents. Having lived with football all his life and survived the tragic 1958 Munich plane disaster, in which eight of his young players were killed, Sir Matt is still committed to continue his work of ‘training lads for life’ and so begins a thrilling adventure as Sir Matt Busby, comes out of retirement to transform a young group of scallywags into a dream team.</description>
+      <start_time>2014-10-21 00:00:00</start_time>
       <stop_time/>
       <tz_id/>
       <tz_olson_path/>
       <tz_country/>
       <tz_city/>
       <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000217760-6</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/hogle-zoo-/V0-001-000217760-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Hogle Zoo</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>2600 East Sunnyside Avenue</venue_address>
+      <venue_id>V0-001-000179460-0</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-utah-united-states-/V0-001-000179460-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Salt Lake City, Utah, United States</venue_name>
+      <venue_display>0</venue_display>
+      <venue_address>Salt Lake City, Utah, United States</venue_address>
       <city_name>Salt Lake City</city_name>
       <region_name>Utah</region_name>
       <region_abbr>UT</region_abbr>
-      <postal_code>84108</postal_code>
+      <postal_code/>
       <country_name>United States</country_name>
       <country_abbr2>US</country_abbr2>
       <country_abbr>USA</country_abbr>
-      <latitude>40.7510194</latitude>
-      <longitude>-111.8143934</longitude>
+      <latitude>40.6998256</latitude>
+      <longitude>-111.8875436</longitude>
       <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>0</all_day>
-      <recur_string/>
+      <all_day>1</all_day>
+      <recur_string>daily until January 1, 2015</recur_string>
       <calendar_count/>
       <comment_count/>
       <link_count/>
       <going_count/>
       <watching_count/>
-      <created>2014-09-20 20:40:56</created>
-      <owner>evdb</owner>
-      <modified>2014-09-20 20:40:56</modified>
+      <created>2014-08-13 14:36:53</created>
+      <owner>joseph9edca</owner>
+      <modified>2014-08-13 21:03:21</modified>
       <performers/>
       <image>
-        <url>http://s1.evcdn.com/images/small/I0-001/015/802/836-8.jpeg_/member-storytime-free-36.jpeg</url>
+        <url>http://s3.evcdn.com/images/small/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
         <width>48</width>
         <height>48</height>
         <caption/>
         <thumb>
-          <url>http://s1.evcdn.com/images/thumb/I0-001/015/802/836-8.jpeg_/member-storytime-free-36.jpeg</url>
+          <url>http://s3.evcdn.com/images/thumb/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
           <width>48</width>
           <height>48</height>
         </thumb>
         <small>
-          <url>http://s1.evcdn.com/images/small/I0-001/015/802/836-8.jpeg_/member-storytime-free-36.jpeg</url>
+          <url>http://s3.evcdn.com/images/small/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
           <width>48</width>
           <height>48</height>
         </small>
         <medium>
-          <url>http://s1.evcdn.com/images/medium/I0-001/015/802/836-8.jpeg_/member-storytime-free-36.jpeg</url>
+          <url>http://s3.evcdn.com/images/medium/I0-001/016/707/422-6.jpeg_/believe-22.jpeg</url>
           <width>128</width>
           <height>128</height>
         </medium>
@@ -477,12 +451,12 @@ https://www.eventbrite.com/e/family-music-festival-and-expo-tickets-10359388209<
       <groups/>
       <going/>
     </event>
-    <event id="E0-001-076228530-6">
-      <title>Doc of the Dead</title>
-      <url>http://saltlakecity.eventful.com/events/doc-dead-/E0-001-076228530-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> &lt;p&gt;&lt;p&gt;Doc of the Dead delves into the evolution of the zombie genre in film and literature, as well as its impact and influence on pop culture. A rich and entertaining dialogue with zombie authors, filmmakers, and scholars, the film features a host of zombie icons (Max Brooks, George A. Romero, Simon Pegg, Robert Kirkman, Bruce Campbell, and many more!).&lt;/p&gt;&lt;/p&gt;</description>
-      <start_time>2014-10-15 00:00:00</start_time>
-      <stop_time>2014-10-15 00:00:00</stop_time>
+    <event id="E0-001-076209627-0">
+      <title>Monster Block Party</title>
+      <url>http://saltlakecity.eventful.com/events/monster-block-party-/E0-001-076209627-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt;For all the Ghouls and Boys! The Monster Block Party , daytime Halloween festival for Salt Lake City&amp;#39;s goblins and ghouls of all ages. There will be trick-or-treating booths, a costume contest with prizes (Kid, Teen and Adult divisions), free arts and crafts projects, a pumpkin drop, live performances and more!&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-10-25 00:00:00</start_time>
+      <stop_time>2014-10-25 00:00:00</stop_time>
       <tz_id/>
       <tz_olson_path/>
       <tz_country/>
@@ -510,9 +484,72 @@ https://www.eventbrite.com/e/family-music-festival-and-expo-tickets-10359388209<
       <link_count/>
       <going_count/>
       <watching_count/>
-      <created>2014-10-12 03:25:25</created>
+      <created>2014-10-11 16:05:40</created>
       <owner>evdb</owner>
-      <modified>2014-10-12 03:25:25</modified>
+      <modified>2014-10-11 16:05:40</modified>
+      <performers/>
+      <image>
+        <url>http://s1.evcdn.com/images/small/I0-001/017/128/792-4.jpeg_/monster-block-party-92.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s1.evcdn.com/images/thumb/I0-001/017/128/792-4.jpeg_/monster-block-party-92.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s1.evcdn.com/images/small/I0-001/017/128/792-4.jpeg_/monster-block-party-92.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s1.evcdn.com/images/medium/I0-001/017/128/792-4.jpeg_/monster-block-party-92.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-072732788-7">
+      <title>Craft Sabbath</title>
+      <url>http://saltlakecity.eventful.com/events/craft-sabbath-/E0-001-072732788-7?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> : &lt;blockquote&gt;&lt;p&gt;From Craft Sabbath Website:Craft Sabbath is a monthly gathering of Artists and Crafters unique to the Wasatch front. Craft Sabbath celebrates diversity, individuality, and community through creative expression; Hand crafted jewelry, sculpture, clothes, dolls, and other brilliantly crafted discoveries await everyone who attends. Craft Sabbath was created to showcase the best in the local &amp;quot;rebel&amp;quot; craft scene, and that&amp;#39;s exactly what you&amp;#39;ll find. Nothing is mass-produced or imported, the artists are from right here in Utah, and you&amp;#39;re not going to find anything like it at your Aunt Sadie&amp;#39;s craft show!&lt;br&gt;&lt;br&gt; Craft Sabbath is held on the first Sunday of every month (if the first Sunday is a holiday we reschedule for the following Sunday). We are glad to call the Main Library Home at 210 e 400 s in Downtown Salt Lake City.&lt;/p&gt;&lt;/blockquote&gt;</description>
+      <start_time>2014-09-07 00:00:00</start_time>
+      <stop_time>2014-12-07 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000179460-0</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-utah-united-states-/V0-001-000179460-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Salt Lake City, Utah, United States</venue_name>
+      <venue_display>0</venue_display>
+      <venue_address>Salt Lake City, Utah, United States</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code/>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.6998256</latitude>
+      <longitude>-111.8875436</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-07-11 22:03:28</created>
+      <owner>evdb</owner>
+      <modified>2014-07-11 22:03:28</modified>
       <performers/>
       <image/>
       <privacy>1</privacy>
@@ -520,44 +557,64 @@ https://www.eventbrite.com/e/family-music-festival-and-expo-tickets-10359388209<
       <groups/>
       <going/>
     </event>
-    <event id="E0-001-076228587-4">
-      <title>Particle Fever</title>
-      <url>http://saltlakecity.eventful.com/events/particle-fever-/E0-001-076228587-4?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> &lt;p&gt;&lt;p&gt;This film follows the inside story of six brilliant scientists seeking to unravel the mysteries of the universe, documenting the successes and setbacks in the planet’s most significant and inspiring scientific breakthrough—the launch of the Large Hadron Collider. Particle Fever is a celebration of discovery, revealing the very human stories behind the tale of this epic experiment.&lt;/p&gt;&lt;/p&gt;</description>
-      <start_time>2014-10-21 00:00:00</start_time>
-      <stop_time>2014-10-21 00:00:00</stop_time>
+    <event id="E0-001-075642796-5">
+      <title>Common Respiratory Infections and How to Protect Your Child. Presented by Dr. Carly Davis MD</title>
+      <url>http://saltlakecity.eventful.com/events/common-respiratory-infections-and-protect-y-/E0-001-075642796-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;Pediatrician Carly Davis, MD, Granger Medical Clinic, will discuss common respiratory infections, such as enterovirus, RSV and influenza, and provide suggestions about how to protect your child.&lt;p&gt; &lt;p&gt;Wednesday, Oct. 22, 2014, 6:30-7:30 p.m.&lt;p&gt;Murray Library, 166 East 5300 South,  Murray, UT 84107   &lt;p&gt; &lt;p&gt;Advanced registration is encouraged as space is limited. Please register online,&lt;p&gt;or call Lulu Hammond at 801-453-2289.&lt;p&gt; &lt;p&gt;Dr. Davis is specializes in Pediatrics and Pediatric Infectious Diseases, and sees patients at Granger Medical Clinic in Riverton. She has expertise in infant and well child care, as well as immunizations, cellulitis/abscess, MRSA infections, international adoption/travel and more.&lt;p&gt;The presentation is free and is presented by Granger Medical Clinic, in partnership with MassMutual Intermountain West.&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-10-22 18:30:00</start_time>
+      <stop_time>2014-10-22 19:30:00</stop_time>
       <tz_id/>
       <tz_olson_path/>
       <tz_country/>
       <tz_city/>
       <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000339988-9</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-library-/V0-001-000339988-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Salt Lake City Library</venue_name>
+      <venue_id>V0-001-005853911-3</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/homeschool-club-murray-library-/V0-001-005853911-3?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Homeschool Club @ Murray Library</venue_name>
       <venue_display>1</venue_display>
-      <venue_address>210 East 400 South</venue_address>
+      <venue_address>166 E 5300 S</venue_address>
       <city_name>Salt Lake City</city_name>
       <region_name>Utah</region_name>
       <region_abbr>UT</region_abbr>
-      <postal_code>84111</postal_code>
+      <postal_code>84107</postal_code>
       <country_name>United States</country_name>
       <country_abbr2>US</country_abbr2>
       <country_abbr>USA</country_abbr>
-      <latitude>40.760082</latitude>
-      <longitude>-111.884841</longitude>
+      <latitude>40.6560784</latitude>
+      <longitude>-111.8862035</longitude>
       <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>2</all_day>
+      <all_day>0</all_day>
       <recur_string/>
       <calendar_count/>
       <comment_count/>
       <link_count/>
       <going_count/>
       <watching_count/>
-      <created>2014-10-12 03:26:12</created>
+      <created>2014-09-28 21:46:51</created>
       <owner>evdb</owner>
-      <modified>2014-10-12 03:26:12</modified>
+      <modified>2014-09-28 21:46:51</modified>
       <performers/>
-      <image/>
+      <image>
+        <url>http://s4.evcdn.com/images/small/I0-001/017/027/151-9.jpeg_/common-respiratory-infections-and-protect-your-chi-51.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s4.evcdn.com/images/thumb/I0-001/017/027/151-9.jpeg_/common-respiratory-infections-and-protect-your-chi-51.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s4.evcdn.com/images/small/I0-001/017/027/151-9.jpeg_/common-respiratory-infections-and-protect-your-chi-51.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s4.evcdn.com/images/medium/I0-001/017/027/151-9.jpeg_/common-respiratory-infections-and-protect-your-chi-51.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
       <privacy>1</privacy>
       <calendars/>
       <groups/>

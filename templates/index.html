@@ -60,9 +60,9 @@ function checkTime(i) {
 <div id="content" class="tabcontents">
     <ul id="tabList" class="tabs">
             <li ><a href="#view1">Home</a></li>
-            <li ><a href="#view2">Forecast</a></li>
+            <li class="selected"><a href="#view2">Forecast</a></li>
             <li ><a href="#view3">Music</a></li>
-            <li class="selected"><a href="#view4">Entertainment</a></li>
+            <li ><a href="#view4">Entertainment</a></li>
             <li ><a href="#view5">Sports</a></li>
             <li ><a href="#view6">Apps</a></li>
          </ul>
@@ -182,7 +182,8 @@ function checkTime(i) {
                 <div id="day{{x}}cond" class="conds"><canvas id="icon{{x}}" width="200" height="300"></canvas></div>
                 <div id="day{{x}}high" class="high">72</div>
                 <div id="day{{x}}low" class="low">68</div>
-            </div>{% endfor %}
+            </div>
+            <div id="day{{x}}cover" class="days cover"></div>{% endfor %}
         </div>
     </div>
 
@@ -216,7 +217,7 @@ function checkTime(i) {
         <div id="entContainer">
             <div id="movies">
                 <table id="openingMovies">
-                    <tr><th height="35px" colspan="2">Movies Opening This Week</th><td> </td><td>Critic</td><td>User</td></tr>
+                    <tr><th height="35px" colspan="2">Movies Opening This Week</th><th> </th><th>Critic</th><th>User</th></tr>
                     <tr><td></td><td> </td><td> </td><td> </td><td> </td></tr>
                     <tr><td></td><td> </td><td> </td><td> </td><td> </td></tr>
                     <tr><td></td><td> </td><td> </td><td> </td><td> </td></tr>
@@ -231,7 +232,7 @@ function checkTime(i) {
             </div>
             <div id="events">
                 <table id="localEvents">
-                    <tr><th height="35px" colspan="2">Events This Week</th><td> </td><td></td><td></td></tr>
+                    <tr><th height="35px" colspan="2">Upcoming Events</th><th>Date</th></tr>
                     <tr><td></td><td> </td><td> </td></tr>
                     <tr><td></td><td> </td><td> </td></tr>
                     <tr><td></td><td> </td><td> </td></tr>
@@ -504,16 +505,17 @@ function checkTime(i) {
     <div id="screenCover"></div>
     <div id="popupContent">
         {% for x in range(1,11) %}
-        <div id="rss{{ x }}sum" class="rssSums">aaaaaaa</div>{% endfor %}
-        <div id="alertDescription" class="rssSums"></div>
+        <div id="rss{{ x }}sum" class="popupText"></div>
+        <div id="day{{ x }}description" class="popupText"></div>
+        <div id="movie{{ x }}sum" class="popupText"><div class="synopsis"></div><div class="rating"></div><div class="length"></div></div>
+        <div id="ent{{ x }}sum" class="popupText"><div class="synopsis"></div><div class="rating"></div><div class="length"></div></div>{% endfor %}
+        <div id="alertDescription" class="popupText"></div>
     </div>
 
     <script>
-        $('#popupContent').click(function(){
-            $('.rssSums, #popupContent, #screenCover').css('display','none');
-        });
-        $('#screenCover').click(function(){
-            $('.rssSums, #popupContent, #screenCover').css('display','none');
+        $('.popupText, #popupContent, #screenCover').click(function(){
+            $('.popupText, #popupContent, #screenCover').css('display','none');
+            $('#popupContent').removeClass('movieCover');
         });
     </script>
 </div>
