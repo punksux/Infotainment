@@ -96,6 +96,10 @@
     /*border:1px solid #ffffff;*/
     display: inline-block;
     text-shadow: 0 0 15px #333;
+   /* text-shadow: -3px -3px 0 #111,
+                -3px 3px 0 #111,
+                3px 3px 0 #111,
+                3px -3px 0 #111;*/
 }
 
 #outLabel, #inLabel, #tomLabel {
@@ -447,10 +451,10 @@ ul.newsticker li {
 /*  --== Popup ==--  */
 
 #popupContent {
-    padding:5px;
+    padding:10px;
     z-index: 200;
-    background-color: rgba(0,0,0,0.9);
-    border:3px solid rgba(0,0,0,1);
+    background-color: rgba(0,0,0,0.99);
+    border:1px solid white;
     display:none;
     color: white;
     position: absolute;
@@ -464,7 +468,7 @@ ul.newsticker li {
     max-width: 1276px;
     min-width: 800px;
     font: bold 40px Code;
-    text-shadow: 2px 2px 5px #333;
+    /*text-shadow: 2px 2px 5px #333;*/
     line-height: 50px;
     text-align: justify;
 }
@@ -501,27 +505,70 @@ ul.newsticker li {
 .movieCover {
     width:1200px;
     height:644px;
-    font: bold 35px Code;
     overflow: hidden;
+    padding: 0 !important;
+}
+
+.movieName {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 30px;
+    width: 1180px;
+    height: 50px;
+    text-align: center;
+    background-color: rgba(255, 255, 255,0.25);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-shadow: 2px 2px 5px #111;
+}
+
+.image {
+    position: absolute;
+    left: 10px;
+    top: 70px;
+    width:220px;
+    height:270px
 }
 
 .synopsis {
     overflow-y: auto;
-    height: 560px;
-    border:0 solid white;
-    border-bottom-width: 1px;
+    width: 950px;
+    height: 564px;
+    position: absolute;
+    right: 10px;
+    top: 70px;
+    font-size: 25px;
+    line-height: 30px;
 }
 
 .rating {
     position: absolute;
-    bottom: 5px;
-    left: 5px;
+    top: 350px;
+    left: 10px;
+    font-size: 20px;
+    width:220px;
+    text-align: left;
+    line-height: 30px;
 }
 
 .length {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    top: 370px;
+    left: 10px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.actors{
+    position: absolute;
+    top: 430px;
+    left: 10px;
+    width: 220px;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: left;
 }
 
 /*  --== Forecast Page ==--  */
@@ -1009,6 +1056,10 @@ ul.newsticker li {
 
 .nflTables {
     display:none;
+}
+
+.nflTables img {
+    height: 20px;
 }
 
 #nflNFCRankings {

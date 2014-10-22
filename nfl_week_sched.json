@@ -1,1 +1,509 @@
-{"id":"b613edae-472c-45e4-acd0-d62a87527ce2","number":8,"games":[{"id":"c098931e-d3b7-4fdb-b7c8-14550840de53","scheduled":"2014-10-24T00:25:00+00:00","home_rotation":"","away_rotation":"","home":"DEN","away":"SD","status":"scheduled","venue":{"id":"6589e61d-ef1e-4e30-91b5-9acd2072b8a0","country":"USA","name":"Sports Authority Field at Mile High","city":"Denver","state":"CO","capacity":76125,"surface":"turf","type":"outdoor","zip":"80204","address":"1701 Mile High Stadium Circle"},"broadcast":{"network":"CBS/NFL"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"4d015e4d-d16f-4b0c-8bcf-11c27dc820df","scheduled":"2014-10-26T13:30:00+00:00","home_rotation":"","away_rotation":"","home":"ATL","away":"DET","status":"scheduled","venue":{"id":"ddaebc21-35aa-4f00-bef6-3f0bc7e76f70","country":"UK","name":"Wembley Stadium","city":"London","capacity":90000,"surface":"artificial","type":"retractable_dome","zip":"HA9 0WS","address":"Wembley Stadium"},"broadcast":{"network":"FOX"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"348bc362-88a6-4ab0-be03-4c2db082eaf7","scheduled":"2014-10-26T17:00:00+00:00","home_rotation":"","away_rotation":"","home":"CIN","away":"BAL","status":"scheduled","venue":{"id":"b87a1595-d3c8-48ea-8a53-0aab6378a64a","country":"USA","name":"Paul Brown Stadium","city":"Cincinnati","state":"OH","capacity":65535,"surface":"artificial","type":"outdoor","zip":"45202","address":"One Paul Brown Stadium"},"broadcast":{"network":"CBS","satellite":"710"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"3e463894-5a5a-42e6-96df-35abfe2e0d73","scheduled":"2014-10-26T17:00:00+00:00","home_rotation":"","away_rotation":"","home":"NYJ","away":"BUF","status":"scheduled","venue":{"id":"5d4c85c7-d84e-4e10-bd6a-8a15ebecca5c","country":"USA","name":"MetLife Stadium","city":"East Rutherford","state":"NJ","capacity":82500,"surface":"artificial","type":"outdoor","zip":"07073","address":"One MetLife Stadium Drive"},"broadcast":{"network":"CBS","satellite":"712"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"d7175d81-f87d-47d0-b8cb-b66ba8814439","scheduled":"2014-10-26T17:00:00+00:00","home_rotation":"","away_rotation":"","home":"CAR","away":"SEA","status":"scheduled","venue":{"id":"39be9ed4-3292-49ac-8699-a381de3a4969","country":"USA","name":"Bank of America Stadium","city":"Charlotte","state":"NC","capacity":73778,"surface":"turf","type":"outdoor","zip":"28202","address":"800 South Mint Street"},"broadcast":{"network":"FOX","satellite":"709"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"1e0d9452-d5b2-4630-9cd6-bf9636bd5d52","scheduled":"2014-10-26T17:00:00+00:00","home_rotation":"","away_rotation":"","home":"JAC","away":"MIA","status":"scheduled","venue":{"id":"4c5c036d-dd3d-4183-b595-71a43a97560f","country":"USA","name":"EverBank Field","city":"Jacksonville","state":"FL","capacity":67246,"surface":"turf","type":"outdoor","zip":"32202","address":"One EverBank Field Drive"},"broadcast":{"network":"CBS","satellite":"711"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"949c4509-7bcc-4b66-b86f-7eb011881308","scheduled":"2014-10-26T17:00:00+00:00","home_rotation":"","away_rotation":"","home":"TEN","away":"HOU","status":"scheduled","venue":{"id":"5295c1b7-c85c-49cb-9569-1707c65324e5","country":"USA","name":"LP Field","city":"Nashville","state":"TN","capacity":69143,"surface":"turf","type":"outdoor","zip":"37213","address":"One Titans Way"},"broadcast":{"network":"FOX","satellite":"705"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"6c25a041-7f5c-427c-805b-d424e79516b8","scheduled":"2014-10-26T17:00:00+00:00","home_rotation":"","away_rotation":"","home":"NE","away":"CHI","status":"scheduled","venue":{"id":"e43310b1-cb82-4df9-8be5-e9b39637031b","country":"USA","name":"Gillette Stadium","city":"Foxborough","state":"MA","capacity":68756,"surface":"artificial","type":"outdoor","zip":"02035","address":"One Patriot Place"},"broadcast":{"network":"FOX","satellite":"707"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"29ef8d8d-37da-44c4-9ae1-25edea174dc5","scheduled":"2014-10-26T17:00:00+00:00","home_rotation":"","away_rotation":"","home":"KC","away":"STL","status":"scheduled","venue":{"id":"2ec4c411-dac2-403d-b091-6b6aa4a0a914","country":"USA","name":"Arrowhead Stadium","city":"Kansas City","state":"MO","capacity":79451,"surface":"turf","type":"outdoor","zip":"64129","address":"One Arrowhead Drive"},"broadcast":{"network":"FOX","satellite":"706"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"98f3d6f9-9140-4782-8b1a-d02f343ce5e1","scheduled":"2014-10-26T17:00:00+00:00","home_rotation":"","away_rotation":"","home":"TB","away":"MIN","status":"scheduled","venue":{"id":"6fccc39c-80bc-4c81-83d9-2d5a848c8c09","country":"USA","name":"Raymond James Stadium","city":"Tampa","state":"FL","capacity":65890,"surface":"turf","type":"outdoor","zip":"33607","address":"4201 North Dale Mabry Highway"},"broadcast":{"network":"FOX","satellite":"708"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"93ff178b-5256-4898-9b65-dc0b6444889e","scheduled":"2014-10-26T20:05:00+00:00","home_rotation":"","away_rotation":"","home":"ARI","away":"PHI","status":"scheduled","venue":{"id":"f8e4d2ab-53f9-4e9f-8c4a-9bc278094a84","country":"USA","name":"University of Phoenix Stadium","city":"Glendale","state":"AZ","capacity":63400,"surface":"turf","type":"retractable_dome","zip":"85305","address":"One Cardinals Drive"},"broadcast":{"network":"FOX","satellite":"713"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"e74dca28-733e-4baf-bc69-1aa7f7484690","scheduled":"2014-10-26T20:25:00+00:00","home_rotation":"","away_rotation":"","home":"CLE","away":"OAK","status":"scheduled","venue":{"id":"90c38d91-3774-4f5d-82ca-1c806828219f","country":"USA","name":"FirstEnergy Stadium","city":"Cleveland","state":"OH","capacity":71516,"surface":"turf","type":"outdoor","zip":"44114","address":"100 Alfred Lerner Way"},"broadcast":{"network":"CBS","satellite":"714"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"a2a2b8e4-91bc-469f-9f28-07467b0c518a","scheduled":"2014-10-26T20:25:00+00:00","home_rotation":"","away_rotation":"","home":"PIT","away":"IND","status":"scheduled","venue":{"id":"7349a2e6-0ac9-410b-8bd2-ca58c9f7aa34","country":"USA","name":"Heinz Field","city":"Pittsburgh","state":"PA","capacity":65050,"surface":"turf","type":"outdoor","zip":"15212","address":"100 Art Rooney Avenue"},"broadcast":{"network":"CBS","satellite":"715"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"c0f7247c-4637-492c-9bae-88a6d3ed9c4f","scheduled":"2014-10-27T00:30:00+00:00","home_rotation":"","away_rotation":"","home":"NO","away":"GB","status":"scheduled","venue":{"id":"3c85d89a-ec66-4983-acd5-1381d6c8673a","country":"USA","name":"Mercedes-Benz Superdome","city":"New Orleans","state":"LA","capacity":76468,"surface":"artificial","type":"dome","zip":"70112","address":"1500 Sugar Bowl Drive"},"broadcast":{"network":"NBC"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}},{"id":"14bbf6f0-c486-4bbc-9259-737b324ef25f","scheduled":"2014-10-28T00:30:00+00:00","home_rotation":"","away_rotation":"","home":"DAL","away":"WAS","status":"scheduled","venue":{"id":"1e84213a-ff1f-4c9d-a003-8ee782b25a40","country":"USA","name":"AT&T Stadium","city":"Arlington","state":"TX","capacity":80000,"surface":"artificial","type":"retractable_dome","zip":"76011","address":"One Legends Way"},"broadcast":{"network":"ESPN","satellite":"206","internet":"WatchESPN"},"weather":{"temperature":null,"condition":null,"humidity":null,"wind":{"speed":null,"direction":null}}}],"bye_week":["NYG","SF"]}
+{"id": "b613edae-472c-45e4-acd0-d62a87527ce2", "number": 8, "games": [
+    {
+        "id": "c098931e-d3b7-4fdb-b7c8-14550840de53",
+        "scheduled": "2014-10-24T00:25:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "DEN",
+        "away": "SD",
+        "status": "scheduled",
+        "venue": {
+            "id": "6589e61d-ef1e-4e30-91b5-9acd2072b8a0",
+            "country": "USA",
+            "name": "Sports Authority Field at Mile High",
+            "city": "Denver",
+            "state": "CO",
+            "capacity": 76125,
+            "surface": "turf",
+            "type": "outdoor",
+            "zip": "80204",
+            "address": "1701 Mile High Stadium Circle"
+        },
+        "broadcast": {
+            "network": "CBS/NFL"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "4d015e4d-d16f-4b0c-8bcf-11c27dc820df",
+        "scheduled": "2014-10-26T13:30:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "ATL",
+        "away": "DET",
+        "status": "scheduled",
+        "venue": {
+            "id": "ddaebc21-35aa-4f00-bef6-3f0bc7e76f70",
+            "country": "UK",
+            "name": "Wembley Stadium",
+            "city": "London",
+            "capacity": 90000,
+            "surface": "artificial",
+            "type": "retractable_dome",
+            "zip": "HA9 0WS",
+            "address": "Wembley Stadium"
+        },
+        "broadcast": {
+            "network": "FOX"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "348bc362-88a6-4ab0-be03-4c2db082eaf7",
+        "scheduled": "2014-10-26T17:00:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "CIN",
+        "away": "BAL",
+        "status": "scheduled",
+        "venue": {
+            "id": "b87a1595-d3c8-48ea-8a53-0aab6378a64a",
+            "country": "USA",
+            "name": "Paul Brown Stadium",
+            "city": "Cincinnati",
+            "state": "OH",
+            "capacity": 65535,
+            "surface": "artificial",
+            "type": "outdoor",
+            "zip": "45202",
+            "address": "One Paul Brown Stadium"
+        },
+        "broadcast": {
+            "network": "CBS",
+            "satellite": "710"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "3e463894-5a5a-42e6-96df-35abfe2e0d73",
+        "scheduled": "2014-10-26T17:00:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "NYJ",
+        "away": "BUF",
+        "status": "scheduled",
+        "venue": {
+            "id": "5d4c85c7-d84e-4e10-bd6a-8a15ebecca5c",
+            "country": "USA",
+            "name": "MetLife Stadium",
+            "city": "East Rutherford",
+            "state": "NJ",
+            "capacity": 82500,
+            "surface": "artificial",
+            "type": "outdoor",
+            "zip": "07073",
+            "address": "One MetLife Stadium Drive"
+        },
+        "broadcast": {
+            "network": "CBS",
+            "satellite": "712"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "d7175d81-f87d-47d0-b8cb-b66ba8814439",
+        "scheduled": "2014-10-26T17:00:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "CAR",
+        "away": "SEA",
+        "status": "scheduled",
+        "venue": {
+            "id": "39be9ed4-3292-49ac-8699-a381de3a4969",
+            "country": "USA",
+            "name": "Bank of America Stadium",
+            "city": "Charlotte",
+            "state": "NC",
+            "capacity": 73778,
+            "surface": "turf",
+            "type": "outdoor",
+            "zip": "28202",
+            "address": "800 South Mint Street"
+        },
+        "broadcast": {
+            "network": "FOX",
+            "satellite": "709"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "1e0d9452-d5b2-4630-9cd6-bf9636bd5d52",
+        "scheduled": "2014-10-26T17:00:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "JAC",
+        "away": "MIA",
+        "status": "scheduled",
+        "venue": {
+            "id": "4c5c036d-dd3d-4183-b595-71a43a97560f",
+            "country": "USA",
+            "name": "EverBank Field",
+            "city": "Jacksonville",
+            "state": "FL",
+            "capacity": 67246,
+            "surface": "turf",
+            "type": "outdoor",
+            "zip": "32202",
+            "address": "One EverBank Field Drive"
+        },
+        "broadcast": {
+            "network": "CBS",
+            "satellite": "711"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "949c4509-7bcc-4b66-b86f-7eb011881308",
+        "scheduled": "2014-10-26T17:00:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "TEN",
+        "away": "HOU",
+        "status": "scheduled",
+        "venue": {
+            "id": "5295c1b7-c85c-49cb-9569-1707c65324e5",
+            "country": "USA",
+            "name": "LP Field",
+            "city": "Nashville",
+            "state": "TN",
+            "capacity": 69143,
+            "surface": "turf",
+            "type": "outdoor",
+            "zip": "37213",
+            "address": "One Titans Way"
+        },
+        "broadcast": {
+            "network": "FOX",
+            "satellite": "705"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "6c25a041-7f5c-427c-805b-d424e79516b8",
+        "scheduled": "2014-10-26T17:00:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "NE",
+        "away": "CHI",
+        "status": "scheduled",
+        "venue": {
+            "id": "e43310b1-cb82-4df9-8be5-e9b39637031b",
+            "country": "USA",
+            "name": "Gillette Stadium",
+            "city": "Foxborough",
+            "state": "MA",
+            "capacity": 68756,
+            "surface": "artificial",
+            "type": "outdoor",
+            "zip": "02035",
+            "address": "One Patriot Place"
+        },
+        "broadcast": {
+            "network": "FOX",
+            "satellite": "707"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "29ef8d8d-37da-44c4-9ae1-25edea174dc5",
+        "scheduled": "2014-10-26T17:00:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "KC",
+        "away": "STL",
+        "status": "scheduled",
+        "venue": {
+            "id": "2ec4c411-dac2-403d-b091-6b6aa4a0a914",
+            "country": "USA",
+            "name": "Arrowhead Stadium",
+            "city": "Kansas City",
+            "state": "MO",
+            "capacity": 79451,
+            "surface": "turf",
+            "type": "outdoor",
+            "zip": "64129",
+            "address": "One Arrowhead Drive"
+        },
+        "broadcast": {
+            "network": "FOX",
+            "satellite": "706"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "98f3d6f9-9140-4782-8b1a-d02f343ce5e1",
+        "scheduled": "2014-10-26T17:00:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "TB",
+        "away": "MIN",
+        "status": "scheduled",
+        "venue": {
+            "id": "6fccc39c-80bc-4c81-83d9-2d5a848c8c09",
+            "country": "USA",
+            "name": "Raymond James Stadium",
+            "city": "Tampa",
+            "state": "FL",
+            "capacity": 65890,
+            "surface": "turf",
+            "type": "outdoor",
+            "zip": "33607",
+            "address": "4201 North Dale Mabry Highway"
+        },
+        "broadcast": {
+            "network": "FOX",
+            "satellite": "708"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "93ff178b-5256-4898-9b65-dc0b6444889e",
+        "scheduled": "2014-10-26T20:05:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "ARI",
+        "away": "PHI",
+        "status": "scheduled",
+        "venue": {
+            "id": "f8e4d2ab-53f9-4e9f-8c4a-9bc278094a84",
+            "country": "USA",
+            "name": "University of Phoenix Stadium",
+            "city": "Glendale",
+            "state": "AZ",
+            "capacity": 63400,
+            "surface": "turf",
+            "type": "retractable_dome",
+            "zip": "85305",
+            "address": "One Cardinals Drive"
+        },
+        "broadcast": {
+            "network": "FOX",
+            "satellite": "713"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "e74dca28-733e-4baf-bc69-1aa7f7484690",
+        "scheduled": "2014-10-26T20:25:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "CLE",
+        "away": "OAK",
+        "status": "scheduled",
+        "venue": {
+            "id": "90c38d91-3774-4f5d-82ca-1c806828219f",
+            "country": "USA",
+            "name": "FirstEnergy Stadium",
+            "city": "Cleveland",
+            "state": "OH",
+            "capacity": 71516,
+            "surface": "turf",
+            "type": "outdoor",
+            "zip": "44114",
+            "address": "100 Alfred Lerner Way"
+        },
+        "broadcast": {
+            "network": "CBS",
+            "satellite": "714"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "a2a2b8e4-91bc-469f-9f28-07467b0c518a",
+        "scheduled": "2014-10-26T20:25:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "PIT",
+        "away": "IND",
+        "status": "scheduled",
+        "venue": {
+            "id": "7349a2e6-0ac9-410b-8bd2-ca58c9f7aa34",
+            "country": "USA",
+            "name": "Heinz Field",
+            "city": "Pittsburgh",
+            "state": "PA",
+            "capacity": 65050,
+            "surface": "turf",
+            "type": "outdoor",
+            "zip": "15212",
+            "address": "100 Art Rooney Avenue"
+        },
+        "broadcast": {
+            "network": "CBS",
+            "satellite": "715"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "c0f7247c-4637-492c-9bae-88a6d3ed9c4f",
+        "scheduled": "2014-10-27T00:30:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "NO",
+        "away": "GB",
+        "status": "scheduled",
+        "venue": {
+            "id": "3c85d89a-ec66-4983-acd5-1381d6c8673a",
+            "country": "USA",
+            "name": "Mercedes-Benz Superdome",
+            "city": "New Orleans",
+            "state": "LA",
+            "capacity": 76468,
+            "surface": "artificial",
+            "type": "dome",
+            "zip": "70112",
+            "address": "1500 Sugar Bowl Drive"
+        },
+        "broadcast": {
+            "network": "NBC"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    },
+    {
+        "id": "14bbf6f0-c486-4bbc-9259-737b324ef25f",
+        "scheduled": "2014-10-28T00:30:00+00:00",
+        "home_rotation": "",
+        "away_rotation": "",
+        "home": "DAL",
+        "away": "WAS",
+        "status": "scheduled",
+        "venue": {
+            "id": "1e84213a-ff1f-4c9d-a003-8ee782b25a40",
+            "country": "USA",
+            "name": "AT&T Stadium",
+            "city": "Arlington",
+            "state": "TX",
+            "capacity": 80000,
+            "surface": "artificial",
+            "type": "retractable_dome",
+            "zip": "76011",
+            "address": "One Legends Way"
+        },
+        "broadcast": {
+            "network": "ESPN",
+            "satellite": "206",
+            "internet": "WatchESPN"
+        },
+        "weather": {
+            "temperature": null,
+            "condition": null,
+            "humidity": null,
+            "wind": {
+                "speed": null,
+                "direction": null
+            }
+        }
+    }
+], "bye_week": ["NYG", "SF"]}

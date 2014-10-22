@@ -34,9 +34,14 @@ def get_opening_movies():
         synopsis = i['synopsis']
         synopsis = synopsis[:synopsis.find('(C)')][:synopsis.find('(c)')]
         poster = i['posters']['detailed']
+        actors = []
+        for j in i['abridged_cast']:
+            actors.append(j['name'])
+        actors = actors[:3]
+        link = i['links']['alternate']
 
         opening.append([title, rating, runtime, release_date, rating_rating, rating_critics, rating_audience,
-                        synopsis, poster])
+                        synopsis, poster, actors, link])
 
     return opening
 

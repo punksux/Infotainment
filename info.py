@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request, jsonify
 import logging
 import logging.handlers
 from socket import timeout
@@ -10,7 +10,8 @@ from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
 import entertainment
-
+#from pushbullet import PushBullet
+from xml.etree import ElementTree as ET
 
 weather_test = 100
 on_pi = False
@@ -22,8 +23,9 @@ d_n_clouds = ''
 rss_feeds = ['http://www.kutv.com/news/features/top-stories/stories/rss.xml',
              'http://www.utahutes.com/sports/m-footbl/headline-rss.xml',
              'http://feeds.bbci.co.uk/news/technology/rss.xml',
+             'http://rss.allrecipes.com/daily.aspx?hubID=80',
              'http://www.tmz.com/rss.xml']
-rss_sources = ['KSL.com', 'UtahUtes.com', 'BBC Tech', 'TMZ.com']
+rss_sources = ['KSL.com', 'UtahUtes.com', 'BBC Tech', 'AllRecipes', 'TMZ.com']
 
 weather_website = ('http://api.wunderground.com/api/c5e9d80d2269cb64/conditions/astronomy/forecast10day/alerts/' +
                    'hourly/q/%s.json' % location)
@@ -128,8 +130,10 @@ def get_rss():
     feed_titles = []
     feed_summary = []
     feed = feedparser.parse(rss_feeds[feed_no])
+    f = ET.parse(rss_feeds[feed_no])
     feed['items'] = feed['items'][:10]
     for i in feed['items']:
+        print(i['media_content']['url'])
         feed_titles.append(i['title'])
         feed_summary.append(i['summary'])
     feed_source = rss_sources[feed_no]
@@ -138,7 +142,7 @@ def get_rss():
     else:
         feed_no += 1
 
-#get_rss()
+get_rss()
 rss = sched.add_interval_job(get_rss, seconds=2*60)
 
 
@@ -569,6 +573,8 @@ def event_stream():
 
     time.sleep(0)
 
+# todo: Fix Bushbullet
+#pb = PushBullet('v1DxHg2oyCZCPc5Xr6KiVh4X3sLfkdibX2ujBvxC0RbUW')
 
 try:
 
@@ -581,6 +587,14 @@ try:
         global test
         test = False
         return render_template("index.html")
+
+    @app.route('/poo', methods=['POST'])
+    def add_numbers():
+        a = request.form.get('a', 'nope', type=str)
+        b = request.form.get('b', 'nope', type=str)
+        print(request.form.get('a', 'nope', type=str))
+        #success, push = pb.push_link(a, b)
+        return jsonify({'1': ''})
 
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=80)

@@ -413,8 +413,11 @@ $(document).ready(function() {
             $('table#openingMovies tr:nth-child(' + (i+j) + ') td:nth-child(4)').html(message[i][5]);
             $('table#openingMovies tr:nth-child(' + (i+j) + ') td:nth-child(5)').html(message[i][6]);
             $('#movie' + (i +1) + 'sum .synopsis').html(message[i][7]);
+            $('#movie' + (i +1) + 'sum .movieName').html(message[i][0]);
             $('#movie' + (i +1) + 'sum .rating').html('Rating: ' + message[i][1]);
             $('#movie' + (i +1) + 'sum .length').html('Runtime: ' + message[i][2] + ' min.');
+            $('#movie' + (i +1) + 'sum .image').css({'background': 'url(' + message[i][8].replace('tmb', 'det') + ') no-repeat center'}).attr('onclick', 'sendToPhone("' + message[i][0] + ',' + message[i][10] + '")');
+            $('#movie' + (i +1) + 'sum .actors').html('Cast: <br />' + String(message[i][9]).replace(/,/g, '<br />'));
             (function(e){$('table#openingMovies tr:nth-child(' + (e + j) + ')').click(function(){
                 $('#movie' + (e + 1) + 'sum, #screenCover, #popupContent').css('display','block');
                 $('#popupContent').addClass('movieCover');
@@ -433,7 +436,9 @@ $(document).ready(function() {
             $('table#localEvents tr:nth-child(' + (i+j) + ') td:nth-child(3)').html(message[i][2]);
 
             $('#ent' + (i +1) + 'sum .synopsis').html(message[i][1]);
-            $('#ent' + (i +1) + 'sum .rating').html('Venue: ' + message[i][4]);
+            $('#ent' + (i +1) + 'sum .rating').html('Venue: <br />' + message[i][4]);
+            $('#ent' + (i +1) + 'sum .movieName').html(message[i][0]);
+            $('#ent' + (i +1) + 'sum .image').css({'background': 'url(' + message[i][5].replace('small', 'medium') + ') no-repeat center'});
             (function(e){$('table#localEvents tr:nth-child(' + (e + j) + ')').click(function(){
                 $('#ent' + (e + 1) + 'sum, #screenCover, #popupContent').css('display','block');
                 $('#popupContent').addClass('movieCover');

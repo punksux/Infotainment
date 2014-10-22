@@ -60,9 +60,9 @@ function checkTime(i) {
 <div id="content" class="tabcontents">
     <ul id="tabList" class="tabs">
             <li ><a href="#view1">Home</a></li>
-            <li class="selected"><a href="#view2">Forecast</a></li>
+            <li ><a href="#view2">Forecast</a></li>
             <li ><a href="#view3">Music</a></li>
-            <li ><a href="#view4">Entertainment</a></li>
+            <li class="selected"><a href="#view4">Entertainment</a></li>
             <li ><a href="#view5">Sports</a></li>
             <li ><a href="#view6">Apps</a></li>
          </ul>
@@ -435,44 +435,44 @@ function checkTime(i) {
                     <tr><td>19</td><td></td><td></td></tr>
                 </table>
                 <table id="nflNFCRankings" class="nflTables">
-                    <tr><th height="35px">NFC East</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><th height="35px"><img src="/static/images/nfl/NFC.png"> East</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
                     <tr><td>3</td><td></td><td></td></tr>
                     <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px">NFC North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><th height="35px"><img src="/static/images/nfl/NFC.png"> North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
                     <tr><td>3</td><td></td><td></td></tr>
                     <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px">NFC South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><th height="35px"><img src="/static/images/nfl/NFC.png"> South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
                     <tr><td>3</td><td></td><td></td></tr>
                     <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px">NFC West</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><th height="35px"><img src="/static/images/nfl/NFC.png"> West</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
                     <tr><td>3</td><td></td><td></td></tr>
                     <tr><td>4</td><td></td><td></td></tr>
                 </table>
                 <table id="nflAFCRankings"  class="nflTables">
-                    <tr><th height="35px">AFC East</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><th height="35px"><img src="/static/images/nfl/AFC.png"> East</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
                     <tr><td>3</td><td></td><td></td></tr>
                     <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px">AFC North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><th height="35px"><img src="/static/images/nfl/AFC.png"> North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
                     <tr><td>3</td><td></td><td></td></tr>
                     <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px">AFC South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><th height="35px"><img src="/static/images/nfl/AFC.png"> South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
                     <tr><td>3</td><td></td><td></td></tr>
                     <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px">AFC West</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
+                    <tr><th height="35px"><img src="/static/images/nfl/AFC.png"> West</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
                     <tr><td>1</td><td></td><td></td></tr>
                     <tr><td>2</td><td></td><td></td></tr>
                     <tr><td>3</td><td></td><td></td></tr>
@@ -507,8 +507,8 @@ function checkTime(i) {
         {% for x in range(1,11) %}
         <div id="rss{{ x }}sum" class="popupText"></div>
         <div id="day{{ x }}description" class="popupText"></div>
-        <div id="movie{{ x }}sum" class="popupText"><div class="synopsis"></div><div class="rating"></div><div class="length"></div></div>
-        <div id="ent{{ x }}sum" class="popupText"><div class="synopsis"></div><div class="rating"></div><div class="length"></div></div>{% endfor %}
+        <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image" onclick=""></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div></div>
+        <div id="ent{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div></div>{% endfor %}
         <div id="alertDescription" class="popupText"></div>
     </div>
 
@@ -517,6 +517,16 @@ function checkTime(i) {
             $('.popupText, #popupContent, #screenCover').css('display','none');
             $('#popupContent').removeClass('movieCover');
         });
+
+        function sendToPhone(name, link){
+            $.ajax(
+            {
+                type: 'post',
+                url: "/poo",
+                data: {
+                    'a': name,
+                    'b': link
+                }})}
     </script>
 </div>
 <div id="test">poo</div>
