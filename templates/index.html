@@ -61,8 +61,8 @@ function checkTime(i) {
     <ul id="tabList" class="tabs">
             <li ><a href="#view1">Home</a></li>
             <li ><a href="#view2">Forecast</a></li>
-            <li ><a href="#view3">Music</a></li>
-            <li class="selected"><a href="#view4">Entertainment</a></li>
+            <li class="selected"><a href="#view3">Music</a></li>
+            <li ><a href="#view4">Entertainment</a></li>
             <li ><a href="#view5">Sports</a></li>
             <li ><a href="#view6">Apps</a></li>
          </ul>
@@ -192,10 +192,10 @@ function checkTime(i) {
         <div id="musicContainer">
             <div id="logo"></div>
             <div id="musicControls">
-                <div id="downButton"></div>
-                <div id="upButton"></div>
-                <div id="playButton"></div>
-                <div id="skipButton"></div>
+                <div id="downButton" onclick="musicControl('down')"></div>
+                <div id="upButton" onclick="musicControl('up')"></div>
+                <div id="playButton" onclick="musicControl('play')"></div>
+                <div id="skipButton" onclick="musicControl('skip')"></div>
                 <div id="volumeButton"></div>
             </div>
             <div id="infoContainer">
@@ -210,6 +210,15 @@ function checkTime(i) {
 
     <script>
         $('#playButton').click(function(){$('#playButton').toggleClass('pause')});
+        function musicControl(button){
+            $('#messageBox').show(100);
+            $.ajax(
+            {
+                type: 'post',
+                url: "/music",
+                data: {
+                    'button': button
+                }})}
     </script>
 
 <!--  **  Entertainment Tab **   -->
@@ -505,24 +514,28 @@ function checkTime(i) {
     <div id="screenCover"></div>
     <div id="popupContent">
         {% for x in range(1,11) %}
-        <div id="rss{{ x }}sum" class="popupText"></div>
+        <div id="rss{{ x }}sum" class="popupText"><div class="rssImage"></div><div class="rssText"></div></div>
         <div id="day{{ x }}description" class="popupText"></div>
-        <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image" onclick=""></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div></div>
-        <div id="ent{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div></div>{% endfor %}
+        <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image" onclick=""></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div><div class="sendToPhone">Send to phone</div></div>
+        <div id="ent{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="sendToPhone">Send to phone</div></div>{% endfor %}
         <div id="alertDescription" class="popupText"></div>
     </div>
 
+    <!--<div id="messageBox">Link sent to phone.<div onclick="$('#messageBox').hide(100)" id="okButton">OK</div></div>-->
+
     <script>
-        $('.popupText, #popupContent, #screenCover').click(function(){
+        $('.popupText div:not(.sendToPhone), #screenCover').click(function(){
             $('.popupText, #popupContent, #screenCover').css('display','none');
             $('#popupContent').removeClass('movieCover');
+            $('.sendToPhone').css('background', 'rgba(255, 255, 255, 0.25)').css('pointer-events', 'auto').html('Send to phone')
         });
 
         function sendToPhone(name, link){
+            $('#messageBox').show(100);
             $.ajax(
             {
                 type: 'post',
-                url: "/poo",
+                url: "/entertainment",
                 data: {
                     'a': name,
                     'b': link

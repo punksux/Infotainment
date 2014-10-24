@@ -571,6 +571,38 @@ ul.newsticker li {
     text-align: left;
 }
 
+.sendToPhone {
+    width: 180px;
+    height: 30px;
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    border: 1px solid white;
+    background: rgba(255, 255, 255, 0.25);
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    text-shadow: 0 0 3px #222;
+    z-index: 300;
+}
+
+#messageBox {
+    width:300px;
+    height:200px;
+    border:1px solid white;
+    background: black;
+    z-index: 9000;
+    display: none;
+    position: absolute;
+}
+
+#okButton {
+    width:100px;
+    height:50px;
+    border:1px solid white;
+}
+
 /*  --== Forecast Page ==--  */
 #forecastHolder {
     width:1200px;

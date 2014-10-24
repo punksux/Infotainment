@@ -10,8 +10,8 @@ from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
 import entertainment
-#from pushbullet import PushBullet
-from xml.etree import ElementTree as ET
+import requests
+
 
 weather_test = 100
 on_pi = False
@@ -36,6 +36,8 @@ feed_titles = []
 feed_titles_old = []
 feed_summary = []
 feed_summary_old = []
+feed_media = []
+feed_media_old = []
 forecast_day = []
 forecast_day_old = []
 forecast_cond = []
@@ -126,15 +128,21 @@ feed_no = 0
 
 #######  --==RSS Stuff==--  #######
 def get_rss():
-    global feed, feed_titles, feed_summary, feed_titles_old, feed_summary_old, feed_no, rss_sources, feed_source
+    global feed, feed_titles, feed_summary, feed_titles_old, feed_summary_old, feed_no, rss_sources, feed_source, \
+        feed_media
     feed_titles = []
     feed_summary = []
+    feed_media = []
     feed = feedparser.parse(rss_feeds[feed_no])
-    f = ET.parse(rss_feeds[feed_no])
     feed['items'] = feed['items'][:10]
     for i in feed['items']:
-        print(i['media_content']['url'])
-        feed_titles.append(i['title'])
+        if 'media_content' in i:
+            feed_media.append(i['media_content'][0]['url'])
+        elif 'image' in i:
+            feed_media.append(i['image'][0]['url'])
+        else:
+            feed_media.append('')
+        feed_titles.append(i['title'].replace('#PrepareU: @Utah_Football', ''))
         feed_summary.append(i['summary'])
     feed_source = rss_sources[feed_no]
     if feed_no == len(rss_feeds)-1:
@@ -143,7 +151,7 @@ def get_rss():
         feed_no += 1
 
 get_rss()
-rss = sched.add_interval_job(get_rss, seconds=2*60)
+rss = sched.add_interval_job(get_rss, seconds=1*30)
 
 
 def check_weather():
@@ -468,7 +476,7 @@ def event_stream():
         feed_source_old, allergy_forecast_old, predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old,\
         utah_week_old, utah_score_old, sf_week_old, kc_week_old, sf_score_old, kc_score_old, rsl_week_old,\
         rsl_score_old, ncaa_rankings_old, pac12_standings_old, soccer_standings_old, nfl_rankings_old,\
-        opening_movies_old, local_events_old, forecast_decription, forecast_decription_old
+        opening_movies_old, local_events_old, forecast_decription, forecast_decription_old, feed_media_old
 
     yield_me = ''
     if day_night != day_night_old or test is False:
@@ -489,6 +497,9 @@ def event_stream():
     if feed_summary != feed_summary_old or test is False:
         feed_summary_old = feed_summary
         yield_me += 'event: rssSum\n' + 'data: ' + json.dumps(feed_summary) + '\n\n'
+    if feed_media != feed_media_old or test is False:
+        feed_media_old = feed_media
+        yield_me += 'event: rssMedia\n' + 'data: ' + json.dumps(feed_media) + '\n\n'
     if feed_source != feed_source_old or test is False:
         feed_source_old = feed_source
         yield_me += 'event: rssSource\n' + 'data: ' + feed_source + '\n\n'
@@ -573,8 +584,6 @@ def event_stream():
 
     time.sleep(0)
 
-# todo: Fix Bushbullet
-#pb = PushBullet('v1DxHg2oyCZCPc5Xr6KiVh4X3sLfkdibX2ujBvxC0RbUW')
 
 try:
 
@@ -588,12 +597,23 @@ try:
         test = False
         return render_template("index.html")
 
-    @app.route('/poo', methods=['POST'])
-    def add_numbers():
-        a = request.form.get('a', 'nope', type=str)
-        b = request.form.get('b', 'nope', type=str)
-        print(request.form.get('a', 'nope', type=str))
-        #success, push = pb.push_link(a, b)
+    @app.route('/entertainment', methods=['POST'])
+    def send_to_phone():
+        a = request.form.get('a', 'something is wrong', type=str)
+        b = request.form.get('b', 'something is wrong', type=str)
+        print(a + ' - ' + b)
+        data = dict(title=a, url=b, type='link')
+        api_key = 'v1DxHg2oyCZCPc5Xr6KiVh4X3sLfkdibX2ujBvxC0RbUW'
+        #requests.post('https://api.pushbullet.com/v2/pushes', auth=(api_key, ''), data=data)
+        return jsonify({'1': ''})
+
+    @app.route('/music', methods=['POST'])
+    def music_control():
+        button = request.form.get('button', 'something is wrong', type=str)
+        print(button)
+        q = open('pandora.txt', 'w')
+        q.write(button)
+        q.close()
         return jsonify({'1': ''})
 
     if __name__ == '__main__':

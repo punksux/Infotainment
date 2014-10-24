@@ -7,8 +7,8 @@ from xml.etree import ElementTree as ET
 import datetime
 
 rotten_tomatoes_api = 'j66zchayd6megzhvzhp33dm9'
-rotten_tomatoes_website = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/%s.json?apikey=%s&limit=10' \
-                          % (rotten_tomatoes_type, rotten_tomatoes_api)
+rotten_tomatoes_website = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey=%s&limit=10' \
+                          % rotten_tomatoes_api
 
 
 def get_opening_movies():
@@ -86,8 +86,9 @@ def get_local_events():
             image = i[36][0].text
         else:
             image = ''
+        url = i[1].text
 
-        events.append([title, description, start_time, stop_time, venue, image])
+        events.append([title, description, start_time, stop_time, venue, image, url])
 
     return events
 
