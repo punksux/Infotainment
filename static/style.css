@@ -802,6 +802,31 @@ ul.newsticker li {
     position:absolute;
 }
 
+#albumArt {
+    width:250px;
+    height:250px;
+    position:absolute;
+    left: 10px;
+    top: 10px;
+    background-size: contain !important;
+}
+
+#info{
+    position: absolute;
+    left: 270px;
+    top: 10px;
+    font-size: 30px;
+}
+
+#albumSummary {
+    position: absolute;
+    left: 10px;
+    top: 270px;
+    width: 660px;
+    height: 277px;
+    overflow-y: hidden;
+}
+
 /*  --== Entertainment Page*/
 #entContainer {
     width:1240px;

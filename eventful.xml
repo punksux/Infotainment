@@ -1,271 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <search>
-  <total_items>116</total_items>
+  <total_items>101</total_items>
   <page_size>10</page_size>
-  <page_count>12</page_count>
+  <page_count>11</page_count>
   <page_number>1</page_number>
   <page_items/>
   <first_item/>
   <last_item/>
-  <search_time>0.055</search_time>
+  <search_time>0.17</search_time>
   <events>
-    <event id="E0-001-072849912-7">
-      <title>Nick Swardson</title>
-      <url>http://saltlakecity.eventful.com/events/nick-swardson-/E0-001-072849912-7?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description>Don&amp;#39;t miss the comedy of Nick Swardson when he performs at The Depot on October 22nd. Show is seated G.A.
-
-Tickets are on sale now!
-
-Tickets available at all Smith&amp;#39;s Tix locations, charge by phone 801-467-TIXX or toll free at 1-800-888-TIXX, and online at smithstix.com
-
-Tickets are also available at the Depot box office day of show starting at 5PM (excluding club nights &amp; private events) and on Friday&amp;#39;s between 2PM-6PM (excluding holidays)For VIP information please call 801-355-5522 or E-mail depotVIP@email.com
-
-The Depot | 400 W. South Temple | www.depotslc.com | 21+
-
-(while supplies last - subject to change - plus applicable fees where applied - 8 ticket limit)</description>
-      <start_time>2014-10-22 20:00:00</start_time>
-      <stop_time/>
-      <tz_id/>
-      <tz_olson_path/>
-      <tz_country/>
-      <tz_city/>
-      <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000917533-3</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/the-depot-/V0-001-000917533-3?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>The Depot</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>400 West South Temple</venue_address>
-      <city_name>Salt Lake City</city_name>
-      <region_name>Utah</region_name>
-      <region_abbr>UT</region_abbr>
-      <postal_code>84101</postal_code>
-      <country_name>United States</country_name>
-      <country_abbr2>US</country_abbr2>
-      <country_abbr>USA</country_abbr>
-      <latitude>40.7693371</latitude>
-      <longitude>-111.8700715</longitude>
-      <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>0</all_day>
-      <recur_string/>
-      <calendar_count/>
-      <comment_count/>
-      <link_count/>
-      <going_count/>
-      <watching_count/>
-      <created>2014-07-15 14:24:32</created>
-      <owner>uconcerts</owner>
-      <modified>2014-10-01 14:06:06</modified>
-      <performers>
-        <performer>
-          <id>P0-001-000004107-9</id>
-          <url>http://eventful.com/performers/nick-swardson-/P0-001-000004107-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-          <name>Nick Swardson</name>
-          <short_bio>Stand-Up / As Seen on TV</short_bio>
-          <creator>laxinonli</creator>
-          <linker>evdb</linker>
-        </performer>
-      </performers>
-      <image>
-        <url>http://s1.evcdn.com/images/small/I0-001/009/291/584-9.jpeg_/nick-swardson-84.jpeg</url>
-        <width>48</width>
-        <height>48</height>
-        <caption/>
-        <thumb>
-          <url>http://s1.evcdn.com/images/thumb/I0-001/009/291/584-9.jpeg_/nick-swardson-84.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </thumb>
-        <small>
-          <url>http://s1.evcdn.com/images/small/I0-001/009/291/584-9.jpeg_/nick-swardson-84.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </small>
-        <medium>
-          <url>http://s1.evcdn.com/images/medium/I0-001/009/291/584-9.jpeg_/nick-swardson-84.jpeg</url>
-          <width>128</width>
-          <height>128</height>
-        </medium>
-      </image>
-      <privacy>1</privacy>
-      <calendars/>
-      <groups/>
-      <going/>
-    </event>
-    <event id="E0-001-076199586-8">
-      <title>The Chickadee Society: Spiders</title>
-      <url>http://saltlakecity.eventful.com/events/chickadee-society-spiders-/E0-001-076199586-8?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> Pre-School Story time! We invite you and your preschool age child to join the Chickadee Society here at the Natural History Museum of Utah to read &amp;quot;Diary of a Spider&amp;quot; . This program is designed for the emergent reader and will include examining live spider specimens and more! Be a part of the Chickadee Society the second and fourth Thursday of every month!</description>
-      <start_time>2014-10-23 11:00:00</start_time>
-      <stop_time/>
-      <tz_id/>
-      <tz_olson_path/>
-      <tz_country/>
-      <tz_city/>
-      <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000687204-6</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/natural-history-museum-of-utah-/V0-001-000687204-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Natural History Museum of Utah</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>301 Wakara Way</venue_address>
-      <city_name>Salt Lake City</city_name>
-      <region_name>Utah</region_name>
-      <region_abbr>UT</region_abbr>
-      <postal_code>84108</postal_code>
-      <country_name>United States</country_name>
-      <country_abbr2>US</country_abbr2>
-      <country_abbr>USA</country_abbr>
-      <latitude>40.7641395</latitude>
-      <longitude>-111.8232035</longitude>
-      <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>0</all_day>
-      <recur_string/>
-      <calendar_count/>
-      <comment_count/>
-      <link_count/>
-      <going_count/>
-      <watching_count/>
-      <created>2014-10-11 10:25:38</created>
-      <owner>evdb</owner>
-      <modified>2014-10-11 10:25:38</modified>
-      <performers/>
-      <image>
-        <url>http://s3.evcdn.com/images/small/I0-001/017/078/258-3.jpeg_/chickadee-society-spiders-58.jpeg</url>
-        <width>48</width>
-        <height>48</height>
-        <caption/>
-        <thumb>
-          <url>http://s3.evcdn.com/images/thumb/I0-001/017/078/258-3.jpeg_/chickadee-society-spiders-58.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </thumb>
-        <small>
-          <url>http://s3.evcdn.com/images/small/I0-001/017/078/258-3.jpeg_/chickadee-society-spiders-58.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </small>
-        <medium>
-          <url>http://s3.evcdn.com/images/medium/I0-001/017/078/258-3.jpeg_/chickadee-society-spiders-58.jpeg</url>
-          <width>128</width>
-          <height>128</height>
-        </medium>
-      </image>
-      <privacy>1</privacy>
-      <calendars/>
-      <groups/>
-      <going/>
-    </event>
-    <event id="E0-001-072744757-0">
-      <title>STEM + Art = SteAm Storytime</title>
-      <url>http://saltlakecity.eventful.com/events/stem-art-steam-storytime-/E0-001-072744757-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> &lt;p&gt;&lt;p&gt;It&amp;#39;s STE[a]M Storytime! Join us for stories, songs, fingerplays, science and art. Recommended for children ages 3-5 with parent or other caring adult, however all ages are welcome.&lt;/p&gt;&lt;/p&gt;</description>
-      <start_time>2014-07-16 00:00:00</start_time>
-      <stop_time>2015-05-31 00:00:00</stop_time>
-      <tz_id/>
-      <tz_olson_path/>
-      <tz_country/>
-      <tz_city/>
-      <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-001190933-5</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/calvin-s-smith-library-/V0-001-001190933-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Calvin S. Smith Library</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>810 East 3300 South</venue_address>
-      <city_name>Salt Lake City</city_name>
-      <region_name>Utah</region_name>
-      <region_abbr>UT</region_abbr>
-      <postal_code>84106</postal_code>
-      <country_name>United States</country_name>
-      <country_abbr2>US</country_abbr2>
-      <country_abbr>USA</country_abbr>
-      <latitude>40.6997431</latitude>
-      <longitude>-111.8678704</longitude>
-      <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>2</all_day>
-      <recur_string/>
-      <calendar_count/>
-      <comment_count/>
-      <link_count/>
-      <going_count/>
-      <watching_count/>
-      <created>2014-07-12 05:18:17</created>
-      <owner>evdb</owner>
-      <modified>2014-07-12 05:18:17</modified>
-      <performers/>
-      <image/>
-      <privacy>1</privacy>
-      <calendars/>
-      <groups/>
-      <going/>
-    </event>
-    <event id="E0-001-073932475-9">
-      <title>Boo at the Zoo</title>
-      <url>http://saltlakecity.eventful.com/events/boo-zoo-/E0-001-073932475-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> TRICK-OR-TREAT! For over 20 years, kids 12 and younger have donned their costumes to trick-or-treat at the Zoo! Over 20 candy booths are set up throughout Zoo grounds. Trick-or-Treat bags will be provided (while supplies last), or bring your own and join us for one of the biggest events at the Zoo!</description>
-      <start_time>2014-10-25 09:00:00</start_time>
-      <stop_time/>
-      <tz_id/>
-      <tz_olson_path/>
-      <tz_country/>
-      <tz_city/>
-      <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000217760-6</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/hogle-zoo-/V0-001-000217760-6?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Hogle Zoo</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>2600 East Sunnyside Avenue</venue_address>
-      <city_name>Salt Lake City</city_name>
-      <region_name>Utah</region_name>
-      <region_abbr>UT</region_abbr>
-      <postal_code>84108</postal_code>
-      <country_name>United States</country_name>
-      <country_abbr2>US</country_abbr2>
-      <country_abbr>USA</country_abbr>
-      <latitude>40.7510194</latitude>
-      <longitude>-111.8143934</longitude>
-      <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>0</all_day>
-      <recur_string/>
-      <calendar_count/>
-      <comment_count/>
-      <link_count/>
-      <going_count/>
-      <watching_count/>
-      <created>2014-08-14 08:03:24</created>
-      <owner>evdb</owner>
-      <modified>2014-08-31 07:00:46</modified>
-      <performers/>
-      <image>
-        <url>http://s4.evcdn.com/images/small/I0-001/014/935/655-1.jpeg_/boo-zoo-55.jpeg</url>
-        <width>48</width>
-        <height>48</height>
-        <caption/>
-        <thumb>
-          <url>http://s4.evcdn.com/images/thumb/I0-001/014/935/655-1.jpeg_/boo-zoo-55.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </thumb>
-        <small>
-          <url>http://s4.evcdn.com/images/small/I0-001/014/935/655-1.jpeg_/boo-zoo-55.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </small>
-        <medium>
-          <url>http://s4.evcdn.com/images/medium/I0-001/014/935/655-1.jpeg_/boo-zoo-55.jpeg</url>
-          <width>128</width>
-          <height>128</height>
-        </medium>
-      </image>
-      <privacy>1</privacy>
-      <calendars/>
-      <groups/>
-      <going/>
-    </event>
-    <event id="E0-001-075325521-5">
-      <title>Kids Create</title>
-      <url>http://saltlakecity.eventful.com/events/kids-create-/E0-001-075325521-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> Get creative! Art activities for kids. This program is free and no registration is required.&lt;br&gt; &lt;br&gt; For grades K - 6. This program is free, and no registration is required.&lt;br&gt; &lt;br&gt; </description>
-      <start_time>2014-10-22 00:00:00</start_time>
-      <stop_time>2014-10-22 00:00:00</stop_time>
+    <event id="E0-001-076698452-0">
+      <title>Lego League</title>
+      <url>http://saltlakecity.eventful.com/events/lego-league-/E0-001-076698452-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt;Bring your mad LEGO skills and create your own masterpiece using our LEGO pieces. Kids ages 3 - 5 must be accompanied by an adult.&lt;p&gt;For ages 3 - 12. No registration is required. This program is free.&lt;br&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-11-03 00:00:00</start_time>
+      <stop_time>2014-11-03 00:00:00</stop_time>
       <tz_id/>
       <tz_olson_path/>
       <tz_country/>
@@ -293,27 +42,90 @@ The Depot | 400 W. South Temple | www.depotslc.com | 21+
       <link_count/>
       <going_count/>
       <watching_count/>
-      <created>2014-09-21 00:15:21</created>
+      <created>2014-10-25 07:51:25</created>
       <owner>evdb</owner>
-      <modified>2014-10-18 13:30:49</modified>
+      <modified>2014-10-25 07:51:25</modified>
       <performers/>
       <image>
-        <url>http://s2.evcdn.com/images/small/I0-001/016/974/181-8.jpeg_/kids-create-81.jpeg</url>
+        <url>http://s3.evcdn.com/images/small/I0-001/017/221/142-3.jpeg_/lego-league-42.jpeg</url>
         <width>48</width>
         <height>48</height>
         <caption/>
         <thumb>
-          <url>http://s2.evcdn.com/images/thumb/I0-001/016/974/181-8.jpeg_/kids-create-81.jpeg</url>
+          <url>http://s3.evcdn.com/images/thumb/I0-001/017/221/142-3.jpeg_/lego-league-42.jpeg</url>
           <width>48</width>
           <height>48</height>
         </thumb>
         <small>
-          <url>http://s2.evcdn.com/images/small/I0-001/016/974/181-8.jpeg_/kids-create-81.jpeg</url>
+          <url>http://s3.evcdn.com/images/small/I0-001/017/221/142-3.jpeg_/lego-league-42.jpeg</url>
           <width>48</width>
           <height>48</height>
         </small>
         <medium>
-          <url>http://s2.evcdn.com/images/medium/I0-001/016/974/181-8.jpeg_/kids-create-81.jpeg</url>
+          <url>http://s3.evcdn.com/images/medium/I0-001/017/221/142-3.jpeg_/lego-league-42.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-076698419-5">
+      <title>Family Movie Night</title>
+      <url>http://saltlakecity.eventful.com/events/family-movie-night-/E0-001-076698419-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt;Enjoy films with your family at Murray Library! Free popcorn. Call us at 801-264-2580 to find out what movie we are screening this month.&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-11-03 00:00:00</start_time>
+      <stop_time>2014-11-03 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-005853911-3</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/homeschool-club-murray-library-/V0-001-005853911-3?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Homeschool Club @ Murray Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>166 E 5300 S</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84107</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.6560784</latitude>
+      <longitude>-111.8862035</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-10-25 07:50:54</created>
+      <owner>evdb</owner>
+      <modified>2014-10-25 07:50:54</modified>
+      <performers/>
+      <image>
+        <url>http://s4.evcdn.com/images/small/I0-001/017/221/143-2.jpeg_/family-movie-night-43.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s4.evcdn.com/images/thumb/I0-001/017/221/143-2.jpeg_/family-movie-night-43.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s4.evcdn.com/images/small/I0-001/017/221/143-2.jpeg_/family-movie-night-43.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s4.evcdn.com/images/medium/I0-001/017/221/143-2.jpeg_/family-movie-night-43.jpeg</url>
           <width>128</width>
           <height>128</height>
         </medium>
@@ -386,13 +198,225 @@ The Depot | 400 W. South Temple | www.depotslc.com | 21+
       <groups/>
       <going/>
     </event>
-    <event id="E0-001-073902570-6@2014102100">
+    <event id="E0-001-074507584-5">
+      <title>Le Cousin Jules</title>
+      <url>http://saltlakecity.eventful.com/events/le-cousin-jules-/E0-001-074507584-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description>  Directed by Dominique Benicheti&lt;br&gt; 91 min | 1973/2012 | France | Not Rated&lt;br&gt; A lost masterpiece of cinema, now restored and available for the first time in years, Cousin Jules was the result of five years (1968-1973) of painstaking work by director Dominique Benicheti and cinematographer Pierre-William Glenn. Over that period, the team recorded the lives of Jules and Felicie, French farmers living in the countryside. The result is an immersive work and a record of a way of life that vanished long ago. &lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt; </description>
+      <start_time>2014-10-28 00:00:00</start_time>
+      <stop_time>2014-10-28 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-000339988-9</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-library-/V0-001-000339988-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Salt Lake City Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>210 East 400 South</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84111</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.760082</latitude>
+      <longitude>-111.884841</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-08-31 18:19:35</created>
+      <owner>evdb</owner>
+      <modified>2014-10-25 13:11:05</modified>
+      <performers/>
+      <image/>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-073784168-7">
+      <title>Author Will Bagley on his book "South Pass: Gateway to a Continent"</title>
+      <url>http://saltlakecity.eventful.com/events/author-will-bagley-his-book-southpassgatewa-/E0-001-073784168-7?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> </description>
+      <start_time>2014-11-02 00:00:00</start_time>
+      <stop_time>2014-11-02 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-008249306-5</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/gould-auditorium-marriott-library-/V0-001-008249306-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Gould Auditorium, Marriott Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address/>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code>84112</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.7652</latitude>
+      <longitude>-111.839</longitude>
+      <geocode_type>Zip Code Based GeoCodes</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-08-09 21:16:25</created>
+      <owner>evdb</owner>
+      <modified>2014-08-09 21:16:25</modified>
+      <performers/>
+      <image>
+        <url>http://s2.evcdn.com/images/small/I0-001/016/677/665-5.jpeg_/author-will-bagley-his-book-southpassgatewaytoacon-65.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s2.evcdn.com/images/thumb/I0-001/016/677/665-5.jpeg_/author-will-bagley-his-book-southpassgatewaytoacon-65.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s2.evcdn.com/images/small/I0-001/016/677/665-5.jpeg_/author-will-bagley-his-book-southpassgatewaytoacon-65.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s2.evcdn.com/images/medium/I0-001/016/677/665-5.jpeg_/author-will-bagley-his-book-southpassgatewaytoacon-65.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-076458321-1">
+      <title>Here and Over There: The Great War (1914-1918)</title>
+      <url>http://saltlakecity.eventful.com/events/here-and-over-there-great-war-19141918-/E0-001-076458321-1?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt; An exhibition from Special Collections recognizing the history and humanity of World War I,  or The Great War,.as it was first termed&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-10-10 00:00:00</start_time>
+      <stop_time>2014-12-07 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-005536005-3</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/university-of-utah-j-willard-marriott-lib-/V0-001-005536005-3?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>University of Utah J Willard Marriott Library</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>295 East 1500 South</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code/>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.7623980</latitude>
+      <longitude>-111.8462600</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-10-18 12:24:41</created>
+      <owner>evdb</owner>
+      <modified>2014-10-18 12:24:41</modified>
+      <performers/>
+      <image/>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-075624844-7">
+      <title>Discovery Gateway's Halloween Spooktacular</title>
+      <url>http://saltlakecity.eventful.com/events/discovery-gateways-halloween-spooktacular-/E0-001-075624844-7?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> Join Discovery Gateway: The Children&amp;#39;s Museum of Utah for its annual SUPER FUN Halloween celebration - Spooktacular. This special fundraising event will feature more scare-free fun than ever before including trick-or-treating, STEM programming, art experiences and special activities for preschoolers! </description>
+      <start_time>2014-10-31 00:00:00</start_time>
+      <stop_time>2014-10-31 00:00:00</stop_time>
+      <tz_id/>
+      <tz_olson_path/>
+      <tz_country/>
+      <tz_city/>
+      <olson_path>America/Denver</olson_path>
+      <venue_id>V0-001-001070222-1</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/discovery-gateway-/V0-001-001070222-1?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Discovery Gateway</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>444 W 100 S</venue_address>
+      <city_name>Salt Lake City</city_name>
+      <region_name>Utah</region_name>
+      <region_abbr>UT</region_abbr>
+      <postal_code/>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.7672195</latitude>
+      <longitude>-111.9039611</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>2</all_day>
+      <recur_string/>
+      <calendar_count/>
+      <comment_count/>
+      <link_count/>
+      <going_count/>
+      <watching_count/>
+      <created>2014-09-28 08:38:05</created>
+      <owner>evdb</owner>
+      <modified>2014-09-28 08:38:05</modified>
+      <performers/>
+      <image>
+        <url>http://s3.evcdn.com/images/small/I0-001/017/022/682-9.jpeg_/discovery-gateways-halloween-spooktacular-82.jpeg</url>
+        <width>48</width>
+        <height>48</height>
+        <caption/>
+        <thumb>
+          <url>http://s3.evcdn.com/images/thumb/I0-001/017/022/682-9.jpeg_/discovery-gateways-halloween-spooktacular-82.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </thumb>
+        <small>
+          <url>http://s3.evcdn.com/images/small/I0-001/017/022/682-9.jpeg_/discovery-gateways-halloween-spooktacular-82.jpeg</url>
+          <width>48</width>
+          <height>48</height>
+        </small>
+        <medium>
+          <url>http://s3.evcdn.com/images/medium/I0-001/017/022/682-9.jpeg_/discovery-gateways-halloween-spooktacular-82.jpeg</url>
+          <width>128</width>
+          <height>128</height>
+        </medium>
+      </image>
+      <privacy>1</privacy>
+      <calendars/>
+      <groups/>
+      <going/>
+    </event>
+    <event id="E0-001-073902570-6@2014102800">
       <title>Believe</title>
-      <url>http://saltlakecity.eventful.com/events/believe-/E0-001-073902570-6@2014102100?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <url>http://saltlakecity.eventful.com/events/believe-/E0-001-073902570-6@2014102800?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
       <description>Believe is set in 1984 and inspired by true events about Sir Matt Busby, legendary Manchester United football manager, who helps a boy fulfill his dream.
 
 The family drama “Believe”, is set in 1984 and inspired by true events. The film is a funny and touching tale about Sir Matt Busby, legendary Manchester United football manager, who helps a wayward boy fulfill his dream. An act of petty crime by 11 year old Georgie becomes a collision of fate as Sir Matt tracks him down, only to discover that the boy is an extraordinarily gifted footballer and captain of a team of unruly talents. Having lived with football all his life and survived the tragic 1958 Munich plane disaster, in which eight of his young players were killed, Sir Matt is still committed to continue his work of ‘training lads for life’ and so begins a thrilling adventure as Sir Matt Busby, comes out of retirement to transform a young group of scallywags into a dream team.</description>
-      <start_time>2014-10-21 00:00:00</start_time>
+      <start_time>2014-10-28 00:00:00</start_time>
       <stop_time/>
       <tz_id/>
       <tz_olson_path/>
@@ -451,31 +475,31 @@ The family drama “Believe”, is set in 1984 and inspired by true events. The 
       <groups/>
       <going/>
     </event>
-    <event id="E0-001-076209627-0">
-      <title>Monster Block Party</title>
-      <url>http://saltlakecity.eventful.com/events/monster-block-party-/E0-001-076209627-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> &lt;p&gt;&lt;p&gt;For all the Ghouls and Boys! The Monster Block Party , daytime Halloween festival for Salt Lake City&amp;#39;s goblins and ghouls of all ages. There will be trick-or-treating booths, a costume contest with prizes (Kid, Teen and Adult divisions), free arts and crafts projects, a pumpkin drop, live performances and more!&lt;/p&gt;&lt;/p&gt;</description>
-      <start_time>2014-10-25 00:00:00</start_time>
-      <stop_time>2014-10-25 00:00:00</stop_time>
+    <event id="E0-001-072744757-0">
+      <title>STEM + Art = SteAm Storytime</title>
+      <url>http://saltlakecity.eventful.com/events/stem-art-steam-storytime-/E0-001-072744757-0?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description> &lt;p&gt;&lt;p&gt;It&amp;#39;s STE[a]M Storytime! Join us for stories, songs, fingerplays, science and art. Recommended for children ages 3-5 with parent or other caring adult, however all ages are welcome.&lt;/p&gt;&lt;/p&gt;</description>
+      <start_time>2014-07-16 00:00:00</start_time>
+      <stop_time>2015-05-31 00:00:00</stop_time>
       <tz_id/>
       <tz_olson_path/>
       <tz_country/>
       <tz_city/>
       <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-000339988-9</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/salt-lake-city-library-/V0-001-000339988-9?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Salt Lake City Library</venue_name>
+      <venue_id>V0-001-001190933-5</venue_id>
+      <venue_url>http://saltlakecity.eventful.com/venues/calvin-s-smith-library-/V0-001-001190933-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>Calvin S. Smith Library</venue_name>
       <venue_display>1</venue_display>
-      <venue_address>210 East 400 South</venue_address>
+      <venue_address>810 East 3300 South</venue_address>
       <city_name>Salt Lake City</city_name>
       <region_name>Utah</region_name>
       <region_abbr>UT</region_abbr>
-      <postal_code>84111</postal_code>
+      <postal_code>84106</postal_code>
       <country_name>United States</country_name>
       <country_abbr2>US</country_abbr2>
       <country_abbr>USA</country_abbr>
-      <latitude>40.760082</latitude>
-      <longitude>-111.884841</longitude>
+      <latitude>40.6997431</latitude>
+      <longitude>-111.8678704</longitude>
       <geocode_type>EVDB Geocoder</geocode_type>
       <all_day>2</all_day>
       <recur_string/>
@@ -484,31 +508,11 @@ The family drama “Believe”, is set in 1984 and inspired by true events. The 
       <link_count/>
       <going_count/>
       <watching_count/>
-      <created>2014-10-11 16:05:40</created>
+      <created>2014-07-12 05:18:17</created>
       <owner>evdb</owner>
-      <modified>2014-10-11 16:05:40</modified>
+      <modified>2014-07-12 05:18:17</modified>
       <performers/>
-      <image>
-        <url>http://s1.evcdn.com/images/small/I0-001/017/128/792-4.jpeg_/monster-block-party-92.jpeg</url>
-        <width>48</width>
-        <height>48</height>
-        <caption/>
-        <thumb>
-          <url>http://s1.evcdn.com/images/thumb/I0-001/017/128/792-4.jpeg_/monster-block-party-92.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </thumb>
-        <small>
-          <url>http://s1.evcdn.com/images/small/I0-001/017/128/792-4.jpeg_/monster-block-party-92.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </small>
-        <medium>
-          <url>http://s1.evcdn.com/images/medium/I0-001/017/128/792-4.jpeg_/monster-block-party-92.jpeg</url>
-          <width>128</width>
-          <height>128</height>
-        </medium>
-      </image>
+      <image/>
       <privacy>1</privacy>
       <calendars/>
       <groups/>
@@ -552,69 +556,6 @@ The family drama “Believe”, is set in 1984 and inspired by true events. The 
       <modified>2014-07-11 22:03:28</modified>
       <performers/>
       <image/>
-      <privacy>1</privacy>
-      <calendars/>
-      <groups/>
-      <going/>
-    </event>
-    <event id="E0-001-075642796-5">
-      <title>Common Respiratory Infections and How to Protect Your Child. Presented by Dr. Carly Davis MD</title>
-      <url>http://saltlakecity.eventful.com/events/common-respiratory-infections-and-protect-y-/E0-001-075642796-5?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
-      <description> &lt;p&gt;Pediatrician Carly Davis, MD, Granger Medical Clinic, will discuss common respiratory infections, such as enterovirus, RSV and influenza, and provide suggestions about how to protect your child.&lt;p&gt; &lt;p&gt;Wednesday, Oct. 22, 2014, 6:30-7:30 p.m.&lt;p&gt;Murray Library, 166 East 5300 South,  Murray, UT 84107   &lt;p&gt; &lt;p&gt;Advanced registration is encouraged as space is limited. Please register online,&lt;p&gt;or call Lulu Hammond at 801-453-2289.&lt;p&gt; &lt;p&gt;Dr. Davis is specializes in Pediatrics and Pediatric Infectious Diseases, and sees patients at Granger Medical Clinic in Riverton. She has expertise in infant and well child care, as well as immunizations, cellulitis/abscess, MRSA infections, international adoption/travel and more.&lt;p&gt;The presentation is free and is presented by Granger Medical Clinic, in partnership with MassMutual Intermountain West.&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</description>
-      <start_time>2014-10-22 18:30:00</start_time>
-      <stop_time>2014-10-22 19:30:00</stop_time>
-      <tz_id/>
-      <tz_olson_path/>
-      <tz_country/>
-      <tz_city/>
-      <olson_path>America/Denver</olson_path>
-      <venue_id>V0-001-005853911-3</venue_id>
-      <venue_url>http://saltlakecity.eventful.com/venues/homeschool-club-murray-library-/V0-001-005853911-3?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
-      <venue_name>Homeschool Club @ Murray Library</venue_name>
-      <venue_display>1</venue_display>
-      <venue_address>166 E 5300 S</venue_address>
-      <city_name>Salt Lake City</city_name>
-      <region_name>Utah</region_name>
-      <region_abbr>UT</region_abbr>
-      <postal_code>84107</postal_code>
-      <country_name>United States</country_name>
-      <country_abbr2>US</country_abbr2>
-      <country_abbr>USA</country_abbr>
-      <latitude>40.6560784</latitude>
-      <longitude>-111.8862035</longitude>
-      <geocode_type>EVDB Geocoder</geocode_type>
-      <all_day>0</all_day>
-      <recur_string/>
-      <calendar_count/>
-      <comment_count/>
-      <link_count/>
-      <going_count/>
-      <watching_count/>
-      <created>2014-09-28 21:46:51</created>
-      <owner>evdb</owner>
-      <modified>2014-09-28 21:46:51</modified>
-      <performers/>
-      <image>
-        <url>http://s4.evcdn.com/images/small/I0-001/017/027/151-9.jpeg_/common-respiratory-infections-and-protect-your-chi-51.jpeg</url>
-        <width>48</width>
-        <height>48</height>
-        <caption/>
-        <thumb>
-          <url>http://s4.evcdn.com/images/thumb/I0-001/017/027/151-9.jpeg_/common-respiratory-infections-and-protect-your-chi-51.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </thumb>
-        <small>
-          <url>http://s4.evcdn.com/images/small/I0-001/017/027/151-9.jpeg_/common-respiratory-infections-and-protect-your-chi-51.jpeg</url>
-          <width>48</width>
-          <height>48</height>
-        </small>
-        <medium>
-          <url>http://s4.evcdn.com/images/medium/I0-001/017/027/151-9.jpeg_/common-respiratory-infections-and-protect-your-chi-51.jpeg</url>
-          <width>128</width>
-          <height>128</height>
-        </medium>
-      </image>
       <privacy>1</privacy>
       <calendars/>
       <groups/>

@@ -199,6 +199,7 @@ $(document).ready(function () {
         skycons.set("icon5", message[4]);
 
     });
+    skycons.play();
     sse.addEventListener('forecastDecription', function (message) {
         message = JSON.parse(message.data);
         var i;
@@ -478,6 +479,14 @@ $(document).ready(function () {
             })(i);
         }
     });
-    skycons.play();
+    sse.addEventListener('albumInfo', function (message) {
+        message = JSON.parse(message.data);
+        $('#songName').html('Song: ');
+        $('#artistName').html('Artist: ' + message[3]);
+        $('#albumName').html('Album: ' + message[4]);
+        $('#albumArt').css('background','url("' + message[0] + '") no-repeat center');
+        $('#albumSummary').html(message[2]);
+    });
+
 });
 

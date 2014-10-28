@@ -10,7 +10,10 @@ from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
 import entertainment
+import pandora
 import requests
+import platform
+import os.path
 
 
 weather_test = 100
@@ -106,6 +109,13 @@ opening_movies = []
 opening_movies_old = []
 local_events = []
 local_events_old = []
+album_info = []
+album_info_old = []
+
+#Set platform
+print("** Running on " + platform.uname()[0] + " **")
+if platform.uname()[0] != 'Windows':
+    on_pi = True
 
 if on_pi:
     import urllib2
@@ -337,6 +347,19 @@ get_temps_from_probes()
 temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 
 
+#######  --== Music Stuff ==--  #######
+def get_album_info():
+    global album_info
+    #todo: Get artist and album name
+    artist = 'Nirvana'
+    album = 'Nevermind'
+    album_info = pandora.get_album(artist, album)
+    album_info.append(artist)
+    album_info.append(album)
+
+get_album_info()
+
+
 #######  --== Entertainment Stuff ==--  #######
 def get_opening_movies():
     global opening_movies
@@ -476,7 +499,8 @@ def event_stream():
         feed_source_old, allergy_forecast_old, predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old,\
         utah_week_old, utah_score_old, sf_week_old, kc_week_old, sf_score_old, kc_score_old, rsl_week_old,\
         rsl_score_old, ncaa_rankings_old, pac12_standings_old, soccer_standings_old, nfl_rankings_old,\
-        opening_movies_old, local_events_old, forecast_decription, forecast_decription_old, feed_media_old
+        opening_movies_old, local_events_old, forecast_decription, forecast_decription_old, feed_media_old,\
+        album_info_old
 
     yield_me = ''
     if day_night != day_night_old or test is False:
@@ -577,8 +601,11 @@ def event_stream():
         yield_me += 'event: openingMovies\n' + 'data: ' + json.dumps(opening_movies) + '\n\n'
     if local_events != local_events_old or test is False:
         local_events_old = local_events
-        test = True
         yield_me += 'event: localEvents\n' + 'data: ' + json.dumps(local_events) + '\n\n'
+    if album_info != album_info_old or test is False:
+        album_info_old = album_info
+        test = True
+        yield_me += 'event: albumInfo\n' + 'data: ' + json.dumps(album_info) + '\n\n'
 
     yield yield_me
 
@@ -610,8 +637,16 @@ try:
     @app.route('/music', methods=['POST'])
     def music_control():
         button = request.form.get('button', 'something is wrong', type=str)
-        print(button)
-        q = open('pandora.txt', 'w')
+        if on_pi:
+            if button == 'p':
+                if os.path.exists("/proc/0"):  # todo: get pianobar proc id
+                    q = open('/home/pi/.config/pianobar/ctl', 'w')
+                else:
+                    pass  # todo: start pianobar
+            else:
+                q = open('/home/pi/.config/pianobar/ctl', 'w')
+        else:
+            q = open('pandora.txt', 'w')
         q.write(button)
         q.close()
         return jsonify({'1': ''})
