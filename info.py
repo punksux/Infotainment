@@ -118,9 +118,10 @@ if platform.uname()[0] != 'Windows':
     on_pi = True
 
 if on_pi:
-    import urllib2
+    pass
+    #import urllib2
     #import RPi.GPIO as GPIO
-    import socket
+    #import socket
 else:
     from urllib.request import Request, urlopen
     import urllib.error
@@ -173,32 +174,32 @@ def check_weather():
     if weather_test == 200:
         global something_wrong
         global f, g
-        if on_pi:
-            try:
-                f = urllib2.urlopen(weather_website, timeout=3)
-                g = urllib2.urlopen(allergy_website, headers={'User-Agent': 'Mozilla/5.0'}, timeout=3)
-                something_wrong = False
-            except urllib2.URLError as e:
-                logging.error('Data not retrieved because - %s' % e)
-                something_wrong = True
-            except socket.timeout:
-                logging.error('Socket timed out')
-                something_wrong = True
-        else:
-            try:
-                #f = urlopen(weather_website, timeout=3)
-                f = open('weather.json')
-                req = Request(allergy_website, headers={'User-Agent': 'Mozilla/5.0'})
-                #g = urlopen(req, timeout=3)
-                g = open('allergy.json')
+        #if on_pi:
+            #try:
+                #f = urllib2.urlopen(weather_website, timeout=3)
+                #g = urllib2.urlopen(allergy_website, headers={'User-Agent': 'Mozilla/5.0'}, timeout=3)
+                #something_wrong = False
+            #except urllib2.URLError as e:
+                #logging.error('Data not retrieved because - %s' % e)
+                #something_wrong = True
+            #except socket.timeout:
+                #logging.error('Socket timed out')
+                #something_wrong = True
+        #else:
+        try:
+            #f = urlopen(weather_website, timeout=3)
+            f = open('weather.json')
+            req = Request(allergy_website, headers={'User-Agent': 'Mozilla/5.0'})
+            #g = urlopen(req, timeout=3)
+            g = open('allergy.json')
 
-                something_wrong = False
-            except urllib.error.URLError as e:
-                logging.error('Data not retrieved because - %s' % e)
-                something_wrong = True
-            except timeout:
-                logging.error('Socket timed out')
-                something_wrong = True
+            something_wrong = False
+        except urllib.error.URLError as e:
+            logging.error('Data not retrieved because - %s' % e)
+            something_wrong = True
+        except timeout:
+            logging.error('Socket timed out')
+            something_wrong = True
 
         if something_wrong:
             logging.error("No Internet")
