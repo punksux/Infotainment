@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 import re
+from subprocess import Popen,PIPE
 
 artist = ''
 album = ''
@@ -23,3 +24,21 @@ def get_album(artist2, album2):
     return [album_art, album_release.strftime('%B %d, %Y'), album_sum]
 
 #print(get_album('1', '1'))
+p = None
+playing = False
+
+
+def start_pianobar():
+    global p, playing
+    cmd = "pianobar"
+    p = Popen(cmd, stdout=PIPE, stdin=PIPE)
+    playing = True
+    get_pianobar_info()
+
+
+def get_pianobar_info():
+    output = p.stdout.readline(1)
+    while playing:
+        if '|>  "' in output:
+            print(output)
+        output = p.stdin.readline(1)

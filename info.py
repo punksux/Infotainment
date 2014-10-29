@@ -118,10 +118,10 @@ if platform.uname()[0] != 'Windows':
     on_pi = True
 
 if on_pi:
-    pass
     #import urllib2
     #import RPi.GPIO as GPIO
     #import socket
+    import psutil
 else:
     from urllib.request import Request, urlopen
     import urllib.error
@@ -640,10 +640,12 @@ try:
         button = request.form.get('button', 'something is wrong', type=str)
         if on_pi:
             if button == 'p':
-                if os.path.exists("/proc/0"):  # todo: get pianobar proc id
-                    q = open('/home/pi/.config/pianobar/ctl', 'w')
+                for proc in psutil.process_iter():
+                    if proc.name == 'pianobar':  # todo: see if this works
+                        q = open('/home/pi/.config/pianobar/ctl', 'w')
+                        break
                 else:
-                    pass  # todo: start pianobar
+                    pandora.start_pianobar()
             else:
                 q = open('/home/pi/.config/pianobar/ctl', 'w')
         else:
