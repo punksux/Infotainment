@@ -642,7 +642,7 @@ try:
         if on_pi:
             if button == 'p':
                 for proc in psutil.process_iter():
-                    if 'pianobar' in proc['name']:
+                    if 'pianobar' in proc.name():
                         print('pianobar running')
                         with open('/home/pi/.config/pianobar/ctl', 'w') as fp:
                             fp.write(button)
