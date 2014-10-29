@@ -37,7 +37,7 @@ def start_pianobar():
     cmd = "pianobar"
     p = Popen(cmd, stdout=PIPE, stdin=PIPE)
     playing = True
-    h = sched.add_date_job(get_pianobar_info(), datetime.now())
+    h = sched.add_date_job(get_pianobar_info, datetime.now())
 
 
 def get_pianobar_info():

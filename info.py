@@ -635,29 +635,27 @@ try:
         #requests.post('https://api.pushbullet.com/v2/pushes', auth=(api_key, ''), data=data)
         return jsonify({'1': ''})
 
-    q = None
-
     @app.route('/music', methods=['POST'])
     def music_control():
-        global q
         button = request.form.get('button', 'something is wrong', type=str)
-        print(button + ' pressed')
+        print(button + 'button pressed')
         if on_pi:
             if button == 'p':
                 for proc in psutil.process_iter():
                     if proc.name == 'pianobar':  # todo: see if this works
-                        q = open('/home/pi/.config/pianobar/ctl', 'w')
-                        print('pianobar running - p button pushed')
+                        print('pianobar running')
+                        with open('/home/pi/.config/pianobar/ctl', 'w') as fp:
+                            fp.write(button)
                         break
                 else:
-                    pandora.start_pianobar()
                     print('starting pianobar')
+                    pandora.start_pianobar()
             else:
-                q = open('/home/pi/.config/pianobar/ctl', 'w')
+                with open('/home/pi/.config/pianobar/ctl', 'w') as fp:
+                    fp.write(button)
         else:
-            q = open('pandora.txt', 'w')
-        q.write(button)
-        q.close()
+            with open('pandora.txt', 'w') as fp:
+                    fp.write(button)
         return jsonify({'1': ''})
 
     if __name__ == '__main__':
