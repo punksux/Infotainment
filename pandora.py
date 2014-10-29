@@ -1,7 +1,11 @@
 import json
 from datetime import datetime
 import re
-from subprocess import Popen,PIPE
+from subprocess import Popen, PIPE
+from apscheduler.scheduler import Scheduler
+
+sched = Scheduler()
+sched.start()
 
 artist = ''
 album = ''
@@ -33,7 +37,7 @@ def start_pianobar():
     cmd = "pianobar"
     p = Popen(cmd, stdout=PIPE, stdin=PIPE)
     playing = True
-    get_pianobar_info()
+    h = sched.add_date_job(get_pianobar_info(), datetime.now())
 
 
 def get_pianobar_info():
