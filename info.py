@@ -643,13 +643,16 @@ try:
                 for proc in psutil.process_iter():
                     if proc.name == 'pianobar':  # todo: see if this works
                         q = open('/home/pi/.config/pianobar/ctl', 'w')
+                        print('pianobar running - p button pushed')
                         break
                 else:
                     pandora.start_pianobar()
+                    print('starting pianobar')
             else:
                 q = open('/home/pi/.config/pianobar/ctl', 'w')
         else:
             q = open('pandora.txt', 'w')
+        print(button + ' pressed')
         q.write(button)
         q.close()
         return jsonify({'1': ''})
