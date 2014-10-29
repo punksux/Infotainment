@@ -349,16 +349,9 @@ temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
 
 
 #######  --== Music Stuff ==--  #######
-def get_album_info():
+def get_album_info(song, artist, album, art, summary):
     global album_info
-    #todo: Get artist and album name
-    artist = 'Nirvana'
-    album = 'Nevermind'
-    album_info = pandora.get_album(artist, album)
-    album_info.append(artist)
-    album_info.append(album)
-
-get_album_info()
+    album_info = [song, artist, album, art, summary]
 
 
 #######  --== Entertainment Stuff ==--  #######

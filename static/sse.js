@@ -481,11 +481,11 @@ $(document).ready(function () {
     });
     sse.addEventListener('albumInfo', function (message) {
         message = JSON.parse(message.data);
-        $('#songName').html('Song: ');
-        $('#artistName').html('Artist: ' + message[3]);
-        $('#albumName').html('Album: ' + message[4]);
-        $('#albumArt').css('background','url("' + message[0] + '") no-repeat center');
-        $('#albumSummary').html(message[2]);
+        $('#songName').html('Song: ' + message[0]);
+        $('#artistName').html('Artist: ' + message[1]);
+        $('#albumName').html('Album: ' + message[2]);
+        $('#albumArt').css('background','url("' + message[3] + '") no-repeat center');
+        $('#albumSummary').html(message[4]);
     });
 
 });
