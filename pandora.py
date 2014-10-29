@@ -29,18 +29,20 @@ def get_album(artist2, album2):
 
 #print(get_album('1', '1'))
 p = None
+h = None
 playing = False
 
 
 def start_pianobar():
-    global p, playing
+    global p, playing, h
     cmd = "pianobar"
     p = Popen(cmd, stdout=PIPE, stdin=PIPE)
     playing = True
-    h = sched.add_date_job(get_pianobar_info, datetime.now())
+    h = sched.add_interval_job(get_pianobar_info, 120)
 
 
 def get_pianobar_info():
+    sched.unschedule_job(h)
     output = p.stdout.readline(1)
     while playing:
         if '|>  "' in output:

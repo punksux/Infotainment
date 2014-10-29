@@ -638,7 +638,7 @@ try:
     @app.route('/music', methods=['POST'])
     def music_control():
         button = request.form.get('button', 'something is wrong', type=str)
-        print(button + 'button pressed')
+        print(button + ' button pressed')
         if on_pi:
             if button == 'p':
                 for proc in psutil.process_iter():
