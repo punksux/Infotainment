@@ -17,6 +17,7 @@ import platform
 import os.path
 import os
 import re
+import sys
 
 weather_test = 100
 on_pi = False
@@ -358,7 +359,7 @@ def get_temps_from_probes():
                 temp_string = lines[1][equals_pos+2:]
                 temp_c = float(temp_string) / 1000.0
                 in_temp = temp_c * 9.0 / 5.0 + 32.0
-                print(in_temp)
+                #print(in_temp)
 
     else:
         out_temp = str(random.randrange(-32, 104))
@@ -396,7 +397,8 @@ playing = False
 
 def start_pianobar():
     global pianobar, h, playing, artist, album, song, information, info_old
-    pianobar = pexpect.spawn('pianobar')
+    pianobar = pexpect.spawnu('pianobar')
+    pianobar.logfile = sys.stdout
     playing = True
     pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
     print('Getting info')
@@ -741,15 +743,15 @@ try:
                 for proc in psutil.process_iter():
                     if 'pianobar' in proc.name():
                         print('pianobar running')
-                        pianobar.send(button)
+                        pianobar.write(button)
                         break
                 else:
                     print('starting pianobar')
                     start_pianobar()
             else:
-                pianobar.send(button)
+                pianobar.write(button)
         else:
-            pianobar.send(button)
+            pianobar.write(button)
         return jsonify({'1': ''})
 
     if __name__ == '__main__':
