@@ -18,6 +18,8 @@ import os.path
 import os
 import re
 import sys
+from urllib.request import Request, urlopen
+import urllib.error
 
 weather_test = 100
 on_pi = False
@@ -126,9 +128,7 @@ if on_pi:
     #import socket
     import psutil
     import pexpect
-else:
-    from urllib.request import Request, urlopen
-    import urllib.error
+
 
 app = Flask(__name__)
 
