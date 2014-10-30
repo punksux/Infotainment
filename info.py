@@ -18,8 +18,10 @@ import os.path
 import os
 import re
 import sys
+import urllib
 from urllib.request import Request, urlopen
 import urllib.error
+from urllib.parse import quote
 
 weather_test = 100
 on_pi = False
@@ -381,11 +383,10 @@ def get_album(song2, artist2, album2):
     global album_info
     last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&' \
                       'api_key=7e0ead667c3b37eb1ed9f3d16778fe38&artist=%s&album=%s&format=json' \
-                      % (artist2.replace(' ', '+'), album2.replace(' ', '+'))
+                      % (quote(artist2), quote(album2))
     f = urlopen(last_fm_website)
     json_string = f.read()
     parsed_json = json.loads(json_string.decode('utf-8'))
-    print(parsed_json)
     album_art = parsed_json['album']['image'][3]['#text']
     if 'wiki' in parsed_json['album']:
         album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
@@ -422,7 +423,7 @@ def start_pianobar():
                     if x == 0:  # Title | Artist | Album
                         print('Song: "{}"'.format(pianobar.before))
                         song = pianobar.before
-                        song = song.replace(r"\(.*\)","")
+                        song = re.sub('\(\w*\)', '', song)
                         x = pianobar.expect(' \| ')
                         if x == 0:
                             print('Artist: "{}"'.format(pianobar.before))
@@ -431,7 +432,7 @@ def start_pianobar():
                             if x == 0:
                                 print('Album: "{}"'.format(pianobar.before))
                                 album = pianobar.before
-                                album = album.replace(r"\(.*\)", "")
+                                album = re.sub('\(\w*\)', '', album)
                 elif x == 1:
                     x = pianobar.expect(' \| ')
                     if x == 0:
@@ -707,6 +708,7 @@ def event_stream():
     if album_info != album_info_old or test is False:
         album_info_old = album_info
         test = True
+        print('new album info')
         yield_me += 'event: albumInfo\n' + 'data: ' + json.dumps(album_info) + '\n\n'
 
     yield yield_me
