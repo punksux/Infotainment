@@ -380,7 +380,8 @@ info_old = []
 def get_album(song2, artist2, album2):
     global album_info
     last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&' \
-                      'api_key=7e0ead667c3b37eb1ed9f3d16778fe38&artist=%s&album=%s&format=json' % (artist2, album2)
+                      'api_key=7e0ead667c3b37eb1ed9f3d16778fe38&artist=%s&album=%s&format=json' \
+                      % (artist2.replace(' ', '+'), album2.replace(' ', '+'))
     f = urlopen(last_fm_website)
     json_string = f.read()
     parsed_json = json.loads(json_string.decode('utf-8'))
@@ -425,7 +426,7 @@ def start_pianobar():
                             artist = pianobar.before
                             x = pianobar.expect('\r\n')
                             if x == 0:
-                                print('Album: "{}"'.format())
+                                print('Album: "{}"'.format(pianobar.before))
                                 album = pianobar.before
                 elif x == 1:
                     x = pianobar.expect(' \| ')
