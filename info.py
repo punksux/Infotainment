@@ -397,13 +397,14 @@ def start_pianobar():
     global pianobar, h, playing
     pianobar = pexpect.spawn('pianobar')
     playing = True
-    h = sched.add_interval_job(get_pianobar_info, 120)
+    h = sched.add_interval_job(get_pianobar_info, seconds=120)
 
 
 def get_pianobar_info():
     sched.unschedule_job(h)
     global artist, album, song, information, info_old
     pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
+    print('Getting info')
 
     while pianobar.isalive():
         # Process all pending pianobar output
@@ -453,10 +454,8 @@ def get_pianobar_info():
                     get_album(song, artist, album)
 
             except pexpect.EOF:
-                print('EOF')
                 break
             except pexpect.TIMEOUT:
-                print('Timeout')
                 break
 
 
@@ -744,22 +743,20 @@ try:
                 for proc in psutil.process_iter():
                     if 'pianobar' in proc.name():
                         print('pianobar running')
-                        with open('/home/pi/.config/pianobar/ctl', 'w') as fp:
-                            fp.write(button)
+                        pianobar.send(button)
                         break
                 else:
                     print('starting pianobar')
                     start_pianobar()
             else:
-                with open('/home/pi/.config/pianobar/ctl', 'w') as fp:
-                    fp.write(button)
+                pianobar.send(button)
         else:
-            with open('pandora.txt', 'w') as fp:
-                    fp.write(button)
+            pianobar.send(button)
         return jsonify({'1': ''})
 
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=88)
 
 finally:
+    pianobar.send('q')
     sched.shutdown()
