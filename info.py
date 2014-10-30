@@ -14,6 +14,7 @@ import pandora
 import requests
 import platform
 import os.path
+import os
 
 
 weather_test = 100
@@ -161,7 +162,7 @@ def get_rss():
     else:
         feed_no += 1
 
-get_rss()
+#get_rss()
 rss = sched.add_interval_job(get_rss, seconds=1*30)
 
 
@@ -298,7 +299,7 @@ def check_weather():
         else:
             day_night = 'day'
 
-        print(icon + ' - ' + day_night)
+        #print(icon + ' - ' + day_night)
 
         def rand_allergy():
             return random.randrange(10, 120)/10
@@ -335,17 +336,33 @@ def day_or_night():
 check_weather()
 weather = sched.add_interval_job(check_weather, seconds=60)
 
+os.system('modprobe w1-gpio')
+os.system('modprobe w1-therm')
+temperature_file = '/sys/bus/w1/devices/28-0004749a3dff/w1_slave'
+
 
 def get_temps_from_probes():
     global out_temp, in_temp
     if on_pi:
-        pass
+        g = open(temperature_file, 'r')
+        lines = g.readlines()
+        g.close()
+
+        if lines[0].strip()[-3:] != 'YES':
+            print('No temp from sensor.')
+        else:
+            equals_pos = lines[1].find('t=')
+            if equals_pos != -1:
+                temp_string = lines[1][equals_pos+2:]
+                temp_c = float(temp_string) / 1000.0
+                in_temp = temp_c * 9.0 / 5.0 + 32.0
+
     else:
         out_temp = str(random.randrange(-32, 104))
         in_temp = str(random.randrange(32, 104))
 
 get_temps_from_probes()
-temps = sched.add_interval_job(get_temps_from_probes, seconds=10)
+temps = sched.add_interval_job(get_temps_from_probes, seconds=30)
 
 
 #######  --== Music Stuff ==--  #######
@@ -605,6 +622,7 @@ def event_stream():
 
     time.sleep(0)
 
+print('OK GO')
 
 try:
 

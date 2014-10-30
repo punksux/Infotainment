@@ -3,7 +3,7 @@ from datetime import datetime
 import re
 from subprocess import Popen, PIPE
 from apscheduler.scheduler import Scheduler
-import info
+from info import get_album_info
 
 on_pi = False
 
@@ -30,7 +30,7 @@ def get_album(song2, artist2, album2):
     parsed_json = json.loads(json_string)
     album_art = parsed_json['album']['image'][3]['#text']
     album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
-    info.get_album_info(song2, artist2, album2, album_art, album_sum)
+    get_album_info(song2, artist2, album2, album_art, album_sum)
 
 #print(get_album('1', '1'))
 p = None
