@@ -373,16 +373,14 @@ song = ''
 information = []
 info_old = []
 
-last_fm_api = '7e0ead667c3b37eb1ed9f3d16778fe38'
-last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=7e0ead667c3b37eb1ed9f3d16778fe38&' \
-                  'artist=%s&album=%s&format=json' % (artist, album)
-
 
 def get_album(song2, artist2, album2):
     global album_info
-    f = open('album_info.json')
+    last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&' \
+                      'api_key=7e0ead667c3b37eb1ed9f3d16778fe38&artist=%s&album=%s&format=json' % (artist2, album2)
+    f = urlopen(last_fm_website)
     json_string = f.read()
-    parsed_json = json.loads(json_string)
+    parsed_json = json.loads(json_string.decode('utf-8'))
     album_art = parsed_json['album']['image'][3]['#text']
     album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
     album_info = [song2, artist2, album2, album_art, album_sum]
@@ -412,6 +410,7 @@ def get_pianobar_info():
         while playing:
             try:
                 x = pianobar.expect(pattern_list, timeout=0)
+                print(x)
                 if x == 0:
                     song = ''
                     artist = ''
@@ -454,8 +453,10 @@ def get_pianobar_info():
                     get_album(song, artist, album)
 
             except pexpect.EOF:
+                print('EOF')
                 break
             except pexpect.TIMEOUT:
+                print('Timeout')
                 break
 
 
