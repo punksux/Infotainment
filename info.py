@@ -387,7 +387,10 @@ def get_album(song2, artist2, album2):
     parsed_json = json.loads(json_string.decode('utf-8'))
     print(parsed_json)
     album_art = parsed_json['album']['image'][3]['#text']
-    album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
+    if 'wiki' in parsed_json['album']:
+        album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
+    else:
+        album_sum = ''
     album_info = [song2, artist2, album2, album_art, album_sum]
     print(album_info)
 
