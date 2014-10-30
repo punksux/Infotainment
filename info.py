@@ -373,7 +373,7 @@ temps = sched.add_interval_job(get_temps_from_probes, seconds=30)
 artist = ''
 album = ''
 song = ''
-information = []
+information = ['', '', '']
 info_old = []
 
 
@@ -384,6 +384,7 @@ def get_album(song2, artist2, album2):
     f = urlopen(last_fm_website)
     json_string = f.read()
     parsed_json = json.loads(json_string.decode('utf-8'))
+    print(parsed_json)
     album_art = parsed_json['album']['image'][3]['#text']
     album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
     album_info = [song2, artist2, album2, album_art, album_sum]
