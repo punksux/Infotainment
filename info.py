@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 from flask import Flask, render_template, Response, request, jsonify
 import logging
 import logging.handlers
@@ -390,7 +392,6 @@ def get_album(song2, artist2, album2):
 p = None
 h = None
 playing = False
-pianobar = None
 
 
 def start_pianobar():
@@ -399,12 +400,14 @@ def start_pianobar():
     playing = True
     pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
     print('Getting info')
+    pianobar.expect('TIME:  ')
+    print(pianobar.before)
 
     while pianobar.isalive():
         # Process all pending pianobar output
         while playing:
             try:
-                x = pianobar.expect(pattern_list, timeout=0)
+                x = pianobar.expect('TIME: ', timeout=0)
                 print(x)
                 if x == 0:
                     song = ''
