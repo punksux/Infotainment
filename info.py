@@ -403,6 +403,7 @@ playing = False
 
 def start_pianobar():
     global pianobar, h, playing, artist, album, song, information, info_old
+    sched.unschedule_job(h)
     pianobar = pexpect.spawnu('sudo -u pi pianobar')
     #pianobar.logfile = sys.stdout
     playing = True
@@ -741,7 +742,7 @@ try:
 
     @app.route('/music', methods=['POST'])
     def music_control():
-        global pianobar
+        global pianobar, h
         button = request.form.get('button', 'something is wrong', type=str)
         print(button + ' button pressed')
         if on_pi:
@@ -753,7 +754,8 @@ try:
                         break
                 else:
                     print('starting pianobar')
-                    start_pianobar()
+                    h = sched.add_interval_job(start_pianobar, seconds=120)
+                    #start_pianobar()
             else:
                 pianobar.write(button)
         else:
