@@ -397,19 +397,17 @@ playing = False
 
 def start_pianobar():
     global pianobar, h, playing, artist, album, song, information, info_old
-    pianobar = pexpect.spawnu('pianobar')
-    pianobar.logfile = sys.stdout
+    pianobar = pexpect.spawnu('sudo -u pi pianobar')
+    #pianobar.logfile = sys.stdout
     playing = True
     pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
     print('Getting info')
-    pianobar.expect('TIME:  ')
-    print(pianobar.before)
 
     while pianobar.isalive():
         # Process all pending pianobar output
         while playing:
             try:
-                x = pianobar.expect('TIME: ', timeout=0)
+                x = pianobar.expect(pattern_list, timeout=0)
                 print(x)
                 if x == 0:
                     song = ''
