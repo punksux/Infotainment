@@ -356,6 +356,7 @@ def get_temps_from_probes():
                 temp_string = lines[1][equals_pos+2:]
                 temp_c = float(temp_string) / 1000.0
                 in_temp = temp_c * 9.0 / 5.0 + 32.0
+                print(in_temp)
 
     else:
         out_temp = str(random.randrange(-32, 104))
@@ -385,6 +386,7 @@ def get_album(song2, artist2, album2):
     album_art = parsed_json['album']['image'][3]['#text']
     album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
     album_info = [song2, artist2, album2, album_art, album_sum]
+    print(album_info)
 
 #print(get_album('1', '1'))
 p = None
@@ -394,8 +396,9 @@ pianobar = None
 
 
 def start_pianobar():
-    global pianobar, h
+    global pianobar, h, playing
     pianobar = pexpect.spawn('pianobar')
+    playing = True
     h = sched.add_interval_job(get_pianobar_info, 120)
 
 
