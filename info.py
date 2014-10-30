@@ -412,8 +412,7 @@ def start_pianobar():
         # Process all pending pianobar output
         while playing:
             try:
-                x = pianobar.expect(pattern_list, timeout=0)
-                print(x)
+                x = pianobar.expect('SONG: ', timeout=0)
                 if x == 0:
                     song = ''
                     artist = ''
@@ -423,6 +422,7 @@ def start_pianobar():
                     if x == 0:  # Title | Artist | Album
                         print('Song: "{}"'.format(pianobar.before))
                         song = pianobar.before
+                        song = song.replace(r"\(.*\)","")
                         x = pianobar.expect(' \| ')
                         if x == 0:
                             print('Artist: "{}"'.format(pianobar.before))
@@ -431,6 +431,7 @@ def start_pianobar():
                             if x == 0:
                                 print('Album: "{}"'.format(pianobar.before))
                                 album = pianobar.before
+                                album = album.replace(r"\(.*\)", "")
                 elif x == 1:
                     x = pianobar.expect(' \| ')
                     if x == 0:
