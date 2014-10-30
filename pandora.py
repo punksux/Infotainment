@@ -41,7 +41,7 @@ pianobar = None
 
 def start_pianobar():
     global pianobar
-    pianobar = pexpect.spawn('sudo -u pi pianobar')
+    pianobar = pexpect.spawn('pianobar')
     h = sched.add_interval_job(get_pianobar_info, 120)
 
 
