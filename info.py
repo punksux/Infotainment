@@ -394,15 +394,9 @@ pianobar = None
 
 
 def start_pianobar():
-    global pianobar, h, playing
+    global pianobar, h, playing, artist, album, song, information, info_old
     pianobar = pexpect.spawn('pianobar')
     playing = True
-    h = sched.add_interval_job(get_pianobar_info, seconds=120)
-
-
-def get_pianobar_info():
-    sched.unschedule_job(h)
-    global artist, album, song, information, info_old
     pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
     print('Getting info')
 
@@ -736,6 +730,7 @@ try:
 
     @app.route('/music', methods=['POST'])
     def music_control():
+        global pianobar
         button = request.form.get('button', 'something is wrong', type=str)
         print(button + ' button pressed')
         if on_pi:
