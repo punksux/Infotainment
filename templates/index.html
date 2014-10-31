@@ -227,14 +227,15 @@ function checkTime(i) {
             })
             .done(function(stations){
                 $('div#stationList').html('');
+                var i;
                 for(i=0;i<stations.length;i++){
-                    $('#stationList').append('<div class="station" onclick="changeStation(' + message[i][0] + ')">' + message[i][1] + '</div>');
+                    $('#stationList').append('<div class="station" onclick="changeStation(' + stations[i][0] + ')">' + stations[i][1] + '</div>');
                 }
             });
         }
 
         function changeStation(id){
-            $(this).css()
+            $('div.station').css('background', 'transparent');
             $.ajax(
             {
                 type: 'post',
@@ -244,7 +245,7 @@ function checkTime(i) {
                 }
             })
             .done(function(stations){
-                 $(this).css()
+                 $(this).css('background', 'rgba(255,255,255,0.25)')
             });
         }
     </script>

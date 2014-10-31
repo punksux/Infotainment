@@ -12,7 +12,7 @@ from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
 import entertainment
-import requests
+#import requests
 import platform
 import os.path
 import os
@@ -363,7 +363,7 @@ def get_temps_from_probes():
                 temp_string = lines[1][equals_pos+2:]
                 temp_c = float(temp_string) / 1000.0
                 in_temp = temp_c * 9.0 / 5.0 + 32.0
-                #print(in_temp)
+                print(in_temp)
 
     else:
         out_temp = str(random.randrange(-32, 104))
@@ -744,7 +744,7 @@ def event_stream():
         stations_old = stations
         test = True
         yield_me += 'event: stations\n' + 'data: ' + json.dumps(stations) + '\n\n'
-
+    print('Update')
     yield yield_me
 
     time.sleep(0)
@@ -796,9 +796,15 @@ try:
             pianobar.sendline(button)
         return jsonify({'1': st})
 
+    @app.route('/stationSelect', methods=['POST'])
+    def change_station():
+        return jsonify({'1': ''})
+
+
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=88)
 
 finally:
+    playing = False
     pianobar.sendline('q')
     sched.shutdown()
