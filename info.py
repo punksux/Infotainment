@@ -474,7 +474,7 @@ def get_stations():
     pianobar.sendline('s')
     pianobar.expect('Select station: ', timeout=10)
     a = pianobar.before.splitlines()
-    print(a)
+    print(str(a).replace('],', ']\n'))
     stations = []
 
     for b in a[:-1]:
@@ -489,7 +489,7 @@ def get_stations():
             else:
                 stations.append([id_no, name])
     pianobar.sendline('\n')
-    print(stations)
+    print(str(stations).replace('],', ']\n'))
 
 
 #######  --== Entertainment Stuff ==--  #######
