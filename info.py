@@ -471,7 +471,7 @@ def get_stations():
     global h, stations
     sched.unschedule_job(h)
     print('Getting stations')
-    pianobar.write('s')
+    pianobar.sendline('s')
     pianobar.expect('Select station: ', timeout=10)
     a = pianobar.before.splitlines()
     print(a)
@@ -488,7 +488,7 @@ def get_stations():
                 stations.insert(0, [id_no, name])
             else:
                 stations.append([id_no, name])
-    pianobar.write('\n')
+    pianobar.sendline('\n')
     print(stations)
 
 
@@ -780,21 +780,21 @@ try:
                 for proc in psutil.process_iter():
                     if 'pianobar' in proc.name():
                         print('pianobar running')
-                        pianobar.write(button)
+                        pianobar.sendline(button)
                         break
                 else:
                     print('starting pianobar')
                     h = sched.add_interval_job(start_pianobar, seconds=5)
                     #start_pianobar()
             else:
-                pianobar.write(button)
+                pianobar.sendline(button)
         else:
-            pianobar.write(button)
+            pianobar.sendline(button)
         return jsonify({'1': ''})
 
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=88)
 
 finally:
-    pianobar.send('q')
+    pianobar.sendline('q')
     sched.shutdown()
