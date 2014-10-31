@@ -470,9 +470,11 @@ def start_pianobar():
 def get_stations():
     global h, stations
     sched.unschedule_job(h)
+    print('Getting stations')
     pianobar.write('s')
     pianobar.expect('Select station: ', timeout=10)
     a = pianobar.before.splitlines()
+    print(a)
     stations = []
 
     for b in a[:-1]:
