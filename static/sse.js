@@ -490,9 +490,9 @@ $(document).ready(function () {
     sse.addEventListener('stations', function (message) {
         message = JSON.parse(message.data);
         var i;
-        for(i in message){
-            console.log(i);
-            $('#stationList').append('<div class="station" onclick="changeStation(' + i[0] + ')">' + i[1] + '</div>');
+        for(i=0;i<message.length;i++){
+            console.log(message[i]);
+            $('#stationList').append('<div class="station" onclick="changeStation(' + message[i][0] + ')">' + message[i][1] + '</div>');
         }
     });
 
