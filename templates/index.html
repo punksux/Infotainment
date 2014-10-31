@@ -223,7 +223,14 @@ function checkTime(i) {
                 url: "/music",
                 data: {
                     'button': button
-                }})}
+                }
+            })
+            .done(function(stations){
+                for(i=0;i<stations.length;i++){
+                    $('#stationList').append('<div class="station" onclick="changeStation(' + message[i][0] + ')">' + message[i][1] + '</div>');
+                }
+            });
+        }
 
         function changeStation(id){
             console.log(id);

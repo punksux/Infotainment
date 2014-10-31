@@ -407,7 +407,7 @@ def start_pianobar():
     global pianobar, h, playing, artist, album, song, information, info_old
     sched.unschedule_job(h)
     pianobar = pexpect.spawnu('sudo -u pi pianobar')
-    h = sched.add_interval_job(get_stations, seconds=20)
+    #h = sched.add_interval_job(get_stations, seconds=20)
 
     playing = True
     pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
@@ -469,8 +469,9 @@ def start_pianobar():
 
 def get_stations():
     global h, stations
-    sched.unschedule_job(h)
+    #sched.unschedule_job(h)
     print('Getting stations')
+    pianobar.expect('TIME: ', timeout=30)
     pianobar.sendline('s')
     pianobar.expect('Select station: ', timeout=10)
     a = pianobar.before.splitlines()
@@ -478,7 +479,7 @@ def get_stations():
     stations = []
 
     for b in a[:-1]:
-        print(b)
+        #print(b)
         if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or (b.find('TIME:') >= 0):
             continue
         if b.find('Radio') or b.find('QuickMix'):
@@ -490,7 +491,8 @@ def get_stations():
             else:
                 stations.append([id_no, name])
     pianobar.sendcontrol('m')
-    print(str(stations).replace('],', ']\n'))
+    return stations
+    #print(str(stations).replace('],', ']\n'))
 
 
 #######  --== Entertainment Stuff ==--  #######
@@ -773,7 +775,7 @@ try:
 
     @app.route('/music', methods=['POST'])
     def music_control():
-        global pianobar, h
+        global pianobar, h, st
         button = request.form.get('button', 'something is wrong', type=str)
         print(button + ' button pressed')
         if on_pi:
@@ -786,12 +788,13 @@ try:
                 else:
                     print('starting pianobar')
                     h = sched.add_interval_job(start_pianobar, seconds=5)
-                    #start_pianobar()
+                    time.sleep(10)
+                    st = get_stations()
             else:
                 pianobar.sendline(button)
         else:
             pianobar.sendline(button)
-        return jsonify({'1': ''})
+        return jsonify({'1': st})
 
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=88)
