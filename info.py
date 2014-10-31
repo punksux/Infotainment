@@ -478,7 +478,7 @@ def get_stations():
     stations = []
 
     for b in a[:-1]:
-        if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0):
+        if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or b.find('TIME:'):
             continue
         if b.find('Radio') or b.find('QuickMix'):
             id_no = b[5:7].strip()

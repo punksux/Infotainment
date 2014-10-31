@@ -491,6 +491,7 @@ $(document).ready(function () {
         message = JSON.parse(message.data);
         var i;
         for(i in message){
+            console.log(i);
             $('#stationList').append('<div class="station" onclick="changeStation(' + i[0] + ')">' + i[1] + '</div>');
         }
     });
