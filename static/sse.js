@@ -487,6 +487,13 @@ $(document).ready(function () {
         $('#albumArt').css('background','url("' + message[3] + '") no-repeat center');
         $('#albumSummary').html(message[4]);
     });
+    sse.addEventListener('stations', function (message) {
+        message = JSON.parse(message.data);
+        var i;
+        for(i in message){
+            $('#stationList').append('<div class="station" onclick="changeStation(' + i[0] + ')">' + i[1] + '</div>');
+        }
+    });
 
 });
 

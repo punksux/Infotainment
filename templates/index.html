@@ -192,7 +192,7 @@ function checkTime(i) {
         <div id="musicContainer">
             <div id="logo"></div>
             <div id="musicControls">
-                <div id="downButton" onclick="musicControl('-')"></div>
+                <div id="downButton" onclick="musicControl('t')"></div>
                 <div id="upButton" onclick="musicControl('+')"></div>
                 <div id="playButton" onclick="musicControl('p')"></div>
                 <div id="skipButton" onclick="musicControl('n')"></div>
@@ -224,6 +224,10 @@ function checkTime(i) {
                 data: {
                     'button': button
                 }})}
+        
+        function changeStation(id){
+            console.log(id);
+        }
     </script>
 
 <!--  **  Entertainment Tab **   -->

@@ -118,6 +118,8 @@ local_events = []
 local_events_old = []
 album_info = []
 album_info_old = []
+stations = []
+stations_old = []
 
 #Set platform
 print("** Running on " + platform.uname()[0] + " **")
@@ -405,7 +407,8 @@ def start_pianobar():
     global pianobar, h, playing, artist, album, song, information, info_old
     sched.unschedule_job(h)
     pianobar = pexpect.spawnu('sudo -u pi pianobar')
-    #pianobar.logfile = sys.stdout
+    h = sched.add_interval_job(get_stations, seconds=20)
+
     playing = True
     pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
     print('Getting info')
@@ -462,6 +465,29 @@ def start_pianobar():
                 break
             except pexpect.TIMEOUT:
                 break
+
+
+def get_stations():
+    global h, stations
+    sched.unschedule_job(h)
+    pianobar.write('s')
+    pianobar.expect('Select station: ', timeout=10)
+    a = pianobar.before.splitlines()
+    stations = []
+
+    for b in a[:-1]:
+        if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0):
+            continue
+        if b.find('Radio') or b.find('QuickMix'):
+            id_no = b[5:7].strip()
+            name = b[13:].strip()
+
+            if name == 'QuickMix':
+                stations.insert(0, [id_no, name])
+            else:
+                stations.append([id_no, name])
+    pianobar.write('\n')
+    print(stations)
 
 
 #######  --== Entertainment Stuff ==--  #######
@@ -604,7 +630,7 @@ def event_stream():
         utah_week_old, utah_score_old, sf_week_old, kc_week_old, sf_score_old, kc_score_old, rsl_week_old,\
         rsl_score_old, ncaa_rankings_old, pac12_standings_old, soccer_standings_old, nfl_rankings_old,\
         opening_movies_old, local_events_old, forecast_decription, forecast_decription_old, feed_media_old,\
-        album_info_old
+        album_info_old, stations, stations_old
 
     yield_me = ''
     if day_night != day_night_old or test is False:
@@ -708,9 +734,11 @@ def event_stream():
         yield_me += 'event: localEvents\n' + 'data: ' + json.dumps(local_events) + '\n\n'
     if album_info != album_info_old or test is False:
         album_info_old = album_info
-        test = True
-        print('new album info')
         yield_me += 'event: albumInfo\n' + 'data: ' + json.dumps(album_info) + '\n\n'
+    if stations != stations_old or test is False:
+        stations_old = stations
+        test = True
+        yield_me += 'event: stations\n' + 'data: ' + json.dumps(stations) + '\n\n'
 
     yield yield_me
 
@@ -754,7 +782,7 @@ try:
                         break
                 else:
                     print('starting pianobar')
-                    h = sched.add_interval_job(start_pianobar, seconds=120)
+                    h = sched.add_interval_job(start_pianobar, seconds=5)
                     #start_pianobar()
             else:
                 pianobar.write(button)
