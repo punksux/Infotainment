@@ -474,11 +474,12 @@ def get_stations():
     pianobar.sendline('s')
     pianobar.expect('Select station: ', timeout=10)
     a = pianobar.before.splitlines()
-    print(str(a).replace('],', ']\n'))
+    #print(str(a).replace('],', ']\n'))
     stations = []
 
     for b in a[:-1]:
-        if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or b.find('TIME:'):
+        print(b)
+        if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or (b.find('TIME:') >= 0):
             continue
         if b.find('Radio') or b.find('QuickMix'):
             id_no = b[5:7].strip()
@@ -488,7 +489,7 @@ def get_stations():
                 stations.insert(0, [id_no, name])
             else:
                 stations.append([id_no, name])
-    pianobar.sendline('\n')
+    pianobar.sendcontrol('m')
     print(str(stations).replace('],', ']\n'))
 
 
