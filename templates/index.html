@@ -203,9 +203,14 @@ function checkTime(i) {
                 <div id="songInfo">
                     <div id="albumArt"></div>
                     <div id="info">
-                        <div id="songName"></div>
-                        <div id="artistName"></div>
-                        <div id="albumName"></div>
+                        <table id="infoTable">
+                            <tr><td>Song:</td><td id="songName"> </td></tr>
+                            <tr><td>Artist:</td><td id="artistName"> </td></tr>
+                            <tr><td>Album:</td><td id="albumName"> </td></tr>
+                        </table>
+                        <div ></div>
+                        <div ></div>
+                        <div ></div>
                     </div>
                     <div id="albumSummary"></div>
                 </div>
@@ -215,8 +220,8 @@ function checkTime(i) {
 
     <script>
         $('#playButton').click(function(){$('#playButton').toggleClass('pause')});
+
         function musicControl(button){
-            $('#messageBox').show(100);
             $.ajax(
             {
                 type: 'post',
@@ -224,18 +229,12 @@ function checkTime(i) {
                 data: {
                     'button': button
                 }
-            })
-            .done(function(stations){
-                $('div#stationList').html('');
-                var i;
-                for(i=0;i<stations.length;i++){
-                    $('#stationList').append('<div class="station" onclick="changeStation(' + stations[i][0] + ')">' + stations[i][1] + '</div>');
-                }
             });
         }
 
-        function changeStation(id){
+        function changeStation(id, tis){
             $('div.station').css('background', 'transparent');
+            $(tis).css('background', 'rgba(255,255,255,0.25)');
             $.ajax(
             {
                 type: 'post',
@@ -243,9 +242,6 @@ function checkTime(i) {
                 data: {
                     'id': id
                 }
-            })
-            .done(function(stations){
-                 $(this).css('background', 'rgba(255,255,255,0.25)')
             });
         }
     </script>

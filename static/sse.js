@@ -107,7 +107,8 @@ $(document).ready(function () {
             $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
                 .done(function () {
                     $('#day').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
-                }).fail(function () {
+                })
+                .fail(function () {
                     $('#day').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
                 });
             $('#night').fadeOut(1000);
@@ -116,7 +117,8 @@ $(document).ready(function () {
             $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
                 .done(function () {
                     $('#night').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
-                }).fail(function () {
+                })
+                .fail(function () {
                     $('#night').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
                 });
             $('#day').fadeOut(1000);
@@ -481,19 +483,19 @@ $(document).ready(function () {
     });
     sse.addEventListener('albumInfo', function (message) {
         message = JSON.parse(message.data);
-        $('#songName').html('Song: ' + message[0]);
-        $('#artistName').html('Artist: ' + message[1]);
-        $('#albumName').html('Album: ' + message[2]);
+        $('#songName').html(message[0]);
+        $('#artistName').html(message[1]);
+        $('#albumName').html(message[2]);
         $('#albumArt').css('background','url("' + message[3] + '") no-repeat center');
         $('#albumSummary').html(message[4]);
     });
     sse.addEventListener('stations', function (message) {
         message = JSON.parse(message.data);
+        $('div#stationList').html('');
         var i;
         for(i=0;i<message.length;i++){
-            $('#stationList').append('<div class="station" onclick="changeStation(' + message[i][0] + ')">' + message[i][1] + '</div>');
+            $('#stationList').append('<div class="station" onclick="changeStation(' + message[i][0] + ', this)">' + message[i][1] + '</div>');
         }
     });
-
 });
 

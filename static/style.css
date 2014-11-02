@@ -710,6 +710,7 @@ ul.newsticker li {
     font: bold 20px Code;
     text-shadow: 0 0 8px #333;
     color: #ffffff;
+    padding: 0;
 }
 
 #logo {
@@ -779,22 +780,32 @@ ul.newsticker li {
 }
 
 #infoContainer {
-    width:100%;
+    width:1240px;
     height: 597px;
     position: absolute;
     top:87px;
 }
 
 #stationList {
-    width:500px;
+    width:450px;
     height:557px;
     border: 1px solid white;
-    margin-left: 20px;
-    margin-top: 20px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 40px;
+    /*line-height: 50px;*/
+    overflow-y: auto;
+    text-align: center;
+}
+
+.station {
+    margin-top: 10px;
+    text-indent: 10px;
 }
 
 #songInfo {
-    width:680px;
+    width:730px;
     height:557px;
     border: 1px solid white;
     right: 20px;
@@ -817,12 +828,19 @@ ul.newsticker li {
     top: 10px;
     font-size: 30px;
 }
+#infoTable {
+    border-spacing: 10px;
+}
+
+#infoTable td:nth-child(1) {
+    vertical-align: top;
+}
 
 #albumSummary {
     position: absolute;
     left: 10px;
     top: 270px;
-    width: 660px;
+    width: 710px;
     height: 277px;
     overflow-y: hidden;
 }

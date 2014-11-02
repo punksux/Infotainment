@@ -5,14 +5,14 @@ import logging
 import logging.handlers
 from socket import timeout
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 import time
 from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
 import entertainment
-#import requests
+import requests
 import platform
 import os.path
 import os
@@ -348,6 +348,7 @@ os.system('modprobe w1-therm')
 temperature_file = '/sys/bus/w1/devices/28-0004749a3dff/w1_slave'
 
 
+#######  --== Get Temps ==--  #######
 def get_temps_from_probes():
     global out_temp, in_temp
     if on_pi:
@@ -363,7 +364,9 @@ def get_temps_from_probes():
                 temp_string = lines[1][equals_pos+2:]
                 temp_c = float(temp_string) / 1000.0
                 in_temp = temp_c * 9.0 / 5.0 + 32.0
-                print(in_temp)
+                #print(in_temp)
+
+        out_temp = str(random.randrange(-32, 104))
 
     else:
         out_temp = str(random.randrange(-32, 104))
@@ -379,42 +382,47 @@ album = ''
 song = ''
 information = ['', '', '']
 info_old = []
+st = None
+h = None
+p = None
+playing = False
+st_got = False
 
 
 def get_album(song2, artist2, album2):
-    global album_info
-    last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&' \
-                      'api_key=7e0ead667c3b37eb1ed9f3d16778fe38&artist=%s&album=%s&format=json' \
-                      % (quote(artist2), quote(album2))
-    f = urlopen(last_fm_website)
-    json_string = f.read()
-    parsed_json = json.loads(json_string.decode('utf-8'))
-    album_art = parsed_json['album']['image'][3]['#text']
-    if 'wiki' in parsed_json['album']:
-        album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
-    else:
-        album_sum = ''
-    album_info = [song2, artist2, album2, album_art, album_sum]
-    print(album_info)
+    print('Get: ' + song2 + ',' + artist2 + ',' + album2)
+    try:
+        global album_info
+        last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&' \
+                          'api_key=7e0ead667c3b37eb1ed9f3d16778fe38&artist=%s&album=%s&format=json' \
+                          % (quote(artist2), quote(album2))
+        print(last_fm_website)
+        f = urlopen(last_fm_website)
+        json_string = f.read()
+        parsed_json = json.loads(json_string.decode('utf-8'))
+        album_art = parsed_json['album']['image'][3]['#text']
+        if 'wiki' in parsed_json['album']:
+            album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
+        else:
+            album_sum = ''
+        album_info = [song2, artist2, album2, album_art, album_sum]
+        print(album_info)
+    except:
+        album_info = [song2, artist2, album2, '', '']
+        print(album_info)
 
 #print(get_album('1', '1'))
-p = None
-h = None
-playing = False
 
 
 def start_pianobar():
     global pianobar, h, playing, artist, album, song, information, info_old
-    sched.unschedule_job(h)
     pianobar = pexpect.spawnu('sudo -u pi pianobar')
-    #h = sched.add_interval_job(get_stations, seconds=20)
 
     playing = True
     pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
     print('Getting info')
 
     while pianobar.isalive():
-        # Process all pending pianobar output
         while playing:
             try:
                 x = pianobar.expect('SONG: ', timeout=0)
@@ -423,11 +431,13 @@ def start_pianobar():
                     artist = ''
                     album = ''
 
+                    
+
                     x = pianobar.expect(' \| ')
                     if x == 0:  # Title | Artist | Album
                         print('Song: "{}"'.format(pianobar.before))
                         song = pianobar.before
-                        song = re.sub('\(\w*\)', '', song)
+                        song = song[:(song.find('(')+1)]
                         x = pianobar.expect(' \| ')
                         if x == 0:
                             print('Artist: "{}"'.format(pianobar.before))
@@ -436,7 +446,7 @@ def start_pianobar():
                             if x == 0:
                                 print('Album: "{}"'.format(pianobar.before))
                                 album = pianobar.before
-                                album = re.sub('\(\w*\)', '', album)
+                                album = album[:(album.find('(')+1)]
                 elif x == 1:
                     x = pianobar.expect(' \| ')
                     if x == 0:
@@ -458,6 +468,7 @@ def start_pianobar():
 
                 info_old = information
                 information = [song, artist, album]
+                print('Info: ' + str(information))
                 if information != info_old:
                     get_album(song, artist, album)
 
@@ -468,18 +479,14 @@ def start_pianobar():
 
 
 def get_stations():
-    global h, stations
-    #sched.unschedule_job(h)
+    global h, stations, st, st_got
     print('Getting stations')
-    pianobar.expect('TIME: ', timeout=30)
-    pianobar.sendline('s')
+    pianobar.send('s')
     pianobar.expect('Select station: ', timeout=10)
     a = pianobar.before.splitlines()
-    #print(str(a).replace('],', ']\n'))
     stations = []
 
     for b in a[:-1]:
-        #print(b)
         if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or (b.find('TIME:') >= 0):
             continue
         if b.find('Radio') or b.find('QuickMix'):
@@ -491,8 +498,16 @@ def get_stations():
             else:
                 stations.append([id_no, name])
     pianobar.sendcontrol('m')
-    return stations
-    #print(str(stations).replace('],', ']\n'))
+    st_got = True
+    print(str(stations).replace('],', ']\n'))
+
+
+def change_station_by_id(id_no):
+    global pianobar
+    print("Change to station #" + id_no)
+    pianobar.send('s')
+    pianobar.expect('Select station: ', timeout=10)
+    pianobar.sendline(id_no)
 
 
 #######  --== Entertainment Stuff ==--  #######
@@ -635,7 +650,7 @@ def event_stream():
         utah_week_old, utah_score_old, sf_week_old, kc_week_old, sf_score_old, kc_score_old, rsl_week_old,\
         rsl_score_old, ncaa_rankings_old, pac12_standings_old, soccer_standings_old, nfl_rankings_old,\
         opening_movies_old, local_events_old, forecast_decription, forecast_decription_old, feed_media_old,\
-        album_info_old, stations, stations_old
+        album_info_old, stations, stations_old, st_got
 
     yield_me = ''
     if day_night != day_night_old or test is False:
@@ -739,12 +754,14 @@ def event_stream():
         yield_me += 'event: localEvents\n' + 'data: ' + json.dumps(local_events) + '\n\n'
     if album_info != album_info_old or test is False:
         album_info_old = album_info
-        yield_me += 'event: albumInfo\n' + 'data: ' + json.dumps(album_info) + '\n\n'
-    if stations != stations_old or test is False:
-        stations_old = stations
+        print('New album info')
         test = True
+        yield_me += 'event: albumInfo\n' + 'data: ' + json.dumps(album_info) + '\n\n'
+    if st_got:
+        print('New stations')
+        st_got = False
         yield_me += 'event: stations\n' + 'data: ' + json.dumps(stations) + '\n\n'
-    print('Update')
+
     yield yield_me
 
     time.sleep(0)
@@ -759,8 +776,9 @@ try:
 
     @app.route('/')
     def my_form():
-        global test
+        global test, st_got
         test = False
+        st_got = True
         return render_template("index.html")
 
     @app.route('/entertainment', methods=['POST'])
@@ -783,28 +801,36 @@ try:
                 for proc in psutil.process_iter():
                     if 'pianobar' in proc.name():
                         print('pianobar running')
-                        pianobar.sendline(button)
+                        pianobar.send(button)
                         break
                 else:
                     print('starting pianobar')
-                    h = sched.add_interval_job(start_pianobar, seconds=5)
-                    time.sleep(10)
-                    st = get_stations()
+                    h = sched.add_date_job(start_pianobar, (datetime.now() + timedelta(seconds=2)))
+                    st = sched.add_date_job(get_stations, (datetime.now() + timedelta(seconds=20)))
             else:
-                pianobar.sendline(button)
+                pianobar.send(button)
         else:
-            pianobar.sendline(button)
-        return jsonify({'1': st})
+            pianobar.send(button)
+        return jsonify({'1': ''})
 
     @app.route('/stationSelect', methods=['POST'])
     def change_station():
+        global h
+        id_no = request.form.get('id', 'something is wrong', type=str)
+        h = sched.add_date_job(change_station_by_id, (datetime.now() + timedelta(seconds=2)), args=id_no)
         return jsonify({'1': ''})
-
 
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=88)
 
 finally:
+    print('Shutting Down!')
     playing = False
+    print('Killing pianobar')
     pianobar.sendline('q')
-    sched.shutdown()
+    print('Shutting down scheduler')
+    sched.shutdown(wait=False)
+    print('Clear errors log')
+    f = open('errors.log', 'w')
+    f.close()
+    print('Done')
