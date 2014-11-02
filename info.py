@@ -390,17 +390,18 @@ st_got = False
 
 
 def get_album(song2, artist2, album2):
-    print('Get: ' + song2 + ',' + artist2 + ',' + album2)
     try:
         global album_info
         last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&' \
                           'api_key=7e0ead667c3b37eb1ed9f3d16778fe38&artist=%s&album=%s&format=json' \
                           % (quote(artist2), quote(album2))
-        print(last_fm_website)
         f = urlopen(last_fm_website)
         json_string = f.read()
         parsed_json = json.loads(json_string.decode('utf-8'))
-        album_art = parsed_json['album']['image'][3]['#text']
+        if 'image' in parsed_json['album']:
+            album_art = parsed_json['album']['image'][3]['#text']
+        else:
+            album_art = '/static/images/pandora/blank.jpg'
         if 'wiki' in parsed_json['album']:
             album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
         else:
@@ -431,22 +432,28 @@ def start_pianobar():
                     artist = ''
                     album = ''
 
-                    
-
                     x = pianobar.expect(' \| ')
                     if x == 0:  # Title | Artist | Album
-                        print('Song: "{}"'.format(pianobar.before))
+                        print('Song: "%s"' % pianobar.before)
                         song = pianobar.before
-                        song = song[:(song.find('(')+1)]
+                        print(song)
                         x = pianobar.expect(' \| ')
                         if x == 0:
                             print('Artist: "{}"'.format(pianobar.before))
                             artist = pianobar.before
+                            print(artist)
                             x = pianobar.expect('\r\n')
                             if x == 0:
                                 print('Album: "{}"'.format(pianobar.before))
                                 album = pianobar.before
-                                album = album[:(album.find('(')+1)]
+                                print(album)
+                                album = album[:re.search('\(', album).start()]
+
+                info_old = information
+                information = [song, artist, album]
+                if information != info_old:
+                    get_album(song, artist, album)
+
                 elif x == 1:
                     x = pianobar.expect(' \| ')
                     if x == 0:
@@ -466,11 +473,7 @@ def start_pianobar():
                     except:
                         pass
 
-                info_old = information
-                information = [song, artist, album]
-                print('Info: ' + str(information))
-                if information != info_old:
-                    get_album(song, artist, album)
+
 
             except pexpect.EOF:
                 break
@@ -481,7 +484,7 @@ def start_pianobar():
 def get_stations():
     global h, stations, st, st_got
     print('Getting stations')
-    pianobar.send('s')
+    pianobar.sendline('s')
     pianobar.expect('Select station: ', timeout=10)
     a = pianobar.before.splitlines()
     stations = []
@@ -807,6 +810,7 @@ try:
                     print('starting pianobar')
                     h = sched.add_date_job(start_pianobar, (datetime.now() + timedelta(seconds=2)))
                     st = sched.add_date_job(get_stations, (datetime.now() + timedelta(seconds=20)))
+                    # todo: add icon to show music playing
             else:
                 pianobar.send(button)
         else:
