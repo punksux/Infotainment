@@ -51,6 +51,13 @@ function checkTime(i) {
 
     <link href="/static/tabcontent.css" rel="stylesheet" type="text/css" />
     <script src="/static/tabcontent.js" type="text/javascript"></script>
+    <script src="/static/idle.js" type="text/javascript"></script>
+    <script src="/static/jquery.simulate.js" type="text/javascript"></script>
+    <script>
+        function changeTab(tis){
+
+        }
+    </script>
 </head>
 
 <body onload="startTime()">
@@ -192,11 +199,11 @@ function checkTime(i) {
         <div id="musicContainer">
             <div id="logo"></div>
             <div id="musicControls">
-                <div id="downButton" onclick="musicControl('t')"></div>
-                <div id="upButton" onclick="musicControl('+')"></div>
-                <div id="playButton" onclick="musicControl('p')"></div>
-                <div id="skipButton" onclick="musicControl('n')"></div>
-                <div id="volumeButton"></div>
+                <div id="downButton" onclick="musicControl('t');buttonClick('Tired of song')"></div>
+                <div id="upButton" onclick="musicControl('+');buttonClick('Love song')"></div>
+                <div id="playButton" onclick="musicControl('p');buttonClick('Play')"></div>
+                <div id="pauseButton" onclick="musicControl('p');buttonClick('Pause')"></div>
+                <div id="skipButton" onclick="musicControl('n');buttonClick('Skip song')"></div>
             </div>
             <div id="infoContainer">
                 <div id="stationList"></div>
@@ -216,10 +223,24 @@ function checkTime(i) {
                 </div>
             </div>
         </div>
+        <div id="buttonClick"></div>
     </div>
 
     <script>
-        $('#playButton').click(function(){$('#playButton').toggleClass('pause')});
+
+        $('#playButton').click(function(){
+            $(this).hide();
+            $('#pauseButton').show();
+            $('#musicPlaying').show(500)
+        });
+
+        $('#pauseButton').hide().click(function(){
+            $(this).hide();
+            $('#playButton').show();
+            $('#musicPlaying').hide(500)
+        });
+
+        $('#upButton').click(function(){$(this).css('background', 'url(/static/images/pandora/btn_up_like.png) no-repeat center')});
 
         function musicControl(button){
             $.ajax(
@@ -243,6 +264,10 @@ function checkTime(i) {
                     'id': id
                 }
             });
+        }
+
+        function buttonClick(message){
+            $('#buttonClick').html(message).fadeIn(100).delay(800).fadeOut(1000);
         }
     </script>
 
@@ -530,9 +555,11 @@ function checkTime(i) {
         <iframe name="app" id="appDisplay"></iframe>
     </div>
 
+<!--   ** Clock **   -->
     <div id="clockBox"></div>
     <div id="clockBoxCover"></div>
     <div id="time">4:22 PM</div>
+    <div id="musicPlaying"></div>
 
 
 <!--    ** RSS Popup **    -->

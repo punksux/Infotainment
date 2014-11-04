@@ -389,7 +389,7 @@ playing = False
 st_got = False
 
 
-def get_album(song2, artist2, album2):
+def get_album(song2, artist2, album2, like2):
     try:
         global album_info
         last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&' \
@@ -406,10 +406,10 @@ def get_album(song2, artist2, album2):
             album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
         else:
             album_sum = ''
-        album_info = [song2, artist2, album2, album_art, album_sum]
+        album_info = [song2, artist2, album2, album_art, album_sum, like2]
         print(album_info)
     except:
-        album_info = [song2, artist2, album2, '', '']
+        album_info = [song2, artist2, album2, '/static/images/pandora/blank.jpg', '', like2]
         print(album_info)
 
 #print(get_album('1', '1'))
@@ -431,6 +431,7 @@ def start_pianobar():
                     song = ''
                     artist = ''
                     album = ''
+                    like = ''
 
                     x = pianobar.expect(' \| ')
                     if x == 0:  # Title | Artist | Album
@@ -442,17 +443,24 @@ def start_pianobar():
                             print('Artist: "{}"'.format(pianobar.before))
                             artist = pianobar.before
                             print(artist)
-                            x = pianobar.expect('\r\n')
+                            x = pianobar.expect(' \| ')
                             if x == 0:
                                 print('Album: "{}"'.format(pianobar.before))
                                 album = pianobar.before
                                 print(album)
                                 album = album[:re.search('\(', album).start()]
+                                x = pianobar.expect('\r\n')
+                                if x == 0:
+                                    print('Like: "{}"'.format(pianobar.before))
+                                    if pianobar.before == '<3':
+                                        like = '1'
+                                    else:
+                                        like = '0'
 
                 info_old = information
-                information = [song, artist, album]
+                information = [song, artist, album, like]
                 if information != info_old:
-                    get_album(song, artist, album)
+                    get_album(song, artist, album, like)
 
                 elif x == 1:
                     x = pianobar.expect(' \| ')
@@ -757,11 +765,9 @@ def event_stream():
         yield_me += 'event: localEvents\n' + 'data: ' + json.dumps(local_events) + '\n\n'
     if album_info != album_info_old or test is False:
         album_info_old = album_info
-        print('New album info')
         test = True
         yield_me += 'event: albumInfo\n' + 'data: ' + json.dumps(album_info) + '\n\n'
     if st_got:
-        print('New stations')
         st_got = False
         yield_me += 'event: stations\n' + 'data: ' + json.dumps(stations) + '\n\n'
 

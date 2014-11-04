@@ -237,7 +237,7 @@ def get_nfl_rankings():
 def get_soccer_season():
     global website
     mls_season_website = 'http://api.sportsdatallc.org/soccer-t2/na/matches/schedule.xml?' \
-                         'api_key=q57zpdq4d7mvmtns4uxk92f8 '
+                         'api_key=q57zpdq4d7mvmtns4uxk92f8'
 
     schedule = []
     f = ET.parse('mls_season_sched.xml')

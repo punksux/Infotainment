@@ -433,7 +433,7 @@ ul.newsticker li {
 }
 
 #time {
-    width:200px;
+    width:190px;
     height:55px;
     position:absolute;
     bottom:0;
@@ -447,6 +447,17 @@ ul.newsticker li {
     text-shadow: 1px 1px 3px #333;
 }
 
+#musicPlaying {
+    position: absolute;
+    bottom: 5px;
+    right: 180px;
+    width: 40px;
+    height: 40px;
+    background: url('/static/images/pandora/playing_icon.png');
+    background-size: contain;
+    z-index: 22;
+    display: none;
+}
 
 /*  --== Popup ==--  */
 
@@ -727,7 +738,7 @@ ul.newsticker li {
 #musicControls {
     width:1202px;
     background: rgba(255,255,255,0.25);
-    height:47px;
+    height:55px;
     /*border:1px solid white;*/
     position: relative;
     left:19px;
@@ -741,37 +752,37 @@ ul.newsticker li {
     height: 47px;
     display: inline-block;
     position: relative;
-    margin-right: 15px;
+    margin-right: 40px;
 }
 
 #upButton {
     background: url(/static/images/pandora/btn_up.png) no-repeat center;
-    width: 36px;
-    height: 47px;
+    width: 33px;
+    height: 40px;
     display: inline-block;
-    margin-right: 15px;
+    margin-right: 40px;
 }
 
 #playButton {
     background-image: url(/static/images/pandora/btn_play.png);
-    width: 48px;
-    height: 47px;
+    width: 40px;
+    height: 40px;
     display: inline-block;
-    margin-right: 15px;
+    margin-right: 40px;
+}
+
+#pauseButton {
+    background-image: url(/static/images/pandora/btn_pause.png);
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin-right: 40px;
 }
 
 #skipButton {
     background: url(/static/images/pandora/btn_skip.png) no-repeat center;
-    width: 36px;
-    height: 47px;
-    display: inline-block;
-    margin-right: 15px;
-}
-
-#volumeButton {
-    background: url(/static/images/pandora/volume_icon.png) no-repeat center;
-    width: 19px;
-    height: 47px;
+    width: 48px;
+    height: 40px;
     display: inline-block;
 }
 
@@ -843,6 +854,22 @@ ul.newsticker li {
     width: 710px;
     height: 277px;
     overflow-y: hidden;
+}
+
+#buttonClick {
+    background: black;
+    color: white;
+    width: 300px;
+    height: 50px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    top: 300px;
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    display: none;
 }
 
 /*  --== Entertainment Page*/

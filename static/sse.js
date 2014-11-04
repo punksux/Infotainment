@@ -361,11 +361,17 @@ $(document).ready(function () {
     });
     sse.addEventListener('rslInfo', function (message) {
         message = JSON.parse(message.data);
+        console.log(message[3])
         $('div#rsl div.home .text').html(message[1]);
         $('div#rsl div.away .text').html(message[2]);
         $('div#rsl div.home .logo').css('background-image', 'url("/static/images/mls/' + message[1] + '.png")');
         $('div#rsl div.away .logo').css('background-image', 'url("/static/images/mls/' + message[2] + '.png")');
         $('div#rsl .timeText').html(message[3] + '<br />' + message[5]);
+        if (message[3] === undefined){
+            $('div#rsl').hide();
+        } else {
+            $('div#rsl').show();
+        }
     });
     sse.addEventListener('ncaaRankings', function (message) {
         message = JSON.parse(message.data);
@@ -488,6 +494,11 @@ $(document).ready(function () {
         $('#albumName').html(message[2]);
         $('#albumArt').css('background','url("' + message[3] + '") no-repeat center');
         $('#albumSummary').html(message[4]);
+        if(message[5] === '1'){
+            $('#upButton').css('background', 'url(/static/images/pandora/btn_up_like.png) no-repeat center');
+        } else {
+            $('#upButton').css('background', 'url(/static/images/pandora/btn_up.png) no-repeat center');
+        }
     });
     sse.addEventListener('stations', function (message) {
         message = JSON.parse(message.data);
