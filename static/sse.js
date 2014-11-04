@@ -67,21 +67,6 @@ $(document).ready(function () {
             $('div#rss' + (i + 1) + 'sum .rssText').html(message[i]);
         }
     });
-    /*sse.addEventListener('rssMedia', function(message) {
-     message = JSON.parse(message.data);
-
-     var i;
-     for(i=0;i<11;i++){
-     console.log(message[i].substring(message[i].length-3));
-     if(message[i].substring(message[i].length-3) === 'mp4'){
-     console.log('video');
-     $('#rss' + (i + 1) + 'sum .rssImage').html('<video width="320" height="240" autoplay><source src="' + message[i] + '" type="video/mp4"></video>');
-     } else {
-     console.log('image');
-     $('#rss' + (i + 1) + 'sum .rssImage').html('<img src="' + message[i] + '">');
-     }
-     }
-     });*/
     sse.addEventListener('rssSource', function (message) {
         $('div#sourceText').html(message.data);
     });
@@ -106,20 +91,20 @@ $(document).ready(function () {
         if (cover === 1) {
             $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
                 .done(function () {
-                    $('#day').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
+                    $('#day').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
                 })
                 .fail(function () {
-                    $('#day').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
+                    $('#day').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
                 });
             $('#night').fadeOut(1000);
             cover = 2;
         } else {
             $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
                 .done(function () {
-                    $('#night').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
+                    $('#night').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
                 })
                 .fail(function () {
-                    $('#night').css('background', 'url(/static/images/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
+                    $('#night').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
                 });
             $('#day').fadeOut(1000);
             cover = 1;
@@ -158,8 +143,7 @@ $(document).ready(function () {
     var skycons = new Skycons({"color": "white"});
     sse.addEventListener('forecastCond', function (message) {
         message = JSON.parse(message.data);
-        var i;
-        for (i in message) {
+        for (var i = 0;i < message.length; i++) {
             switch (message[i]) {
                 case 'partlycloudy':
                 case 'mostlysunny':
@@ -361,7 +345,6 @@ $(document).ready(function () {
     });
     sse.addEventListener('rslInfo', function (message) {
         message = JSON.parse(message.data);
-        console.log(message[3])
         $('div#rsl div.home .text').html(message[1]);
         $('div#rsl div.away .text').html(message[2]);
         $('div#rsl div.home .logo').css('background-image', 'url("/static/images/mls/' + message[1] + '.png")');
@@ -489,10 +472,10 @@ $(document).ready(function () {
     });
     sse.addEventListener('albumInfo', function (message) {
         message = JSON.parse(message.data);
-        $('#songName').html(message[0]);
-        $('#artistName').html(message[1]);
-        $('#albumName').html(message[2]);
-        $('#albumArt').css('background','url("' + message[3] + '") no-repeat center');
+        $('td.songName').html(message[0]);
+        $('td.artistName').html(message[1]);
+        $('td.albumName').html(message[2]);
+//        $('div.albumArt').css('background','url("' + message[3] + '") no-repeat center');
         $('#albumSummary').html(message[4]);
         if(message[5] === '1'){
             $('#upButton').css('background', 'url(/static/images/pandora/btn_up_like.png) no-repeat center');

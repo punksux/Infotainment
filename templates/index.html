@@ -9,53 +9,79 @@
     <script src="/static/jquery-ui.js"></script>
     <script src="/static/jquery.webticker.js"></script>
     <script src="/static/skycons.js"></script>
-    <script src="/static/snowstorm-min.js"></script>
-    <script>
-        snowStorm.flakesMaxActive = 20;
-        snowStorm.followMouse = false;
-        snowStorm.targetElement = 'precip';
-        snowStorm.vMaxX = .25;
-        snowStorm.vMaxY = 6;
-        snowStorm.snowStick = false;
-        snowStorm.flakeWidth = 30;
-        snowStorm.flakeHeight = 30;
-        snowStorm.zIndex = 6;
-        snowStorm.autoStart = false;
-        snowStorm.stop();
-    </script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="/static/sse.js"></script>
+    <link href="/static/tabcontent.css" rel="stylesheet" type="text/css" />
+    <script src="/static/idle.js" type="text/javascript"></script>
     <script>
+        $( document ).ready(function() {
+            var list = $('ul#tabList li').toArray();
+            console.log(list);
+            var found = false;
+            for (var i=0; i < list.length; i++){
+                if ( list[i].className === 'selected'){
+                    $('div#view' + (i+1)).show();
+                    found = true;
+                    break
+                }
+
+            } if (!found) {
+                $('div#view1').show();
+            }
+
+            $(document).idle({
+                onIdle: function(){
+                    $('ul#tabList li:nth-child(1)').click();
+                },
+                idle: 10000,
+                keepTracking: false
+            });
+        });
+
+        function changeTab(tis){
+            console.log(tis);
+            var list = ['view1', 'view2','view3','view4','view5','view6'];
+            for (var i = 0; i < list.length; i++){
+                if (tis === list[i]){
+                    console.log('div#' + list[i]);
+                    $('div#' + list[i]).show();
+                    $('ul#tabList li:nth-child(' + (i+1) + ')').addClass('selected');
+
+                } else {
+                    $('div#' + list[i]).hide();
+                    $('ul#tabList li:nth-child(' + (i+1) + ')').removeClass('selected');
+                }
+            }
+        }
+
+        function startTime() {
+            var today=new Date();
+            var am_pm = 'AM';
+            var h=today.getHours();
+            var m=today.getMinutes();
+            if (h===12){am_pm = 'PM';}
+            if (h>12){h-=12; am_pm = 'PM';}
+            m = checkTime(m);
+            document.getElementById('time').innerHTML = h+":"+m+" "+am_pm;
+            var t = setTimeout(function(){startTime()},3000);
+        }
+
+        function checkTime(i) {
+            if (i<10) {i = "0" + i}
+            return i;
+        }
+
         $(function(){
             $("ul#ticker01").webTicker();
         });
-    </script>
-    <script src="/static/sse.js"></script>
-<script>
-function startTime() {
-    var today=new Date();
-    var am_pm = 'AM';
-    var h=today.getHours();
-    var m=today.getMinutes();
-    if (h===12){am_pm = 'PM';}
-    if (h>12){h-=12; am_pm = 'PM';}
-    m = checkTime(m);
-    document.getElementById('time').innerHTML = h+":"+m+" "+am_pm;
-    var t = setTimeout(function(){startTime()},3000);
-}
 
-function checkTime(i) {
-    if (i<10) {i = "0" + i}
-    return i;
-}
-</script>
-
-    <link href="/static/tabcontent.css" rel="stylesheet" type="text/css" />
-    <script src="/static/tabcontent.js" type="text/javascript"></script>
-    <script src="/static/idle.js" type="text/javascript"></script>
-    <script src="/static/jquery.simulate.js" type="text/javascript"></script>
-    <script>
-        function changeTab(tis){
-
+        function weatherSlider(){
+            if ($('div#homeMusicDisplay').is(':visible')) {
+                $('#homeMusicDisplay').hide('slide', {direction: 'right'});
+            } else if ($('#musicPlaying').is(':visible')) {
+                $('#homeMusicDisplay').show('slide', {direction: 'right'});
+            }
+            $('#weatherSlider').toggle('slide', {direction: 'right'})
         }
     </script>
 </head>
@@ -64,20 +90,20 @@ function checkTime(i) {
 <div id="night"></div>
 <div id="day"></div>
 
-<div id="content" class="tabcontents">
+<div id="content">
     <ul id="tabList" class="tabs">
-            <li ><a href="#view1">Home</a></li>
-            <li ><a href="#view2">Forecast</a></li>
-            <li class="selected"><a href="#view3">Music</a></li>
-            <li ><a href="#view4">Entertainment</a></li>
-            <li ><a href="#view5">Sports</a></li>
-            <li ><a href="#view6">Apps</a></li>
-         </ul>
+        <li onclick="changeTab('view1')" class="selected">Home</li>
+        <li onclick="changeTab('view2')" >Forecast</li>
+        <li onclick="changeTab('view3')" >Music</li>
+        <li onclick="changeTab('view4')" >Entertainment</li>
+        <li onclick="changeTab('view5')" >Sports</li>
+        <li onclick="changeTab('view6')" >Apps</li>
+    </ul>
 
 <!--     *** Home Tab ***     -->
     <div id="view1">
     <div id="temps">
-        <div id="out" onclick="$('#weatherSlider').toggle('slide', {direction: 'right'})">
+        <div id="out" onclick="weatherSlider()">
             <div id="outLabel">Outside Temp</div>
             <div id="outTemp">102</div><span>°</span>
         </div>
@@ -109,7 +135,7 @@ function checkTime(i) {
         <div id="radarGif"><img src="/static/images/radar.gif" id="gif"></div>
         <div id="hourlyHeader">Hourly Temps</div>
         <div id="hourly" >
-                <table >
+                <table id="hourlyTable">
                     <tr id="hourlyTimes">
                         <td>1</td>
                         <td>2</td>
@@ -165,7 +191,21 @@ function checkTime(i) {
         </div>
     </div>
 
-    <!--    ** RSS Ticker **    -->
+
+<!--  ** Home Music Display **  -->
+    <div id="homeMusicDisplay">
+        <div class="albumArt"></div>
+        <div id="homeAlbumInfo">
+            <table class="infoTable">
+                <tr><td>Song:</td><td class="songName"> </td></tr>
+                <tr><td>Artist:</td><td class="artistName"> </td></tr>
+                <tr><td>Album:</td><td class="albumName"> </td></tr>
+            </table>
+        </div>
+    </div>
+
+
+<!--    ** RSS Ticker **    -->
     <div id="ticker">
     <ul id="ticker01">
         {% for x in range(1,11) %}
@@ -208,12 +248,12 @@ function checkTime(i) {
             <div id="infoContainer">
                 <div id="stationList"></div>
                 <div id="songInfo">
-                    <div id="albumArt"></div>
+                    <div class="albumArt"></div>
                     <div id="info">
                         <table id="infoTable">
-                            <tr><td>Song:</td><td id="songName"> </td></tr>
-                            <tr><td>Artist:</td><td id="artistName"> </td></tr>
-                            <tr><td>Album:</td><td id="albumName"> </td></tr>
+                            <tr><td>Song:</td><td class="songName"> </td></tr>
+                            <tr><td>Artist:</td><td class="artistName"> </td></tr>
+                            <tr><td>Album:</td><td class="albumName"> </td></tr>
                         </table>
                         <div ></div>
                         <div ></div>
@@ -231,13 +271,15 @@ function checkTime(i) {
         $('#playButton').click(function(){
             $(this).hide();
             $('#pauseButton').show();
-            $('#musicPlaying').show(500)
+            $('#musicPlaying').show(500);
+            $('#homeMusicDisplay').show();
         });
 
         $('#pauseButton').hide().click(function(){
             $(this).hide();
             $('#playButton').show();
-            $('#musicPlaying').hide(500)
+            $('#musicPlaying').hide(500);
+            $('#homeMusicDisplay').hide();
         });
 
         $('#upButton').click(function(){$(this).css('background', 'url(/static/images/pandora/btn_up_like.png) no-repeat center')});
@@ -544,23 +586,16 @@ function checkTime(i) {
 <!--   ** Apps Tab **   -->
     <div id="view6">
         <div id="appBar">
-            <a href="http://192.168.1.200:4040" target="app"><div id="app1" class="apps"><img src="/static/images/subsonic.png" height="70px">Subsonic</div></a>
-            <a href="http://192.168.1.200:5000" target="app"><div id="app2" class="apps"><img src="/static/images/couch.png" height="70px">CouchPotato</div></a>
-            <a href="http://192.168.1.200" target="app"><div id="app3" class="apps"><img src="/static/images/unraid.png" height="70px">UnRaid</div></a>
-            <a href="http://192.168.1.200:9091" target="app"><div id="app4" class="apps"><img src="/static/images/transmission.png" height="70px">Transmission</div></a>
-            <a href="http://192.168.1.95:5000" target="app"><div id="app5" class="apps"><img src="/static/images/sprinkler.png" height="70px">Sprinklers</div></a>
-            <a href="http://192.168.1.95:5001" target="app"><div id="app6" class="apps"><img src="/static/images/heatLights.png" height="70px">heatLights</div></a>
-            <a href="about:blank" target="app"><div id="app10" class="apps"><img src="/static/images/close.png" height="70px">Close</div></a>
+            <a href="http://192.168.1.200:4040" target="app"><div id="app1" class="apps"><img src="/static/images/icons/subsonic.png" height="70px">Subsonic</div></a>
+            <a href="http://192.168.1.200:5000" target="app"><div id="app2" class="apps"><img src="/static/images/icons/couch.png" height="70px">CouchPotato</div></a>
+            <a href="http://192.168.1.200" target="app"><div id="app3" class="apps"><img src="/static/images/icons/unraid.png" height="70px">UnRaid</div></a>
+            <a href="http://192.168.1.200:9091" target="app"><div id="app4" class="apps"><img src="/static/images/icons/transmission.png" height="70px">Transmission</div></a>
+            <a href="http://192.168.1.95:5000" target="app"><div id="app5" class="apps"><img src="/static/images/icons/sprinkler.png" height="70px">Sprinklers</div></a>
+            <a href="http://192.168.1.95:5001" target="app"><div id="app6" class="apps"><img src="/static/images/icons/heatLights.png" height="70px">heatLights</div></a>
+            <a href="about:blank" target="app"><div id="app10" class="apps"><img src="/static/images/icons/close.png" height="70px">Close</div></a>
         </div>
         <iframe name="app" id="appDisplay"></iframe>
     </div>
-
-<!--   ** Clock **   -->
-    <div id="clockBox"></div>
-    <div id="clockBoxCover"></div>
-    <div id="time">4:22 PM</div>
-    <div id="musicPlaying"></div>
-
 
 <!--    ** RSS Popup **    -->
     <div id="screenCover"></div>
@@ -593,6 +628,13 @@ function checkTime(i) {
                     'b': link
                 }})}
     </script>
+
+<!--   ** Clock **   -->
+    <div id="clockBox"></div>
+    <div id="clockBoxCover"></div>
+    <div id="time">4:22 PM</div>
+    <div id="musicPlaying"></div>
+
 </div>
 <div id="test">poo</div>
 <div id="test2">poo</div>
