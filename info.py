@@ -448,7 +448,8 @@ def start_pianobar():
                                 print('Album: "{}"'.format(pianobar.before))
                                 album = pianobar.before
                                 print(album)
-                                album = album[:re.search('\(', album).start()]
+                                if re.search('\(', album) is not None:
+                                    album = album[:re.search('\(', album).start()]
                                 x = pianobar.expect('\r\n')
                                 if x == 0:
                                     print('Like: "{}"'.format(pianobar.before))
