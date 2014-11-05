@@ -472,9 +472,15 @@ def get_stations():
 def change_station_by_id(id_no):
     global pianobar
     print("Change to station #" + id_no)
+    print('Press s')
     pianobar.send('s')
+    print('Wait for "Select station:"')
     pianobar.expect('Select station: ', timeout=10)
-    pianobar.sendline(id_no)
+    print('Press ' + id_no)
+    pianobar.send(id_no)
+    print('Press enter')
+    pianobar.sendcontrol('m')
+    print('Changed')
 
 
 #######  --== Entertainment Stuff ==--  #######
@@ -784,6 +790,10 @@ finally:
     playing = False
     print('Killing pianobar')
     pianobar.sendline('q')
+    for proc in psutil.process_iter():
+        if 'pianobar' in proc.name():
+            print('Didn\'t kill, killing harder - pid ' + proc.id())
+            os.system('sudo kill ' + proc.id())
     print('Shutting down scheduler')
     sched.shutdown(wait=False)
     print('Clear errors log')
