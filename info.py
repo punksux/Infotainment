@@ -115,7 +115,7 @@ if on_pi:
 
 app = Flask(__name__)
 
-logging.basicConfig(filename='errors.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s: %(message)s',
+logging.basicConfig(filename='errors.log', level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s',
                     datefmt='%m/%d/%Y %I:%M:%S %p')
 
 sched = Scheduler()
@@ -451,29 +451,33 @@ def get_stations():
     global h, stations, st, st_got
     print('Getting stations')
     pianobar.sendcontrol('m')
-    pianobar.send('s')
     try:
-        pianobar.expect('Select station: ', timeout=30)
-        a = pianobar.before.splitlines()
-        stations = []
+        pianobar.expect('TIME: ', timeout=30)
+        pianobar.sendline('s')
+        try:
+            pianobar.expect('Select station: ', timeout=30)
+            a = pianobar.before.splitlines()
+            stations = []
 
-        for b in a[:-1]:
-            if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or (b.find('TIME:') >= 0):
-                continue
-            if b.find('Radio') or b.find('QuickMix'):
-                id_no = b[5:7].strip()
-                name = b[13:].strip()
+            for b in a[:-1]:
+                if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or (b.find('TIME:') >= 0):
+                    continue
+                if b.find('Radio') or b.find('QuickMix'):
+                    id_no = b[5:7].strip()
+                    name = b[13:].strip()
 
-                if name == 'QuickMix':
-                    stations.insert(0, [id_no, name])
-                else:
-                    stations.append([id_no, name])
-        pianobar.sendcontrol('m')
-        st_got = True
-        print(str(stations).replace('],', ']\n'))
+                    if name == 'QuickMix':
+                        stations.insert(0, [id_no, name])
+                    else:
+                        stations.append([id_no, name])
+            pianobar.sendcontrol('m')
+            st_got = True
+            print(str(stations).replace('],', ']\n'))
 
+        except pexpect.TIMEOUT:
+            get_stations()
     except pexpect.TIMEOUT:
-        get_stations()
+            get_stations()
 
 
 def change_station_by_id(id_no):
@@ -807,7 +811,7 @@ finally:
     for proc in psutil.process_iter():
         if 'pianobar' in proc.name():
             print('Didn\'t kill, killing harder - pid ' + str(proc.pid))
-            os.system('sudo kill ' + proc.pid)
+            os.system('sudo kill ' + str(proc.pid))
     print('Shutting down scheduler')
     sched.shutdown(wait=False)
     print('Clear errors log')
