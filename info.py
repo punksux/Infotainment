@@ -371,11 +371,17 @@ def get_album(song2, artist2, album2, like2):
             album_sum = ''
 
         try:
+            req = urllib2.Request(chartlyrics_website)
+            req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3 Gecko/2008092417 Firefox/3.0.3')
+            response = urlopen(req)
+            outtxt = response.read()
+            response.close()
+
             print('Getting lyrics')
-            t = ET.parse(chartlyrics_website)
+            t = ET.parse(outtxt)
             items = t.getroot()
             lyrics = items[9].text
-            print(items)
+            print(items[9].text)
         except:
             lyrics = ''
 
