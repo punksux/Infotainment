@@ -449,8 +449,14 @@ def start_pianobar():
 def get_stations():
     global h, stations, st, st_got
     print('Getting stations')
-    pianobar.sendline('s')
-    pianobar.expect('Select station: ', timeout=10)
+    pianobar.sendcontrol('m')
+    pianobar.expect('TIME: ', timeout=30)
+    pianobar.send('s')
+    try:
+        pianobar.expect('Select station: ', timeout=10)
+    except pexpect.TIMEOUT:
+        print('Timed out - try again')
+        get_stations()
     a = pianobar.before.splitlines()
     stations = []
 
@@ -475,6 +481,8 @@ def change_station_by_id(id_no):
     print("Change to station #" + id_no)
     print('Clear out of any selection.')
     pianobar.sendcontrol('m')
+    print('Wait for TIME:')
+    pianobar.expect('TIME: ', timeout=30)
     print('Press s')
     pianobar.send('s')
     print('Wait for "Select station:"')
@@ -766,7 +774,7 @@ try:
         button = request.form.get('button', 'something is wrong', type=str)
         print(button + ' button pressed')
         if on_pi:
-            if button == 'p':
+            if button == 'P':
                 for proc in psutil.process_iter():
                     if 'pianobar' in proc.name():
                         print('pianobar running')
