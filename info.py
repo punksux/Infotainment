@@ -454,26 +454,26 @@ def get_stations():
     pianobar.send('s')
     try:
         pianobar.expect('Select station: ', timeout=30)
+        a = pianobar.before.splitlines()
+        stations = []
+
+        for b in a[:-1]:
+            if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or (b.find('TIME:') >= 0):
+                continue
+            if b.find('Radio') or b.find('QuickMix'):
+                id_no = b[5:7].strip()
+                name = b[13:].strip()
+
+                if name == 'QuickMix':
+                    stations.insert(0, [id_no, name])
+                else:
+                    stations.append([id_no, name])
+        pianobar.sendcontrol('m')
+        st_got = True
+        print(str(stations).replace('],', ']\n'))
+
     except pexpect.TIMEOUT:
-        print('Timed out - try again')
         get_stations()
-    a = pianobar.before.splitlines()
-    stations = []
-
-    for b in a[:-1]:
-        if (b.find('playlist...') >= 0) or (b.find('Autostart') >= 0) or (b.find('TIME:') >= 0):
-            continue
-        if b.find('Radio') or b.find('QuickMix'):
-            id_no = b[5:7].strip()
-            name = b[13:].strip()
-
-            if name == 'QuickMix':
-                stations.insert(0, [id_no, name])
-            else:
-                stations.append([id_no, name])
-    pianobar.sendcontrol('m')
-    st_got = True
-    print(str(stations).replace('],', ']\n'))
 
 
 def change_station_by_id(id_no):
@@ -486,14 +486,15 @@ def change_station_by_id(id_no):
     print('Wait for "Select station:"')
     try:
         pianobar.expect('Select station: ', timeout=30)
+        print('Press ' + id_no)
+        pianobar.send(id_no)
+        print('Press enter')
+        pianobar.sendcontrol('m')
+        print('Changed')
     except pexpect.TIMEOUT:
         print('Timed out - try again')
         change_station_by_id(id_no)
-    print('Press ' + id_no)
-    pianobar.send(id_no)
-    print('Press enter')
-    pianobar.sendcontrol('m')
-    print('Changed')
+
 
 
 #######  --== Entertainment Stuff ==--  #######
