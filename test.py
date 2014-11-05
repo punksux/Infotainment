@@ -45,17 +45,11 @@ def get_album(song2, artist2, album2, like2):
     #     album_sum = ''
 
     print('Getting lyrics')
+    print(chartlyrics_website)
     t = ET.parse(urlopen(chartlyrics_website))
-    print('1')
     items = t.getroot()
-    print('2')
     lyrics = items[9].text
     print(items[9].text)
 
 
-    album_info = [song2, artist2, album2, '12', '12', like2, lyrics]
-    print(album_info)
-
-
-
-get_album('Smoke Two Joints', 'Sublime', 'Sublime', '')
+get_album('bugs', 'Pearl Jam', 'Sublime', '')

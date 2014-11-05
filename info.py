@@ -374,7 +374,9 @@ def get_album(song2, artist2, album2, like2):
             print('Getting lyrics')
             t = ET.parse(urlopen(chartlyrics_website))
             items = t.getroot()
-            lyrics = items[9].text
+            lyrics = items[9].text.replace('\n', '<br />')
+            if lyrics is None:
+                lyrics = ''
         except:
             lyrics = ''
 
@@ -497,7 +499,6 @@ def change_station_by_id(id_no):
     except pexpect.TIMEOUT:
         print('Timed out - try again')
         change_station_by_id(id_no)
-
 
 
 #######  --== Entertainment Stuff ==--  #######
@@ -807,10 +808,10 @@ finally:
     playing = False
     print('Killing pianobar')
     pianobar.sendline('q')
-    for proc in psutil.process_iter():
-        if 'pianobar' in proc.name():
-            print('Didn\'t kill, killing harder - pid ' + str(proc.pid))
-            os.system('sudo kill ' + str(proc.pid))
+    for procs in psutil.process_iter():
+        if 'pianobar' in procs.name():
+            print('Didn\'t kill, killing harder - pid ' + str(procs.pid))
+            os.system('sudo kill ' + str(procs.pid))
     print('Shutting down scheduler')
     sched.shutdown(wait=False)
     print('Clear errors log')
