@@ -475,7 +475,11 @@ def change_station_by_id(id_no):
     print('Press s')
     pianobar.send('s')
     print('Wait for "Select station:"')
-    pianobar.expect('Select station: ', timeout=10)
+    try:
+        pianobar.expect('Select station: ', timeout=30)
+    except pexpect.TIMEOUT:
+        print('Timed out - try again')
+        change_station_by_id(id_no)
     print('Press ' + id_no)
     pianobar.send(id_no)
     print('Press enter')
