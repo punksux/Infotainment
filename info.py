@@ -374,6 +374,7 @@ def get_album(song2, artist2, album2, like2):
             t = ET.parse(chartlyrics_website)
             items = t.getroot()
             lyrics = items[9].text
+            print(items)
         except:
             lyrics = ''
 
@@ -472,6 +473,8 @@ def get_stations():
 def change_station_by_id(id_no):
     global pianobar
     print("Change to station #" + id_no)
+    print('Clear out of any selection.')
+    pianobar.sendcontrol('m')
     print('Press s')
     pianobar.send('s')
     print('Wait for "Select station:"')
@@ -796,8 +799,8 @@ finally:
     pianobar.sendline('q')
     for proc in psutil.process_iter():
         if 'pianobar' in proc.name():
-            print('Didn\'t kill, killing harder - pid ' + proc.pid())
-            os.system('sudo kill ' + proc.pid())
+            print('Didn\'t kill, killing harder - pid ' + str(proc.pid))
+            os.system('sudo kill ' + proc.pid)
     print('Shutting down scheduler')
     sched.shutdown(wait=False)
     print('Clear errors log')

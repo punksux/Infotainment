@@ -471,7 +471,7 @@ $(document).ready(function () {
         $('td.albumName').html(message[2]);
         $('div.albumArt').css('background','url("' + message[3] + '") no-repeat center');
         if (message[6] === ''){
-            $('#albumSummary').html(message[5]);
+            $('#albumSummary').html(message[4]);
         } else {
             $('#albumSummary').html(message[6]);
         }
