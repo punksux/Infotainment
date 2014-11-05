@@ -796,8 +796,8 @@ finally:
     pianobar.sendline('q')
     for proc in psutil.process_iter():
         if 'pianobar' in proc.name():
-            print('Didn\'t kill, killing harder - pid ' + proc.id())
-            os.system('sudo kill ' + proc.id())
+            print('Didn\'t kill, killing harder - pid ' + proc.pid())
+            os.system('sudo kill ' + proc.pid())
     print('Shutting down scheduler')
     sched.shutdown(wait=False)
     print('Clear errors log')
