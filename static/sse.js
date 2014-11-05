@@ -211,10 +211,10 @@ $(document).ready(function () {
                 color[i] = '#E4E368'
             }
         }
-        $('#allergyDay1').css({height: parseFloat(message[0]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[0] + ' 80%'});
-        $('#allergyDay2').css({height: parseFloat(message[1]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[1] + ' 80%' });
-        $('#allergyDay3').css({height: parseFloat(message[2]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[2] + ' 80%' });
-        $('#allergyDay4').css({height: parseFloat(message[3]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[3] + ' 80%' });
+        $('#allergyDay1').css({height: parseFloat(message[0]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[0] + ' 80%', 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[0] + ' 80%'});
+        $('#allergyDay2').css({height: parseFloat(message[1]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[1] + ' 80%', 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[1] + ' 80%'});
+        $('#allergyDay3').css({height: parseFloat(message[2]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[2] + ' 80%', 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[2] + ' 80%'});
+        $('#allergyDay4').css({height: parseFloat(message[3]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[3] + ' 80%', 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[3] + ' 80%'});
         $('#allergyNumber1').html(message[0]);
         $('#allergyNumber2').html(message[1]);
         $('#allergyNumber3').html(message[2]);
@@ -475,7 +475,7 @@ $(document).ready(function () {
         $('td.songName').html(message[0]);
         $('td.artistName').html(message[1]);
         $('td.albumName').html(message[2]);
-//        $('div.albumArt').css('background','url("' + message[3] + '") no-repeat center');
+        $('div.albumArt').css('background','url("' + message[3] + '") no-repeat center');
         $('#albumSummary').html(message[4]);
         if(message[5] === '1'){
             $('#upButton').css('background', 'url(/static/images/pandora/btn_up_like.png) no-repeat center');

@@ -33,7 +33,7 @@
                 onIdle: function(){
                     $('ul#tabList li:nth-child(1)').click();
                 },
-                idle: 10000,
+                idle: 60000,
                 keepTracking: false
             });
         });
@@ -44,7 +44,7 @@
             for (var i = 0; i < list.length; i++){
                 if (tis === list[i]){
                     console.log('div#' + list[i]);
-                    $('div#' + list[i]).show();
+                    $('div#' + list[i]).fadeIn(300);
                     $('ul#tabList li:nth-child(' + (i+1) + ')').addClass('selected');
 
                 } else {
@@ -107,7 +107,7 @@
             <div id="outLabel">Outside Temp</div>
             <div id="outTemp">102</div><span>°</span>
         </div>
-        <div id="tom">
+        <div id="tom" onclick="$('ul.tabs li:nth-child(2)').trigger('click')">
             <div id="tomLabel">Tomorrow</div>
             <div id="tomTemp">101</div><span>°</span>
         </div>
@@ -259,7 +259,7 @@
                         <div ></div>
                         <div ></div>
                     </div>
-                    <div id="albumSummary"></div>
+                    <div id="albumSummary">Click play to start music.</div>
                 </div>
             </div>
         </div>
@@ -608,10 +608,8 @@
         <div id="alertDescription" class="popupText"></div>
     </div>
 
-    <!--<div id="messageBox">Link sent to phone.<div onclick="$('#messageBox').hide(100)" id="okButton">OK</div></div>-->
-
     <script>
-        $('.popupText div:not(.sendToPhone), #screenCover').click(function(){
+        $('.popupText div:not(.sendToPhone), #screenCover, #popupContent').click(function(){
             $('.popupText, #popupContent, #screenCover').css('display','none');
             $('#popupContent').removeClass('movieCover');
             $('.sendToPhone').css('background', 'rgba(255, 255, 255, 0.25)').css('pointer-events', 'auto').html('Send to phone')
