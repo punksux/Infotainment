@@ -371,6 +371,7 @@ def get_album(song2, artist2, album2, like2):
             album_sum = ''
 
         try:
+            print('Getting lyrics')
             t = ET.parse(chartlyrics_website)
             items = t.getroot()
             lyrics = items[9].text
@@ -450,10 +451,9 @@ def get_stations():
     global h, stations, st, st_got
     print('Getting stations')
     pianobar.sendcontrol('m')
-    pianobar.expect('TIME: ', timeout=30)
     pianobar.send('s')
     try:
-        pianobar.expect('Select station: ', timeout=10)
+        pianobar.expect('Select station: ', timeout=30)
     except pexpect.TIMEOUT:
         print('Timed out - try again')
         get_stations()
@@ -481,8 +481,6 @@ def change_station_by_id(id_no):
     print("Change to station #" + id_no)
     print('Clear out of any selection.')
     pianobar.sendcontrol('m')
-    print('Wait for TIME:')
-    pianobar.expect('TIME: ', timeout=30)
     print('Press s')
     pianobar.send('s')
     print('Wait for "Select station:"')
