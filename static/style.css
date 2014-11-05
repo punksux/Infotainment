@@ -1238,6 +1238,10 @@ ul.newsticker li {
     color:white;
 }
 
+#appBar img {
+    height: 70px;
+}
+
 .apps {
     display: inline-block;
     line-height: 20px;
@@ -1271,19 +1275,23 @@ ul.newsticker li {
     z-index: 400;
 }
 
+/*noinspection CssInvalidPseudoSelector*/
 ::-webkit-scrollbar {
     width:10px;
     height:10px;
 }
 
+/*noinspection CssInvalidPseudoSelector*/
 ::-webkit-scrollbar-track {
     background: darkgray;
 }
 
+/*noinspection CssInvalidPseudoSelector*/
 ::-webkit-scrollbar-thumb {
     background: gray;
 }
 
+/*noinspection CssInvalidPseudoSelector*/
 ::-webkit-scrollbar-corner {
     background: darkgray;
 }

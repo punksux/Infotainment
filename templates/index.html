@@ -63,7 +63,7 @@
             if (h>12){h-=12; am_pm = 'PM';}
             m = checkTime(m);
             document.getElementById('time').innerHTML = h+":"+m+" "+am_pm;
-            var t = setTimeout(function(){startTime()},3000);
+            setTimeout(function(){startTime()},3000);
         }
 
         function checkTime(i) {
@@ -586,13 +586,13 @@
 <!--   ** Apps Tab **   -->
     <div id="view6">
         <div id="appBar">
-            <a href="http://192.168.1.200:4040" target="app"><div id="app1" class="apps"><img src="/static/images/icons/subsonic.png" height="70px">Subsonic</div></a>
-            <a href="http://192.168.1.200:5000" target="app"><div id="app2" class="apps"><img src="/static/images/icons/couch.png" height="70px">CouchPotato</div></a>
-            <a href="http://192.168.1.200" target="app"><div id="app3" class="apps"><img src="/static/images/icons/unraid.png" height="70px">UnRaid</div></a>
-            <a href="http://192.168.1.200:9091" target="app"><div id="app4" class="apps"><img src="/static/images/icons/transmission.png" height="70px">Transmission</div></a>
-            <a href="http://192.168.1.95:5000" target="app"><div id="app5" class="apps"><img src="/static/images/icons/sprinkler.png" height="70px">Sprinklers</div></a>
-            <a href="http://192.168.1.95:5001" target="app"><div id="app6" class="apps"><img src="/static/images/icons/heatLights.png" height="70px">heatLights</div></a>
-            <a href="about:blank" target="app"><div id="app10" class="apps"><img src="/static/images/icons/close.png" height="70px">Close</div></a>
+            <a href="http://192.168.1.200:4040" target="app"><div id="app1" class="apps"><img src="/static/images/icons/subsonic.png">Subsonic</div></a>
+            <a href="http://192.168.1.200:5000" target="app"><div id="app2" class="apps"><img src="/static/images/icons/couch.png">CouchPotato</div></a>
+            <a href="http://192.168.1.200" target="app"><div id="app3" class="apps"><img src="/static/images/icons/unraid.png">UnRaid</div></a>
+            <a href="http://192.168.1.200:9091" target="app"><div id="app4" class="apps"><img src="/static/images/icons/transmission.png">Transmission</div></a>
+            <a href="http://192.168.1.95:5000" target="app"><div id="app5" class="apps"><img src="/static/images/icons/sprinkler.png">Sprinklers</div></a>
+            <a href="http://192.168.1.95:5001" target="app"><div id="app6" class="apps"><img src="/static/images/icons/heatLights.png">heatLights</div></a>
+            <a href="about:blank" target="app"><div id="app10" class="apps"><img src="/static/images/icons/close.png">Close</div></a>
         </div>
         <iframe name="app" id="appDisplay"></iframe>
     </div>

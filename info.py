@@ -1,5 +1,3 @@
-#! /usr/bin/python3
-
 from flask import Flask, render_template, Response, request, jsonify
 import logging
 import logging.handlers
@@ -12,42 +10,26 @@ from apscheduler.scheduler import Scheduler
 import feedparser
 import sports
 import entertainment
-import requests
 import platform
-import os.path
 import os
 import re
-import sys
 import urllib
 from urllib.request import Request, urlopen
 import urllib.error
 from urllib.parse import quote
+from xml.etree import ElementTree as ET
+import os.path
+import requests
 
-weather_test = 100
+weather_test = True
 on_pi = False
 location = 84123
 icon = ""
 day = True
-sun_or_moon_icon = ''
-d_n_clouds = ''
-rss_feeds = ['http://www.kutv.com/news/features/top-stories/stories/rss.xml',
-             'http://www.utahutes.com/sports/m-footbl/headline-rss.xml',
-             'http://feeds.bbci.co.uk/news/technology/rss.xml',
-             'http://rss.allrecipes.com/daily.aspx?hubID=80',
-             'http://www.tmz.com/rss.xml']
-rss_sources = ['KSL.com', 'UtahUtes.com', 'BBC Tech', 'AllRecipes', 'TMZ.com']
-
-weather_website = ('http://api.wunderground.com/api/c5e9d80d2269cb64/conditions/astronomy/forecast10day/alerts/' +
-                   'hourly/q/%s.json' % location)
-allergy_website = 'http://www.claritin.com/weatherpollenservice/weatherpollenservice.svc/getforecast/84123'
 
 feed = []
-feed_titles = []
-feed_titles_old = []
-feed_summary = []
-feed_summary_old = []
-feed_media = []
-feed_media_old = []
+rss_feed = []
+rss_feed_old = []
 forecast_day = []
 forecast_day_old = []
 forecast_cond = []
@@ -121,15 +103,12 @@ album_info_old = []
 stations = []
 stations_old = []
 
-#Set platform
+#######  --== Set Platform ==--  #######
 print("** Running on " + platform.uname()[0] + " **")
 if platform.uname()[0] != 'Windows':
     on_pi = True
 
 if on_pi:
-    #import urllib2
-    #import RPi.GPIO as GPIO
-    #import socket
     import psutil
     import pexpect
 
@@ -142,28 +121,27 @@ logging.basicConfig(filename='errors.log', level=logging.ERROR, format='%(asctim
 sched = Scheduler()
 sched.start()
 
+
+#######  --== RSS Stuff ==--  #######
+rss_feeds = ['http://www.kutv.com/news/features/top-stories/stories/rss.xml',
+             'http://www.utahutes.com/sports/m-footbl/headline-rss.xml',
+             'http://feeds.bbci.co.uk/news/technology/rss.xml',
+             'http://rss.allrecipes.com/daily.aspx?hubID=80',
+             'http://www.tmz.com/rss.xml']
+rss_sources = ['KSL.com', 'UtahUtes.com', 'BBC Tech', 'AllRecipes', 'TMZ.com']
+
 feed_no = 0
 
 
-#######  --==RSS Stuff==--  #######
 def get_rss():
-    global feed, feed_titles, feed_summary, feed_titles_old, feed_summary_old, feed_no, rss_sources, feed_source, \
-        feed_media
-    feed_titles = []
-    feed_summary = []
-    feed_media = []
+    global feed, feed_no, rss_feed
+    rss_feed = []
     feed = feedparser.parse(rss_feeds[feed_no])
     feed['items'] = feed['items'][:10]
     for i in feed['items']:
-        if 'media_content' in i:
-            feed_media.append(i['media_content'][0]['url'])
-        elif 'image' in i:
-            feed_media.append(i['image'][0]['url'])
-        else:
-            feed_media.append('')
-        feed_titles.append(i['title'].replace('#PrepareU: @Utah_Football', ''))
-        feed_summary.append(i['summary'])
-    feed_source = rss_sources[feed_no]
+        rss_feed.append([i['title'].replace('#PrepareU: @Utah_Football', ''), i['summary']])
+    rss_feed.append(rss_sources[feed_no])
+
     if feed_no == len(rss_feeds)-1:
         feed_no = 0
     else:
@@ -173,34 +151,25 @@ def get_rss():
 rss = sched.add_interval_job(get_rss, seconds=1*30)
 
 
+#######  --== Weather Stuff ==--  #######
+weather_website = ('http://api.wunderground.com/api/c5e9d80d2269cb64/conditions/astronomy/forecast10day/alerts/' +
+                   'hourly/q/%s.json' % location)
+allergy_website = 'http://www.claritin.com/weatherpollenservice/weatherpollenservice.svc/getforecast/84123'
+
+
 def check_weather():
     global icon, forecast_day, forecast_cond, forecast_high, forecast_low, forecast_day_old, forecast_cond_old
     global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night, city_name
     global observation_time, current_cond, predominant_pollen, allergy_forecast, full_weather, full_weather_old
     global sunrise_hour, sunrise_minute, relative_humidity, precip_today_string, wind_string, hourly_temps, alert
     global forecast_decription, forecast_decription_old
-    if weather_test == 200:
+    if weather_test is False:
         global something_wrong
         global f, g
-        #if on_pi:
-            #try:
-                #f = urllib2.urlopen(weather_website, timeout=3)
-                #g = urllib2.urlopen(allergy_website, headers={'User-Agent': 'Mozilla/5.0'}, timeout=3)
-                #something_wrong = False
-            #except urllib2.URLError as e:
-                #logging.error('Data not retrieved because - %s' % e)
-                #something_wrong = True
-            #except socket.timeout:
-                #logging.error('Socket timed out')
-                #something_wrong = True
-        #else:
         try:
-            #f = urlopen(weather_website, timeout=3)
-            f = open('weather.json')
+            f = urlopen(weather_website, timeout=3)
             req = Request(allergy_website, headers={'User-Agent': 'Mozilla/5.0'})
-            #g = urlopen(req, timeout=3)
-            g = open('allergy.json')
-
+            g = urlopen(req, timeout=3)
             something_wrong = False
         except urllib.error.URLError as e:
             logging.error('Data not retrieved because - %s' % e)
@@ -220,8 +189,7 @@ def check_weather():
             forecast_decription = []
 
             json_string = f.read()
-            #parsed_json = json.loads(json_string.decode("utf8"))
-            parsed_json = json.loads(json_string)
+            parsed_json = json.loads(json_string.decode("utf8"))
             icon = parsed_json['current_observation']['icon']
             city_name = parsed_json['current_observation']['display_location']['full']
             observation_time = parsed_json['current_observation']['observation_time']
@@ -237,7 +205,6 @@ def check_weather():
 
             for i in range(0, 12):
                 hourly_temps.append(parsed_json['hourly_forecast'][i]['temp']['english'])
-            print(hourly_temps)
 
             j = 0
             for i in range(0, 5):
@@ -261,23 +228,20 @@ def check_weather():
             f.close()
 
             json_string = g.read()
-            #parsed_json = json.loads(json_string.decode('utf-8'))
-            parsed_json = json.loads(json_string)
+            parsed_json = json.loads(json_string.decode('utf-8'))
             set1 = parsed_json.find(':[')
             set2 = parsed_json.find('],')
             set3 = parsed_json.find('pp\":\"')
             set4 = parsed_json.find('\"time')
             predominant_pollen = parsed_json[set3+6: set4-2]
             allergy_forecast = parsed_json[set1+2: set2]
-            allergy_forecast = allergy_forecast.split(",")
-            print(predominant_pollen)
-            print(allergy_forecast)
+            allergy_forecast = str(allergy_forecast).split(",")
             g.close()
 
             full_weather = [city_name, observation_time, current_cond, sunset_hour, sunset_minute, sunrise_hour,
                             sunrise_minute, relative_humidity, precip_today_string, wind_string]
 
-    else:
+    else:  # Random test weather
         def rand_weather():
             randt = ['rain', 'clear', 'partlycloudy', 'mostlycloudy', 'flurries', 'snow', 'sunny', 'sleet',
                      'partlysunny', 'mostlysunny', 'tstorms', 'cloudy', 'fog', 'hazy', 'chancetstorms', 'chancerain',
@@ -292,8 +256,6 @@ def check_weather():
             return random.randrange(60, 90)
 
         icon = rand_weather()
-        #day_or_night()
-
         tom_temp = get_rand()
         forecast_day = [rand_days(), rand_days(), rand_days(), rand_days(), rand_days()]
         forecast_cond = [rand_weather(), rand_weather(), rand_weather(), rand_weather(), rand_weather()]
@@ -305,8 +267,6 @@ def check_weather():
             day_night = 'night'
         else:
             day_night = 'day'
-
-        #print(icon + ' - ' + day_night)
 
         def rand_allergy():
             return random.randrange(10, 120)/10
@@ -331,7 +291,6 @@ def check_weather():
 
 def day_or_night():
     global day_night
-    global sun_or_moon_icon
     sunset = datetime.now().replace(hour=int(sunset_hour), minute=int(sunset_minute),
                                     second=00, microsecond=0)
 
@@ -343,18 +302,19 @@ def day_or_night():
 check_weather()
 weather = sched.add_interval_job(check_weather, seconds=60)
 
+
+#######  --== Get Temps ==--  #######
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 temperature_file = '/sys/bus/w1/devices/28-0004749a3dff/w1_slave'
 
 
-#######  --== Get Temps ==--  #######
 def get_temps_from_probes():
     global out_temp, in_temp
     if on_pi:
-        g = open(temperature_file, 'r')
-        lines = g.readlines()
-        g.close()
+        y = open(temperature_file, 'r')
+        lines = y.readlines()
+        y.close()
 
         if lines[0].strip()[-3:] != 'YES':
             print('No temp from sensor.')
@@ -395,8 +355,11 @@ def get_album(song2, artist2, album2, like2):
         last_fm_website = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&' \
                           'api_key=7e0ead667c3b37eb1ed9f3d16778fe38&artist=%s&album=%s&format=json' \
                           % (quote(artist2), quote(album2))
-        f = urlopen(last_fm_website)
-        json_string = f.read()
+        chartlyrics_website = 'http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?' \
+                              'artist=%s&song=%s' % (quote(artist2), quote(song2))
+
+        q = urlopen(last_fm_website)
+        json_string = q.read()
         parsed_json = json.loads(json_string.decode('utf-8'))
         if 'image' in parsed_json['album']:
             album_art = parsed_json['album']['image'][3]['#text']
@@ -406,13 +369,19 @@ def get_album(song2, artist2, album2, like2):
             album_sum = re.sub('<[^<]+?>', '', parsed_json['album']['wiki']['summary'])
         else:
             album_sum = ''
-        album_info = [song2, artist2, album2, album_art, album_sum, like2]
+
+        try:
+            t = ET.parse(chartlyrics_website)
+            items = t.getroot()
+            lyrics = items[9].text
+        except:
+            lyrics = ''
+
+        album_info = [song2, artist2, album2, album_art, album_sum, like2, lyrics]
         print(album_info)
     except:
-        album_info = [song2, artist2, album2, '/static/images/pandora/blank.jpg', '', like2]
+        album_info = [song2, artist2, album2, '/static/images/pandora/blank.jpg', '', like2, '']
         print(album_info)
-
-#print(get_album('1', '1'))
 
 
 def start_pianobar():
@@ -420,7 +389,7 @@ def start_pianobar():
     pianobar = pexpect.spawnu('sudo -u pi pianobar')
 
     playing = True
-    pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
+    #pattern_list = pianobar.compile_pattern_list(['SONG: ', 'STATION: ', 'TIME: '])
     print('Getting info')
 
     while pianobar.isalive():
@@ -437,17 +406,14 @@ def start_pianobar():
                     if x == 0:  # Title | Artist | Album
                         print('Song: "%s"' % pianobar.before)
                         song = pianobar.before
-                        print(song)
                         x = pianobar.expect(' \| ')
                         if x == 0:
                             print('Artist: "{}"'.format(pianobar.before))
                             artist = pianobar.before
-                            print(artist)
                             x = pianobar.expect(' \| ')
                             if x == 0:
                                 print('Album: "{}"'.format(pianobar.before))
                                 album = pianobar.before
-                                print(album)
                                 if re.search('\(', album) is not None:
                                     album = album[:re.search('\(', album).start()]
                                 x = pianobar.expect('\r\n')
@@ -472,17 +438,6 @@ def start_pianobar():
                     x = pianobar.expect('\r', timeout=1)
                     if x == 0:
                         print('Time: {}'.format(pianobar.before))
-                    # Periodically dump state (volume and station name)
-                    # to pickle file so it's remembered between each run.
-                    try:
-                        pass
-                        # f = open(PICKLEFILE, 'wb')
-                        # pickle.dump([volCur, stationList[stationNum]], f)
-                        # f.close()
-                    except:
-                        pass
-
-
 
             except pexpect.EOF:
                 break
@@ -587,7 +542,7 @@ def start_football_scores(week, home, away):
 
 
 def football_scores(week, home, away):
-    global utah_score, sf_score, kc_score
+    global utah_score, sf_score, kc_score, next_game
     football_score = sports.get_boxscore(week, home, away)
 
     if home == 'UTH' or away == 'UTH':
@@ -627,7 +582,7 @@ football_season()
 
 
 def soccer_scores(game_id):
-    global rsl_score
+    global rsl_score, soccer_next_game
     rsl_score = sports.soccer_scores(game_id)
     if rsl_score[4] == 'complete':
         sched.unschedule_job(soccer_score)
@@ -657,12 +612,12 @@ test = False
 #######  --==Streaming Stuff==--  #######
 def event_stream():
     global icon, forecast_day_old, forecast_cond_old, test, forecast_high_old, forecast_low_old, icon_old,\
-        feed_titles_old, feed_summary_old, tom_temp, tom_temp_old, day_night_old, out_temp_old, in_temp_old,\
-        feed_source_old, allergy_forecast_old, predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old,\
+        tom_temp, tom_temp_old, day_night_old, out_temp_old, in_temp_old,\
+        allergy_forecast_old, predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old,\
         utah_week_old, utah_score_old, sf_week_old, kc_week_old, sf_score_old, kc_score_old, rsl_week_old,\
         rsl_score_old, ncaa_rankings_old, pac12_standings_old, soccer_standings_old, nfl_rankings_old,\
-        opening_movies_old, local_events_old, forecast_decription, forecast_decription_old, feed_media_old,\
-        album_info_old, stations, stations_old, st_got
+        opening_movies_old, local_events_old, forecast_decription, forecast_decription_old,\
+        album_info_old, stations, stations_old, st_got, rss_feed_old
 
     yield_me = ''
     if day_night != day_night_old or test is False:
@@ -677,18 +632,9 @@ def event_stream():
     if tom_temp != tom_temp_old or test is False:
         tom_temp_old = tom_temp
         yield_me += 'event: tomTemp\n' + 'data: ' + str(tom_temp) + '\n\n'
-    if feed_titles != feed_titles_old or test is False:
-        feed_titles_old = feed_titles
-        yield_me += 'event: rssTitle\n' + 'data: ' + json.dumps(feed_titles) + '\n\n'
-    if feed_summary != feed_summary_old or test is False:
-        feed_summary_old = feed_summary
-        yield_me += 'event: rssSum\n' + 'data: ' + json.dumps(feed_summary) + '\n\n'
-    if feed_media != feed_media_old or test is False:
-        feed_media_old = feed_media
-        yield_me += 'event: rssMedia\n' + 'data: ' + json.dumps(feed_media) + '\n\n'
-    if feed_source != feed_source_old or test is False:
-        feed_source_old = feed_source
-        yield_me += 'event: rssSource\n' + 'data: ' + feed_source + '\n\n'
+    if rss_feed != rss_feed_old or test is False:
+        rss_feed_old = rss_feed
+        yield_me += 'event: rssFeed\n' + 'data: ' + json.dumps(rss_feed) + '\n\n'
     if icon != icon_old or test is False:
         icon_old = icon
         yield_me += 'event: icon\n' + 'data: ' + icon + '\n\n'
@@ -798,7 +744,7 @@ try:
         print(a + ' - ' + b)
         data = dict(title=a, url=b, type='link')
         api_key = 'v1DxHg2oyCZCPc5Xr6KiVh4X3sLfkdibX2ujBvxC0RbUW'
-        #requests.post('https://api.pushbullet.com/v2/pushes', auth=(api_key, ''), data=data)
+        requests.post('https://api.pushbullet.com/v2/pushes', auth=(api_key, ''), data=data)
         return jsonify({'1': ''})
 
     @app.route('/music', methods=['POST'])
@@ -817,7 +763,6 @@ try:
                     print('starting pianobar')
                     h = sched.add_date_job(start_pianobar, (datetime.now() + timedelta(seconds=2)))
                     st = sched.add_date_job(get_stations, (datetime.now() + timedelta(seconds=20)))
-                    # todo: add icon to show music playing
             else:
                 pianobar.send(button)
         else:

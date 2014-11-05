@@ -39,36 +39,29 @@ $(document).ready(function () {
             }
         })
     });
-    sse.addEventListener('rssTitle', function (message) {
+    sse.addEventListener('rssFeed', function (message) {
         message = JSON.parse(message.data);
-        $("ul#ticker01").webTicker('update', '<li id="rss1">' + message[0] + ' - </li>' +
-            '<li id="rss2">' + message[1] + ' - </li>' +
-            '<li id="rss3">' + message[2] + ' - </li>' +
-            '<li id="rss4">' + message[3] + ' - </li>' +
-            '<li id="rss5">' + message[4] + ' - </li>' +
-            '<li id="rss6">' + message[5] + ' - </li>' +
-            '<li id="rss7">' + message[6] + ' - </li>' +
-            '<li id="rss8">' + message[7] + ' - </li>' +
-            '<li id="rss9">' + message[8] + ' - </li>' +
-            '<li id="rss10">' + message[9] + ' </li>', 'reset');
-        var i;
-        for(i=1;i<11;i++) {
+        $("ul#ticker01").webTicker('update', '<li id="rss1">' + message[0][0] + ' - </li>' +
+            '<li id="rss2">' + message[1][0] + ' - </li>' +
+            '<li id="rss3">' + message[2][0] + ' - </li>' +
+            '<li id="rss4">' + message[3][0] + ' - </li>' +
+            '<li id="rss5">' + message[4][0] + ' - </li>' +
+            '<li id="rss6">' + message[5][0] + ' - </li>' +
+            '<li id="rss7">' + message[6][0] + ' - </li>' +
+            '<li id="rss8">' + message[7][0] + ' - </li>' +
+            '<li id="rss9">' + message[8][0] + ' - </li>' +
+            '<li id="rss10">' + message[9][0] + ' </li>', 'reset');
+
+        for(var i = 1; i < 11; i++) {
             (function (e) {
                 $('#rss'+ e).click(function () {
-                    $('#rss'+e+'sum, #screenCover, #popupContent').css('display', 'inline-block');
+                    $('#rss' + e + 'sum, #screenCover, #popupContent').css('display', 'inline-block');
                 });
+                $('div#rss' + e + 'sum .rssText').html(message[e-1][1]);
             })(i);
         }
-    });
-    sse.addEventListener('rssSum', function (message) {
-        message = JSON.parse(message.data);
-        var i;
-        for (i = 0; i < 11; i++) {
-            $('div#rss' + (i + 1) + 'sum .rssText').html(message[i]);
-        }
-    });
-    sse.addEventListener('rssSource', function (message) {
-        $('div#sourceText').html(message.data);
+
+        $('div#sourceText').html(message[10].data);
     });
     sse.addEventListener('icon', function (message) {
         var rand = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
@@ -208,13 +201,14 @@ $(document).ready(function () {
             } else if (message[i] >= 9) {
                 color[i] = '#ff0000'
             } else {
-                color[i] = '#E4E368'
+                color[i] = '#F9F230'
             }
         }
-        $('#allergyDay1').css({height: parseFloat(message[0]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[0] + ' 80%', 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[0] + ' 80%'});
-        $('#allergyDay2').css({height: parseFloat(message[1]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[1] + ' 80%', 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[1] + ' 80%'});
-        $('#allergyDay3').css({height: parseFloat(message[2]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[2] + ' 80%', 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[2] + ' 80%'});
-        $('#allergyDay4').css({height: parseFloat(message[3]) * 10, 'background': '-moz-linear-gradient(bottom, #00ff00 0%, ' + color[3] + ' 80%', 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[3] + ' 80%'});
+
+        $('#allergyDay1').css({height: parseFloat(message[0]) * 10, 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[0] + ' 80%)'});
+        $('#allergyDay2').css({height: parseFloat(message[1]) * 10, 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[1] + ' 80%)'});
+        $('#allergyDay3').css({height: parseFloat(message[2]) * 10, 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[2] + ' 80%)'});
+        $('#allergyDay4').css({height: parseFloat(message[3]) * 10, 'background': '-webkit-linear-gradient(bottom, #00ff00 0%, ' + color[3] + ' 80%)'});
         $('#allergyNumber1').html(message[0]);
         $('#allergyNumber2').html(message[1]);
         $('#allergyNumber3').html(message[2]);
@@ -476,7 +470,11 @@ $(document).ready(function () {
         $('td.artistName').html(message[1]);
         $('td.albumName').html(message[2]);
         $('div.albumArt').css('background','url("' + message[3] + '") no-repeat center');
-        $('#albumSummary').html(message[4]);
+        if (message[6] === ''){
+            $('#albumSummary').html(message[5]);
+        } else {
+            $('#albumSummary').html(message[6]);
+        }
         if(message[5] === '1'){
             $('#upButton').css('background', 'url(/static/images/pandora/btn_up_like.png) no-repeat center');
         } else {
