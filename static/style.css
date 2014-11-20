@@ -877,11 +877,12 @@ ul.newsticker li {
     top: 270px;
     width: 710px;
     height: 277px;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 #buttonClick {
-    background: black;
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.8) 20%,rgba(0,0,0,0.8) 80%,rgba(0,0,0,0) 100%);
+    background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.8) 80%, rgba(0,0,0,0) 100%);
     color: white;
     width: 300px;
     height: 50px;

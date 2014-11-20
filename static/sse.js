@@ -55,7 +55,7 @@ $(document).ready(function () {
         for(var i = 1; i < 11; i++) {
             (function (e) {
                 $('#rss'+ e).click(function () {
-                    $('#rss' + e + 'sum, #screenCover, #popupContent').css('display', 'inline-block');
+                    $('#rss' + e + 'sum, #screenCover, #popupContent').fadeIn(300);
                 });
                 $('div#rss' + e + 'sum .rssText').html(message[e-1][1]);
             })(i);
@@ -186,7 +186,7 @@ $(document).ready(function () {
             $('#day' + (i + 1) + 'description').html(message[i]);
             (function (e) {
                 $('#day' + (e + 1) + 'cover').click(function () {
-                    $('#day' + (e + 1) + 'description, #screenCover, #popupContent').css('display', 'block');
+                    $('#day' + (e + 1) + 'description, #screenCover, #popupContent').fadeIn(300);
                 });
             })(i);
         }
@@ -432,7 +432,7 @@ $(document).ready(function () {
             $('#movie' + (i + 1) + 'sum .actors').html('Cast: <br />' + String(message[i][9]).replace(/,/g, '<br />'));
             (function (e) {
                 $('table#openingMovies tr:nth-child(' + (e + j) + ')').click(function () {
-                    $('#movie' + (e + 1) + 'sum, #screenCover, #popupContent').css('display', 'block');
+                    $('#movie' + (e + 1) + 'sum, #screenCover, #popupContent').fadeIn(300);
                     $('#popupContent').addClass('movieCover');
                 });
             })(i);
@@ -458,7 +458,7 @@ $(document).ready(function () {
             });
             (function (e) {
                 $('table#localEvents tr:nth-child(' + (e + j) + ')').click(function () {
-                    $('#ent' + (e + 1) + 'sum, #screenCover, #popupContent').css('display', 'block');
+                    $('#ent' + (e + 1) + 'sum, #screenCover, #popupContent').fadeIn(300);
                     $('#popupContent').addClass('movieCover');
                 });
             })(i);
@@ -471,9 +471,9 @@ $(document).ready(function () {
         $('td.albumName').html(message[2]);
         $('div.albumArt').css('background','url("' + message[3] + '") no-repeat center');
         if (message[6] === ''){
-            $('#albumSummary').html(message[4]);
+            $('#albumSummary').html(message[4]).css('text-align', 'left');
         } else {
-            $('#albumSummary').html(message[6]);
+            $('#albumSummary').html(message[6]).css('text-align', 'center');
         }
         if(message[5] === '1'){
             $('#upButton').css('background', 'url(/static/images/pandora/btn_up_like.png) no-repeat center');

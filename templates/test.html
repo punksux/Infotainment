@@ -5,35 +5,120 @@
     <title>
     </title>
 <script src="/static/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/static/canvasjs.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#result').html('poo');
-         $("#calculate").click(function(){
-            $.ajax(
-            {
-                type: 'post',
-                url: "/poo",
-                data: {
-                    'a': $('input[name="a"]').val(),
-                    'b': $('input[name="b"]').val()
+    $(document).ready(function () {
+        var temps = [];
+        var target = [];
+
+        var sse;
+        sse = new EventSource('/my_event_source');
+        sse.addEventListener('temp', function (message) {
+            temps.push({x: Date.now(), y: parseInt(message.data.split('|')[0])});
+            target.push({x: Date.now(), y: parseInt(message.data.split('|')[1])});
+            if (temps.length > 100){
+                temps.shift();
+                target.shift();
+            }
+            var chart;
+            chart = new CanvasJS.Chart("chartContainer", {
+                backgroundColor: "#222",
+                animationEnabled: true,
+                toolTip: {
+                    shared: "true",
+                    enabled: "false"
                 },
-                success:function (msg) {
-                    $('#result').text(msg['1']);}
-            });
+                legend: {
+                    fontColor: 'white'
+                },
+                axisY: {
+                    gridThickness: 1,
+                    includeZero: false
+                },
+                axisX: {
+                    valueFormatString: "mm"
+                },
+                data: [
+                    {
+                        name: "Temp",
+                        showInLegend: true,
+                        legendMarkerType: "square",
+                        xValueType: "dateTime",
+                        type: "spline",
+                        color: "rgb(54,158,173)",
+                        dataPoints: temps,
+                        lineThickness: 4,
+                        markerSize: 10,
+                        markerColor: '#222',
+                        markerBorderColor: "rgb(54,158,173)",
+                        markerBorderThickness: 2
+                    },
+                    {
+                        name: "Target",
+                        showInLegend: true,
+                        legendMarkerType: "square",
+                        xValueType: "dateTime",
+                        type: "line",
+                        color: "red",
+                        dataPoints: target,
+                        lineThickness: 4,
+                        markerType: "none"
+                    }
+                ]});
+            chart.render();
         });
     });
 </script>
+    <style>
+        #chartContainer {
+            width: 80%;
+            height:500px;
+            margin: 0 auto;
+        }
+
+        #submit {
+            width: 100px;
+            height: 25px;
+            border: 1px solid black;
+            background: grey;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 25px;
+            margin: 10px auto;
+            color: white;
+            font-family: "Arial", sans-serif;
+            text-shadow: 0 0 3px #111;
+            box-shadow: 2px 2px 3px #111;
+            cursor: pointer;
+        }
+
+        form {
+            text-align: center;
+            margin: 10px auto;
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
-<h1>jQuery Example</h1>
+<div id="chartContainer"></div>
+<form id="input">
+    <input type="text" id="target" placeholder="Target Temp" />
+    <div id="submit" onclick="sendTarget();">Submit</div>
+</form>
 
-<p>
-    <input type="text" size="5" name="a" value="5"> +
-    <input type="text" size="5" name="b" value="2"> =
-    <span id="result">?</span>
-
-<p><button id="calculate">calculate server side</button>
-
-
+<script>
+    function sendTarget(){
+        $.ajax(
+            {
+                type: 'post',
+                url: "/1",
+                data: {
+                    'a': $('#target').val()
+                }})
+        .done(function(){
+            $('#target').val('')
+        })
+    }
+</script>
 </body>
 </html>

@@ -193,7 +193,7 @@
 
 
 <!--  ** Home Music Display **  -->
-    <div id="homeMusicDisplay">
+    <div id="homeMusicDisplay" onclick="$('ul.tabs li:nth-child(3)').trigger('click')">
         <div class="albumArt"></div>
         <div id="homeAlbumInfo">
             <table class="infoTable">
@@ -309,7 +309,7 @@
         }
 
         function buttonClick(message){
-            $('#buttonClick').html(message).fadeIn(100).delay(800).fadeOut(1000);
+            $('#buttonClick').html(message).css('width', (message.length *35) + 'px').fadeIn(100).delay(800).fadeOut(1000);
         }
     </script>
 
@@ -447,8 +447,8 @@
                     $('#mlsStandings').hide();
                     $('#nflAFCRankings').hide();
                     $('#nflNFCRankings').hide();
-                    $('#pac12Standings').toggle();
-                    $('#ncaaRankings').toggle();
+                    $('#pac12Standings').toggle('fade', duration=300);
+                    $('#ncaaRankings').toggle('fade', duration=300);
 
                 });
                 $('#rslCover').click(function(){
@@ -456,15 +456,15 @@
                     $('#ncaaRankings').hide();
                     $('#nflAFCRankings').hide();
                     $('#nflNFCRankings').hide();
-                    $('#mlsStandings').toggle();
+                    $('#mlsStandings').toggle('fade', duration=300);
 
                 });
                 $('#49ersCover, #kcCover').click(function(){
                     $('#pac12Standings').hide();
                     $('#ncaaRankings').hide();
                     $('#mlsStandings').hide();
-                    $('#nflAFCRankings').toggle();
-                    $('#nflNFCRankings').toggle();
+                    $('#nflAFCRankings').toggle('fade', duration=300);
+                    $('#nflNFCRankings').toggle('fade', duration=300);
                 });
             </script>
 
@@ -610,7 +610,7 @@
 
     <script>
         $('.popupText div:not(.sendToPhone), #screenCover, #popupContent').click(function(){
-            $('.popupText, #popupContent, #screenCover').css('display','none');
+            $('.popupText, #popupContent, #screenCover').hide();
             $('#popupContent').removeClass('movieCover');
             $('.sendToPhone').css('background', 'rgba(255, 255, 255, 0.25)').css('pointer-events', 'auto').html('Send to phone')
         });
