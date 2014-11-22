@@ -5,8 +5,13 @@ import time
 from apscheduler.scheduler import Scheduler
 from flask import Flask, render_template, Response, request, jsonify
 import random
+import platform
 
 on_pi = False
+
+print("** Running on " + platform.uname()[0] + " **")
+if platform.uname()[0] != 'Windows':
+    on_pi = True
 
 temp_sensor = '/sys/bus/w1/devices/28-0004749a3dff/w1_slave'
 
