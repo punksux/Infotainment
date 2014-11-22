@@ -8,7 +8,7 @@ import random
 
 on_pi = False
 
-temp_sensor = '/sys/bus/w1/devices/28-00047355a1ff/w1_slave'
+temp_sensor = '/sys/bus/w1/devices/28-0004749a3dff/w1_slave'
 
 sched = Scheduler()
 sched.start()
