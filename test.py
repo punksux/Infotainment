@@ -61,7 +61,7 @@ def turn_off():
     else:
         print('Off')
 
-target = 30 * 1000
+target = 22 * 1000
 P = 6
 I = 2
 B = 22
@@ -79,10 +79,10 @@ turn_on()
 def start_up():
     temperature = tempdata()
     print("Initial temperature ramp up")
-    while int(target) - float(temperature) > 6000:
+    while int(target) - int(temperature) > 6000:
         sleep(15)
         temperature = tempdata()
-        print(temperature)
+        #print(temperature)
     a = sched.add_date_job(control_loop, datetime.now() + timedelta(seconds=2))
 
 
@@ -91,7 +91,7 @@ def control_loop():
     global interror, state
     while True:
         temperature = tempdata()
-        print(temperature)
+        #print(temperature)
         error = target - temperature
         interror += error
         power = B + ((P * error) + ((I * interror) / 100)) / 100
@@ -128,7 +128,7 @@ else:
 def event_stream():
     temp = tempdata()
     print(temp)
-    yield 'event: temp\n' + 'data: ' + str(temp) + '|' + str(target/1000) + '\n\n'
+    yield 'event: temp\n' + 'data: ' + str(temp/1000) + '|' + str(target/1000) + '\n\n'
 
 
 try:
