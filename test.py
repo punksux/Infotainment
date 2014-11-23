@@ -145,8 +145,8 @@ try:
     def set_target():
         global target
         a = request.form.get('a', 'something is wrong', type=float)
-
-        target = int(a * 1000)
+        a *= 1000
+        target = int(a)
         return jsonify({'1': ''})
 
     if __name__ == '__main__':
