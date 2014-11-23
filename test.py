@@ -79,7 +79,7 @@ turn_on()
 def start_up():
     temperature = tempdata()
     print("Initial temperature ramp up")
-    while target - temperature > 6000:
+    while int(target) - float(temperature) > 6000:
         sleep(15)
         temperature = tempdata()
         print(temperature)
