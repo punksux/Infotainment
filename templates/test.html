@@ -14,8 +14,8 @@
         var sse;
         sse = new EventSource('/my_event_source');
         sse.addEventListener('temp', function (message) {
-            temps.push({x: Date.now(), y: parseInt(message.data.split('|')[0])});
-            target.push({x: Date.now(), y: parseInt(message.data.split('|')[1])});
+            temps.push({x: Date.now(), y: parseFloat(message.data.split('|')[0])});
+            target.push({x: Date.now(), y: parseFloat(message.data.split('|')[1])});
             if (temps.length > 100){
                 temps.shift();
                 target.shift();
@@ -48,10 +48,8 @@
                         color: "rgb(54,158,173)",
                         dataPoints: temps,
                         lineThickness: 4,
-                        markerSize: 10,
-                        markerColor: '#222',
-                        markerBorderColor: "rgb(54,158,173)",
-                        markerBorderThickness: 2
+                        markerSize: 5,
+                        markerColor: 'rgb(54,158,173)'
                     },
                     {
                         name: "Target",

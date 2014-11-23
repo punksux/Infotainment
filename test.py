@@ -95,6 +95,7 @@ def control_loop():
         error = int(target) - temperature
         interror += error
         power = B + ((P * error) + ((I * interror) / 100)) / 100
+
         print(power)
         # Make sure that if power should be off then it is
         if state == "off":
