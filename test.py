@@ -144,7 +144,7 @@ try:
     @app.route('/1', methods=['POST'])
     def set_target():
         global target
-        a = request.form.get('a', 'something is wrong', type=int)
+        a = request.form.get('a', 'something is wrong', type=float)
 
         target = int(a * 1000)
         return jsonify({'1': ''})
