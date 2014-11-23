@@ -92,7 +92,7 @@ def control_loop():
     while True:
         temperature = tempdata()
         #print(temperature)
-        error = target - temperature
+        error = int(target) - temperature
         interror += error
         power = B + ((P * error) + ((I * interror) / 100)) / 100
         print(power)
@@ -127,8 +127,9 @@ else:
 
 def event_stream():
     temp = tempdata()
+    temp /= 1000
     print(temp)
-    yield 'event: temp\n' + 'data: ' + str(temp/1000) + '|' + str(target/1000) + '\n\n'
+    yield 'event: temp\n' + 'data: ' + str(temp) + '|' + str(target/1000) + '\n\n'
 
 
 try:
