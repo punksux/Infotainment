@@ -149,6 +149,9 @@ try:
         return jsonify({'1': ''})
 
     if __name__ == '__main__':
-        app.run(host='0.0.0.0', port=89)
+        app.run(host='0.0.0.0', port=80)
+
 finally:
     print('done')
+    sched.shutdown(wait=False)
+    GPIO.setup(11, GPIO.IN)
