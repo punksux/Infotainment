@@ -43,7 +43,7 @@ def tempdata():
             equals_pos = lines[1].find('t=')
             if equals_pos != -1:
                 temp_mc = lines[1][equals_pos+2:]  # temp in milliCelcius
-        return temp_mc
+        return int(temp_mc)
     else:
         return random.randint(0, 80)
 
