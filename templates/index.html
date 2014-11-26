@@ -4,19 +4,19 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="/static/style.css">
-    <script src="/static/jquery-2.1.1.min.js"></script>
-    <script src="/static/jquery-ui.js"></script>
-    <script src="/static/jquery.webticker.js"></script>
-    <script src="/static/skycons.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <script src="/static/sse.js"></script>
-    <link href="/static/tabcontent.css" rel="stylesheet" type="text/css" />
-    <script src="/static/idle.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/static/style/style.css">
+    <link rel="stylesheet" href="/static/style/jquery-ui.css">
+    <link rel="stylesheet" href="/static/style/tabcontent.css">
+    <script src="/static/script/jquery-2.1.1.min.js"></script>
+    <script src="/static/script/jquery-ui.js"></script>
+    <script src="/static/script/jquery.webticker.js"></script>
+    <script src="/static/script/skycons.js"></script>
+    <script src="/static/script/holiday.js"></script>
+    <script src="/static/script/countdown.min.js"></script>
+    <script src="/static/script/idle.js"></script>
     <script>
         $( document ).ready(function() {
             var list = $('ul#tabList li').toArray();
-            console.log(list);
             var found = false;
             for (var i=0; i < list.length; i++){
                 if ( list[i].className === 'selected'){
@@ -36,14 +36,31 @@
                 idle: 60000,
                 keepTracking: false
             });
+
+            var day = countdown(new Date(2014, 11, 25), null ,countdown.DAYS | countdown.HOURS, 1);
+            console.log(day.toString());
+            $('#sourceText').html(day.toString() + ' \'till Christmas');
+
+            startTime();
+            setDate();
         });
 
+        var holiday2;
+        function holiday(holiday){
+            cleanup();
+            if (holiday === 'christmas'){
+                holiday2 = holiday;
+                lights();
+            } else if (holiday === 'thanksgiving') {
+                holiday2 = holiday;
+                hats();
+            }
+        }
+
         function changeTab(tis){
-            console.log(tis);
             var list = ['view1', 'view2','view3','view4','view5','view6'];
             for (var i = 0; i < list.length; i++){
                 if (tis === list[i]){
-                    console.log('div#' + list[i]);
                     $('div#' + list[i]).fadeIn(300);
                     $('ul#tabList li:nth-child(' + (i+1) + ')').addClass('selected');
 
@@ -61,6 +78,7 @@
             var m=today.getMinutes();
             if (h===12){am_pm = 'PM';}
             if (h>12){h-=12; am_pm = 'PM';}
+            if (h === 0){h = 12; setDate();}
             m = checkTime(m);
             document.getElementById('time').innerHTML = h+":"+m+" "+am_pm;
             setTimeout(function(){startTime()},3000);
@@ -69,6 +87,13 @@
         function checkTime(i) {
             if (i<10) {i = "0" + i}
             return i;
+        }
+
+        function setDate(){
+            var date = new Date();
+            var months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
+            $('#sourceText').html(months[date.getMonth()] + ' ' + date.getDate() + ' ' + date.getFullYear())
+            setTickerWidth()
         }
 
         $(function(){
@@ -83,14 +108,23 @@
             }
             $('#weatherSlider').toggle('slide', {direction: 'right'})
         }
+
+        function setTickerWidth () {
+            $('#ticker, .tickercontainer').css('width', (1280 - ($('#rssSource').width() + 220)-10) + 'px');
+        }
+
+
     </script>
+    <script src="/static/script/sse.js"></script>
 </head>
 
-<body onload="startTime()">
+<body>
 <div id="night"></div>
 <div id="day"></div>
 
+
 <div id="content">
+<div id="holiday"></div>
     <ul id="tabList" class="tabs">
         <li onclick="changeTab('view1')" class="selected">Home</li>
         <li onclick="changeTab('view2')" >Forecast</li>
@@ -99,6 +133,7 @@
         <li onclick="changeTab('view5')" >Sports</li>
         <li onclick="changeTab('view6')" >Apps</li>
     </ul>
+    <div id="tabFiller"></div>
 
 <!--     *** Home Tab ***     -->
     <div id="view1">
@@ -214,7 +249,7 @@
     </ul>
 
 
-    </div><div id="rssSource"><div id="sourceText"></div></div>
+    </div><div id="rssSource"><div id="sourceText">Nov. 26 2014</div></div>
     </div>
 
 
@@ -628,9 +663,8 @@
     </script>
 
 <!--   ** Clock **   -->
-    <div id="clockBox"></div>
-    <div id="clockBoxCover"></div>
-    <div id="time">4:22 PM</div>
+    <div id="clockBox"><div id="time">4:22 PM</div></div>
+
     <div id="musicPlaying"></div>
 
 </div>

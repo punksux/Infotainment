@@ -304,9 +304,10 @@ weather = sched.add_interval_job(check_weather, seconds=60)
 
 
 #######  --== Get Temps ==--  #######
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
-temperature_file = '/sys/bus/w1/devices/28-0004749a3dff/w1_slave'
+if on_pi:
+    os.system('modprobe w1-gpio')
+    os.system('modprobe w1-therm')
+    temperature_file = '/sys/bus/w1/devices/28-0004749a3dff/w1_slave'
 
 
 def get_temps_from_probes():
@@ -526,8 +527,6 @@ nfl_team_names = {'SF': 'San Francisco', 'KC': 'Kansas City', 'DAL': 'Dallas', '
 def football_weekly(week, team):
     global utah_week, sf_week, kc_week, ncaa_rankings, pac12_standings, nfl_rankings, nfl_rank_checked
     week_sched = sports.get_weekly_schedule(week, team)
-    #game = sched.add_date_job(start_football_scores, datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S'),
-                              #args=[week_sched[0], week_sched[1], week_sched[2]])
 
     nfl_rank_checked = False
     if week_sched[2] != 'BYE':
@@ -628,7 +627,6 @@ def soccer_season():
                 break
 
 soccer_season()
-#sched.print_jobs()
 
 test = False
 

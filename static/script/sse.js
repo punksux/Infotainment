@@ -6,9 +6,11 @@ $(document).ready(function () {
     sse = new EventSource('/my_event_source');
     sse.addEventListener('dayNight', function (message) {
         if (message.data === 'night') {
-            dayOrNight = 'night'
+            dayOrNight = 'night';
+            dayNight('night')
         } else {
-            dayOrNight = 'day'
+            dayOrNight = 'day';
+            dayNight('day')
         }
     });
 
@@ -82,7 +84,7 @@ $(document).ready(function () {
         }
         $('#test2').html(message.data + ' - ' + icon + ' - ' + rand);
         if (cover === 1) {
-            $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
+            $.get('/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
                 .done(function () {
                     $('#day').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
                 })
@@ -92,7 +94,7 @@ $(document).ready(function () {
             $('#night').fadeOut(1000);
             cover = 2;
         } else {
-            $.get('/static/images/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
+            $.get('/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
                 .done(function () {
                     $('#night').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
                 })

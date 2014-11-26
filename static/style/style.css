@@ -338,30 +338,25 @@ body {
 /*  --== RSS Ticker ==--  */
 #ticker {
     position: absolute;
-    width:879px;
-    bottom:5px;
-    left:191px;
+    /*width:879px;*/
+    bottom:0;
+    right:225px;
     z-index: 15;
+    display: inline-block;
 }
 
 .tickercontainer {
-    width:879px;
-    height: 40px;
+    /*width:879px;*/
+    height: 50px;
     background: rgba(0,0,0,0.5);
     overflow: hidden;
-    transform: skewX(-45deg);
-    transform-origin: top;
     color: #ffffff;
     border: 0 solid rgba(0,0,0,0.75);
-    border-top-width: 1px;
-    border-bottom-width: 1px;
+    /*border-top-width: 1px;*/
+    /*border-bottom-width: 1px;*/
     text-shadow: 0 0 2px #333;
     /*left:180px*/
-}
-
-.tickercontainer li {
-    transform: skewX(45deg);
-    transform-origin: top;
+    padding: 0 10px 0 10px;
 }
 
 .tickercontainer .mask {
@@ -395,41 +390,36 @@ ul.newsticker li {
 }
 
 #rssSource{
-    width:200px;
-    height:55px;
+    height:50px;
     border: 0 solid rgba(0,0,0,0.75);
-    transform: skewX(-45deg);
-    transform-origin: top;
-    border-top-width: 1px;
-    border-right-width: 1px;
-    position:absolute;
-    bottom:-0;
+    /*border-top-width: 1px;*/
+    /*border-right-width: 1px;*/
+    position: absolute;
+    bottom:0;
     left:0;
     background-color: rgba(0,0,0,0.5);
     z-index: 20;
     color: white;
+    display: inline-block;
 }
 
 #sourceText {
-    transform: skewX(45deg);
-    transform-origin: top;
     vertical-align: middle;
-    line-height: 55px;
+    line-height: 50px;
     text-align: center;
-    font-size: 20px;
-    margin-left: -30px;
+    font-size: 25px;
+    padding: 0 10px 0 10px;
+    text-shadow: 1px 1px 3px #333;
 }
 
 
 /*  --== Clock ==--  */
 #clockBox{
-    width:200px;
-    height:55px;
+    width:220px;
+    height:50px;
     border: 0 solid rgba(0,0,0,0.75);
-    transform: skewX(-45deg);
-    transform-origin: top;
-    border-top-width: 1px;
-    border-left-width: 1px;
+    /*border-top-width: 1px;*/
+    /*border-left-width: 1px;*/
     position:absolute;
     bottom:0;
     right:0;
@@ -438,28 +428,16 @@ ul.newsticker li {
     margin:0;
 }
 
-#clockBoxCover {
-    width:70px;
-    height:55px;
-    transform: skewX(-45deg);
-    transform-origin: top;
-    position:absolute;
-    bottom:0;
-    right:-69px;
-    background: rgba(0,0,0,0.5);
-    z-index: 20;
-}
-
 #time {
     width:190px;
-    height:55px;
+    height:50px;
     position:absolute;
     bottom:0;
     right:0;
     color: white;
     font:bold 45px Code;
     z-index: 22;
-    line-height: 60px;
+    line-height: 58px;
     vertical-align: middle;
     text-align: center;
     text-shadow: 1px 1px 3px #333;

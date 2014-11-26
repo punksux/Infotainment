@@ -1,0 +1,135 @@
+#bulbs {
+    height:50px;
+    position: absolute;
+    width:100%;
+    top:50px;
+    z-index: -1;
+}
+
+.bulbHolder{
+    display: inline-block;
+    position: absolute;
+    top:0;
+    /*border:1px solid white;*/
+    text-align: center;
+}
+
+.cord {
+    height:4px;
+    background: #65894b;
+    background: -webkit-linear-gradient(top, #65894b 0%,#2e560b 58%,#2e560b 76%,#477526 100%);
+    position: absolute;
+    z-index: -2;
+}
+
+.bases {
+    width:14px;
+    height:15px;
+    z-index: 1;
+    background: #65894b;
+    background: -moz-linear-gradient(left, #65894b 0%, #2e560b 58%, #2e560b 76%, #477526 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#65894b), color-stop(58%,#2e560b), color-stop(76%,#2e560b), color-stop(100%,#477526));
+    background: -webkit-linear-gradient(left, #65894b 0%,#2e560b 58%,#2e560b 76%,#477526 100%);
+    position: relative;
+    left:4px;
+}
+
+.bulb{
+    width:22px;
+    height:32px;
+    border-radius: 100%;
+    position: relative;
+    margin: 0 auto;
+    top:-4px;
+    /*box-shadow: 4px 6px 6px #111;*/
+}
+
+.red.lights_on {
+    box-shadow: 0 0 15px 5px rgba(255, 7, 2, .75);
+    background: #ffffff;
+    background: -moz-radial-gradient(10px 7px, ellipse cover, #ffffff 0%, #ff3030 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#ff3030));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#ff3030 100%);
+}
+
+.red {
+    background: #dd0003;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(221,0,3,0.75) 0%, rgba(127,24,29,0.75) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#dd0003), color-stop(100%,#7f181d));
+    background: -webkit-radial-gradient(center, ellipse cover, #dd0003 0%,#7f181d 100%);
+}
+
+.blue.lights_on {
+    box-shadow: 0 0 15px 5px rgb(125, 169, 255);
+    background: #ffffff;
+    background: -moz-radial-gradient(10px 7px, ellipse cover, #ffffff 0%, #8b87ff 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#8b87ff));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#8b87ff 100%);
+}
+
+.blue {
+    background: #2a2ded;
+    background: -moz-radial-gradient(4px 4px, ellipse cover, #2a2ded 0%, #18207f 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#2a2ded), color-stop(100%,#18207f));
+    background: -webkit-radial-gradient(center, ellipse cover, #2a2ded 0%,#18207f 100%);
+}
+
+.yellow.lights_on {
+    box-shadow: 0 0 15px 5px rgba(255, 249, 12, 0.75);
+    background: #ffffff;
+    background: -moz-radial-gradient(10px 7px, ellipse cover, #ffffff 0%, #fff419 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#fff419));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#fff419 100%);
+}
+
+.yellow {
+    background: #c6c202;
+    background: -moz-radial-gradient(4px 4px, ellipse cover, #b8b300 0%, #555100 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#b8b300), color-stop(100%,#555100));
+    background: -webkit-radial-gradient(center, ellipse cover, #b8b300 0%,#555100 100%);
+}
+
+.green.lights_on {
+    box-shadow: 0 0 15px 5px rgba(0, 255, 4, 0.75);
+    background: #ffffff;
+    background: -moz-radial-gradient(10px 7px, ellipse cover, #ffffff 0%, #00af0b 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#00af0b));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#00af0b 100%);
+}
+
+.green {
+    background: #65894b;
+    background: -moz-radial-gradient(4px 4px, ellipse cover, #65894b 0%, #2e560b 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#65894b), color-stop(100%,#2e560b));
+    background: -webkit-radial-gradient(center, ellipse cover, #65894b 0%,#2e560b 100%);
+}
+
+.purple.lights_on {
+    box-shadow: 0 0 15px 5px rgba(231, 133, 255, 0.75);
+    background: #ffffff;
+    background: -moz-radial-gradient(10px 7px, ellipse cover, #ffffff 0%, #e500ff 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#e500ff));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#e500ff 100%);
+}
+
+.purple {
+    background: #a200aa;
+    background: -moz-radial-gradient(4px 4px, ellipse cover, #a200aa 0%, #400047 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#a200aa), color-stop(100%,#400047));
+    background: -webkit-radial-gradient(center, ellipse cover, #a200aa 0%,#400047 100%);
+}
+
+.orange.lights_on {
+    box-shadow: 0 0 15px 5px rgba(255, 154, 88, 0.75);
+    background: #ffffff;
+    background: -moz-radial-gradient(10px 7px, ellipse cover, #ffffff 0%, #ffa450 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#FFA450));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#FFA450 100%);
+}
+
+.orange {
+    background: #924b11;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(240,136,6,0.75) 0%, rgba(146,75,17,0.75) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#F08806), color-stop(100%,#924b11));
+    background: -webkit-radial-gradient(center, ellipse cover, #F08806 0%,#924b11 100%);
+}

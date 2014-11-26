@@ -1,0 +1,17 @@
+#hats {
+    height:50px;
+    position: absolute;
+    width:100%;
+    top:50px;
+    z-index: -1;
+    vertical-align: middle;
+}
+
+.turk {
+    width:40px;
+    height: 40px;
+    background-size: cover;
+    display: inline-block;
+    position: absolute;
+    background-image: url("/static/holiday/images/turkey.png");
+}
