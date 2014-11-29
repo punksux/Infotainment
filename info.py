@@ -123,32 +123,32 @@ sched.start()
 
 
 #######  --== RSS Stuff ==--  #######
-rss_feeds = ['http://www.kutv.com/news/features/top-stories/stories/rss.xml',
-             'http://www.utahutes.com/sports/m-footbl/headline-rss.xml',
-             'http://feeds.bbci.co.uk/news/technology/rss.xml',
-             'http://rss.allrecipes.com/daily.aspx?hubID=80',
-             'http://www.tmz.com/rss.xml']
-rss_sources = ['KSL.com', 'UtahUtes.com', 'BBC Tech', 'AllRecipes', 'TMZ.com']
-
-feed_no = 0
-
-
-def get_rss():
-    global feed, feed_no, rss_feed
-    rss_feed = []
-    feed = feedparser.parse(rss_feeds[feed_no])
-    feed['items'] = feed['items'][:10]
-    for i in feed['items']:
-        rss_feed.append([i['title'].replace('#PrepareU: @Utah_Football', ''), i['summary']])
-    rss_feed.append(rss_sources[feed_no])
-
-    if feed_no == len(rss_feeds)-1:
-        feed_no = 0
-    else:
-        feed_no += 1
-
-get_rss()
-rss = sched.add_interval_job(get_rss, seconds=10 * 60)
+# rss_feeds = ['http://www.kutv.com/news/features/top-stories/stories/rss.xml',
+#              'http://www.utahutes.com/sports/m-footbl/headline-rss.xml',
+#              'http://feeds.bbci.co.uk/news/technology/rss.xml',
+#              'http://rss.allrecipes.com/daily.aspx?hubID=80',
+#              'http://www.tmz.com/rss.xml']
+# rss_sources = ['KSL.com', 'UtahUtes.com', 'BBC Tech', 'AllRecipes', 'TMZ.com']
+#
+# feed_no = 0
+#
+#
+# def get_rss():
+#     global feed, feed_no, rss_feed
+#     rss_feed = []
+#     feed = feedparser.parse(rss_feeds[feed_no])
+#     feed['items'] = feed['items'][:10]
+#     for i in feed['items']:
+#         rss_feed.append([i['title'].replace('#PrepareU: @Utah_Football', ''), i['summary']])
+#     rss_feed.append(rss_sources[feed_no])
+#
+#     if feed_no == len(rss_feeds)-1:
+#         feed_no = 0
+#     else:
+#         feed_no += 1
+#
+# get_rss()
+# rss = sched.add_interval_job(get_rss, seconds=10 * 60)
 
 
 #######  --== Weather Stuff ==--  #######
