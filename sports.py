@@ -1,7 +1,7 @@
 #from urllib.request import Request, urlopen
 import json
-import os
-from urllib.request import urlopen
+import time
+from urllib.request import urlopen, Request
 from datetime import datetime, timedelta
 from xml.etree import ElementTree as ET
 
@@ -25,7 +25,7 @@ def get_season_schedule(team):
         website = nfl_season_website
 
     schedule = []
-    f = urlopen(website)
+    f = urlopen(Request(website, headers={'User-Agent': 'Mozilla/5.0'}))
     json_string = f.read()
     parsed_json = json.loads(json_string.decode('utf-8'))
 
@@ -74,7 +74,7 @@ def get_weekly_schedule(week, team):
         website = nfl_season_website
 
     week_sched = []
-    f = urlopen(website)
+    f = urlopen(Request(website, headers={'User-Agent': 'Mozilla/5.0'}))
     json_string = f.read()
     #parsed_json = json.loads(json_string.replace("O'", "O"))
     parsed_json = json.loads(json_string.decode('utf-8'))
@@ -117,7 +117,7 @@ def get_boxscore(week, home, away):
         #website = 'nfl_boxscore.json'
         website = nfl_boxscore_website
 
-    f = urlopen(website)
+    f = urlopen(Request(website, headers={'User-Agent': 'Mozilla/5.0'}))
     json_string = f.read()
     parsed_json = json.loads(json_string.decode('utf-8'))
 
@@ -143,13 +143,10 @@ def get_key(item):
 
 
 def get_ncaa_standings():
-    global standings_website, rankings_website
     ncaa_standings_website = 'http://api.sportsdatallc.org/ncaafb-t1/teams/FBS/%s/REG/standings.json?' \
                              'api_key=qnhb46ta6f9rzezkfjy7r4n5' % datetime.now().year
 
-    standings_website = 'ncaa_standings.json'
-
-    f = urlopen(ncaa_standings_website)
+    f = urlopen(Request(ncaa_standings_website, headers={'User-Agent': 'Mozilla/5.0'}))
     json_string = f.read()
     parsed_json = json.loads(json_string.decode('utf-8'))
     p12 = []
@@ -178,28 +175,23 @@ def get_ncaa_standings():
     p12 = p12n + p12s
     return p12
 
-#print(str(get_standings('7', 'UTH')).replace("],", "]\n"))
-#print(str(get_season_schedule('SF')).replace("],", "]\n"))
-
 
 def get_ncaa_rankings(week):
-    global rankings_website
     ncaa_rankings_website = 'http://api.sportsdatallc.org/ncaafb-t1/polls/AP25/%s/%s/rankings.json?' \
                             'api_key=qnhb46ta6f9rzezkfjy7r4n5' % (datetime.now().year, week)
 
-    rankings_website = 'ncaa_rankings.json'
+    try:
+        f = urlopen(Request(ncaa_rankings_website, headers={'User-Agent': 'Mozilla/5.0'}))
+        json_string = f.read()
+        parsed_json = json.loads(json_string.decode('utf-8'))
+        rankings = []
+        for i in range(0, len(parsed_json['rankings'])):
+            r = parsed_json['rankings'][i]
+            rankings.append([r['market'], r['wins'], r['losses']])
 
-    f = urlopen(ncaa_rankings_website)
-    json_string = f.read()
-    parsed_json = json.loads(json_string.decode('utf-8'))
-    rankings = []
-    for i in range(0, len(parsed_json['rankings'])):
-        r = parsed_json['rankings'][i]
-        rankings.append([r['market'], r['wins'], r['losses']])
-
-    return rankings
-
-#print(str(get_rankings(7, 'UTH')).replace('],', ']\n'))
+        return rankings
+    except:
+        return ''
 
 
 def get_nfl_rankings():
@@ -208,12 +200,12 @@ def get_nfl_rankings():
 
     nfl_standings_website = 'http://api.sportsdatallc.org/nfl-t1/teams/%s/REG/standings.json?api_key=%s' \
                             % (datetime.now().year, nfl_api_key)
-
+    time.sleep(5)
     f = urlopen(nfl_rankings_website)
     json_string = f.read()
     rankings_json = json.loads(json_string.decode('utf-8'))
     rankings = []
-
+    time.sleep(5)
     f = urlopen(nfl_standings_website)
     json_string = f.read()
     standings_json = json.loads(json_string.decode('utf-8'))
@@ -232,7 +224,6 @@ def get_nfl_rankings():
                                   k['in_conference']['wins'], k['in_conference']['losses']])
 
     return rankings
-#print(str(get_nfl_rankings()).replace('],', ']\n'))
 
 
 #     --== Soccer ==--

@@ -528,20 +528,25 @@ nfl_team_names = {'SF': 'San Francisco', 'KC': 'Kansas City', 'DAL': 'Dallas', '
 
 def football_weekly(week, team):
     global utah_week, sf_week, kc_week, ncaa_rankings, pac12_standings, nfl_rankings, nfl_rank_checked
+    time.sleep(5)
     week_sched = sports.get_weekly_schedule(week, team)
-
+    time.sleep(5)
     nfl_rank_checked = False
     if week_sched[2] != 'BYE':
         week_sched[3] = datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
     if team == 'UTH':
         ncaa_rankings = sports.get_ncaa_rankings(week)
+        time.sleep(5)
         pac12_standings = sports.get_ncaa_standings()
+        time.sleep(5)
         utah_week = week_sched
         for k, v in ncaa_team_names.items():
             utah_week[1] = utah_week[1].replace(k, v)
             utah_week[2] = utah_week[2].replace(k, v)
     elif team == 'SF':
+        time.sleep(5)
         nfl_rankings = sports.get_nfl_rankings()
+        time.sleep(5)
         nfl_rank_checked = True
         sf_week = week_sched
         for k, v in nfl_team_names.items():
@@ -549,6 +554,7 @@ def football_weekly(week, team):
             sf_week[2] = sf_week[2].replace(k, v)
     elif team == 'KC':
         if nfl_rank_checked is False:
+            time.sleep(5)
             nfl_rankings = sports.get_nfl_rankings()
         kc_week = week_sched
         for k, v in nfl_team_names.items():
@@ -608,6 +614,7 @@ football_season()
 
 def soccer_scores(game_id):
     global rsl_score, soccer_next_game
+    time.sleep(5)
     rsl_score = sports.soccer_scores(game_id)
     if rsl_score[4] == 'complete':
         sched.unschedule_job(soccer_score)
@@ -617,7 +624,9 @@ def soccer_scores(game_id):
 
 def soccer_season():
     global rsl_week, soccer_score, soccer_standings
+    time.sleep(5)
     schedule = sports.get_soccer_season()
+    time.sleep(5)
     soccer_standings = sports.get_soccer_standings()
     for i in schedule:
             if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
