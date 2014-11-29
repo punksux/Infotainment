@@ -1,6 +1,7 @@
 #from urllib.request import Request, urlopen
 import json
 import os
+from urllib.request import urlopen
 from datetime import datetime, timedelta
 from xml.etree import ElementTree as ET
 
@@ -18,15 +19,15 @@ def get_season_schedule(team):
                          'api_key=rn43y42wvev2xtzswtksk3r5' % datetime.now().year
 
     if team == 'UTH':
-        website = 'season_sched.json'
+        website = ncaa_season_website
 
     elif team == 'SF' or team == 'KC':
-        website = 'nfl_season_sched.json'
+        website = nfl_season_website
 
     schedule = []
-    f = open(website)
+    f = urlopen(website)
     json_string = f.read()
-    parsed_json = json.loads(json_string.replace("O'", "O"))
+    parsed_json = json.loads(json_string.decode('utf-8'))
 
     for i in range(0, len(parsed_json['weeks'])-1):
         for j in range(0, len(parsed_json['weeks'][i]['games'])):
@@ -66,17 +67,17 @@ def get_weekly_schedule(week, team):
                          'api_key=rn43y42wvev2xtzswtksk3r5' % (datetime.now().year, week)
 
     if team == 'UTH':
-        website = 'week_sched.json'
-        #website = ncaa_weekly_website
+        #website = 'week_sched.json'
+        website = ncaa_weekly_website
     elif team == 'SF' or team == 'KC':
-        website = 'nfl_week_sched.json'
-        #website = nfl_season_website
+        #website = 'nfl_week_sched.json'
+        website = nfl_season_website
 
     week_sched = []
-    f = open(website)
+    f = urlopen(website)
     json_string = f.read()
-    parsed_json = json.loads(json_string.replace("O'", "O"))
-    #parsed_json = json.loads(json_string.decode('utf-8'))
+    #parsed_json = json.loads(json_string.replace("O'", "O"))
+    parsed_json = json.loads(json_string.decode('utf-8'))
     for j in range(0, len(parsed_json['games'])):
         if parsed_json['games'][j]['away'] == team or parsed_json['games'][j]['home'] == team:
             week = parsed_json['number']
@@ -110,14 +111,15 @@ def get_boxscore(week, home, away):
                            'api_key=rn43y42wvev2xtzswtksk3r5' % (str(datetime.now().year), week, away, home)
 
     if home == 'UTH' or away == 'UTH':
-        website = 'boxscore.json'
-        #website = ncaa_boxscore_website
+        #website = 'boxscore.json'
+        website = ncaa_boxscore_website
     else:
-        website = 'nfl_boxscore.json'
+        #website = 'nfl_boxscore.json'
+        website = nfl_boxscore_website
 
-    f = open(website)
+    f = urlopen(website)
     json_string = f.read()
-    parsed_json = json.loads(json_string)
+    parsed_json = json.loads(json_string.decode('utf-8'))
 
     status = parsed_json['status']
     if 'quarter' in parsed_json:
@@ -147,9 +149,9 @@ def get_ncaa_standings():
 
     standings_website = 'ncaa_standings.json'
 
-    f = open(standings_website)
+    f = urlopen(ncaa_standings_website)
     json_string = f.read()
-    parsed_json = json.loads(json_string)
+    parsed_json = json.loads(json_string.decode('utf-8'))
     p12 = []
     for j in range(0, len(parsed_json['division']['conferences'])):
         if parsed_json['division']['conferences'][j]['name'] == 'Pac-12':
@@ -187,9 +189,9 @@ def get_ncaa_rankings(week):
 
     rankings_website = 'ncaa_rankings.json'
 
-    f = open(rankings_website)
+    f = urlopen(ncaa_rankings_website)
     json_string = f.read()
-    parsed_json = json.loads(json_string)
+    parsed_json = json.loads(json_string.decode('utf-8'))
     rankings = []
     for i in range(0, len(parsed_json['rankings'])):
         r = parsed_json['rankings'][i]
@@ -207,14 +209,14 @@ def get_nfl_rankings():
     nfl_standings_website = 'http://api.sportsdatallc.org/nfl-t1/teams/%s/REG/standings.json?api_key=%s' \
                             % (datetime.now().year, nfl_api_key)
 
-    f = open('nfl_rankings.json')
+    f = urlopen(nfl_rankings_website)
     json_string = f.read()
-    rankings_json = json.loads(json_string)
+    rankings_json = json.loads(json_string.decode('utf-8'))
     rankings = []
 
-    f = open('nfl_standings.json')
+    f = urlopen(nfl_standings_website)
     json_string = f.read()
-    standings_json = json.loads(json_string)
+    standings_json = json.loads(json_string.decode('utf-8'))
 
     for i in rankings_json['conferences']:
         for j in i['divisions']:
@@ -240,7 +242,7 @@ def get_soccer_season():
                          'api_key=q57zpdq4d7mvmtns4uxk92f8'
 
     schedule = []
-    f = ET.parse('mls_season_sched.xml')
+    f = ET.parse(urlopen(mls_season_website))
     items = f.getroot()
 
     for i in items[0]:
@@ -266,8 +268,8 @@ def soccer_scores(game_id):
     mls_boxscore_website = 'http://api.sportsdatallc.org/soccer-t2/na/matches/%s/boxscore.xml?' \
                            'api_key=q57zpdq4d7mvmtns4uxk92f8' % game_id
 
-    schedule = []
-    f = ET.parse('mls_boxscore.xml')
+    scores = []
+    f = ET.parse(urlopen(mls_boxscore_website))
     items = f.getroot()
 
     if 'score' in items[0][0][5].attrib:
@@ -291,7 +293,7 @@ def get_soccer_standings():
                             'api_key=q57zpdq4d7mvmtns4uxk92f8'
 
     standings = []
-    f = ET.parse('mls_standings.xml')
+    f = ET.parse(urlopen(mls_standings_website))
     items = f.getroot()
 
     for i in items[0]:

@@ -1,20 +1,17 @@
-from urllib.request import Request, urlopen
-import urllib
-
-rotten_tomatoes_type = 'opening'
+from urllib.request import urlopen
 import json
 from xml.etree import ElementTree as ET
 import datetime
 
-rotten_tomatoes_api = 'j66zchayd6megzhvzhp33dm9'
-rotten_tomatoes_website = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?apikey=%s&limit=10' \
-                          % rotten_tomatoes_api
+
+rotten_tomatoes_website = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?' \
+                          'apikey=j66zchayd6megzhvzhp33dm9&limit=10'
 
 
 def get_opening_movies():
-    f = open('rt_opening.json')
+    f = urlopen(rotten_tomatoes_website)
     json_string = f.read()
-    parsed_json = json.loads(json_string)
+    parsed_json = json.loads(json_string.decode('utf-8'))
 
     opening = []
     for i in parsed_json['movies']:
@@ -54,12 +51,11 @@ def get_upcoming_movies():
 
 
 def get_local_events():
-    eventful_api = 'xJHGrFDwdj5qWgfW'
     eventful_website = 'http://api.eventful.com/rest/events/search?app_key=xJHGrFDwdj5qWgfW&' \
                        'location=Salt+Lake+City+UT&date=This+Week&mature=normal&' \
                        'category=music%2Ccomedy%2Cart%2Ctechnology%2Cfamily_fun_kids'
 
-    f = ET.parse('eventful.xml')
+    f = ET.parse(urlopen(eventful_website))
     items = f.getroot()
 
     events = []

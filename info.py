@@ -21,7 +21,7 @@ from xml.etree import ElementTree as ET
 import os.path
 import requests
 
-weather_test = True
+weather_test = False
 on_pi = False
 location = 84123
 icon = ""
@@ -147,8 +147,8 @@ def get_rss():
     else:
         feed_no += 1
 
-#get_rss()
-rss = sched.add_interval_job(get_rss, seconds=1*30)
+get_rss()
+rss = sched.add_interval_job(get_rss, seconds=10 * 60)
 
 
 #######  --== Weather Stuff ==--  #######
@@ -162,7 +162,7 @@ def check_weather():
     global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night, city_name
     global observation_time, current_cond, predominant_pollen, allergy_forecast, full_weather, full_weather_old
     global sunrise_hour, sunrise_minute, relative_humidity, precip_today_string, wind_string, hourly_temps, alert
-    global forecast_decription, forecast_decription_old
+    global forecast_decription, forecast_decription_old, new
     if weather_test is False:
         global something_wrong
         global f, g
@@ -191,6 +191,7 @@ def check_weather():
             json_string = f.read()
             parsed_json = json.loads(json_string.decode("utf8"))
             icon = parsed_json['current_observation']['icon']
+            new = True
             city_name = parsed_json['current_observation']['display_location']['full']
             observation_time = parsed_json['current_observation']['observation_time']
             current_cond = parsed_json['current_observation']['weather']
@@ -256,6 +257,7 @@ def check_weather():
             return random.randrange(60, 90)
 
         icon = rand_weather()
+        new = True
         tom_temp = get_rand()
         forecast_day = [rand_days(), rand_days(), rand_days(), rand_days(), rand_days()]
         forecast_cond = [rand_weather(), rand_weather(), rand_weather(), rand_weather(), rand_weather()]
@@ -300,7 +302,7 @@ def day_or_night():
         day_night = 'night'
 
 check_weather()
-weather = sched.add_interval_job(check_weather, seconds=60)
+weather = sched.add_interval_job(check_weather, seconds=30 * 60)
 
 
 #######  --== Get Temps ==--  #######
@@ -433,15 +435,15 @@ def start_pianobar():
                 if information != info_old:
                     get_album(song, artist, album, like)
 
-                elif x == 1:
-                    x = pianobar.expect(' \| ')
-                    if x == 0:
-                        print('Station: "{}"'.format(pianobar.before))
-                elif x == 2:
-                    # Time doesn't include newline - prints over itself.
-                    x = pianobar.expect('\r', timeout=1)
-                    if x == 0:
-                        print('Time: {}'.format(pianobar.before))
+                # elif x == 1:
+                #     x = pianobar.expect(' \| ')
+                #     if x == 0:
+                #         print('Station: "{}"'.format(pianobar.before))
+                # elif x == 2:
+                #     # Time doesn't include newline - prints over itself.
+                #     x = pianobar.expect('\r', timeout=1)
+                #     if x == 0:
+                #         print('Time: {}'.format(pianobar.before))
 
             except pexpect.EOF:
                 break
@@ -629,6 +631,7 @@ def soccer_season():
 soccer_season()
 
 test = False
+new = True
 
 
 #######  --==Streaming Stuff==--  #######
@@ -639,7 +642,7 @@ def event_stream():
         utah_week_old, utah_score_old, sf_week_old, kc_week_old, sf_score_old, kc_score_old, rsl_week_old,\
         rsl_score_old, ncaa_rankings_old, pac12_standings_old, soccer_standings_old, nfl_rankings_old,\
         opening_movies_old, local_events_old, forecast_decription, forecast_decription_old,\
-        album_info_old, stations, stations_old, st_got, rss_feed_old
+        album_info_old, stations, stations_old, st_got, rss_feed_old, new
 
     yield_me = ''
     if day_night != day_night_old or test is False:
@@ -657,8 +660,9 @@ def event_stream():
     if rss_feed != rss_feed_old or test is False:
         rss_feed_old = rss_feed
         yield_me += 'event: rssFeed\n' + 'data: ' + json.dumps(rss_feed) + '\n\n'
-    if icon != icon_old or test is False:
+    if icon != icon_old or new is True:
         icon_old = icon
+        new = False
         yield_me += 'event: icon\n' + 'data: ' + icon + '\n\n'
     if forecast_day != forecast_day_old or test is False:
         forecast_day_old = forecast_day
@@ -754,8 +758,9 @@ try:
 
     @app.route('/')
     def my_form():
-        global test, st_got
+        global test, st_got, new
         test = False
+        new = True
         st_got = True
         return render_template("index.html")
 
