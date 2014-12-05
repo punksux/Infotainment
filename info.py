@@ -21,7 +21,7 @@ import os.path
 import requests
 import news
 
-weather_test = True
+weather_test = False
 on_pi = False
 location = 84123
 icon = ""
@@ -205,8 +205,6 @@ def check_weather():
                 alert_description = parsed_json['alerts'][0]['description']
                 alert_message = parsed_json['alerts'][0]['message']
                 alert = [alert_description, alert_message]
-            else:
-                print('No Alert')
 
             f.close()
 
