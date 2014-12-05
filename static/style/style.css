@@ -336,13 +336,46 @@ body {
 }
 
 /*  --== RSS Ticker ==--  */
+#tickerOff {
+    position: absolute;
+    bottom: 0;
+    right: 225px;
+    z-index: 15;
+    background: rgba(0, 0, 0, 0.5);
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+#newsSource {
+    position: absolute;
+    bottom:0;
+    height: 50px;
+    background: rgba(0,0,0,0.5);
+    vertical-align: middle;
+    line-height: 50px;
+    color: white;
+    text-shadow: 0 0 3px #333;
+    padding: 0 5px 0 5px;
+    display: none;
+}
+
 #ticker {
     position: absolute;
-    /*width:879px;*/
     bottom:0;
     right:225px;
     z-index: 15;
-    display: inline-block;
+    background: rgba(0,0,0,0.5);
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+    display: none;
+}
+
+#tickerText {
+    color: white;
+    padding: 0 5px 0 5px;
+    text-shadow: 0 0 3px #333;
 }
 
 .tickercontainer {
@@ -357,6 +390,9 @@ body {
     text-shadow: 0 0 2px #333;
     /*left:180px*/
     padding: 0 10px 0 10px;
+    position: absolute;
+    bottom:0;
+    right:0;
 }
 
 .tickercontainer .mask {
@@ -389,7 +425,9 @@ ul.newsticker li {
     border: 0;
 }
 
-#rssSource{
+
+/*  --== Date Box ==--  */
+#date{
     height:50px;
     border: 0 solid rgba(0,0,0,0.75);
     /*border-top-width: 1px;*/
@@ -403,7 +441,7 @@ ul.newsticker li {
     display: inline-block;
 }
 
-#sourceText {
+#dateText {
     vertical-align: middle;
     line-height: 50px;
     text-align: center;
@@ -594,6 +632,7 @@ ul.newsticker li {
     line-height: 30px;
     text-shadow: 0 0 3px #222;
     z-index: 300;
+    cursor: pointer;
 }
 
 #messageBox {

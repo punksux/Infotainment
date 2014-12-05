@@ -14,6 +14,7 @@
     <script src="/static/script/holiday.js"></script>
     <script src="/static/script/countdown.min.js"></script>
     <script src="/static/script/idle.js"></script>
+    <script src="/static/script/ticker.js"></script>
     <script>
         $( document ).ready(function() {
             var list = $('ul#tabList li').toArray();
@@ -43,6 +44,8 @@
 
             startTime();
             setDate();
+
+//            $("ul#ticker01").webTicker();
         });
 
         var holiday2;
@@ -92,13 +95,9 @@
         function setDate(){
             var date = new Date();
             var months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
-            $('#sourceText').html(months[date.getMonth()] + ' ' + date.getDate() + ' ' + date.getFullYear())
-            setTickerWidth()
+            $('#dateText').html(months[date.getMonth()] + ' ' + date.getDate() + ' ' + date.getFullYear());
+            setTickerOffWidth()
         }
-
-        $(function(){
-            $("ul#ticker01").webTicker();
-        });
 
         function weatherSlider(){
             if ($('div#homeMusicDisplay').is(':visible')) {
@@ -110,7 +109,12 @@
         }
 
         function setTickerWidth () {
-            $('#ticker, .tickercontainer').css('width', (1280 - ($('#rssSource').width() + 220)-10) + 'px');
+            $('div#newsSource').animate({left: ($('div#date').width()+5) + 'px'}, 1000);
+            $('div#ticker, div.tickercontainer').animate({width: (1280 - ($('#date').width() + $('#newsSource').width() + 220)-25) + 'px'}, 500);
+        }
+
+        function setTickerOffWidth () {
+            $('div#tickerOff').css({width: (1280 - ($('#date').width() + 220)-10) + 'px'}, 500);
         }
 
 
@@ -241,16 +245,15 @@
 
 
 <!--    ** RSS Ticker **    -->
+    <div id="tickerOff"></div>
+
+    <div id="date"><div id="dateText">Nov. 26 2014</div></div>
+    <div id="newsSource">Technology</div>
     <div id="ticker">
-    <ul id="ticker01">
-        {% for x in range(1,11) %}
-        <li id="rss{{ x }}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>{% endfor %}
-
-    </ul>
-
-
-    </div><div id="rssSource"><div id="sourceText">Nov. 26 2014</div></div>
+        <div id="tickerText"></div>
     </div>
+
+</div>
 
 
 
@@ -634,24 +637,22 @@
 
 <!--    ** RSS Popup **    -->
     <div id="screenCover"></div>
-    <div id="popupContent">
+    <div id="popupContent" class="movieCover">
         {% for x in range(1,11) %}
-        <div id="rss{{ x }}sum" class="popupText"><div class="rssImage"></div><div class="rssText"></div></div>
+        <div id="rss{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="sendToPhone">Send to phone</div></div>
         <div id="day{{ x }}description" class="popupText"></div>
-        <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image" onclick=""></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div><div class="sendToPhone">Send to phone</div></div>
+        <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div><div class="sendToPhone">Send to phone</div></div>
         <div id="ent{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="sendToPhone">Send to phone</div></div>{% endfor %}
         <div id="alertDescription" class="popupText"></div>
     </div>
 
     <script>
-        $('.popupText div:not(.sendToPhone), #screenCover, #popupContent').click(function(){
+        $('.movieName, .image, .synopsis, .rating, .length, .actors, #screenCover').click(function(){
             $('.popupText, #popupContent, #screenCover').hide();
-            $('#popupContent').removeClass('movieCover');
             $('.sendToPhone').css('background', 'rgba(255, 255, 255, 0.25)').css('pointer-events', 'auto').html('Send to phone')
         });
 
         function sendToPhone(name, link){
-            $('#messageBox').show(100);
             $.ajax(
             {
                 type: 'post',

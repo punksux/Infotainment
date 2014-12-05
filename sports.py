@@ -36,24 +36,24 @@ def get_season_schedule(team):
                 week = parsed_json['weeks'][i]['number']
                 home = parsed_json['weeks'][i]['games'][j]['home']
                 away = parsed_json['weeks'][i]['games'][j]['away']
-                time = datetime.strptime(parsed_json['weeks'][i]['games'][j]['scheduled'].split('+')[0],
-                                         '%Y-%m-%dT%H:%M:%S')
-                time -= timedelta(hours=6)
-                time = time.strftime('%Y-%m-%d %H:%M:%S')
+                timez = datetime.strptime(parsed_json['weeks'][i]['games'][j]['scheduled'].split('+')[0],
+                                          '%Y-%m-%dT%H:%M:%S')
+                timez -= timedelta(hours=6)
+                timez = timez.strftime('%Y-%m-%d %H:%M:%S')
                 status = parsed_json['weeks'][i]['games'][j]['status']
                 venue = parsed_json['weeks'][i]['games'][j]['venue']['name']
                 if 'broadcast' in parsed_json['weeks'][i]['games'][j]:
                     tv = parsed_json['weeks'][i]['games'][j]['broadcast']['network']
                 else:
                     tv = ''
-                schedule.append([week, home, away, time, status, venue, tv])
+                schedule.append([week, home, away, timez, status, venue, tv])
                 break
         else:
-            time = datetime.strptime(parsed_json['weeks'][i]['games'][0]['scheduled'].split('+')[0],
-                                     '%Y-%m-%dT%H:%M:%S')
-            time -= timedelta(hours=6)
-            time = time.strftime('%Y-%m-%d %H:%M:%S')
-            schedule.append([parsed_json['weeks'][i]['number'], team, 'BYE', time, '', '', ''])
+            timez = datetime.strptime(parsed_json['weeks'][i]['games'][0]['scheduled'].split('+')[0],
+                                      '%Y-%m-%dT%H:%M:%S')
+            timez -= timedelta(hours=6)
+            timez = timez.strftime('%Y-%m-%d %H:%M:%S')
+            schedule.append([parsed_json['weeks'][i]['number'], team, 'BYE', timez, '', '', ''])
     f.close()
     return schedule
 
@@ -83,17 +83,17 @@ def get_weekly_schedule(week, team):
             week = parsed_json['number']
             home = parsed_json['games'][j]['home']
             away = parsed_json['games'][j]['away']
-            time = datetime.strptime(parsed_json['games'][j]['scheduled'].split('+')[0],
-                                     '%Y-%m-%dT%H:%M:%S')
-            time -= timedelta(hours=6)
-            time = time.strftime('%Y-%m-%d %H:%M:%S')
+            timez = datetime.strptime(parsed_json['games'][j]['scheduled'].split('+')[0],
+                                      '%Y-%m-%dT%H:%M:%S')
+            timez -= timedelta(hours=6)
+            timez = timez.strftime('%Y-%m-%d %H:%M:%S')
             status = parsed_json['games'][j]['status']
             venue = parsed_json['games'][j]['venue']['name']
             if 'broadcast' in parsed_json['games'][j]:
                 tv = parsed_json['games'][j]['broadcast']['network']
             else:
                 tv = ''
-            week_sched = [week, home, away, time, status, venue, tv]
+            week_sched = [week, home, away, timez, status, venue, tv]
             break
     else:
         week_sched = [int(week), team, 'BYE', '', '', '', '']
@@ -241,15 +241,15 @@ def get_soccer_season():
             match_id = i.attrib['id']
             home = i[3].attrib['name']
             away = i[4].attrib['name']
-            time = datetime.strptime(i.attrib['scheduled'], '%Y-%m-%dT%H:%M:%SZ')
-            time -= timedelta(hours=6)
-            time = time.strftime('%Y-%m-%d %H:%M:%S')
+            timez = datetime.strptime(i.attrib['scheduled'], '%Y-%m-%dT%H:%M:%SZ')
+            timez -= timedelta(hours=6)
+            timez = timez.strftime('%Y-%m-%d %H:%M:%S')
             status = i.attrib['status']
             if 'name' in i[5].attrib:
                 venue = i[5].attrib['name']
             else:
                 venue = ''
-            schedule.append([match_id, home, away, time, status, venue])
+            schedule.append([match_id, home, away, timez, status, venue])
 
     return schedule
 
@@ -259,7 +259,6 @@ def soccer_scores(game_id):
     mls_boxscore_website = 'http://api.sportsdatallc.org/soccer-t2/na/matches/%s/boxscore.xml?' \
                            'api_key=q57zpdq4d7mvmtns4uxk92f8' % game_id
 
-    scores = []
     f = ET.parse(urlopen(mls_boxscore_website))
     items = f.getroot()
 

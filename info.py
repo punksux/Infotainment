@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 import random
 import time
 from apscheduler.scheduler import Scheduler
-import feedparser
 import sports
 import entertainment
 import platform
@@ -20,8 +19,9 @@ from urllib.parse import quote
 from xml.etree import ElementTree as ET
 import os.path
 import requests
+import news
 
-weather_test = False
+weather_test = True
 on_pi = False
 location = 84123
 icon = ""
@@ -102,6 +102,7 @@ album_info = []
 album_info_old = []
 stations = []
 stations_old = []
+current_rain = ''
 
 #######  --== Set Platform ==--  #######
 print("** Running on " + platform.uname()[0] + " **")
@@ -115,7 +116,7 @@ if on_pi:
 
 app = Flask(__name__)
 
-logging.basicConfig(filename='errors.log', level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s',
+logging.basicConfig(filename='errors.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s: %(message)s',
                     datefmt='%m/%d/%Y %I:%M:%S %p')
 
 sched = Scheduler()
@@ -123,32 +124,12 @@ sched.start()
 
 
 #######  --== RSS Stuff ==--  #######
-# rss_feeds = ['http://www.kutv.com/news/features/top-stories/stories/rss.xml',
-#              'http://www.utahutes.com/sports/m-footbl/headline-rss.xml',
-#              'http://feeds.bbci.co.uk/news/technology/rss.xml',
-#              'http://rss.allrecipes.com/daily.aspx?hubID=80',
-#              'http://www.tmz.com/rss.xml']
-# rss_sources = ['KSL.com', 'UtahUtes.com', 'BBC Tech', 'AllRecipes', 'TMZ.com']
-#
-# feed_no = 0
-#
-#
-# def get_rss():
-#     global feed, feed_no, rss_feed
-#     rss_feed = []
-#     feed = feedparser.parse(rss_feeds[feed_no])
-#     feed['items'] = feed['items'][:10]
-#     for i in feed['items']:
-#         rss_feed.append([i['title'].replace('#PrepareU: @Utah_Football', ''), i['summary']])
-#     rss_feed.append(rss_sources[feed_no])
-#
-#     if feed_no == len(rss_feeds)-1:
-#         feed_no = 0
-#     else:
-#         feed_no += 1
-#
-# get_rss()
-# rss = sched.add_interval_job(get_rss, seconds=10 * 60)
+def get_rss():
+    global rss_feed
+    rss_feed = news.get_news()
+
+get_rss()
+rss = sched.add_interval_job(get_rss, seconds=15 * 60)
 
 
 #######  --== Weather Stuff ==--  #######
@@ -162,7 +143,7 @@ def check_weather():
     global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night, city_name
     global observation_time, current_cond, predominant_pollen, allergy_forecast, full_weather, full_weather_old
     global sunrise_hour, sunrise_minute, relative_humidity, precip_today_string, wind_string, hourly_temps, alert
-    global forecast_decription, forecast_decription_old, new
+    global forecast_decription, forecast_decription_old, new, current_rain
     if weather_test is False:
         global something_wrong
         global f, g
@@ -198,6 +179,7 @@ def check_weather():
             relative_humidity = parsed_json['current_observation']['relative_humidity']
             precip_today_string = parsed_json['current_observation']['precip_today_string']
             wind_string = parsed_json['current_observation']['wind_string']
+            current_rain = parsed_json['current_observation']['precip_today_in']
 
             sunset_hour = int(parsed_json['sun_phase']['sunset']['hour'])
             sunset_minute = int(parsed_json['sun_phase']['sunset']['minute'])
@@ -609,7 +591,7 @@ def football_season():
                 football_weekly(i[0], t)
                 break
 
-football_season()
+# football_season()
 
 
 def soccer_scores(game_id):
@@ -637,7 +619,7 @@ def soccer_season():
                 rsl_week[3] = datetime.strptime(rsl_week[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
                 break
 
-soccer_season()
+# soccer_season()
 
 test = False
 new = True
@@ -780,7 +762,7 @@ try:
         print(a + ' - ' + b)
         data = dict(title=a, url=b, type='link')
         api_key = 'v1DxHg2oyCZCPc5Xr6KiVh4X3sLfkdibX2ujBvxC0RbUW'
-        requests.post('https://api.pushbullet.com/v2/pushes', auth=(api_key, ''), data=data)
+        # requests.post('https://api.pushbullet.com/v2/pushes', auth=(api_key, ''), data=data)
         return jsonify({'1': ''})
 
     @app.route('/music', methods=['POST'])
@@ -812,6 +794,11 @@ try:
         h = sched.add_date_job(change_station_by_id, (datetime.now() + timedelta(seconds=2)), args=id_no)
         return jsonify({'1': ''})
 
+    @app.route('/weather.json', methods=['GET'])
+    def give_weather():
+        return jsonify({'weather': full_weather[2], 'ssHour': full_weather[3], 'ssMinute': full_weather[4],
+                        'rain': current_rain})
+
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=88)
 
@@ -819,7 +806,10 @@ finally:
     print('Shutting Down!')
     playing = False
     print('Killing pianobar')
-    pianobar.sendline('q')
+    try:
+        pianobar.sendline('q')
+    except:
+        pass
     for procs in psutil.process_iter():
         if 'pianobar' in procs.name():
             print('Didn\'t kill, killing harder - pid ' + str(procs.pid))

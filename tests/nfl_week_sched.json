@@ -1,0 +1,459 @@
+
+
+{
+  "id": "aaa1bbd5-ba21-456a-b198-f26d5789e7d7",
+  "number": 9,
+  "games": [
+    {
+      "id": "9526832f-092b-4e32-ad97-42dfeb5c201c",
+      "scheduled": "2014-10-31T00:25:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "CAR",
+      "away": "NO",
+      "status": "scheduled",
+      "venue": {
+        "id": "39be9ed4-3292-49ac-8699-a381de3a4969",
+        "country": "USA",
+        "name": "Bank of America Stadium",
+        "city": "Charlotte",
+        "state": "NC",
+        "capacity": 73778,
+        "surface": "turf",
+        "type": "outdoor",
+        "zip": "28202",
+        "address": "800 South Mint Street"
+      },
+      "broadcast": {
+        "network": "NFL",
+        "satellite": "212"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "0536f5b1-ed5f-4a7b-9037-262d457e6e74",
+      "scheduled": "2014-11-02T18:00:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "MIA",
+      "away": "SD",
+      "status": "scheduled",
+      "venue": {
+        "id": "50a5c833-1570-4c38-abc7-7914cf87dbde",
+        "country": "USA",
+        "name": "Sun Life Stadium",
+        "city": "Miami Gardens",
+        "state": "FL",
+        "capacity": 76100,
+        "surface": "turf",
+        "type": "outdoor",
+        "zip": "33056",
+        "address": "2269 Northwest 199th Street"
+      },
+      "broadcast": {
+        "network": "CBS",
+        "satellite": "707"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "3c096f55-c2c9-4bbe-a71c-e5de8d5d3560",
+      "scheduled": "2014-11-02T18:00:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "DAL",
+      "away": "ARI",
+      "status": "scheduled",
+      "venue": {
+        "id": "1e84213a-ff1f-4c9d-a003-8ee782b25a40",
+        "country": "USA",
+        "name": "AT&T Stadium",
+        "city": "Arlington",
+        "state": "TX",
+        "capacity": 80000,
+        "surface": "artificial",
+        "type": "retractable_dome",
+        "zip": "76011",
+        "address": "One Legends Way"
+      },
+      "broadcast": {
+        "network": "FOX",
+        "satellite": "709"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "690ac48d-ae64-4e81-a4bb-225936e0288d",
+      "scheduled": "2014-11-02T18:00:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "MIN",
+      "away": "WAS",
+      "status": "scheduled",
+      "venue": {
+        "id": "9a24227a-4b50-4f8b-b753-9f047e1b77a6",
+        "country": "USA",
+        "name": "TCF Bank Stadium",
+        "city": "Minneapolis",
+        "state": "MN",
+        "capacity": 52000,
+        "surface": "artificial",
+        "type": "outdoor",
+        "zip": "55414",
+        "address": "420 SE 23rd Avenue"
+      },
+      "broadcast": {
+        "network": "FOX",
+        "satellite": "711"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "c99e766b-2c4f-47aa-92e5-13ee7f79b4a5",
+      "scheduled": "2014-11-02T18:00:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "HOU",
+      "away": "PHI",
+      "status": "scheduled",
+      "venue": {
+        "id": "6a72e5ca-33d0-40af-8e6b-b32a4d3d9346",
+        "country": "USA",
+        "name": "NRG Stadium",
+        "city": "Houston",
+        "state": "TX",
+        "capacity": 71054,
+        "surface": "turf",
+        "type": "retractable_dome",
+        "zip": "77054",
+        "address": "One Reliant Park"
+      },
+      "broadcast": {
+        "network": "FOX",
+        "satellite": "710"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "b289780b-64d6-456e-b3d7-6f1f49ad4a83",
+      "scheduled": "2014-11-02T18:00:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "CIN",
+      "away": "JAC",
+      "status": "scheduled",
+      "venue": {
+        "id": "b87a1595-d3c8-48ea-8a53-0aab6378a64a",
+        "country": "USA",
+        "name": "Paul Brown Stadium",
+        "city": "Cincinnati",
+        "state": "OH",
+        "capacity": 65535,
+        "surface": "artificial",
+        "type": "outdoor",
+        "zip": "45202",
+        "address": "One Paul Brown Stadium"
+      },
+      "broadcast": {
+        "network": "CBS",
+        "satellite": "705"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "4315d91c-b734-4cd8-9f0a-3ed9d522b112",
+      "scheduled": "2014-11-02T18:00:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "CLE",
+      "away": "TB",
+      "status": "scheduled",
+      "venue": {
+        "id": "90c38d91-3774-4f5d-82ca-1c806828219f",
+        "country": "USA",
+        "name": "FirstEnergy Stadium",
+        "city": "Cleveland",
+        "state": "OH",
+        "capacity": 71516,
+        "surface": "turf",
+        "type": "outdoor",
+        "zip": "44114",
+        "address": "100 Alfred Lerner Way"
+      },
+      "broadcast": {
+        "network": "FOX",
+        "satellite": "708"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "a6d35943-107a-4740-b557-ffe655030109",
+      "scheduled": "2014-11-02T18:00:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "KC",
+      "away": "NYJ",
+      "status": "scheduled",
+      "venue": {
+        "id": "2ec4c411-dac2-403d-b091-6b6aa4a0a914",
+        "country": "USA",
+        "name": "Arrowhead Stadium",
+        "city": "Kansas City",
+        "state": "MO",
+        "capacity": 79451,
+        "surface": "turf",
+        "type": "outdoor",
+        "zip": "64129",
+        "address": "One Arrowhead Drive"
+      },
+      "broadcast": {
+        "network": "CBS",
+        "satellite": "706"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "9f6949a8-2cc2-49e8-8698-5355f0d265a2",
+      "scheduled": "2014-11-02T21:05:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "SF",
+      "away": "STL",
+      "status": "scheduled",
+      "venue": {
+        "id": "24c71dbf-6469-46f1-8165-22005c295c8f",
+        "country": "USA",
+        "name": "Levi's Stadium",
+        "city": "Santa Clara",
+        "state": "CA",
+        "capacity": 68500,
+        "surface": "turf",
+        "type": "outdoor",
+        "zip": "95054",
+        "address": "4900 Marie P DeBartolo Way"
+      },
+      "broadcast": {
+        "network": "FOX",
+        "satellite": "712"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "9aaa1aee-1119-41d9-a325-04c83e0048e1",
+      "scheduled": "2014-11-02T21:25:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "NE",
+      "away": "DEN",
+      "status": "scheduled",
+      "venue": {
+        "id": "e43310b1-cb82-4df9-8be5-e9b39637031b",
+        "country": "USA",
+        "name": "Gillette Stadium",
+        "city": "Foxborough",
+        "state": "MA",
+        "capacity": 68756,
+        "surface": "artificial",
+        "type": "outdoor",
+        "zip": "02035",
+        "address": "One Patriot Place"
+      },
+      "broadcast": {
+        "network": "CBS",
+        "satellite": "713"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "0369c324-c5d6-4922-a3fe-1b607c30b4d6",
+      "scheduled": "2014-11-02T21:25:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "SEA",
+      "away": "OAK",
+      "status": "scheduled",
+      "venue": {
+        "id": "c6b9e5df-c9e4-434c-b3e6-83928f11cbda",
+        "country": "USA",
+        "name": "CenturyLink Field",
+        "city": "Seattle",
+        "state": "WA",
+        "capacity": 67000,
+        "surface": "artificial",
+        "type": "outdoor",
+        "zip": "98134",
+        "address": "800 Occidental Avenue South"
+      },
+      "broadcast": {
+        "network": "CBS",
+        "satellite": "714"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "0448d493-eda7-4e47-81b1-97e308ba375f",
+      "scheduled": "2014-11-03T01:30:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "PIT",
+      "away": "BAL",
+      "status": "scheduled",
+      "venue": {
+        "id": "7349a2e6-0ac9-410b-8bd2-ca58c9f7aa34",
+        "country": "USA",
+        "name": "Heinz Field",
+        "city": "Pittsburgh",
+        "state": "PA",
+        "capacity": 65050,
+        "surface": "turf",
+        "type": "outdoor",
+        "zip": "15212",
+        "address": "100 Art Rooney Avenue"
+      },
+      "broadcast": {
+        "network": "NBC"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    },
+    {
+      "id": "a6ed891c-cb0c-42d6-b600-451a6a2025b8",
+      "scheduled": "2014-11-04T01:30:00+00:00",
+      "home_rotation": "",
+      "away_rotation": "",
+      "home": "NYG",
+      "away": "IND",
+      "status": "scheduled",
+      "venue": {
+        "id": "5d4c85c7-d84e-4e10-bd6a-8a15ebecca5c",
+        "country": "USA",
+        "name": "MetLife Stadium",
+        "city": "East Rutherford",
+        "state": "NJ",
+        "capacity": 82500,
+        "surface": "artificial",
+        "type": "outdoor",
+        "zip": "07073",
+        "address": "One MetLife Stadium Drive"
+      },
+      "broadcast": {
+        "network": "ESPN",
+        "satellite": "206",
+        "internet": "WatchESPN"
+      },
+      "weather": {
+        "temperature": null,
+        "condition": null,
+        "humidity": null,
+        "wind": {
+          "speed": null,
+          "direction": null
+        }
+      }
+    }
+  ],
+  "bye_week": [
+    "ATL",
+    "BUF",
+    "CHI",
+    "DET",
+    "GB",
+    "TEN"
+  ]
+}
+

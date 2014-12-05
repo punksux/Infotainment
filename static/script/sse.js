@@ -43,27 +43,7 @@ $(document).ready(function () {
     });
     sse.addEventListener('rssFeed', function (message) {
         message = JSON.parse(message.data);
-        $("ul#ticker01").webTicker('update', '<li id="rss1">' + message[0][0] + ' - </li>' +
-            '<li id="rss2">' + message[1][0] + ' - </li>' +
-            '<li id="rss3">' + message[2][0] + ' - </li>' +
-            '<li id="rss4">' + message[3][0] + ' - </li>' +
-            '<li id="rss5">' + message[4][0] + ' - </li>' +
-            '<li id="rss6">' + message[5][0] + ' - </li>' +
-            '<li id="rss7">' + message[6][0] + ' - </li>' +
-            '<li id="rss8">' + message[7][0] + ' - </li>' +
-            '<li id="rss9">' + message[8][0] + ' - </li>' +
-            '<li id="rss10">' + message[9][0] + ' </li>', 'reset');
-
-        for(var i = 1; i < 11; i++) {
-            (function (e) {
-                $('#rss'+ e).click(function () {
-                    $('#rss' + e + 'sum, #screenCover, #popupContent').fadeIn(300);
-                });
-                $('div#rss' + e + 'sum .rssText').html(message[e-1][1]);
-            })(i);
-        }
-
-        $('div#sourceText').html(message[10].data);
+        ticker(message);
     });
     sse.addEventListener('icon', function (message) {
         var rand = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
