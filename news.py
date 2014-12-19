@@ -1,4 +1,4 @@
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 import json
 import time
 
@@ -18,7 +18,7 @@ def get_news():
         website = 'http://api.nytimes.com/svc/news/v3/content/all/%s?' \
                   'api-key=286730a4d43f4ec837576231d54a68a6:17:70264294&limit=10' % category
 
-        f = urlopen(website)
+        f = urlopen(Request(website, headers={'User-Agent': 'Mozilla/5.0'}), timeout=10)
         json_string = f.read()
         parsed_json = json.loads(json_string.decode('utf-8'))
         f.close()

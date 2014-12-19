@@ -15,80 +15,55 @@ $(document).ready(function () {
     });
 
     sse.addEventListener('outTemp', function (message) {
-        jQuery({someValue: $('#outTemp').html()}).animate({someValue: message.data}, {
-            duration: 1000,
+        jQuery({someValue: $('#outTemp').html().replace('<span>°</span>', '').replace('·', '-')}).animate({someValue: message.data}, {
+            duration: 2000,
             easing: 'swing',
             step: function () {
-                $('#outTemp').text(Math.ceil(this.someValue));
+                $('#outTemp').html(Math.ceil(this.someValue).toString().replace('-', '·') + '<span>°</span>');
             }
         })
     });
     sse.addEventListener('inTemp', function (message) {
-        jQuery({someValue: $('#inTemp').html()}).animate({someValue: message.data}, {
-            duration: 1000,
+        jQuery({someValue: $('#inTemp').html().replace('<span>°</span>', '').replace('·', '-')}).animate({someValue: message.data}, {
+            duration: 2000,
             easing: 'swing',
             step: function () {
-                $('#inTemp').text(Math.ceil(this.someValue));
+                $('#inTemp').html(Math.ceil(this.someValue).toString().replace('-', '·') + '<span>°</span>');
             }
         })
     });
     sse.addEventListener('tomTemp', function (message) {
-        jQuery({someValue: $('#tomTemp').html()}).animate({someValue: message.data}, {
-            duration: 1000,
+        jQuery({someValue: $('#tomTemp').html().replace('<span>°</span>', '').replace('·', '-')}).animate({someValue: message.data}, {
+            duration: 2000,
             easing: 'swing',
             step: function () {
-                $('#tomTemp').text(Math.ceil(this.someValue));
+                $('#tomTemp').html(Math.ceil(this.someValue).toString().replace('-', '·') + '<span>°</span>');
             }
         })
     });
     sse.addEventListener('rssFeed', function (message) {
+        var now = new Date();
+        console.log(timeStamp() + ' - New RSS');
         message = JSON.parse(message.data);
         ticker(message);
     });
     sse.addEventListener('icon', function (message) {
-        var rand = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
-        if (message.data === 'partlysunny') {
-            icon = 'mostlycloudy'
-        }
-        else if (message.data === 'mostlysunny') {
-            icon = 'partlycloudy'
-        }
-        else if (message.data === 'sunny') {
-            icon = 'clear'
-        }
-        else if (message.data.slice(0, 6) === 'chance') {
-            icon = message.data.slice(6)
-        }
-        else {
-            icon = message.data
-        }
-        $('#test2').html(message.data + ' - ' + icon + ' - ' + rand);
+        $('#test2').html(message.data);
         if (cover === 1) {
-            $.get('/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
-                .done(function () {
-                    $('#day').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
-                })
-                .fail(function () {
-                    $('#day').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
-                });
+            $('#day').css('background', 'url(/' + message.data + ')').fadeIn(1000);
             $('#night').fadeOut(1000);
             cover = 2;
         } else {
-            $.get('/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg')
-                .done(function () {
-                    $('#night').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-' + rand + '.jpg)').fadeIn(1000);
-                })
-                .fail(function () {
-                    $('#night').css('background', 'url(/static/images/bg/' + dayOrNight + '-' + icon + '-1.jpg)').fadeIn(1000);
-                });
+            $('#night').css('background', 'url(/' + message.data + ')').fadeIn(1000);
             $('#day').fadeOut(1000);
             cover = 1;
         }
         if (dayOrNight === 'day') {
-            $('#tom').hide(1000);
+            $('#out').animate({left: 210}, 1000);
+            $('#tom').hide('slide', {direction: 'right', duration: 1000})
         } else {
-
-            $('#tom').show(1000);
+            $('#out').animate({left: 2}, 1000);
+            $('#tom').show('slide', {direction: 'right', duration: 1000}).fadeTo(0, 1)
         }
     });
     sse.addEventListener('forecastDay', function (message) {
@@ -165,10 +140,10 @@ $(document).ready(function () {
         message = JSON.parse(message.data);
         var i;
         for (i = 0; i < 5; i++) {
-            $('#day' + (i + 1) + 'description').html(message[i]);
             (function (e) {
                 $('#day' + (e + 1) + 'cover').click(function () {
-                    $('#day' + (e + 1) + 'description, #screenCover, #popupContent').fadeIn(300);
+                    $('#day1description .synopsis').html(message[e]);
+                    $('#day1description, #screenCover, #popupContent').fadeIn(300);
                 });
             })(i);
         }
@@ -254,16 +229,19 @@ $(document).ready(function () {
     sse.addEventListener('alert', function (message) {
         message = JSON.parse(message.data);
 
+//        message = ['Big Ass Fire', 'There is a big ass fire somewhere'];
         if (message[0] != '') {
-            $('#alert').html(message[0]).show().click(function () {
+            $('#alert').html('Alert: ' + message[0]).show().click(function () {
                 $('#alertDescription, #screenCover, #popupContent').css('display', 'inline-block');
             });
-            $('#alertDescription').html('<pre><span>' + message[1] + '</span></pre>');
+            $('#alertDescription .movieName').html(message[0]);
+            $('#alertDescription .synopsis').html('<pre><span>' + message[1] + '</span></pre>');
         } else {
             $('#alert').html(message[0]).hide();
         }
+
     });
-    sse.addEventListener('utahInfo', function (message) {
+    /*sse.addEventListener('utahInfo', function (message) {
         message = JSON.parse(message.data);
         $('div#utah div.home .text').html(message[1]);
         $('div#utah div.away .text').html(message[2]);
@@ -390,7 +368,7 @@ $(document).ready(function () {
             $('table#nflNFCRankings tr:nth-child(' + (i + j) + ') td:nth-child(2)').html(message[i + 16][3] + ' - ' + message[i][4]);
             $('table#nflNFCRankings tr:nth-child(' + (i + j) + ') td:nth-child(3)').html(message[i + 16][5] + ' - ' + message[i][6]);
         }
-    });
+    });*/
     sse.addEventListener('openingMovies', function (message) {
         message = JSON.parse(message.data);
         var i;
@@ -451,7 +429,11 @@ $(document).ready(function () {
         $('td.songName').html(message[0]);
         $('td.artistName').html(message[1]);
         $('td.albumName').html(message[2]);
-        $('div.albumArt').css('background','url("' + message[3] + '") no-repeat center');
+        if(typeof message[3] === 'undefined'){
+            $('div.albumArt').css('background', 'url("/static/images/pandora/blank.jpg") no-repeat center');
+        } else {
+            $('div.albumArt').css('background', 'url("' + message[3] + '") no-repeat center');
+        }
         if (message[6] === ''){
             $('#albumSummary').html(message[4]).css('text-align', 'left');
         } else {
@@ -470,6 +452,14 @@ $(document).ready(function () {
         for(i=0;i<message.length;i++){
             $('#stationList').append('<div class="station" onclick="changeStation(' + message[i][0] + ', this)">' + message[i][1] + '</div>');
         }
+    });
+    sse.addEventListener('holiday', function (message) {
+        message = JSON.parse(message.data);
+        console.log(message);
+        hday = message;
+        holiday2 = message[1].toLowerCase();
+        holiday(holiday2);
+        countdownTimer(hday);
     });
 });
 

@@ -18,91 +18,22 @@ import urllib.error
 from urllib.parse import quote
 from xml.etree import ElementTree as ET
 import os.path
-import requests
 import news
+from operator import itemgetter
+import requests
 
-weather_test = False
+weather_test = True
 on_pi = False
 location = 84123
 icon = ""
 day = True
 
-feed = []
-rss_feed = []
-rss_feed_old = []
-forecast_day = []
-forecast_day_old = []
-forecast_cond = []
-forecast_cond_old = []
-forecast_high = []
-forecast_high_old = []
-forecast_low = []
-forecast_low_old = []
-forecast_decription = []
-forecast_decription_old = []
-icon_old = []
-tom_temp = '0'
-tom_temp_old = '1'
 day_night = 'day'
 day_night_old = ''
-out_temp = '0'
-out_temp_old = '0'
-in_temp = '0'
-in_temp_old = '0'
-sunset_hour = 2
-sunset_minute = 00
-feed_source = ''
-feed_source_old = ''
-city_name = ''
-observation_time = ''
-current_cond = ''
-allergy_forecast = []
-predominant_pollen = ''
-allergy_forecast_old = []
-predominant_pollen_old = ''
 full_weather = []
-full_weather_old = []
-hourly_temps = []
-hourly_temps_old = []
-alert = []
-alert_old = []
-utah_week = []
-utah_week_old = []
-utah_score_sched = None
-sf_score_sched = None
-kc_score_sched = None
-soccer_score = None
-utah_score_old = []
-utah_score = []
-sf_week = []
-sf_week_old = []
-kc_week = []
-kc_week_old = []
-sf_score = []
-kc_score = []
-sf_score_old = []
-kc_score_old = []
-rsl_week = []
-rsl_week_old = []
-rsl_score = []
-rsl_score_old = []
-ncaa_rankings = []
-ncaa_rankings_old = []
-pac12_standings = []
-pac12_standings_old = []
-soccer_standings = []
-soccer_standings_old = []
-nfl_rankings = []
-nfl_rankings_old = []
-opening_movies = []
-opening_movies_old = []
-local_events = []
-local_events_old = []
-album_info = []
-album_info_old = []
-stations = []
-stations_old = []
 current_rain = ''
+yield_me = ''
+
 
 #######  --== Set Platform ==--  #######
 print("** Running on " + platform.uname()[0] + " **")
@@ -112,6 +43,7 @@ if platform.uname()[0] != 'Windows':
 if on_pi:
     import psutil
     import pexpect
+    weather_test = False
 
 
 app = Flask(__name__)
@@ -123,13 +55,21 @@ sched = Scheduler()
 sched.start()
 
 
+#######  --== Write Streaming Stuff ==--  #######
+def write_yield(event, data):
+    global yield_me
+    if type(data) is list:
+        data = json.dumps(data)
+
+    yield_me += 'event: ' + event + '\n' + 'data: ' + str(data) + '\n\n'
+
+
 #######  --== RSS Stuff ==--  #######
 def get_rss():
-    global rss_feed
-    rss_feed = news.get_news()
+    write_yield('rssFeed', news.get_news())
 
 get_rss()
-rss = sched.add_interval_job(get_rss, seconds=15 * 60)
+rss = sched.add_interval_job(get_rss, seconds=60 * 60)
 
 
 #######  --== Weather Stuff ==--  #######
@@ -139,11 +79,7 @@ allergy_website = 'http://www.claritin.com/weatherpollenservice/weatherpollenser
 
 
 def check_weather():
-    global icon, forecast_day, forecast_cond, forecast_high, forecast_low, forecast_day_old, forecast_cond_old
-    global forecast_high_old, forecast_low_old, tom_temp, sunset_hour, sunset_minute, day_night, city_name
-    global observation_time, current_cond, predominant_pollen, allergy_forecast, full_weather, full_weather_old
-    global sunrise_hour, sunrise_minute, relative_humidity, precip_today_string, wind_string, hourly_temps, alert
-    global forecast_decription, forecast_decription_old, new, current_rain
+    global icon, day_night, current_rain, full_weather
     if weather_test is False:
         global something_wrong
         global f, g
@@ -170,9 +106,9 @@ def check_weather():
             forecast_decription = []
 
             json_string = f.read()
+            f.close()
             parsed_json = json.loads(json_string.decode("utf8"))
             icon = parsed_json['current_observation']['icon']
-            new = True
             city_name = parsed_json['current_observation']['display_location']['full']
             observation_time = parsed_json['current_observation']['observation_time']
             current_cond = parsed_json['current_observation']['weather']
@@ -185,9 +121,11 @@ def check_weather():
             sunset_minute = int(parsed_json['sun_phase']['sunset']['minute'])
             sunrise_hour = int(parsed_json['sun_phase']['sunrise']['hour'])
             sunrise_minute = int(parsed_json['sun_phase']['sunrise']['minute'])
+            day_or_night(sunset_hour, sunset_minute)
 
             for i in range(0, 12):
                 hourly_temps.append(parsed_json['hourly_forecast'][i]['temp']['english'])
+            write_yield('hourlyTemps', hourly_temps)
 
             j = 0
             for i in range(0, 5):
@@ -197,30 +135,38 @@ def check_weather():
                 forecast_low.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['low']['fahrenheit'])
                 forecast_decription.append(parsed_json['forecast']['txt_forecast']['forecastday'][i+j]['fcttext'])
                 j += 1
-            tom_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
 
-            day_or_night()
+            write_yield('forecastCond', forecast_cond)
+            write_yield('forecastDay', forecast_day)
+            write_yield('forecastHigh', forecast_high)
+            write_yield('forecastLow', forecast_low)
+            write_yield('forecastDecription', forecast_decription)
+
+            write_yield('tomTemp', parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'])
+
+            icon_image(icon)
 
             if parsed_json.get('alerts'):
                 alert_description = parsed_json['alerts'][0]['description']
                 alert_message = parsed_json['alerts'][0]['message']
-                alert = [alert_description, alert_message]
-
-            f.close()
+                write_yield('alert', [alert_description, alert_message])
+            else:
+                write_yield('alert', ['', ''])
 
             json_string = g.read()
+            g.close()
             parsed_json = json.loads(json_string.decode('utf-8'))
             set1 = parsed_json.find(':[')
             set2 = parsed_json.find('],')
             set3 = parsed_json.find('pp\":\"')
             set4 = parsed_json.find('\"time')
-            predominant_pollen = parsed_json[set3+6: set4-2]
+            write_yield('predominantPollen', parsed_json[set3+6: set4-2])
             allergy_forecast = parsed_json[set1+2: set2]
-            allergy_forecast = str(allergy_forecast).split(",")
-            g.close()
+            write_yield('allergyForecast', str(allergy_forecast).split(","))
 
             full_weather = [city_name, observation_time, current_cond, sunset_hour, sunset_minute, sunrise_hour,
                             sunrise_minute, relative_humidity, precip_today_string, wind_string]
+            write_yield('fullWeather', full_weather)
 
     else:  # Random test weather
         def rand_weather():
@@ -237,24 +183,26 @@ def check_weather():
             return random.randrange(60, 90)
 
         icon = rand_weather()
-        new = True
-        tom_temp = get_rand()
-        forecast_day = [rand_days(), rand_days(), rand_days(), rand_days(), rand_days()]
+        write_yield('tomTemp', get_rand())
+        write_yield('forecastDay', [rand_days(), rand_days(), rand_days(), rand_days(), rand_days()])
         forecast_cond = [rand_weather(), rand_weather(), rand_weather(), rand_weather(), rand_weather()]
-        forecast_high = [get_rand(), get_rand(), get_rand(), get_rand(), get_rand()]
-        forecast_low = [get_rand(), get_rand(), get_rand(), get_rand(), get_rand()]
-        forecast_decription = forecast_cond
+        write_yield('forecastCond', forecast_cond)
+        write_yield('forecastHigh', [get_rand(), get_rand(), get_rand(), get_rand(), get_rand()])
+        write_yield('forecastLow', [get_rand(), get_rand(), get_rand(), get_rand(), get_rand()])
+        write_yield('forecastDecription', forecast_cond)
 
         if day_night == 'day':
             day_night = 'night'
         else:
             day_night = 'day'
 
+        write_yield('dayNight', day_night)
+
         def rand_allergy():
             return random.randrange(10, 120)/10
 
-        allergy_forecast = [rand_allergy(), rand_allergy(), rand_allergy(), rand_allergy()]
-        predominant_pollen = rand_weather()
+        write_yield('allergyForecast', [rand_allergy(), rand_allergy(), rand_allergy(), rand_allergy()])
+        write_yield('predominantPollen', rand_weather())
         city_name = "Murray"
         observation_time = datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')
         current_cond = icon
@@ -265,15 +213,42 @@ def check_weather():
         relative_humidity = '32%'
         precip_today_string = '0.00 in'
         wind_string = 'Wind out of the East at 7MPH'
+
         full_weather = [city_name, observation_time, current_cond, sunset_hour, sunset_minute, sunrise_hour,
                         sunrise_minute, relative_humidity, precip_today_string, wind_string]
-        hourly_temps = [get_rand(), get_rand(), get_rand(), get_rand(), get_rand(), get_rand(), get_rand(), get_rand(),
-                        get_rand(), get_rand(), get_rand(), get_rand()]
+        write_yield('fullWeather', full_weather)
+        write_yield('hourlyTemps', [get_rand(), get_rand(), get_rand(), get_rand(), get_rand(), get_rand(), get_rand(),
+                                    get_rand(), get_rand(), get_rand(), get_rand(), get_rand()])
+
+        icon_image(icon)
+        write_yield('alert', ['', ''])
 
 
-def day_or_night():
+def icon_image(icon_name):
+    global icon
+    if icon_name == 'partlysunny':
+        icon_name = 'mostlycloudy'
+    elif icon_name == 'mostlysunny':
+        icon_name = 'partlycloudy'
+    elif icon_name == 'sunny':
+        icon_name = 'clear'
+    elif icon_name[0:6] == 'chance':
+        icon_name = icon_name[6:]
+    else:
+        icon_name = icon_name
+
+    rand = random.randint(1, 5)
+    fname = 'static/images/bg/' + day_night + '-' + icon_name + '-' + str(rand) + '.jpg'
+
+    if os.path.exists(fname):
+        write_yield('icon', fname)
+    else:
+        icon_image(icon_name)
+
+
+def day_or_night(sh, sm):
     global day_night
-    sunset = datetime.now().replace(hour=int(sunset_hour), minute=int(sunset_minute),
+    sunset = datetime.now().replace(hour=int(sh), minute=int(sm),
                                     second=00, microsecond=0)
 
     if (sunset - datetime.now()).total_seconds() > 0:
@@ -282,7 +257,15 @@ def day_or_night():
         day_night = 'night'
 
 check_weather()
-weather = sched.add_interval_job(check_weather, seconds=30 * 60)
+dt = datetime.now()
+if on_pi:
+    if dt.minute > 30:
+        weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=(dt + timedelta(hours=1)
+                                                                                   .replace(minute=0, second=0)))
+    else:
+        weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=(dt.replace(minute=30, second=0)))
+else:
+    weather = sched.add_interval_job(check_weather, seconds=60)
 
 
 #######  --== Get Temps ==--  #######
@@ -312,11 +295,11 @@ def get_temps_from_probes():
         out_temp = str(random.randrange(-32, 104))
 
     else:
-        out_temp = str(random.randrange(-32, 104))
-        in_temp = str(random.randrange(32, 104))
+        write_yield('outTemp', str(random.randrange(-32, 104)))
+        write_yield('inTemp', str(random.randrange(32, 104)))
 
 get_temps_from_probes()
-temps = sched.add_interval_job(get_temps_from_probes, seconds=30)
+temps = sched.add_interval_job(get_temps_from_probes, seconds=15)
 
 
 #######  --== Music Stuff ==--  #######
@@ -364,10 +347,12 @@ def get_album(song2, artist2, album2, like2):
             lyrics = ''
 
         album_info = [song2, artist2, album2, album_art, album_sum, like2, lyrics]
+        write_yield('albumInfo', album_info)
         print(album_info)
     except:
         album_info = [song2, artist2, album2, '/static/images/pandora/blank.jpg', '', like2, '']
         print(album_info)
+        write_yield('albumInfo', album_info)
 
 
 def start_pianobar():
@@ -457,6 +442,7 @@ def get_stations():
             pianobar.sendcontrol('m')
             st_got = True
             print(str(stations).replace('],', ']\n'))
+            write_yield('stations', stations)
 
         except pexpect.TIMEOUT:
             get_stations()
@@ -486,16 +472,21 @@ def change_station_by_id(id_no):
 
 #######  --== Entertainment Stuff ==--  #######
 def get_opening_movies():
-    global opening_movies
-    opening_movies = entertainment.get_opening_movies()
+    write_yield('openingMovies', entertainment.get_opening_movies())
 
 
 def get_local_events():
-    global local_events
-    local_events = entertainment.get_local_events()
+    write_yield('localEvents', entertainment.get_local_events())
 
 get_opening_movies()
+dt = datetime.now()
+movies = sched.add_interval_job(get_opening_movies, days=7,
+                                start_date=(dt+timedelta(days=7) - timedelta(days=dt.weekday()-1)).replace(hour=0,
+                                                                                                           minute=2,
+                                                                                                           second=0))
 get_local_events()
+events = sched.add_interval_job(get_local_events, days=1, start_date=(dt+timedelta(days=1)).replace(hour=0, minute=2,
+                                                                                                    second=0))
 
 
 ####### --==Sports Stuff==-- #######
@@ -619,138 +610,82 @@ def soccer_season():
 
 # soccer_season()
 
-test = False
-new = True
+
+#######  --==Holiday Stuff==--  #######
+holidays = ["New Year\u2019s Day", "Groundhog Day", "Valentine\u2019s Day", "Washington\u2019s Birthday",
+            "Saint Patrick\u2019s Day", "April Fools\u2019 Day", "Earth Day", "Star Wars Day", "Cinco de Mayo",
+            "Mother\u2019s Day", "Memorial Day", "Flag Day", "Father\u2019s Day", "Independence Day", "Labor Day",
+            "Halloween", "Veterans Day", "Thanksgiving Day", "Christmas", "New Year\u2019s Eve", "Easter"]
+like_holiday = ["Saint Patrick\u2019s Day", "Halloween", "Thanksgiving Day", "Christmas"]
+holiday_list = []
 
 
-#######  --==Streaming Stuff==--  #######
-def event_stream():
-    global icon, forecast_day_old, forecast_cond_old, test, forecast_high_old, forecast_low_old, icon_old,\
-        tom_temp, tom_temp_old, day_night_old, out_temp_old, in_temp_old,\
-        allergy_forecast_old, predominant_pollen_old,  full_weather_old, hourly_temps_old, alert_old,\
-        utah_week_old, utah_score_old, sf_week_old, kc_week_old, sf_score_old, kc_score_old, rsl_week_old,\
-        rsl_score_old, ncaa_rankings_old, pac12_standings_old, soccer_standings_old, nfl_rankings_old,\
-        opening_movies_old, local_events_old, forecast_decription, forecast_decription_old,\
-        album_info_old, stations, stations_old, st_got, rss_feed_old, new
+def get_holidays():
+    global holiday_list
+    holiday_website = 'http://holidayapi.com/v1/holidays?country=US&year=%s' % datetime.now().year
+    w = urlopen(holiday_website)
+    json_string = w.read()
+    parsed_json = json.loads(json_string.decode('utf-8'))
+    for i in parsed_json['holidays']:
+        for j in parsed_json['holidays'][i]:
+            if j['name'] in holidays:
+                holiday_list.append([j['date'], j['name']])
 
-    yield_me = ''
-    if day_night != day_night_old or test is False:
-        day_night_old = day_night
-        yield_me += 'event: dayNight\n' + 'data: ' + day_night + '\n\n'
-    if out_temp != out_temp_old or test is False:
-        out_temp_old = out_temp
-        yield_me += 'event: outTemp\n' + 'data: ' + str(out_temp) + '\n\n'
-    if in_temp != in_temp_old or test is False:
-        in_temp_old = in_temp
-        yield_me += 'event: inTemp\n' + 'data: ' + str(in_temp) + '\n\n'
-    if tom_temp != tom_temp_old or test is False:
-        tom_temp_old = tom_temp
-        yield_me += 'event: tomTemp\n' + 'data: ' + str(tom_temp) + '\n\n'
-    if rss_feed != rss_feed_old or test is False:
-        rss_feed_old = rss_feed
-        yield_me += 'event: rssFeed\n' + 'data: ' + json.dumps(rss_feed) + '\n\n'
-    if icon != icon_old or new is True:
-        icon_old = icon
-        new = False
-        yield_me += 'event: icon\n' + 'data: ' + icon + '\n\n'
-    if forecast_day != forecast_day_old or test is False:
-        forecast_day_old = forecast_day
-        yield_me += 'event: forecastDay\n' + 'data: ' + json.dumps(forecast_day) + '\n\n'
-    if forecast_cond != forecast_cond_old or test is False:
-        forecast_cond_old = forecast_cond
-        yield_me += 'event: forecastCond\n' + 'data: ' + json.dumps(forecast_cond) + '\n\n'
-    if forecast_high != forecast_high_old or test is False:
-        forecast_high_old = forecast_high
-        yield_me += 'event: forecastHigh\n' + 'data: ' + json.dumps(forecast_high) + '\n\n'
-    if forecast_low != forecast_low_old or test is False:
-        forecast_low_old = forecast_low
-        yield_me += 'event: forecastLow\n' + 'data: ' + json.dumps(forecast_low) + '\n\n'
-    if forecast_decription != forecast_decription_old or test is False:
-        forecast_decription_old = forecast_decription
-        yield_me += 'event: forecastDecription\n' + 'data: ' + json.dumps(forecast_decription) + '\n\n'
-    if allergy_forecast != allergy_forecast_old or test is False:
-        allergy_forecast_old = allergy_forecast
-        yield_me += 'event: allergyForecast\n' + 'data: ' + json.dumps(allergy_forecast) + '\n\n'
-    if predominant_pollen != predominant_pollen_old or test is False:
-        predominant_pollen_old = predominant_pollen
-        yield_me += 'event: predominantPollen\n' + 'data: ' + predominant_pollen + '\n\n'
-    if full_weather != full_weather_old or test is False:
-        full_weather_old = full_weather
-        yield_me += 'event: fullWeather\n' + 'data: ' + json.dumps(full_weather) + '\n\n'
-    if hourly_temps != hourly_temps_old or test is False:
-        hourly_temps_old = hourly_temps
-        yield_me += 'event: hourlyTemps\n' + 'data: ' + json.dumps(hourly_temps) + '\n\n'
-    if alert != alert_old or test is False:
-        alert_old = alert
-        yield_me += 'event: alert\n' + 'data: ' + json.dumps(alert) + '\n\n'
-    if utah_week != utah_week_old or test is False:
-        utah_week_old = utah_week
-        yield_me += 'event: utahInfo\n' + 'data: ' + json.dumps(utah_week) + '\n\n'
-    if utah_score != utah_score_old:
-        utah_score_old = utah_score
-        yield_me += 'event: utahScore\n' + 'data: ' + json.dumps(utah_score) + '\n\n'
-    if sf_week != sf_week_old or test is False:
-        sf_week_old = sf_week
-        yield_me += 'event: sfInfo\n' + 'data: ' + json.dumps(sf_week) + '\n\n'
-    if sf_score != sf_score_old:
-        sf_score_old = sf_score
-        yield_me += 'event: sfScore\n' + 'data: ' + json.dumps(sf_score) + '\n\n'
-    if kc_week != kc_week_old or test is False:
-        kc_week_old = kc_week
-        yield_me += 'event: kcInfo\n' + 'data: ' + json.dumps(kc_week) + '\n\n'
-    if kc_score != kc_score_old:
-        kc_score_old = kc_score
-        yield_me += 'event: kcScore\n' + 'data: ' + json.dumps(kc_score) + '\n\n'
-    if rsl_week != rsl_week_old or test is False:
-        rsl_week_old = rsl_week
-        yield_me += 'event: rslInfo\n' + 'data: ' + json.dumps(rsl_week) + '\n\n'
-    if rsl_score != rsl_score_old:
-        rsl_score_old = rsl_score
-        yield_me += 'event: rslScore\n' + 'data: ' + json.dumps(rsl_score) + '\n\n'
-    if ncaa_rankings != ncaa_rankings_old or test is False:
-        ncaa_rankings_old = ncaa_rankings
-        yield_me += 'event: ncaaRankings\n' + 'data: ' + json.dumps(ncaa_rankings) + '\n\n'
-    if pac12_standings != pac12_standings_old or test is False:
-        pac12_standings_old = pac12_standings
-        yield_me += 'event: pac12Standings\n' + 'data: ' + json.dumps(pac12_standings) + '\n\n'
-    if soccer_standings != soccer_standings_old or test is False:
-        soccer_standings_old = soccer_standings
-        yield_me += 'event: soccerStandings\n' + 'data: ' + json.dumps(soccer_standings) + '\n\n'
-    if nfl_rankings != nfl_rankings_old or test is False:
-        nfl_rankings_old = nfl_rankings
-        yield_me += 'event: nflRankings\n' + 'data: ' + json.dumps(nfl_rankings) + '\n\n'
-    if opening_movies != opening_movies_old or test is False:
-        opening_movies_old = opening_movies
-        yield_me += 'event: openingMovies\n' + 'data: ' + json.dumps(opening_movies) + '\n\n'
-    if local_events != local_events_old or test is False:
-        local_events_old = local_events
-        yield_me += 'event: localEvents\n' + 'data: ' + json.dumps(local_events) + '\n\n'
-    if album_info != album_info_old or test is False:
-        album_info_old = album_info
-        test = True
-        yield_me += 'event: albumInfo\n' + 'data: ' + json.dumps(album_info) + '\n\n'
-    if st_got:
-        st_got = False
-        yield_me += 'event: stations\n' + 'data: ' + json.dumps(stations) + '\n\n'
+    holiday_list = sorted(holiday_list, key=itemgetter(0))
 
-    yield yield_me
 
-    time.sleep(0)
+get_holidays()
+holiday_sched = sched.add_interval_job(get_holidays, days=365, start_date=datetime.now()
+                                       .replace(year=datetime.now().year + 1, month=1, day=1, hour=0, minute=5))
 
+
+def check_holiday():
+    for i in holiday_list:
+        da = datetime.strptime(i[0], '%Y-%m-%d')
+        if (da - datetime.now()).total_seconds() > 0:
+            if i[1] in like_holiday:
+                if (da - datetime.now()).days < 14:
+                    write_yield('holiday', i)
+                else:
+                    holiday_day = sched.add_date_job(run_holiday, da-timedelta(days=-14).replace(hour=0, minute=1,
+                                                                                                 second=0), args=i)
+                break
+            else:
+                if (da - datetime.now()).days < 3:
+                    write_yield('holiday', i)
+                else:
+                    holiday_day = sched.add_date_job(run_holiday, (da-timedelta(days=-3)).replace(hour=0, minute=1,
+                                                                                                  second=0), args=i)
+                break
+    else:
+        pass
+
+
+check_holiday()
+holiday_day_sched = sched.add_interval_job(check_holiday, days=1, start_date=(datetime.now()+timedelta(days=1))
+                                           .replace(hour=0, minute=2))
+
+
+def run_holiday(hday):
+    write_yield('holiday', hday)
+
+#sched.print_jobs()
 print('OK GO')
+temp_yield = yield_me
 
+#######  --==Web Part==--  #######
 try:
-
     @app.route('/my_event_source')
     def sse_request():
-        return Response(event_stream(), mimetype='text/event-stream')
+        global yield_me
+        temp = yield_me
+        yield_me = ''
+        return Response(temp, mimetype='text/event-stream')
 
     @app.route('/')
     def my_form():
-        global test, st_got, new
-        test = False
-        new = True
-        st_got = True
+        global yield_me
+        yield_me = temp_yield
         return render_template("index.html")
 
     @app.route('/entertainment', methods=['POST'])
@@ -758,9 +693,10 @@ try:
         a = request.form.get('a', 'something is wrong', type=str)
         b = request.form.get('b', 'something is wrong', type=str)
         print(a + ' - ' + b)
-        data = dict(title=a, url=b, type='link')
-        api_key = 'v1DxHg2oyCZCPc5Xr6KiVh4X3sLfkdibX2ujBvxC0RbUW'
-        # requests.post('https://api.pushbullet.com/v2/pushes', auth=(api_key, ''), data=data)
+        if on_pi:
+            data = dict(title=a, url=b, type='link')
+            api_key = 'v1DxHg2oyCZCPc5Xr6KiVh4X3sLfkdibX2ujBvxC0RbUW'
+            requests.post('https://api.pushbullet.com/v2/pushes', auth=(api_key, ''), data=data)
         return jsonify({'1': ''})
 
     @app.route('/music', methods=['POST'])

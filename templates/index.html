@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/static/style/jquery-ui.css">
     <link rel="stylesheet" href="/static/style/tabcontent.css">
     <script src="/static/script/jquery-2.1.1.min.js"></script>
+    <script src="/static/script/jquery.mobile.custom.min.js"></script>
     <script src="/static/script/jquery-ui.js"></script>
     <script src="/static/script/jquery.webticker.js"></script>
     <script src="/static/script/skycons.js"></script>
@@ -38,87 +39,60 @@
                 keepTracking: false
             });
 
-            var day = countdown(new Date(2014, 11, 25), null ,countdown.DAYS | countdown.HOURS, 1);
-            console.log(day.toString());
-            $('#sourceText').html(day.toString() + ' \'till Christmas');
+            $(window).on('swipeleft', function(){
+                var tabNo;
+                for (var t = 1; t < list.length+1; t++){
+                    if(list[t-1].className === 'selected') {
+                        if (t === 1 && panelOut === false) {
+                            weatherSlider();
+                            break
+                        } else {
+                            tabNo = t + 1;
+                            if (tabNo > list.length) {
+                                tabNo = list.length
+                            }
+                            changeTab('view' + tabNo.toString());
+                            break
+                        }
+                    }
+                }
+            });
+
+            $(window).on('swiperight', function(){
+                var tabNo;
+                for (var t = 1; t < list.length+1; t++){
+                    if(list[t-1].className === 'selected'){
+                        if (t === 1 && panelOut === true) {
+                            weatherSlider();
+                            break
+                        } else {
+                            tabNo = t - 1;
+                            if (tabNo < 1) {
+                                tabNo = 1
+                            }
+                            changeTab('view' + tabNo.toString());
+                            break
+                        }
+                    }
+                }
+            });
+
+
+            var tabsWidth = 0;
+            for (var q = 0; q < list.length; q++ ){
+                tabsWidth += $('#tabList li:nth-child(' + (q + 1) + ')').outerWidth();
+            }
+            tabsWidth += list.length * 5;
+            $('#tabFiller').css({width: (1280 - tabsWidth + 4) + 'px'});
 
             startTime();
             setDate();
 
-//            $("ul#ticker01").webTicker();
+            setTickerWidth(150);
+
         });
-
-        var holiday2;
-        function holiday(holiday){
-            cleanup();
-            if (holiday === 'christmas'){
-                holiday2 = holiday;
-                lights();
-            } else if (holiday === 'thanksgiving') {
-                holiday2 = holiday;
-                hats();
-            }
-        }
-
-        function changeTab(tis){
-            var list = ['view1', 'view2','view3','view4','view5','view6'];
-            for (var i = 0; i < list.length; i++){
-                if (tis === list[i]){
-                    $('div#' + list[i]).fadeIn(300);
-                    $('ul#tabList li:nth-child(' + (i+1) + ')').addClass('selected');
-
-                } else {
-                    $('div#' + list[i]).hide();
-                    $('ul#tabList li:nth-child(' + (i+1) + ')').removeClass('selected');
-                }
-            }
-        }
-
-        function startTime() {
-            var today=new Date();
-            var am_pm = 'AM';
-            var h=today.getHours();
-            var m=today.getMinutes();
-            if (h===12){am_pm = 'PM';}
-            if (h>12){h-=12; am_pm = 'PM';}
-            if (h === 0){h = 12; setDate();}
-            m = checkTime(m);
-            document.getElementById('time').innerHTML = h+":"+m+" "+am_pm;
-            setTimeout(function(){startTime()},3000);
-        }
-
-        function checkTime(i) {
-            if (i<10) {i = "0" + i}
-            return i;
-        }
-
-        function setDate(){
-            var date = new Date();
-            var months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
-            $('#dateText').html(months[date.getMonth()] + ' ' + date.getDate() + ' ' + date.getFullYear());
-            setTickerOffWidth()
-        }
-
-        function weatherSlider(){
-            if ($('div#homeMusicDisplay').is(':visible')) {
-                $('#homeMusicDisplay').hide('slide', {direction: 'right'});
-            } else if ($('#musicPlaying').is(':visible')) {
-                $('#homeMusicDisplay').show('slide', {direction: 'right'});
-            }
-            $('#weatherSlider').toggle('slide', {direction: 'right'})
-        }
-
-        function setTickerWidth () {
-            $('div#newsSource').animate({left: ($('div#date').width()+5) + 'px'}, 1000);
-            $('div#ticker, div.tickercontainer').animate({width: (1280 - ($('#date').width() + $('#newsSource').width() + 220)-25) + 'px'}, 500);
-        }
-
-        function setTickerOffWidth () {
-            $('div#tickerOff').css({width: (1280 - ($('#date').width() + 220)-10) + 'px'}, 500);
-        }
-
-
     </script>
+    <script src="/static/script/script.js"></script>
     <script src="/static/script/sse.js"></script>
 </head>
 
@@ -134,31 +108,39 @@
         <li onclick="changeTab('view2')" >Forecast</li>
         <li onclick="changeTab('view3')" >Music</li>
         <li onclick="changeTab('view4')" >Entertainment</li>
-        <li onclick="changeTab('view5')" >Sports</li>
+        <!--<li onclick="changeTab('view5')" >Sports</li>-->
+        <li onclick="changeTab('view5')" >News</li>
         <li onclick="changeTab('view6')" >Apps</li>
     </ul>
     <div id="tabFiller"></div>
 
 <!--     *** Home Tab ***     -->
-    <div id="view1">
-    <div id="temps">
-        <div id="out" onclick="weatherSlider()">
-            <div id="outLabel">Outside Temp</div>
-            <div id="outTemp">102</div><span>°</span>
-        </div>
-        <div id="tom" onclick="$('ul.tabs li:nth-child(2)').trigger('click')">
-            <div id="tomLabel">Tomorrow</div>
-            <div id="tomTemp">101</div><span>°</span>
-        </div>
-        <div id="in">
-            <div id="inLabel">Inside Temp</div>
-            <div id="inTemp">72</div><span>°</span>
-        </div>
-    <div id="alert"></div>
-    </div>
+<div id="view1">
 
+    <section>
+    <div id="temps">
+        <div id="outTomContainer">
+            <div id="out" onclick="weatherSlider()">
+                <div id="outLabel">Outside Temp</div>
+                <div id="outTemp">102</div>
+            </div>
+            <div id="tom" onclick="$('ul.tabs li:nth-child(2)').trigger('click')">
+                <div id="tomLabel">Tomorrow</div>
+                <div id="tomTemp">101</div>
+            </div>
+        </div>
+        <div id="inContainer">
+            <div id="in">
+                <div id="inLabel">Inside Temp</div>
+                <div id="inTemp">72</div>
+            </div>
+        </div>
+    </div>
+    <div id="alert"></div>
+    </section>
 
     <!--    ** Weather Slider **    -->
+    <section>
     <div id="weatherSlider">
         <div id="cityName">Murray, UT</div>
         <div id="updateTime">Now</div>
@@ -229,9 +211,10 @@
             <div id="predominantPollen"></div>
         </div>
     </div>
-
+    </section>
 
 <!--  ** Home Music Display **  -->
+    <section>
     <div id="homeMusicDisplay" onclick="$('ul.tabs li:nth-child(3)').trigger('click')">
         <div class="albumArt"></div>
         <div id="homeAlbumInfo">
@@ -242,20 +225,20 @@
             </table>
         </div>
     </div>
-
+    </section>
 
 <!--    ** RSS Ticker **    -->
+    <section>
     <div id="tickerOff"></div>
-
     <div id="date"><div id="dateText">Nov. 26 2014</div></div>
-    <div id="newsSource">Technology</div>
-    <div id="ticker">
-        <div id="tickerText"></div>
+    <div id="tickerOn">
+        <div id="newsSource"></div>
+        <div id="ticker">
+            <div id="tickerText"></div>
+        </div>
     </div>
-
+    </section>
 </div>
-
-
 
 <!--   ** Forecast Tab **   -->
     <div id="view2">
@@ -388,7 +371,7 @@
     </div>
 
 <!--   ** Sports Tab **   -->
-    <div id="view5">
+ <!--   <div id="view5">
         <div id="sportsContainer">
             <div id="scoresContainer">
                 <div id="utahCover" class="scoreCover"></div>
@@ -485,8 +468,8 @@
                     $('#mlsStandings').hide();
                     $('#nflAFCRankings').hide();
                     $('#nflNFCRankings').hide();
-                    $('#pac12Standings').toggle('fade', duration=300);
-                    $('#ncaaRankings').toggle('fade', duration=300);
+                    $('#pac12Standings').toggle('fade', {duration: 300});
+                    $('#ncaaRankings').toggle('fade', {duration: 300});
 
                 });
                 $('#rslCover').click(function(){
@@ -494,15 +477,15 @@
                     $('#ncaaRankings').hide();
                     $('#nflAFCRankings').hide();
                     $('#nflNFCRankings').hide();
-                    $('#mlsStandings').toggle('fade', duration=300);
+                    $('#mlsStandings').toggle('fade', {duration: 300});
 
                 });
                 $('#49ersCover, #kcCover').click(function(){
                     $('#pac12Standings').hide();
                     $('#ncaaRankings').hide();
                     $('#mlsStandings').hide();
-                    $('#nflAFCRankings').toggle('fade', duration=300);
-                    $('#nflNFCRankings').toggle('fade', duration=300);
+                    $('#nflAFCRankings').toggle('fade', {duration: 300});
+                    $('#nflNFCRankings').toggle('fade', {duration: 300});
                 });
             </script>
 
@@ -620,7 +603,8 @@
 
             </div>
         </div>
-    </div>
+    </div>-->
+
 <!--   ** Apps Tab **   -->
     <div id="view6">
         <div id="appBar">
@@ -638,17 +622,17 @@
 <!--    ** RSS Popup **    -->
     <div id="screenCover"></div>
     <div id="popupContent" class="movieCover">
+        <div id="rss1sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="sendToPhone">Send to phone</div><div class="closeButton">X</div></div>
         {% for x in range(1,11) %}
-        <div id="rss{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="sendToPhone">Send to phone</div></div>
-        <div id="day{{ x }}description" class="popupText"></div>
         <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div><div class="sendToPhone">Send to phone</div></div>
         <div id="ent{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="sendToPhone">Send to phone</div></div>{% endfor %}
-        <div id="alertDescription" class="popupText"></div>
+        <div id="alertDescription" class="popupText"><div class="movieName"></div><div class="synopsis"></div><div class="closeButton">X</div></div>
+        <div id="day1description" class="popupText"><div class="movieName"></div><div class="synopsis"></div><div class="closeButton">X</div></div>
     </div>
 
     <script>
-        $('.movieName, .image, .synopsis, .rating, .length, .actors, #screenCover').click(function(){
-            $('.popupText, #popupContent, #screenCover').hide();
+        $('.movieName, .image, .synopsis, .rating, .length, .actors, #screenCover, .closeButton').click(function(){
+            $('.popupText, #popupContent, #screenCover, #alertDescription, #day1description').hide();
             $('.sendToPhone').css('background', 'rgba(255, 255, 255, 0.25)').css('pointer-events', 'auto').html('Send to phone')
         });
 
@@ -671,6 +655,6 @@
 </div>
 <div id="test">poo</div>
 <div id="test2">poo</div>
-
+<canvas id="myCanvas"></canvas>
 </body>
 </html>

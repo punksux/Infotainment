@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'dotness';
+    src: url('/static/fonts/dotness1-webfont.eot');
+    src: url('/static/fonts/dotness1-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/dotness1-webfont.woff2') format('woff2'),
+         url('/static/fonts/dotness1-webfont.woff') format('woff'),
+         url('/static/fonts/dotness1-webfont.ttf') format('truetype'),
+         url('/static/fonts/dotness1-webfont.svg#dotnessmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+#holiday {
+    position: absolute;
+    right: 0;
+    bottom: 150px;
+    height:650px;
+    font-family: dotness, sans-serif;
+    font-size: 160px;
+    color: rgba(255,255,255,.1);
+    text-shadow: -1px -1px 0 rgba(255, 255, 212, 0.50), 0 0 10px rgba(255,255,255,.5) ;
+    /*-webkit-text-stroke: 1px rgba(255,255,255,.92);*/
+    text-align: center;
+}
+
+#newYear {
+    position: absolute;
+    bottom: -50px;
+    right: 100px;
+}
+
+#holiday img {
+    position: absolute;
+    right: 10px;
+    top: 100px;
+}

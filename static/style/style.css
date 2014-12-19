@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'Code';
+    src: url('/static/fonts/codebold-webfont.eot');
+    src: url('/static/fonts/codebold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/codebold-webfont.woff2') format('woff2'),
+         url('/static/fonts/codebold-webfont.woff') format('woff'),
+         url('/static/fonts/codebold-webfont.ttf') format('truetype'),
+         url('/static/fonts/codebold-webfont.svg#code_boldregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+* {margin: 0; padding: 0;}
+
 body {
     margin: 0;
     overflow-y: scroll;
@@ -6,7 +21,7 @@ body {
 #content{
     width:1280px;
     height:800px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     overflow: hidden;
     position: relative;
     margin: 0 auto;
@@ -56,9 +71,9 @@ body {
 /*  --== Temp Display ==--  */
 #temps {
     float:left;
-    height:655px;
-    width:700px;
-    margin-top:40px;
+    height:695px;
+    width:820px;
+    /*margin-top:40px;*/
     color:white;
     font:bold 40px Code;
     /*font-weight: bold;*/
@@ -72,59 +87,86 @@ body {
 }
 
 #temps span {
-    font-size: 100px;
+    font-size: 150px;
     display: inline-block;
     vertical-align: top;
-    line-height: 180px;
+    line-height: 160px;
     /*border:1px solid #ffffff;*/
-    margin-top:15px;
-    text-shadow: 0 0 6px #333;
+    /*margin-top:40px;*/
+    text-shadow: 0 0 10px #111;
+}
+
+#outTomContainer {
+    width: 100%;
+    height: 346px;
+    /*border:1px solid red;*/
+    position: absolute;
+    text-align: center;
 }
 
 #out, #in, #tom {
-    width:340px;
-    position:relative;
-    display: inline-block;
-    height: 300px;
+    width:400px;
+    position:absolute;
+    height: 340px;
     /*border:1px solid yellow;*/
     top:0;
-    overflow: hidden;
+}
+
+#inContainer {
+    width: 100%;
+    height: 346px;
+    /*border:1px solid blue;*/
+    position: absolute;
+    bottom: 0;
 }
 
 #in {
-    display: block;
-    margin: 0 auto;
+    left: 210px;
+}
+
+#out {
+    left: 210px;
+    top: 0;
+}
+
+#tom {
+    right: 2px;
+    display: none;
 }
 
 #outTemp, #inTemp, #tomTemp{
-    font-size: 180px;
+    font-size: 280px;
     text-align: center;
-    position: relative;
+    position: absolute;
     margin: 0 auto;
-    top:40px;
+    bottom: 0;
+    left: 0;
     height:220px;
+    width: 100%;
     /*border:1px solid #ffffff;*/
     display: inline-block;
-    text-shadow: 0 0 15px #333;
-   /* text-shadow: -3px -3px 0 #111,
-                -3px 3px 0 #111,
-                3px 3px 0 #111,
-                3px -3px 0 #111;*/
+    text-shadow: 0 0 20px #111;
+    vertical-align: middle;
+    line-height: 220px;
+    white-space: nowrap;
 }
 
 #outLabel, #inLabel, #tomLabel {
-    font-size: 35px;
+    font-size: 45px;
     width:100%;
     text-align: center;
     position:relative;
-    top:40px;
-    text-shadow: 0 0 8px #333;
+    top:50px;
+    text-shadow: 0 0 8px #111;
 }
 
 #alert {
-    margin-top:-20px;
-    color: #000;
-    text-shadow:0 0 5px black, 0 -10px 25px #ffffff, 0 10px 25px #ffffff, -10px 0 25px #ffffff, 10px 0 25px #ffffff;
+    position: absolute;
+    right: 100px;
+    bottom: 100px;
+    font:bold 40px Code;
+    color: white;
+    text-shadow:0 0 5px black, 0 -10px 25px #ff9999, 0 10px 25px #ff9999, -10px 0 25px #ff9999, 10px 0 25px #ff9999;
     cursor: pointer;
 }
 
@@ -345,11 +387,28 @@ body {
     height: 50px;
     vertical-align: middle;
     line-height: 50px;
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 3px #333;
+    font-size: 30px;
+}
+
+#tickerOn {
+    position: absolute;
+    bottom: 0;
+    right: 225px;
+    z-index: 15;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+    display: none;
+    overflow: hidden;
 }
 
 #newsSource {
     position: absolute;
     bottom:0;
+    left: 0;
     height: 50px;
     background: rgba(0,0,0,0.5);
     vertical-align: middle;
@@ -357,72 +416,24 @@ body {
     color: white;
     text-shadow: 0 0 3px #333;
     padding: 0 5px 0 5px;
-    display: none;
+    text-align: center;
 }
 
 #ticker {
     position: absolute;
     bottom:0;
-    right:225px;
+    right:0;
     z-index: 15;
     background: rgba(0,0,0,0.5);
     height: 50px;
     vertical-align: middle;
     line-height: 50px;
-    display: none;
-}
-
-#tickerText {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     color: white;
     padding: 0 5px 0 5px;
     text-shadow: 0 0 3px #333;
-}
-
-.tickercontainer {
-    /*width:879px;*/
-    height: 50px;
-    background: rgba(0,0,0,0.5);
-    overflow: hidden;
-    color: #ffffff;
-    border: 0 solid rgba(0,0,0,0.75);
-    /*border-top-width: 1px;*/
-    /*border-bottom-width: 1px;*/
-    text-shadow: 0 0 2px #333;
-    /*left:180px*/
-    padding: 0 10px 0 10px;
-    position: absolute;
-    bottom:0;
-    right:0;
-}
-
-.tickercontainer .mask {
-    position:relative;
-    top:6px;
-    padding: 5px;
-    overflow: hidden;
-}
-
-ul.newsticker{
-    -webkit-transition: all 0s linear;
-    -moz-transition: all 0s linear;
-    -o-transition: all 0s linear;
-    transition: all 0s linear;
-    position: relative;
-    list-style-type: none;
-    margin:0;
-    border: 1px solid transparent;
-}
-
-ul.newsticker li {
-    float: left;
-    margin: 0;
-    padding: 0 7px;
-    box-sizing:border-box;
-}
-
-.webticker-init {
-    background: transparent;
-    border: 0;
 }
 
 
@@ -590,6 +601,10 @@ ul.newsticker li {
     line-height: 30px;
 }
 
+#alertDescription .synopsis {
+    width: 1180px;
+}
+
 .rating {
     position: absolute;
     top: 350px;
@@ -650,6 +665,19 @@ ul.newsticker li {
     height:50px;
     border:1px solid white;
 }
+
+.closeButton {
+    width: 50px;
+    height: 50px;
+    background: rgba(0,0,0,.25);
+    z-index: 305;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
 
 /*  --== Forecast Page ==--  */
 #forecastHolder {
@@ -864,7 +892,7 @@ ul.newsticker li {
 .albumArt {
     width:250px;
     height:250px;
-    /*background: url('/static/images/pandora/blank.jpg');*/
+    background: url('/static/images/pandora/blank.jpg');
     background-size: contain !important;
 }
 
@@ -1275,7 +1303,7 @@ ul.newsticker li {
 
 #appDisplay {
     width:1242px;
-    height:600px;
+    height:580px;
     margin-top: 0;
     border: 0 solid black;
     position:absolute;

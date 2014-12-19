@@ -4,7 +4,7 @@ function getRandomInt(min, max) {
 
 
 //    --== Christmas ==--
-function lights() {
+function christmas() {
     $('head').append($('<link rel="stylesheet" type="text/css" id="holidayStyle" />').attr('href', '/static/holiday/christmas.css'));
     $('#holiday').html('<div id="bulbs"></div>');
     var width = $('div#bulbs').width();
@@ -27,10 +27,10 @@ function lights() {
     $('div#holiday div#bulbs').append('<div class="cord" style="left:' + (op+5) + 'px;width:' + ((p - op)+5) + 'px;-webkit-transform:rotate(' + -dist + 'deg);top:' + (dist/2) + 'px"></div>')
 }
 
-//
-
 function turnOnLights() {
     $('.bulb').addClass('lights_on');
+    var rand = getRandomInt(0,16);
+    $('#bulbs .bulbHolder div:nth-child(rand)').removeClass('lights_on');
     $('#onOffButton').html('<div id="manualOff" class="button"><span>Turn lights off</span></div>');
     $('#manualOff').on('click', function () {
         manualLights('off');
@@ -57,6 +57,12 @@ function hats() {
     }
 }
 
+//    --== New Years ==--
+function newYears(){
+    $('head').append($('<link rel="stylesheet" type="text/css" id="holidayStyle" />').attr('href', '/static/holiday/newYears.css'));
+    var date = new Date();
+    $('#holiday').html('<img src="/static/holiday/images/fireworks.png" /><div id="newYear">' + (date.getFullYear() + 1) + '</div>')
+}
 
 //    --== Day or Night Switch ==--
 function dayNight(dN){
@@ -69,7 +75,8 @@ function dayNight(dN){
     } else if (dN === 'night') {
         switch (holiday2) {
             case "christmas":
-                turnOnLights()
+                turnOnLights();
+                break
         }
     }
 }
