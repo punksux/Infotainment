@@ -260,7 +260,7 @@ check_weather()
 dt = datetime.now()
 if on_pi:
     if dt.minute > 30:
-        weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=(dt + timedelta(hours=1)
+        weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=((dt + timedelta(hours=1))
                                                                                    .replace(minute=0, second=0)))
     else:
         weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=(dt.replace(minute=30, second=0)))
