@@ -661,13 +661,16 @@ def check_holiday():
         pass
 
 
+def run_holiday(hday):
+    write_yield('holiday', hday)
+
+
 check_holiday()
 holiday_day_sched = sched.add_interval_job(check_holiday, days=1, start_date=(datetime.now()+timedelta(days=1))
                                            .replace(hour=0, minute=2))
 
 
-def run_holiday(hday):
-    write_yield('holiday', hday)
+
 
 #sched.print_jobs()
 print('OK GO')
