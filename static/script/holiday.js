@@ -29,8 +29,6 @@ function christmas() {
 
 function turnOnLights() {
     $('.bulb').addClass('lights_on');
-    var rand = getRandomInt(0,16);
-    $('#bulbs .bulbHolder div:nth-child(rand)').removeClass('lights_on');
     $('#onOffButton').html('<div id="manualOff" class="button"><span>Turn lights off</span></div>');
     $('#manualOff').on('click', function () {
         manualLights('off');

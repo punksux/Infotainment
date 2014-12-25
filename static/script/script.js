@@ -84,7 +84,7 @@ function setDate(){
     setTickerOffWidth();
     if (hday != ''){
         countdownTimer(hday);
-        if (parseInt(($('#tickerOff').html()).split(' ')[0]) === 0){
+        if (parseInt(($('#tickerOff').html()).split(' ')[0], 10) === 0){
             hday = '';
             $('#tickerOff').html('');
             cleanup()
