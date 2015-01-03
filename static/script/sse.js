@@ -7,10 +7,12 @@ $(document).ready(function () {
     sse.addEventListener('dayNight', function (message) {
         if (message.data === 'night') {
             dayOrNight = 'night';
-            dayNight('night')
+            dayNight('night');
+            $('#dimmer').fadeTo(500, .25);
         } else {
             dayOrNight = 'day';
-            dayNight('day')
+            dayNight('day');
+            $('#dimmer').fadeTo(500, 0);
         }
     });
 

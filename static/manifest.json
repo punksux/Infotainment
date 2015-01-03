@@ -2,11 +2,10 @@
   "name": "Infotainment",
   "icons": [
     {
-      "src": "launcher-icon.png",
+      "src": "/static/images/launcher-icon.png",
       "type": "image/png"
     }
   ],
-  "start_url": "/",
   "display": "standalone",
   "orientation": "landscape"
 }
