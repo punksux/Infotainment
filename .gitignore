@@ -4,3 +4,4 @@
 *.ini
 \old crap
 pandora.txt
+*.pyc
