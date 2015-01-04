@@ -47,7 +47,7 @@ body {
     top: 0;
     left: 0;
     opacity: 0;
-
+    pointer-events: none;
 }
 
 #view1, #view2, #view3, #view4, #view5, #view6 {
@@ -1325,6 +1325,12 @@ body {
     overflow-y: scroll;
 }
 
+
+#myCanvas {
+    position: absolute;
+    top:0;
+    left:0;
+}
 
 /*  --== Extras ==--  */
 
