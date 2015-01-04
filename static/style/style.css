@@ -46,6 +46,7 @@ body {
     z-index: 2000;
     top: 0;
     left: 0;
+    opacity: 0;
 
 }
 
