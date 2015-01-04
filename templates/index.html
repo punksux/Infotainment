@@ -45,17 +45,12 @@
                 var tabNo;
                 for (var t = 1; t < list.length+1; t++){
                     if(list[t-1].className === 'selected') {
-                        if (t === 1 && panelOut === false) {
-                            weatherSlider();
-                            break
-                        } else {
-                            tabNo = t + 1;
-                            if (tabNo > list.length) {
-                                tabNo = list.length
-                            }
-                            changeTab('view' + tabNo.toString());
-                            break
+                        tabNo = t + 1;
+                        if (tabNo > list.length) {
+                            tabNo = list.length
                         }
+                        changeTab('view' + tabNo.toString());
+                        break
                     }
                 }
             });
@@ -64,17 +59,12 @@
                 var tabNo;
                 for (var t = 1; t < list.length+1; t++){
                     if(list[t-1].className === 'selected'){
-                        if (t === 1 && panelOut === true) {
-                            weatherSlider();
-                            break
-                        } else {
-                            tabNo = t - 1;
-                            if (tabNo < 1) {
-                                tabNo = 1
-                            }
-                            changeTab('view' + tabNo.toString());
-                            break
+                        tabNo = t - 1;
+                        if (tabNo < 1) {
+                            tabNo = 1
                         }
+                        changeTab('view' + tabNo.toString());
+                        break
                     }
                 }
             });

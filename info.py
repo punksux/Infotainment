@@ -122,6 +122,7 @@ def check_weather():
             sunrise_hour = int(parsed_json['sun_phase']['sunrise']['hour'])
             sunrise_minute = int(parsed_json['sun_phase']['sunrise']['minute'])
             day_or_night(sunset_hour, sunset_minute)
+            write_yield('dayNight', day_night)
 
             for i in range(0, 12):
                 hourly_temps.append(parsed_json['hourly_forecast'][i]['temp']['english'])
@@ -260,8 +261,7 @@ check_weather()
 dt = datetime.now()
 if on_pi:
     if dt.minute > 30:
-        weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=((dt + timedelta(hours=1))
-                                                                                   .replace(minute=0, second=0)))
+        weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=((dt + timedelta(hours=1)).replace(minute=0, second=0)))
     else:
         weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=(dt.replace(minute=30, second=0)))
 else:
@@ -290,9 +290,10 @@ def get_temps_from_probes():
                 temp_string = lines[1][equals_pos+2:]
                 temp_c = float(temp_string) / 1000.0
                 in_temp = temp_c * 9.0 / 5.0 + 32.0
+                write_yield('inTemp', in_temp)
                 #print(in_temp)
 
-        out_temp = str(random.randrange(-32, 104))
+        write_yield('outTemp', str(random.randrange(-32, 104)))
 
     else:
         write_yield('outTemp', str(random.randrange(-32, 104)))
