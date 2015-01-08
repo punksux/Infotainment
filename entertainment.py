@@ -2,20 +2,25 @@ from urllib.request import urlopen
 import json
 from xml.etree import ElementTree as ET
 import datetime
-
-
-rotten_tomatoes_website = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?' \
-                          'apikey=j66zchayd6megzhvzhp33dm9&limit=10'
+import requests
+import bs4
+from urllib.parse import quote
+import random
 
 
 def get_opening_movies():
+    rotten_tomatoes_website = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?' \
+                              'apikey=j66zchayd6megzhvzhp33dm9&limit=10'
+
     f = urlopen(rotten_tomatoes_website)
     json_string = f.read()
     parsed_json = json.loads(json_string.decode('utf-8'))
+    f.close()
 
     opening = []
     for i in parsed_json['movies']:
         title = i['title']
+        trailer = search_trailer(title)
         rating = i['mpaa_rating']
         runtime = i['runtime']
         release_date = i['release_dates']['theater']
@@ -38,7 +43,7 @@ def get_opening_movies():
         link = i['links']['alternate']
 
         opening.append([title, rating, runtime, release_date, rating_rating, rating_critics, rating_audience,
-                        synopsis, poster, actors, link])
+                        synopsis, poster, actors, link, trailer])
 
     return opening
 
@@ -46,8 +51,17 @@ def get_opening_movies():
 # print(str(get_opening_movies()).replace('],', ']\n'))
 
 
-def get_upcoming_movies():
-    pass
+def search_trailer(title):
+    youtube_search = 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance&q=%s&' \
+                     'safeSearch=moderate&key=AIzaSyCEXmTD14AKz0RLWCOw7aIRhW-bIZtqk8o' % quote(title + ' official trailer')
+
+    f = urlopen(youtube_search)
+    json_string = f.read()
+    parsed_json = json.loads(json_string.decode('utf-8'))
+    f.close()
+    trailer_id = parsed_json['items'][0]['id']['videoId']
+    trailer_link = "//www.youtube.com/embed/%s?rel=0&showinfo=0&iv_load_policy=3" % trailer_id
+    return trailer_link
 
 
 def get_local_events():
@@ -89,4 +103,79 @@ def get_local_events():
     return events
 
 
-    #print(str(get_local_events()).replace('],', ']\n'))
+j_ids = []
+
+
+def jeopardy():
+    jservice_website = 'http://jservice.io/api/random?count=1'
+
+    f = urlopen(jservice_website)
+    json_string = f.read()
+    parsed_json = json.loads(json_string.decode('utf-8'))
+    f.close()
+
+    id_no = parsed_json[0]['id']
+
+    if id_no in j_ids:
+        jeopardy()
+    else:
+        answer = parsed_json[0]['answer']
+        question = parsed_json[0]['question']
+        value = parsed_json[0]['value']
+        category = parsed_json[0]['category']['title']
+
+        if len(j_ids) > 99:
+            j_ids.pop(0)
+
+        j_ids.append(id_no)
+
+        print([answer, question, value, category])
+        return [answer, question, value, category]
+
+old_cheez = ''
+
+
+def cheezburger():
+    global old_cheez
+    r = requests.get('http://www.cheezburger.com/')
+    soup = bs4.BeautifulSoup(r.text)
+    image = soup.find(class_='event-item-lol-image')
+    source = image['src']
+    if old_cheez != source:
+        old_cheez = source
+        print(source)
+        return source
+
+old_flickr = []
+
+
+def flickr():
+    global old_flickr, image_url
+    places = ['salt lake city', 'santa cruz', 'san francisco', 'utah', 'united states']
+
+    place = random.choice(places)
+    website = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&' \
+              'api_key=9395f2a0acf2bcac743f0707762e3941&text=%s+landscape&safe_search=1&' \
+              'content_type=1&format=json&nojsoncallback=1' % quote(place)
+
+    print(website)
+    f = urlopen(website)
+    json_string = f.read()
+    parsed_json = json.loads(json_string.decode('utf-8'))
+    f.close()
+
+    for i in range(0, len(parsed_json['photos']['photo'])):
+        if parsed_json['photos']['photo'][i]['id'] in old_flickr:
+            continue
+        else:
+            farm_id = parsed_json['photos']['photo'][i]['farm']
+            server_id = parsed_json['photos']['photo'][i]['server']
+            id_no = parsed_json['photos']['photo'][i]['id']
+            secret = parsed_json['photos']['photo'][i]['secret']
+            image_url = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % (farm_id, server_id, id_no, secret)
+            old_flickr.append(id_no)
+            if len(old_flickr) > 20:
+                old_flickr.pop(0)
+            break
+
+    return image_url

@@ -404,6 +404,7 @@ body {
     color: white;
     text-shadow: 0 0 3px #333;
     font-size: 30px;
+    width: 892px;
 }
 
 #tickerOn {
@@ -416,6 +417,7 @@ body {
     line-height: 50px;
     display: none;
     overflow: hidden;
+    width: 892px;
 }
 
 #newsSource {
@@ -463,6 +465,7 @@ body {
     z-index: 20;
     color: white;
     display: inline-block;
+    width:158px;
 }
 
 #dateText {
@@ -470,7 +473,7 @@ body {
     line-height: 50px;
     text-align: center;
     font-size: 25px;
-    padding: 0 10px 0 10px;
+    /*padding: 0 10px 0 10px;*/
     text-shadow: 1px 1px 3px #333;
 }
 
@@ -603,7 +606,7 @@ body {
     height:270px
 }
 
-.synopsis {
+.synopsis, .trailer {
     overflow-y: auto;
     width: 950px;
     height: 564px;
@@ -612,6 +615,15 @@ body {
     top: 70px;
     font-size: 25px;
     line-height: 30px;
+}
+
+.trailer {
+    display: none;
+}
+
+.trailerSrc {
+    top: 10px;
+    left: 10px;
 }
 
 #alertDescription .synopsis {
@@ -955,7 +967,7 @@ body {
     display: none;
 }
 
-/*  --== Entertainment Page*/
+/*  --== Entertainment Page ==--  */
 #entContainer {
     width:1240px;
     height:684px;
@@ -1027,8 +1039,8 @@ body {
     font-size: 15px;
 }
 
-/*  --== Sports Page ==--  */
-#sportsContainer {
+/*  --== Info Page ==--  */
+#iCont {
     width:1240px;
     height:684px;
     background: rgba(0,0,0,0.75);
@@ -1040,241 +1052,22 @@ body {
     color: #ffffff;
 }
 
-#scoresContainer {
-    width:615px;
-    height: 670px;
-    margin-left: 5px;
-    margin-top: 5px;
-    border:0 solid rgba(255,255,255,0.5);
-    border-right-width: 1px;
-}
-
-.scoreCover {
-    width:580px;
-    height:160px;
-    margin-left: 7px;
-    margin-top: 5px;
-    position: absolute;
-    background: transparent;
-    z-index: 3;
-}
-
-.teamScores {
-    width:580px;
-    height:160px;
-    border:2px solid rgba(255,255,255,0.0);
-    margin-left: 5px;
-    margin-top: 5px;
+#jeopardyReview {
     position: relative;
-    /*background: rgba(0,0,0,0.5);*/
-}
-
-.matchup {
-    position:relative;
-    width:370px;
-    height:100%;
-   /* border: 0 solid rgba(255,255,255,0.5);
-    border-right-width: 2px;*/
-    display: inline-block;
-}
-
-.home, .away {
-    width:100%;
-    height: 50%;
-
-}
-
-.home {
-   border: 0 solid rgba(255,255,255,0.0);
-    border-bottom-width: 2px;
-}
-
-.teamName {
-    font: bold 25px Code;
-    text-shadow: 0 0 8px #333;
-    width:280px;
-    height:80px;
-    border: 0 solid rgba(255,255,255,0.0);
-    border-right-width: 2px;
-    background: rgba(255,255,255,0.25);
-    display: inline-block;
-    position: relative;
-}
-
-.logo, .text {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 80px;
-    position: absolute;
-}
-
-.logo {
     left: 5px;
-    top:10px;
-    width:60px;
-    height:60px;
-    text-align: center;
-    background: no-repeat center;
-    background-size: contain;
-}
-
-.text {
-    text-align: center;
-    width: 190px;
-    left:80px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.score {
-    width:82px;
-    height:76px;
-    background: rgba(255,255,255,0.25);
-    border: 2px solid rgba(255,255,255,0.0);
-    position: absolute;
-    right:0;
-    display: inline-block;
+    top: 10px;
     font-size: 30px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 76px;
 }
 
-.timeLocation {
-    background: rgba(255,255,255,0.25);
-    width:208px;
-    height:162px;
-    position: absolute;
-    right:0;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 162px;
+#cheezReview {
+    position: relative;
+    left: 5px;
+    top: 50px;
+    width:300px;
+    height:300px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
-
-.timeText {
-    font-size: 20px;
-    line-height: 30px;
-    vertical-align: middle;
-    display:inline-block;
-}
-
-#sportsInfo {
-    width:600px;
-    height: 670px;
-    /*border:1px solid white;*/
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
-
-#sportsInfo #pac12Standings {
-    width: 300px;
-    font-size: 18px;
-    display:none;
-    position: absolute;
-    top:0;
-    bottom:0;
-}
-
-#sportsInfo #pac12Standings tr:nth-child(1), #sportsInfo #pac12Standings tr:nth-child(8)  {
-    background: rgba(255,255,255,0.25);
-    font-size: 20px;
-    text-align: left;
-    text-indent: 2px;
-}
-
-#sportsInfo #pac12Standings td:nth-child(2), #sportsInfo #pac12Standings td:nth-child(3){
-    text-align: center;
-}
-
-#sportsInfo #pac12Standings td:nth-child(2), #sportsInfo #pac12Standings td:nth-child(3){
-    width:60px;
-}
-
-#sportsInfo #pac12Standings .smallHeader {
-    font-size: 15px;
-    text-align: center;
-}
-
-#sportsInfo #ncaaRankings {
-    position: absolute;
-    top:0;
-    right:0;
-    height: 660px;
-    width: 290px;
-    font-size: 18px;
-    margin: 0 auto;
-    display:none;
-}
-
-#sportsInfo #ncaaRankings td {
-    /*border:1px solid white;*/
-}
-
-#sportsInfo #ncaaRankings td:nth-child(1), #sportsInfo #ncaaRankings td:nth-child(3),
-#mlsStandings td:nth-child(1), #mlsStandings td:nth-child(3) {
-    text-align: center;
-}
-
-#sportsInfo #ncaaRankings tr:nth-child(even), #mlsStandings tr:nth-child(even)  {
-    background: rgba(255,255,255,0.25);
-}
-
-#mlsStandings {
-    display: none;
-}
-
-#mlsStandings tr:nth-child(1) {
-    height:35px;
-    font-size: 25px;
-}
-
-#mlsStandings td:nth-child(2) {
-    text-indent: 5px;
-}
-
-#mlsStandings .smallHeader {
-    font-size:20px;
-}
-
-.nflTables {
-    display:none;
-}
-
-.nflTables img {
-    height: 20px;
-}
-
-#nflNFCRankings {
-    width:290px;
-}
-
-#nflAFCRankings {
-    width:290px;
-    position: absolute;
-    top:0;
-    right:5px;
-}
-
-.nflTables tr:nth-child(5n+1) {
-    background: rgba(255,255,255,0.25);
-    text-align: left;
-    text-indent: 5px;
-}
-
-.nflTables td:nth-child(n+2){
-    text-align: center;
-}
-
-.nflTables .smallHeader {
-    font-size:15px;
-    text-align: center;
-    text-indent: 0;
-}
-
-.nflTables tr
 
 /*   --== App Page ==--  */
 
@@ -1325,13 +1118,126 @@ body {
     overflow-y: scroll;
 }
 
-
 #myCanvas {
     position: absolute;
     top:0;
     left:0;
     visibility: hidden;
     z-index: -10;
+}
+
+/*  --== Extras ==--  */
+#jeopardyPopup, #jeopardyCover {
+    width:1280px;
+    height: 800px;
+    background: black;
+    z-index: 100;
+    position: absolute;
+    left:0;
+    top: 0;
+    /*border: 1px solid white;*/
+    display: none;
+}
+
+#jeopardyCover {
+    z-index: 102;
+    background: transparent;
+    border: none;
+    left:0;
+    top:0;
+    display: block;
+}
+
+#jepCategory, #jepValue, #jepQuestion {
+    width:250px;
+    height:100px;
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(68,93,255,1)), color-stop(100%,rgba(5,13,255,1)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(68,93,255,1) 0%,rgba(5,13,255,1) 100%);
+    position: absolute;
+    left: 240px;
+    top: 10px;
+    z-index: 101;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100px;
+    font-size: 30px;
+    border-radius: 2px;
+    text-shadow: 2px 2px 2px #000;
+    display: none;
+    border: 3px solid black;
+}
+
+#jepValue {
+    left: 510px;
+    font-size: 50px;
+}
+
+#catText {
+    line-height: normal;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#jepQuestion {
+    width:800px;
+    height:550px;
+    left:100px;
+    top:125px;
+    font-size: 50px;
+    padding: 10px 5px 5px;
+    line-height: 60px;
+    border-radius: 4px;
+}
+
+#jepAnswer {
+    width:800px;
+    height: 100px;
+    color: white;
+    position: absolute;
+    left:100px;
+    top: 450px;
+    z-index: 101;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100px;
+    font-size: 60px;
+    text-shadow: 2px 2px 2px #000;
+    display: none;
+    padding: 0 5px 0 5px;
+}
+
+#cheezImg {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+#cheezImg:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+#cheezImg img {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 1000px;
+    max-height: 700px;
+    border: 4px solid white;
+}
+
+#imageLogo {
+    position: absolute;
+    top:0;
+    left:20px;
+    display: none;
+}
+
+#imageLogo img {
+    width: 200px;
 }
 
 /*  --== Extras ==--  */

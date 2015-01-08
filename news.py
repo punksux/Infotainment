@@ -18,26 +18,29 @@ def get_news():
         website = 'http://api.nytimes.com/svc/news/v3/content/all/%s?' \
                   'api-key=286730a4d43f4ec837576231d54a68a6:17:70264294&limit=10' % category
 
-        f = urlopen(Request(website, headers={'User-Agent': 'Mozilla/5.0'}), timeout=10)
-        json_string = f.read()
-        parsed_json = json.loads(json_string.decode('utf-8'))
-        f.close()
+        try:
+            f = urlopen(Request(website, headers={'User-Agent': 'Mozilla/5.0'}), timeout=10)
+            json_string = f.read()
+            parsed_json = json.loads(json_string.decode('utf-8'))
+            f.close()
 
-        for j in range(0, 10):
-            title = parsed_json['results'][j]['title']
-            summary = parsed_json['results'][j]['abstract']
-            if parsed_json['results'][j]['multimedia'] != '':
-                for k in range(0, len(parsed_json['results'][j]['multimedia'])):
-                    if parsed_json['results'][j]['multimedia'][k]['format'] == 'Standard Thumbnail':
-                        image = parsed_json['results'][j]['multimedia'][k]['url']
-                    if parsed_json['results'][j]['multimedia'][k]['format'] == 'thumbLarge':
-                        image = parsed_json['results'][j]['multimedia'][k]['url']
-                        break
-            else:
-                image = ''
-            link = parsed_json['results'][j]['url']
-            category = 'U.S.' if category == 'u%2Es%2E' else category
-            rss_feed.append([title, summary, image, link, category])
+            for j in range(0, 10):
+                title = parsed_json['results'][j]['title']
+                summary = parsed_json['results'][j]['abstract']
+                if parsed_json['results'][j]['multimedia'] != '':
+                    for k in range(0, len(parsed_json['results'][j]['multimedia'])):
+                        if parsed_json['results'][j]['multimedia'][k]['format'] == 'Standard Thumbnail':
+                            image = parsed_json['results'][j]['multimedia'][k]['url']
+                        if parsed_json['results'][j]['multimedia'][k]['format'] == 'thumbLarge':
+                            image = parsed_json['results'][j]['multimedia'][k]['url']
+                            break
+                else:
+                    image = ''
+                link = parsed_json['results'][j]['url']
+                category = 'U.S.' if category == 'u%2Es%2E' else category
+                rss_feed.append([title, summary, image, link, category])
+        except:
+            pass
 
         time.sleep(2)
 

@@ -387,7 +387,11 @@ $(document).ready(function () {
             $('#movie' + (i + 1) + 'sum .movieName').html(message[i][0]);
             $('#movie' + (i + 1) + 'sum .rating').html('Rating: ' + message[i][1]);
             $('#movie' + (i + 1) + 'sum .length').html('Runtime: ' + message[i][2] + ' min.');
-            $('#movie' + (i + 1) + 'sum .image').css({'background': 'url(' + message[i][8].replace('tmb', 'det') + ') no-repeat center'});
+            $('#movie' + (i + 1) + 'sum .image').css({'background': 'url(' + message[i][8].replace('tmb', 'det') + ') no-repeat center'}).click(function(){
+                $(this).parent().find('.synopsis').toggle();
+                $(this).parent().find('.trailer').toggle();
+            });
+            $('#movie' + (i + 1) + 'sum iframe.trailerSrc').attr('src', message[i][11]);
             $('#movie' + (i + 1) + 'sum .sendToPhone').attr('onclick', 'sendToPhone("' + message[i][0] + '","' + message[i][10] + '")').click(function(){
                 $(this).animate({backgroundColor: '#30ba6f'}, {duration: 500}).html('Sent').css('pointer-events', 'none');
             });
@@ -414,7 +418,9 @@ $(document).ready(function () {
             $('#ent' + (i + 1) + 'sum .synopsis').html(message[i][1]);
             $('#ent' + (i + 1) + 'sum .rating').html('Venue: <br />' + message[i][4]);
             $('#ent' + (i + 1) + 'sum .movieName').html(message[i][0]);
-            $('#ent' + (i + 1) + 'sum .image').css({'background': 'url(' + message[i][5].replace('small', 'medium') + ') no-repeat center'});
+            if(message[i][5] != '') {
+                $('#ent' + (i + 1) + 'sum .image').css({'background': 'url(' + message[i][5].replace('small', 'medium') + ') no-repeat center'});
+            }
             $('#ent' + (i + 1) + 'sum .sendToPhone').attr('onclick', 'sendToPhone("' + message[i][0] + '","' + message[i][6] + '")').click(function(){
                 $(this).animate({backgroundColor: '#30ba6f'}, {duration: 500}).html('Sent').css('pointer-events', 'none');
             });
@@ -462,6 +468,119 @@ $(document).ready(function () {
         holiday2 = message[1].toLowerCase();
         holiday(holiday2);
         countdownTimer(hday);
+    });
+    var infoOn = false;
+    sse.addEventListener('jeopardy', function (message) {
+        message = JSON.parse(message.data);
+        console.log(message);
+        $('#jeopardyReview').html('I\'ll take <i>"' + message[3] + '"</i> for ' + message[2] + ' Alex.').click(function(){
+            console.log(infoOn);
+            if (infoOn === true) {
+                display();
+            } else {
+                go()
+            }
+        });
+
+        function display(){
+            $('#jeopardyPopup').show("scale", {}, 200);
+            $('#catText').html(message[3]);
+            $('#jepCategory').delay(500).show("scale", {}, 200);
+            $('#jepValue').html(message[2]).delay(1000).show("scale", {}, 200);
+            $('#jepQuestion').html(message[1]).delay(1500).show("scale", {}, 200);
+            $('#jepAnswer').delay(1700).show(10);
+        }
+
+        function go() {
+            infoOn = true;
+            display();
+
+            var t = 30;
+            var answer = setInterval(function () {
+                if (t === 0) {
+                    $('#jepAnswer').html(message[0]);
+                    clearInterval(answer);
+                    setTimeout(function () {
+                        $('#screenCover, #jepCategory, #jepValue, #jepQuestion, #jepAnswer').hide();
+                        $('#jeopardyPopup').hide("scale", {}, 200);
+                        infoOn = false;
+                    }, 10000)
+                } else {
+                    $('#jepAnswer').html(t);
+                }
+
+                t--;
+            }, 1000);
+        }
+
+         if (infoOn === true) {
+                var int = setInterval(function(){
+                    if (infoOn === false) {
+                        clearInterval(int);
+                        go()
+                    }
+                }, 5000)
+            } else {
+                go()
+            }
+    });
+    sse.addEventListener('cheezburger', function (message) {
+        console.log(message.data);
+        $('#cheezReview').css({backgroundImage: 'url(' + message.data + ')'}).click(function(){
+            go()
+        });
+        function go(){
+            infoOn = true;
+            $('#jeopardyPopup').show("scale",{}, 200);
+            $('#imageLogo img').attr('src', '/static/images/logos/cheezburger.png');
+            $('#cheezImg img').attr('src', message.data);
+            $('#cheezImg, #imageLogo').delay(200).show(1);
+            setTimeout(function(){
+                $('#cheezImg, #imageLogo').hide();
+                $('#jeopardyPopup').hide("scale",{}, 200);
+                infoOn = false;
+            }, 30000);
+        }
+
+        if(infoOn){
+            var int = setInterval(function(){
+                if (infoOn === false) {
+                    clearInterval(int);
+                    go()
+                }
+            }, 5000)
+        } else {
+            go()
+        }
+    });
+
+    sse.addEventListener('flickr', function (message) {
+        console.log(message.data);
+        $('#cheezReview').css({backgroundImage: 'url(' + message.data + ')'}).click(function(){go()});
+        function go(){
+            infoOn = true;
+            $('#jeopardyPopup').show("scale",{}, 200);
+            $('#imageLogo img').attr('src', '/static/images/logos/flickr.png');
+            
+            $('#cheezImg img').attr('src', message.data);
+            $('#cheezImg, #imageLogo').delay(200).show(1);
+            setTimeout(function(){
+                $('#cheezImg, #imageLogo').hide();
+                $('#jeopardyPopup').hide("scale",{}, 200);
+                infoOn = false;
+            }, 30000);
+        }
+
+        if(infoOn){
+            var int = setInterval(function(){
+                if (infoOn === false) {
+                    clearInterval(int);
+                    go()
+                }
+            }, 5000)
+        } else {
+            go()
+        }
     });
 });
 

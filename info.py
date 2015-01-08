@@ -134,7 +134,7 @@ def check_weather():
                 forecast_day.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['date']['weekday'])
                 forecast_high.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['high']['fahrenheit'])
                 forecast_low.append(parsed_json['forecast']['simpleforecast']['forecastday'][i]['low']['fahrenheit'])
-                forecast_decription.append(parsed_json['forecast']['txt_forecast']['forecastday'][i+j]['fcttext'])
+                forecast_decription.append(parsed_json['forecast']['txt_forecast']['forecastday'][i + j]['fcttext'])
                 j += 1
 
             write_yield('forecastCond', forecast_cond)
@@ -143,7 +143,7 @@ def check_weather():
             write_yield('forecastLow', forecast_low)
             write_yield('forecastDecription', forecast_decription)
 
-            write_yield('tomTemp', parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'])
+            write_yield('tomTemp', parsed_json['forecast']['simpleforecast']['forecastday'][1]['high']['fahrenheit'])
 
             icon_image(icon)
 
@@ -161,8 +161,8 @@ def check_weather():
             set2 = parsed_json.find('],')
             set3 = parsed_json.find('pp\":\"')
             set4 = parsed_json.find('\"time')
-            write_yield('predominantPollen', parsed_json[set3+6: set4-2])
-            allergy_forecast = parsed_json[set1+2: set2]
+            write_yield('predominantPollen', parsed_json[set3 + 6: set4 - 2])
+            allergy_forecast = parsed_json[set1 + 2: set2]
             write_yield('allergyForecast', str(allergy_forecast).split(","))
 
             full_weather = [city_name, observation_time, current_cond, sunset_hour, sunset_minute, sunrise_hour,
@@ -200,7 +200,7 @@ def check_weather():
         write_yield('dayNight', day_night)
 
         def rand_allergy():
-            return random.randrange(10, 120)/10
+            return random.randrange(10, 120) / 10
 
         write_yield('allergyForecast', [rand_allergy(), rand_allergy(), rand_allergy(), rand_allergy()])
         write_yield('predominantPollen', rand_weather())
@@ -261,9 +261,9 @@ check_weather()
 dt = datetime.now()
 if on_pi:
     if dt.minute > 30:
-        weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=((dt + timedelta(hours=1)).replace(minute=0, second=0)))
+        weather = sched.add_interval_job(check_weather, seconds=30 * 60, start_date=((dt + timedelta(hours=1)).replace(minute=0, second=0)))
     else:
-        weather = sched.add_interval_job(check_weather, seconds=30*60, start_date=(dt.replace(minute=30, second=0)))
+        weather = sched.add_interval_job(check_weather, seconds=30 * 60, start_date=(dt.replace(minute=30, second=0)))
 else:
     weather = sched.add_interval_job(check_weather, seconds=60)
 
@@ -276,7 +276,7 @@ if on_pi:
 
 
 def get_temps_from_probes():
-    global out_temp, in_temp
+    global in_temp
     if on_pi:
         y = open(temperature_file, 'r')
         lines = y.readlines()
@@ -287,7 +287,7 @@ def get_temps_from_probes():
         else:
             equals_pos = lines[1].find('t=')
             if equals_pos != -1:
-                temp_string = lines[1][equals_pos+2:]
+                temp_string = lines[1][equals_pos + 2:]
                 temp_c = float(temp_string) / 1000.0
                 in_temp = temp_c * 9.0 / 5.0 + 32.0
                 write_yield('inTemp', in_temp)
@@ -481,136 +481,30 @@ def get_local_events():
 
 get_opening_movies()
 dt = datetime.now()
-movies = sched.add_interval_job(get_opening_movies, days=7,
-                                start_date=(dt+timedelta(days=7) - timedelta(days=dt.weekday()-1)).replace(hour=0,
-                                                                                                           minute=2,
-                                                                                                           second=0))
+movies = sched.add_interval_job(get_opening_movies, days=7, start_date=(dt + timedelta(days=7) - timedelta(days=dt.weekday() - 1)).replace(hour=0, minute=2, second=0))
 get_local_events()
-events = sched.add_interval_job(get_local_events, days=1, start_date=(dt+timedelta(days=1)).replace(hour=0, minute=2,
-                                                                                                    second=0))
+events = sched.add_interval_job(get_local_events, days=1, start_date=(dt + timedelta(days=1)).replace(hour=0, minute=2, second=0))
 
 
-####### --==Sports Stuff==-- #######
-ncaa_team_names = {'ORS': 'Oregon State', 'ASU': 'Arizona State', 'ORE': 'Oregon', 'STA': 'Stanford', 'ARI': 'Arizona',
-                   'COL': 'Colorado', 'UTH': 'Utah'}
-nfl_team_names = {'SF': 'San Francisco', 'KC': 'Kansas City', 'DAL': 'Dallas', 'CHI': 'Chicago', 'ARI': 'Arizona',
-                  'PHI': 'Philidelphia', 'STL': 'St. Louis', 'DEN': 'Denver', 'NO': 'New Orleans', 'NYG': 'New York',
-                  'WAS': 'Washington', 'SEA': 'Seattle', 'OAK': 'Oakland', 'SD': 'San Diego'}
+def get_jeopardy():
+    write_yield('jeopardy', entertainment.jeopardy())
+
+# get_jeopardy()
+jeopardy = sched.add_interval_job(get_jeopardy, seconds=60 * 60, start_date=(dt + timedelta(hours=1)).replace(minute=10, second=0))
 
 
-def football_weekly(week, team):
-    global utah_week, sf_week, kc_week, ncaa_rankings, pac12_standings, nfl_rankings, nfl_rank_checked
-    time.sleep(5)
-    week_sched = sports.get_weekly_schedule(week, team)
-    time.sleep(5)
-    nfl_rank_checked = False
-    if week_sched[2] != 'BYE':
-        week_sched[3] = datetime.strptime(week_sched[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
-    if team == 'UTH':
-        ncaa_rankings = sports.get_ncaa_rankings(week)
-        time.sleep(5)
-        pac12_standings = sports.get_ncaa_standings()
-        time.sleep(5)
-        utah_week = week_sched
-        for k, v in ncaa_team_names.items():
-            utah_week[1] = utah_week[1].replace(k, v)
-            utah_week[2] = utah_week[2].replace(k, v)
-    elif team == 'SF':
-        time.sleep(5)
-        nfl_rankings = sports.get_nfl_rankings()
-        time.sleep(5)
-        nfl_rank_checked = True
-        sf_week = week_sched
-        for k, v in nfl_team_names.items():
-            sf_week[1] = sf_week[1].replace(k, v)
-            sf_week[2] = sf_week[2].replace(k, v)
-    elif team == 'KC':
-        if nfl_rank_checked is False:
-            time.sleep(5)
-            nfl_rankings = sports.get_nfl_rankings()
-        kc_week = week_sched
-        for k, v in nfl_team_names.items():
-            kc_week[1] = kc_week[1].replace(k, v)
-            kc_week[2] = kc_week[2].replace(k, v)
+def get_cheezburger():
+    write_yield('cheezburger', entertainment.cheezburger())
+
+get_cheezburger()
+cheezburger = sched.add_interval_job(get_cheezburger, seconds=random.randint(45, 90) * 60, start_date=(dt + timedelta(hours=1)).replace(minute=15, second=0))
 
 
-def start_football_scores(week, home, away):
-    global utah_score_sched, sf_score_sched, kc_score_sched
-    if home == 'UTH' or away == 'UTH':
-        utah_score_sched = sched.add_interval_job(football_scores, args=[week, home, away], seconds=30*60)
-    elif home == 'SF' or away == 'SF':
-        sf_score_sched = sched.add_interval_job(football_scores, args=[week, home, away], seconds=30*60)
-    elif home == 'KC' or away == 'KC':
-        kc_score_sched = sched.add_interval_job(football_scores, args=[week, home, away], seconds=30*60)
+def get_flickr():
+    write_yield('flickr', entertainment.flickr())
 
-
-def football_scores(week, home, away):
-    global utah_score, sf_score, kc_score, next_game
-    football_score = sports.get_boxscore(week, home, away)
-
-    if home == 'UTH' or away == 'UTH':
-        utah_score = football_score
-    elif home == 'SF' or away == 'SF':
-        sf_score = football_score
-    elif home == 'KC' or away == 'KC':
-        kc_score = football_score
-
-    if utah_score[0] == 'complete':
-        sched.unschedule_job(utah_score_sched)
-        next_game = sched.add_date_job(football_weekly, datetime.now().replace(day=datetime.now().day+2, hour=0,
-                                                                               minute=1, second=0, microsecond=00),
-                                       args={(int(week)+1), 'UTH'})
-    elif sf_score[0] == 'complete':
-        sched.unschedule_job(sf_score_sched)
-        next_game = sched.add_date_job(football_weekly, datetime.now().replace(day=datetime.now().day+2, hour=0,
-                                                                               minute=1, second=0, microsecond=00),
-                                       args={(int(week)+1), 'SF'})
-    elif kc_score[0] == 'complete':
-        sched.unschedule_job(kc_score_sched)
-        next_game = sched.add_date_job(football_weekly, datetime.now().replace(day=datetime.now().day+2, hour=0,
-                                                                               minute=1, second=0, microsecond=00),
-                                       args={(int(week)+1), 'KC'})
-
-
-def football_season():
-    teams = ['UTH', 'SF', 'KC']
-    for t in teams:
-        schedule = sports.get_season_schedule(t)
-        for i in schedule:
-            if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
-                football_weekly(i[0], t)
-                break
-
-# football_season()
-
-
-def soccer_scores(game_id):
-    global rsl_score, soccer_next_game
-    time.sleep(5)
-    rsl_score = sports.soccer_scores(game_id)
-    if rsl_score[4] == 'complete':
-        sched.unschedule_job(soccer_score)
-        soccer_next_game = sched.add_date_job(soccer_season, datetime.now().replace(day=datetime.now().day+2, hour=0,
-                                                                                    minute=1, second=0, microsecond=00))
-
-
-def soccer_season():
-    global rsl_week, soccer_score, soccer_standings
-    time.sleep(5)
-    schedule = sports.get_soccer_season()
-    time.sleep(5)
-    soccer_standings = sports.get_soccer_standings()
-    for i in schedule:
-            if (datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds() > 0:
-                rsl_week = i
-                soccer_score = sched.add_interval_job(soccer_scores, seconds=30*60,
-                                                      start_date=datetime.strptime(i[3], '%Y-%m-%d %H:%M:%S'),
-                                                      args=i[0])
-                rsl_week[3] = datetime.strptime(rsl_week[3], '%Y-%m-%d %H:%M:%S').strftime('%a %b %d<br />%I:%M %p')
-                break
-
-# soccer_season()
-
+get_flickr()
+flickr = sched.add_interval_job(get_flickr, seconds=random.randint(45, 90) * 60, start_date=(dt + timedelta(hours=1)).replace(minute=45, second=0))
 
 #######  --==Holiday Stuff==--  #######
 holidays = ["New Year\u2019s Day", "Groundhog Day", "Valentine\u2019s Day", "Washington\u2019s Birthday",
@@ -648,15 +542,13 @@ def check_holiday():
                 if (da - datetime.now()).days < 14:
                     write_yield('holiday', i)
                 else:
-                    holiday_day = sched.add_date_job(run_holiday, da-timedelta(days=-14).replace(hour=0, minute=1,
-                                                                                                 second=0), args=i)
+                    holiday_day = sched.add_date_job(run_holiday, da - timedelta(days=-14).replace(hour=0, minute=1, second=0), args=i)
                 break
             else:
                 if (da - datetime.now()).days < 3:
                     write_yield('holiday', i)
                 else:
-                    holiday_day = sched.add_date_job(run_holiday, (da-timedelta(days=-3)).replace(hour=0, minute=1,
-                                                                                                  second=0), args=i)
+                    holiday_day = sched.add_date_job(run_holiday, (da - timedelta(days=-3)).replace(hour=0, minute=1, second=0), args=i)
                 break
     else:
         pass
@@ -667,10 +559,7 @@ def run_holiday(hday):
 
 
 check_holiday()
-holiday_day_sched = sched.add_interval_job(check_holiday, days=1, start_date=(datetime.now()+timedelta(days=1))
-                                           .replace(hour=0, minute=2))
-
-
+holiday_day_sched = sched.add_interval_job(check_holiday, days=1, start_date=(datetime.now() + timedelta(days=1)).replace(hour=0, minute=2))
 
 
 #sched.print_jobs()

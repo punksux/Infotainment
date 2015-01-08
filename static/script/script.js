@@ -81,7 +81,6 @@ function setDate(){
     $('#dateText').html(months[date.getMonth()] + ' ' + date.getDate() + ' ' + date.getFullYear());
     dateWidth = $('#date').width();
     setTickerWidth(150);
-    setTickerOffWidth();
     if (hday != ''){
         countdownTimer(hday);
         if (parseInt(($('#tickerOff').html()).split(' ')[0], 10) === 0){
@@ -125,13 +124,9 @@ function weatherSlider(){
 }
 
 function setTickerWidth (wdth) {
-    $('div#tickerOn').css({width: (1280 - (dateWidth + 220) - 15) + 'px'}, 500);
+//    $('div#tickerOn').css({width: (1280 - (dateWidth + 220) - 15) + 'px'}, 500);
     $('div#newsSource').animate({width: (wdth) + 'px'}, 1000);
     $('div#ticker').animate({width: ($('div#tickerOn').width() - wdth) - 5 - 10 - 10 + 'px'}, 1000);
-}
-
-function setTickerOffWidth () {
-    $('div#tickerOff').css({width: (1280 - (dateWidth + 220) - 15) + 'px'}, 500);
 }
 
 var hday = '';
@@ -141,3 +136,4 @@ function countdownTimer(data){
     var day = countdown(new Date(date[0], date[1]-1, date[2]), null ,countdown.DAYS | countdown.HOURS, 1);
     $('#tickerOff').html(day.toString() + ' Until ' + data[1]);
 }
+

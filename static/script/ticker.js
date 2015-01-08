@@ -35,7 +35,6 @@ function ticker(content) {
 
     $('#tickerText').promise().done(function() {
         $('#tickerOn').hide('slide', {direction: 'down', duration: 1000});
-        setTickerOffWidth();
         $('#tickerOff').show('slide', {direction: 'down', duration: 1000});
     });
 }
@@ -43,7 +42,9 @@ function ticker(content) {
 function tickerStory(number) {
     $('div#rss1sum .movieName').html(cont[number][4]).css({backgroundColor: 'rgba('+ colors[parseInt(number/10)] +',.75)'});
     $('div#rss1sum .synopsis').html(cont[number][1]);
-    $('div#rss1sum .image').css({'background': 'url(' + cont[number][2] + ') no-repeat center'});
+    if (cont[number][2] != '') {
+        $('div#rss1sum .image').css({'background': 'url(' + cont[number][2] + ') no-repeat center'});
+    }
     $('div#rss1sum .sendToPhone').attr('onclick', 'sendToPhone("' + cont[number][0] + '","' + cont[number][3] + '")').click(function () {
         $(this).animate({backgroundColor: '#30ba6f'}, {duration: 500}).html('Sent').css('pointer-events', 'none');
     });

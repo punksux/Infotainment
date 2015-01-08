@@ -70,12 +70,12 @@
             });
 
 
-            var tabsWidth = 0;
+            /*var tabsWidth = 0;
             for (var q = 0; q < list.length; q++ ){
                 tabsWidth += $('#tabList li:nth-child(' + (q + 1) + ')').outerWidth();
             }
             tabsWidth += list.length * 5;
-            $('#tabFiller').css({width: (1280 - tabsWidth + 4) + 'px'});
+            $('#tabFiller').css({width: (1280 - tabsWidth + 4) + 'px'});*/
 
             startTime();
             setDate();
@@ -101,7 +101,7 @@
         <li onclick="changeTab('view3')" >Music</li>
         <li onclick="changeTab('view4')" >Entertainment</li>
         <!--<li onclick="changeTab('view5')" >Sports</li>-->
-        <li onclick="changeTab('view5')" >News</li>
+        <li onclick="changeTab('view5')" >Info</li>
         <li onclick="changeTab('view6')" >Apps</li>
     </ul>
     <div id="tabFiller"></div>
@@ -222,7 +222,7 @@
 <!--    ** RSS Ticker **    -->
     <section>
     <div id="tickerOff"></div>
-    <div id="date"><div id="dateText">Nov. 26 2014</div></div>
+    <div id="date"><div id="dateText">May. 30 2015</div></div>
     <div id="tickerOn">
         <div id="newsSource"></div>
         <div id="ticker">
@@ -362,246 +362,18 @@
         </div>
     </div>
 
-<!--   ** Sports Tab **   -->
- <!--   <div id="view5">
-        <div id="sportsContainer">
-            <div id="scoresContainer">
-                <div id="utahCover" class="scoreCover"></div>
-                <div id="utah" class="teamScores">
-                    <div class="matchup">
-                        <div class="home">
-                            <div class="teamName">
-                                <div class="logo"></div>
-                                <div class="text">Utah Utes</div>
-                            </div>
-                            <div class="score"></div>
-                        </div>
-                        <div class="away">
-                            <div class="teamName">
-                                <div class="logo"></div>
-                                <div class="text"></div>
-                            </div>
-                            <div class="score"></div>
-                        </div>
-                    </div>
-                    <div class="timeLocation">
-                        <div class="timeText"></div>
-                    </div>
-                </div>
-                <div id="rslCover" class="scoreCover"></div>
-                <div id="rsl" class="teamScores">
-                    <div class="matchup">
-                        <div class="home">
-                            <div class="teamName">
-                                <div class="logo"></div>
-                                <div class="text">Real Salt Lake</div>
-                            </div>
-                            <div class="score"></div>
-                        </div>
-                        <div class="away">
-                            <div class="teamName">
-                                <div class="logo"></div>
-                                <div class="text"></div>
-                            </div>
-                            <div class="score"></div>
-                        </div>
-                    </div>
-                    <div class="timeLocation">
-                        <div class="timeText"></div>
-                    </div>
-                </div>
-                <div id="49ersCover" class="scoreCover"></div>
-                <div id="49ers" class="teamScores">
-                    <div class="matchup">
-                        <div class="home">
-                            <div class="teamName">
-                                <div class="logo"></div>
-                                <div class="text">49ers</div>
-                            </div>
-                            <div class="score"></div>
-                        </div>
-                        <div class="away">
-                            <div class="teamName">
-                                <div class="logo"></div>
-                                <div class="text"></div>
-                            </div>
-                            <div class="score"></div>
-                        </div>
-                    </div>
-                    <div class="timeLocation">
-                        <div class="timeText"></div>
-                    </div>
-                </div>
-                <div id="kcCover" class="scoreCover"></div>
-                <div id="kc" class="teamScores">
-                    <div class="matchup">
-                        <div class="home">
-                            <div class="teamName">
-                                <div class="logo"></div>
-                                <div class="text">Chiefs</div>
-                            </div>
-                            <div class="score"></div>
-                        </div>
-                        <div class="away">
-                            <div class="teamName">
-                                <div class="logo"></div>
-                                <div class="text"></div>
-                            </div>
-                            <div class="score"></div>
-                        </div>
-                    </div>
-                    <div class="timeLocation">
-                        <div class="timeText"></div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                $('#utahCover').click(function(){
-                    $('#mlsStandings').hide();
-                    $('#nflAFCRankings').hide();
-                    $('#nflNFCRankings').hide();
-                    $('#pac12Standings').toggle('fade', {duration: 300});
-                    $('#ncaaRankings').toggle('fade', {duration: 300});
-
-                });
-                $('#rslCover').click(function(){
-                    $('#pac12Standings').hide();
-                    $('#ncaaRankings').hide();
-                    $('#nflAFCRankings').hide();
-                    $('#nflNFCRankings').hide();
-                    $('#mlsStandings').toggle('fade', {duration: 300});
-
-                });
-                $('#49ersCover, #kcCover').click(function(){
-                    $('#pac12Standings').hide();
-                    $('#ncaaRankings').hide();
-                    $('#mlsStandings').hide();
-                    $('#nflAFCRankings').toggle('fade', {duration: 300});
-                    $('#nflNFCRankings').toggle('fade', {duration: 300});
-                });
-            </script>
-
-
-            <div id="sportsInfo">
-                <table id="pac12Standings">
-                    <tr><th height="35px"> Pac 12 North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><td>5</td><td></td><td></td></tr>
-                    <tr><td>6</td><td></td><td></td></tr>
-                    <tr><th height="35px"> Pac 12 South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><td>5</td><td></td><td></td></tr>
-                    <tr><td>6</td><td></td><td></td></tr>
-                </table>
-                <table id="ncaaRankings">
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><td>5</td><td></td><td></td></tr>
-                    <tr><td>6</td><td></td><td></td></tr>
-                    <tr><td>7</td><td></td><td></td></tr>
-                    <tr><td>8</td><td></td><td></td></tr>
-                    <tr><td>9</td><td></td><td></td></tr>
-                    <tr><td>10</td><td></td><td></td></tr>
-                    <tr><td>11</td><td></td><td></td></tr>
-                    <tr><td>12</td><td></td><td></td></tr>
-                    <tr><td>13</td><td></td><td></td></tr>
-                    <tr><td>14</td><td></td><td></td></tr>
-                    <tr><td>15</td><td></td><td></td></tr>
-                    <tr><td>16</td><td></td><td></td></tr>
-                    <tr><td>17</td><td></td><td></td></tr>
-                    <tr><td>18</td><td></td><td></td></tr>
-                    <tr><td>19</td><td></td><td></td></tr>
-                    <tr><td>20</td><td></td><td></td></tr>
-                    <tr><td>21</td><td></td><td></td></tr>
-                    <tr><td>22</td><td></td><td></td></tr>
-                    <tr><td>23</td><td></td><td></td></tr>
-                    <tr><td>24</td><td></td><td></td></tr>
-                    <tr><td>25</td><td></td><td></td></tr>
-                </table>
-                <table id="mlsStandings">
-                    <tr><th></th><th>MLS Standings</th><th class="smallHeader">W - D - L</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><td>5</td><td></td><td></td></tr>
-                    <tr><td>6</td><td></td><td></td></tr>
-                    <tr><td>7</td><td></td><td></td></tr>
-                    <tr><td>8</td><td></td><td></td></tr>
-                    <tr><td>9</td><td></td><td></td></tr>
-                    <tr><td>10</td><td></td><td></td></tr>
-                    <tr><td>11</td><td></td><td></td></tr>
-                    <tr><td>12</td><td></td><td></td></tr>
-                    <tr><td>13</td><td></td><td></td></tr>
-                    <tr><td>14</td><td></td><td></td></tr>
-                    <tr><td>15</td><td></td><td></td></tr>
-                    <tr><td>16</td><td></td><td></td></tr>
-                    <tr><td>17</td><td></td><td></td></tr>
-                    <tr><td>18</td><td></td><td></td></tr>
-                    <tr><td>19</td><td></td><td></td></tr>
-                </table>
-                <table id="nflNFCRankings" class="nflTables">
-                    <tr><th height="35px"><img src="/static/images/nfl/NFC.png"> East</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px"><img src="/static/images/nfl/NFC.png"> North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px"><img src="/static/images/nfl/NFC.png"> South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px"><img src="/static/images/nfl/NFC.png"> West</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                </table>
-                <table id="nflAFCRankings"  class="nflTables">
-                    <tr><th height="35px"><img src="/static/images/nfl/AFC.png"> East</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px"><img src="/static/images/nfl/AFC.png"> North</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px"><img src="/static/images/nfl/AFC.png"> South</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                    <tr><th height="35px"><img src="/static/images/nfl/AFC.png"> West</th><th class="smallHeader">Total</th><th class="smallHeader">Conf.</th></tr>
-                    <tr><td>1</td><td></td><td></td></tr>
-                    <tr><td>2</td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td></tr>
-                </table>
-
-            </div>
+<!--   ** Info Tab **   -->
+    <div id="view5">
+        <div id="iCont">
+            <div id="jeopardyReview"></div>
+            <div id="cheezReview"></div>
         </div>
-    </div>-->
+    </div>
 
 <!--   ** Apps Tab **   -->
     <div id="view6">
         <div id="appBar">
-            <a href="http://192.168.1.200:4040" target="app"><div id="app1" class="apps"><img src="/static/images/icons/subsonic.png">Subsonic</div></a>
-            <a href="http://192.168.1.200:5000" target="app"><div id="app2" class="apps"><img src="/static/images/icons/couch.png">CouchPotato</div></a>
+            <a href="http://192.168.1.200:5050" target="app"><div id="app2" class="apps"><img src="/static/images/icons/couch.png">CouchPotato</div></a>
             <a href="http://192.168.1.200" target="app"><div id="app3" class="apps"><img src="/static/images/icons/unraid.png">UnRaid</div></a>
             <a href="http://192.168.1.200:9091" target="app"><div id="app4" class="apps"><img src="/static/images/icons/transmission.png">Transmission</div></a>
             <a href="http://192.168.1.95:5000" target="app"><div id="app5" class="apps"><img src="/static/images/icons/sprinkler.png">Sprinklers</div></a>
@@ -616,15 +388,29 @@
     <div id="popupContent" class="movieCover">
         <div id="rss1sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="sendToPhone">Send to phone</div><div class="closeButton">X</div></div>
         {% for x in range(1,11) %}
-        <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div><div class="sendToPhone">Send to phone</div></div>
+        <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div><div class="trailer"><iframe class='trailerSrc' width="930" height="544" src="" frameborder="0" allowfullscreen></iframe></div><div class="sendToPhone">Send to phone</div></div>
         <div id="ent{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="sendToPhone">Send to phone</div></div>{% endfor %}
         <div id="alertDescription" class="popupText"><div class="movieName"></div><div class="synopsis"></div><div class="closeButton">X</div></div>
         <div id="day1description" class="popupText"><div class="movieName"></div><div class="synopsis"></div><div class="closeButton">X</div></div>
     </div>
 
-    <script>
-        $('.movieName, .image, .synopsis, .rating, .length, .actors, #screenCover, .closeButton').click(function(){
-            $('.popupText, #popupContent, #screenCover, #alertDescription, #day1description').hide();
+<!--   ** Jeopardy Popup **   -->
+<div id="jeopardyPopup">
+    <div id="jepCategory">
+        <div id="catText"></div>
+    </div>
+    <div id="jepValue"></div>
+    <div id="jepQuestion"></div>
+    <div id="jepAnswer"></div>
+    <div id="imageLogo"><img src="" /></div>
+    <div id="cheezImg"><img src="" /></div>
+    <div id="jeopardyCover"></div>
+</div>
+
+
+<script>
+        $('.movieName, .synopsis, .rating, .length, .actors, #screenCover, .closeButton, #jeopardyCover').click(function(){
+            $('.popupText, #popupContent, #screenCover, #alertDescription, #day1description, #jeopardyPopup, #jepCategory, #jepValue, #jepQuestion, #jepAnswer, #cheezImg, #imageLogo').hide();
             $('.sendToPhone').css('background', 'rgba(255, 255, 255, 0.25)').css('pointer-events', 'auto').html('Send to phone')
         });
 
@@ -645,7 +431,7 @@
     <div id="musicPlaying"></div>
 
 </div>
-<div id="dimmer"></div>
+<!--<div id="dimmer"></div>-->
 <canvas id="myCanvas"></canvas>
 </body>
 </html>
