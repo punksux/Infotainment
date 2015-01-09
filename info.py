@@ -159,9 +159,9 @@ def check_weather():
             parsed_json = json.loads(json_string.decode('utf-8'))
             set1 = parsed_json.find(':[')
             set2 = parsed_json.find('],')
-            set3 = parsed_json.find('pp\":\"')
-            set4 = parsed_json.find('\"time')
-            write_yield('predominantPollen', parsed_json[set3 + 6: set4 - 2])
+            set3 = parsed_json.find('"pp')
+            set4 = parsed_json.find('"timestamp')
+            write_yield('predominantPollen', parsed_json[set3 + 6: set4 - 3])
             allergy_forecast = parsed_json[set1 + 2: set2]
             write_yield('allergyForecast', str(allergy_forecast).split(","))
 
@@ -494,17 +494,28 @@ jeopardy = sched.add_interval_job(get_jeopardy, seconds=60 * 60, start_date=(dt 
 
 
 def get_cheezburger():
-    write_yield('cheezburger', entertainment.cheezburger())
+    get = entertainment.cheezburger()
+    if get != '':
+        write_yield('cheezburger', get)
 
-get_cheezburger()
+# get_cheezburger()
 cheezburger = sched.add_interval_job(get_cheezburger, seconds=random.randint(45, 90) * 60, start_date=(dt + timedelta(hours=1)).replace(minute=15, second=0))
 
 
 def get_flickr():
     write_yield('flickr', entertainment.flickr())
 
-get_flickr()
+# get_flickr()
 flickr = sched.add_interval_job(get_flickr, seconds=random.randint(45, 90) * 60, start_date=(dt + timedelta(hours=1)).replace(minute=45, second=0))
+
+
+def get_facts():
+    get = entertainment.sotruefacts()
+    if get != '':
+        write_yield('facts', get)
+
+get_facts()
+facts = sched.add_interval_job(get_facts, seconds=random.randint(45, 90) * 60, start_date=(dt + timedelta(hours=1)).replace(minute=55, second=0))
 
 #######  --==Holiday Stuff==--  #######
 holidays = ["New Year\u2019s Day", "Groundhog Day", "Valentine\u2019s Day", "Washington\u2019s Birthday",

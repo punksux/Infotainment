@@ -145,13 +145,15 @@ def cheezburger():
         old_cheez = source
         print(source)
         return source
+    else:
+        return ''
 
 old_flickr = []
 
 
 def flickr():
     global old_flickr, image_url
-    places = ['salt lake city', 'santa cruz', 'san francisco', 'utah', 'united states']
+    places = ['salt lake city', 'santa cruz', 'san francisco', 'utah', 'united states', 'california']
 
     place = random.choice(places)
     website = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&' \
@@ -179,3 +181,50 @@ def flickr():
             break
 
     return image_url
+
+old_true = []
+old_lol = []
+
+
+def sotruefacts():
+    global old_true, old_lol, got_one
+    got_one = False
+    websites = ['http://www.sotruefacts.com/', 'http://www.lolsotrue.com/']
+    website = random.choice(websites)
+
+    r = requests.get(website)
+    soup = bs4.BeautifulSoup(r.text)
+    if website == websites[0]:
+        image = soup.find(class_='small')
+        source = image.img['src']
+        start = source.find('rules/')
+        end = source.find('.png')
+        number = source[start + 6:end]
+        while got_one is False:
+            rand = random.randint(1, int(number))
+            if rand not in old_true:
+                old_true.append(rand)
+                if len(old_true) > 40:
+                    old_true.pop(0)
+                src = 'http://www.sotruefacts.com/rules/%s.png' % rand
+                print(src)
+                got_one = True
+                return src
+    else:
+        image = soup.find(class_='image')
+        source = image.a.img['src']
+        start = source.find('rules/')
+        end = source.find('.png')
+        number = source[start + 6:end]
+        while got_one is False:
+            rand = random.randint(1, int(number))
+            if rand not in old_lol:
+                old_lol.append(rand)
+                if len(old_lol) > 40:
+                    old_lol.pop(0)
+                src = 'http://www.lolsotrue.com/rules/%s.png' % rand
+                print(src)
+                got_one = True
+                return src
+
+# sotruefacts()

@@ -536,9 +536,9 @@ body {
     -moz-transform: translateX(-50%) translateY(-50%);
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 670px;
-    max-width: 1276px;
-    min-width: 800px;
+    height: 670px;
+    width: 1200px;
+    /*min-width: 800px;*/
     font: bold 40px Code;
     /*text-shadow: 2px 2px 5px #333;*/
     line-height: 50px;
@@ -703,6 +703,12 @@ body {
     cursor: pointer;
 }
 
+#day1description .synopsis {
+    font-size: 30px;
+    line-height: 50px;
+    left: 10px;
+    width: 1180px;
+}
 
 /*  --== Forecast Page ==--  */
 #forecastHolder {
@@ -1060,9 +1066,29 @@ body {
 }
 
 #cheezReview {
-    position: relative;
+    position: absolute;
     left: 5px;
     top: 50px;
+    width:300px;
+    height:300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#flickrReview {
+    position: absolute;
+    left: 375px;
+    top: 160px;
+    width:300px;
+    height:300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#factsReview {
+    position: absolute;
+    right: 125px;
+    bottom: 160px;
     width:300px;
     height:300px;
     background-size: contain;

@@ -144,7 +144,7 @@ $(document).ready(function () {
         for (i = 0; i < 5; i++) {
             (function (e) {
                 $('#day' + (e + 1) + 'cover').click(function () {
-                    $('#day1description .synopsis').html(message[e]);
+                    $('#day1description .synopsis').html(message[e].replace(/\./g, '.<br><br>'));
                     $('#day1description, #screenCover, #popupContent').fadeIn(300);
                 });
             })(i);
@@ -198,6 +198,9 @@ $(document).ready(function () {
 
     });
     sse.addEventListener('predominantPollen', function (message) {
+        if(message.data === 'None') {
+            message.data = '';
+        }
         $('#predominantPollen').html(message.data);
     });
     sse.addEventListener('fullWeather', function (message) {
@@ -388,8 +391,8 @@ $(document).ready(function () {
             $('#movie' + (i + 1) + 'sum .rating').html('Rating: ' + message[i][1]);
             $('#movie' + (i + 1) + 'sum .length').html('Runtime: ' + message[i][2] + ' min.');
             $('#movie' + (i + 1) + 'sum .image').css({'background': 'url(' + message[i][8].replace('tmb', 'det') + ') no-repeat center'}).click(function(){
-                $(this).parent().find('.synopsis').toggle();
-                $(this).parent().find('.trailer').toggle();
+                $(this).parent().find('.synopsis').toggle(300);
+                $(this).parent().find('.trailer').toggle(300);
             });
             $('#movie' + (i + 1) + 'sum iframe.trailerSrc').attr('src', message[i][11]);
             $('#movie' + (i + 1) + 'sum .sendToPhone').attr('onclick', 'sendToPhone("' + message[i][0] + '","' + message[i][10] + '")').click(function(){
@@ -556,12 +559,45 @@ $(document).ready(function () {
 
     sse.addEventListener('flickr', function (message) {
         console.log(message.data);
-        $('#cheezReview').css({backgroundImage: 'url(' + message.data + ')'}).click(function(){go()});
+        $('#flickrReview').css({backgroundImage: 'url(' + message.data + ')'}).click(function(){go()});
         function go(){
             infoOn = true;
             $('#jeopardyPopup').show("scale",{}, 200);
             $('#imageLogo img').attr('src', '/static/images/logos/flickr.png');
-            
+
+            $('#cheezImg img').attr('src', message.data);
+            $('#cheezImg, #imageLogo').delay(200).show(1);
+            setTimeout(function(){
+                $('#cheezImg, #imageLogo').hide();
+                $('#jeopardyPopup').hide("scale",{}, 200);
+                infoOn = false;
+            }, 30000);
+        }
+
+        if(infoOn){
+            var int = setInterval(function(){
+                if (infoOn === false) {
+                    clearInterval(int);
+                    go()
+                }
+            }, 5000)
+        } else {
+            go()
+        }
+    });
+    sse.addEventListener('facts', function (message) {
+        console.log(message.data);
+        $('#factsReview').css({backgroundImage: 'url(' + message.data + ')'}).click(function(){go()});
+
+        function go(){
+            infoOn = true;
+            $('#jeopardyPopup').show("scale",{}, 200);
+            if((message.data).split('.')[1] === 'lolsotrue'){
+                $('#imageLogo img').attr('src', '/static/images/logos/lol.png');
+            } else {
+                $('#imageLogo img').attr('src', '/static/images/logos/sotrue.png');
+            }
+
             $('#cheezImg img').attr('src', message.data);
             $('#cheezImg, #imageLogo').delay(200).show(1);
             setTimeout(function(){
