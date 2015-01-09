@@ -157,7 +157,7 @@ def flickr():
 
     place = random.choice(places)
     website = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&' \
-              'api_key=9395f2a0acf2bcac743f0707762e3941&text=%s+landscape&safe_search=1&' \
+              'api_key=52e4dddd8831873f04816ae4b0b3224b&text=%s+landscape&safe_search=1&' \
               'content_type=1&format=json&nojsoncallback=1' % quote(place)
 
     print(website)
@@ -181,6 +181,8 @@ def flickr():
             break
 
     return image_url
+
+
 
 old_true = []
 old_lol = []

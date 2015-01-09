@@ -534,6 +534,16 @@ $(document).ready(function () {
         });
         function go(){
             infoOn = true;
+            function img(){
+                if($('#day').css("opacity") === 1){
+                    return($('#day').css('background-image'));
+                } else {
+                    return($('#night').css('background-image'));
+                }
+            }
+
+            console.log(img());
+            $('#jeopardyPopup2').css({backgroundImage: img()}).show();
             $('#jeopardyPopup').show("scale",{}, 200);
             $('#imageLogo img').attr('src', '/static/images/logos/cheezburger.png');
             $('#cheezImg img').attr('src', message.data);
