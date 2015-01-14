@@ -486,7 +486,8 @@ $(document).ready(function () {
         });
 
         function display(){
-            $('#jeopardyPopup').show("scale", {}, 200);
+            $('#jeopardyPopup2').css({backgroundImage: img()}).show();
+            $('#jeopardyPopup').show();
             $('#catText').html(message[3]);
             $('#jepCategory').delay(500).show("scale", {}, 200);
             $('#jepValue').html(message[2]).delay(1000).show("scale", {}, 200);
@@ -504,8 +505,8 @@ $(document).ready(function () {
                     $('#jepAnswer').html(message[0]);
                     clearInterval(answer);
                     setTimeout(function () {
-                        $('#screenCover, #jepCategory, #jepValue, #jepQuestion, #jepAnswer').hide();
-                        $('#jeopardyPopup').hide("scale", {}, 200);
+                        $('#screenCover, #jepCategory, #jepValue, #jepQuestion, #jepAnswer, #jeopardyPopup2').hide();
+                        $('#jeopardyPopup').hide();
                         infoOn = false;
                     }, 10000)
                 } else {
@@ -534,23 +535,14 @@ $(document).ready(function () {
         });
         function go(){
             infoOn = true;
-            function img(){
-                if($('#day').css("opacity") === 1){
-                    return($('#day').css('background-image'));
-                } else {
-                    return($('#night').css('background-image'));
-                }
-            }
-
-            console.log(img());
             $('#jeopardyPopup2').css({backgroundImage: img()}).show();
-            $('#jeopardyPopup').show("scale",{}, 200);
-            $('#imageLogo img').attr('src', '/static/images/logos/cheezburger.png');
-            $('#cheezImg img').attr('src', message.data);
+            $('#jeopardyPopup').show();
+            $('div#imageLogo img').attr('src', '/static/images/logos/cheezburger.png');
+            $('div#cheezImg img').attr('src', message.data);
             $('#cheezImg, #imageLogo').delay(200).show(1);
             setTimeout(function(){
-                $('#cheezImg, #imageLogo').hide();
-                $('#jeopardyPopup').hide("scale",{}, 200);
+                $('#cheezImg, #imageLogo, #jeopardyPopup2').hide();
+                $('#jeopardyPopup').hide();
                 infoOn = false;
             }, 30000);
         }
@@ -573,9 +565,9 @@ $(document).ready(function () {
         function go(){
             infoOn = true;
             $('#jeopardyPopup').show("scale",{}, 200);
-            $('#imageLogo img').attr('src', '/static/images/logos/flickr.png');
+            $('div#imageLogo img').attr('src', '/static/images/logos/flickr.png');
 
-            $('#cheezImg img').attr('src', message.data);
+            $('div#cheezImg img').attr('src', message.data);
             $('#cheezImg, #imageLogo').delay(200).show(1);
             setTimeout(function(){
                 $('#cheezImg, #imageLogo').hide();

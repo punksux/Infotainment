@@ -1156,8 +1156,8 @@ body {
 #jeopardyPopup, #jeopardyCover {
     width:1280px;
     height: 800px;
-    background: transparent;
-    z-index: 100;
+    background: #808080;
+    z-index: 99;
     position: absolute;
     left:0;
     top: 0;
@@ -1167,8 +1167,8 @@ body {
 
 
 #jeopardyPopup2 {
-    -webkit-filter: blur(15px);
-    z-index: 99;
+    -webkit-filter: blur(10px);
+    z-index: 100;
     width:1280px;
     height: 800px;
     position: absolute;
@@ -1251,7 +1251,7 @@ body {
     text-align: center;
     width: 100%;
     height: 100%;
-    -webkit-filter: initial;
+    z-index: 101;
 }
 
 #cheezImg:before {
@@ -1268,7 +1268,7 @@ body {
     max-width: 1000px;
     max-height: 700px;
     border: 4px solid white;
-    -webkit-filter: initial;
+    z-index: 105;
 }
 
 #imageLogo {
@@ -1276,12 +1276,12 @@ body {
     top:0;
     left:20px;
     display: none;
-    -webkit-filter: initial;
+    z-index: 101;
 }
 
 #imageLogo img {
     width: 200px;
-    -webkit-filter: initial;
+    z-index: 101;
 }
 
 /*  --== Extras ==--  */
