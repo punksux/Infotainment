@@ -489,7 +489,7 @@ events = sched.add_interval_job(get_local_events, days=1, start_date=(dt + timed
 def get_jeopardy():
     write_yield('jeopardy', entertainment.jeopardy())
 
-get_jeopardy()
+# get_jeopardy()
 jeopardy = sched.add_interval_job(get_jeopardy, seconds=60 * 60, start_date=(dt + timedelta(hours=1)).replace(minute=10, second=0))
 
 
@@ -498,7 +498,7 @@ def get_cheezburger():
     if get != '':
         write_yield('cheezburger', get)
 
-get_cheezburger()
+# get_cheezburger()
 cheezburger = sched.add_interval_job(get_cheezburger, seconds=random.randint(45, 90) * 60, start_date=(dt + timedelta(hours=1)).replace(minute=15, second=0))
 
 
@@ -514,7 +514,7 @@ def get_facts():
     if get != '':
         write_yield('facts', get)
 
-get_facts()
+# get_facts()
 facts = sched.add_interval_job(get_facts, seconds=random.randint(45, 90) * 60, start_date=(dt + timedelta(hours=1)).replace(minute=55, second=0))
 
 #######  --==Holiday Stuff==--  #######

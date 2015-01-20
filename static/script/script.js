@@ -137,12 +137,3 @@ function countdownTimer(data){
     $('#tickerOff').html(day.toString() + ' Until ' + data[1]);
 }
 
-function img(){
-    console.log($('#day').is(":visible"));
-    console.log($('#night').is(":visible"));
-    if($('#day').is(":visible")){
-        return($(this).css('background-image'));
-    } else if($('#night').is(":visible")) {
-        return($('#night').css('background-image'));
-    }
-}

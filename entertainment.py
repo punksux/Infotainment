@@ -152,7 +152,7 @@ old_flickr = []
 
 
 def flickr():
-    global old_flickr, image_url
+    global old_flickr, image_url, title, location, description
     places = ['salt lake city', 'santa cruz', 'san francisco', 'utah', 'united states', 'california']
 
     place = random.choice(places)
@@ -160,7 +160,6 @@ def flickr():
               'api_key=52e4dddd8831873f04816ae4b0b3224b&text=%s+landscape&safe_search=1&' \
               'content_type=1&format=json&nojsoncallback=1' % quote(place)
 
-    print(website)
     f = urlopen(website)
     json_string = f.read()
     parsed_json = json.loads(json_string.decode('utf-8'))
@@ -175,13 +174,23 @@ def flickr():
             id_no = parsed_json['photos']['photo'][i]['id']
             secret = parsed_json['photos']['photo'][i]['secret']
             image_url = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % (farm_id, server_id, id_no, secret)
+
+            website2 = 'https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=52e4dddd8831873f04816ae4b0b3224b&photo_id=%s&format=json&nojsoncallback=1' % id_no
+            g = urlopen(website2)
+            json_string2 = g.read()
+            parsed_json2 = json.loads(json_string2.decode('utf-8'))
+            g.close()
+
+            title = parsed_json2['photo']['title']['_content']
+            location = parsed_json2['photo']['owner']['location']
+            description = parsed_json2['photo']['description']['_content']
+
             old_flickr.append(id_no)
             if len(old_flickr) > 20:
                 old_flickr.pop(0)
             break
 
-    return image_url
-
+    return [title, description, location, image_url]
 
 
 old_true = []

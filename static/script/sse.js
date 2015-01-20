@@ -50,7 +50,7 @@ $(document).ready(function () {
         ticker(message);
     });
     sse.addEventListener('icon', function (message) {
-        $('#test2').html(message.data);
+        $('#infoBlur').css({backgroundImage: 'url(/' + message.data + ')'});
         if (cover === 1) {
             $('#day').css('background', 'url(/' + message.data + ')').fadeIn(1000);
             $('#night').fadeOut(1000);
@@ -233,8 +233,6 @@ $(document).ready(function () {
     });
     sse.addEventListener('alert', function (message) {
         message = JSON.parse(message.data);
-
-//        message = ['Big Ass Fire', 'There is a big ass fire somewhere'];
         if (message[0] != '') {
             $('#alert').html('Alert: ' + message[0]).show().click(function () {
                 $('#alertDescription, #screenCover, #popupContent').css('display', 'inline-block');
@@ -246,134 +244,6 @@ $(document).ready(function () {
         }
 
     });
-    /*sse.addEventListener('utahInfo', function (message) {
-        message = JSON.parse(message.data);
-        $('div#utah div.home .text').html(message[1]);
-        $('div#utah div.away .text').html(message[2]);
-        $('div#utah div.home .logo').css('background-image', 'url("/static/images/ncaa/' + message[1] + '.png")');
-        $('div#utah div.away .logo').css('background-image', 'url("/static/images/ncaa/' + message[2] + '.png")');
-        $('div#utah .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
-        if (message[2] === 'BYE') {
-            $('div#utah').hide();
-            $('div#utahCover').hide();
-        } else {
-            $('div#utah').show();
-            $('div#utahCover').show();
-        }
-    });
-    sse.addEventListener('utahScore', function (message) {
-        message = JSON.parse(message.data);
-        $('div#utah div.home .score').html(message[3]);
-        $('div#utah div.away .score').html(message[4]);
-        $('div#utah .timeText').html('Quarter: ' + message[1] + '<br />' + 'Clock: ' + message[2]);
-    });
-    var sf_info = '';
-    var kc_info = '';
-    sse.addEventListener('sfInfo', function (message) {
-        message = JSON.parse(message.data);
-        sf_info = message[1];
-        $('div#49ers div.home .text').html(message[1]);
-        $('div#49ers div.away .text').html(message[2]);
-        $('div#49ers div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1].replace('.', '') + '.png")');
-        $('div#49ers div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2].replace('.', '') + '.png")');
-        $('div#49ers .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
-        if (message[2] === 'BYE') {
-            $('div#49ers').hide();
-            $('div#49ersCover').hide();
-        } else {
-            $('div#49ers').show();
-            $('div#49ersCover').show();
-        }
-
-    });
-    sse.addEventListener('kcInfo', function (message) {
-        message = JSON.parse(message.data);
-        kc_info = message[1];
-        $('div#kc div.home .text').html(message[1]);
-        $('div#kc div.away .text').html(message[2]);
-        $('div#kc div.home .logo').css('background-image', 'url("/static/images/nfl/' + message[1] + '.png")');
-        $('div#kc div.away .logo').css('background-image', 'url("/static/images/nfl/' + message[2] + '.png")');
-        $('div#kc .timeText').html(message[3] + '<br />' + message[5] + '<br />' + message[6]);
-        if (sf_info === kc_info || message[2] === "BYE") {
-            $('div#kc').hide();
-            $('div#kcCover').hide();
-        } else {
-            $('div#kc').show();
-            $('div#kcCover').show();
-        }
-    });
-    sse.addEventListener('rslInfo', function (message) {
-        message = JSON.parse(message.data);
-        $('div#rsl div.home .text').html(message[1]);
-        $('div#rsl div.away .text').html(message[2]);
-        $('div#rsl div.home .logo').css('background-image', 'url("/static/images/mls/' + message[1] + '.png")');
-        $('div#rsl div.away .logo').css('background-image', 'url("/static/images/mls/' + message[2] + '.png")');
-        $('div#rsl .timeText').html(message[3] + '<br />' + message[5]);
-        if (message[3] === undefined){
-            $('div#rsl').hide();
-        } else {
-            $('div#rsl').show();
-        }
-    });
-    sse.addEventListener('ncaaRankings', function (message) {
-        message = JSON.parse(message.data);
-        var i;
-        for (i = 0; i < 25; i += 1) {
-            $('table#ncaaRankings tr:nth-child(' + (i + 1) + ') td:nth-child(2)').html(message[i][0]);
-            $('table#ncaaRankings tr:nth-child(' + (i + 1) + ') td:nth-child(3)').html(message[i][1] + ' - ' + message[i][2]);
-        }
-    });
-    sse.addEventListener('pac12Standings', function (message) {
-        message = JSON.parse(message.data);
-        var i;
-        var j = 2;
-        for (i = 0; i < 12; i += 1) {
-            if (i > 5) {
-                j = 3
-            }
-            $('table#pac12Standings tr:nth-child(' + (i + j) + ') td:nth-child(1)').html(message[i][0]);
-            $('table#pac12Standings tr:nth-child(' + (i + j) + ') td:nth-child(2)').html(message[i][2] + ' - ' + message[i][3]);
-            $('table#pac12Standings tr:nth-child(' + (i + j) + ') td:nth-child(3)').html(message[i][4] + ' - ' + message[i][5]);
-        }
-    });
-    sse.addEventListener('soccerStandings', function (message) {
-        message = JSON.parse(message.data);
-        var i;
-        for (i = 0; i < 19; i += 1) {
-            $('table#mlsStandings tr:nth-child(' + (i + 2) + ') td:nth-child(2)').html(message[i][0]);
-            $('table#mlsStandings tr:nth-child(' + (i + 2) + ') td:nth-child(3)').html(message[i][1] + ' - ' + message[i][2] + ' - ' + message[i][3]);
-        }
-    });
-    sse.addEventListener('nflRankings', function (message) {
-        message = JSON.parse(message.data);
-        var i;
-        var j = 2;
-        for (i = 0; i < 16; i += 1) {
-            if (i > 3 && i < 8) {
-                j = 3
-            } else if (i > 7 && i < 12) {
-                j = 4
-            } else if (i > 11) {
-                j = 5
-            }
-            $('table#nflAFCRankings tr:nth-child(' + (i + j) + ') td:nth-child(1)').html(message[i][1]);
-            $('table#nflAFCRankings tr:nth-child(' + (i + j) + ') td:nth-child(2)').html(message[i][3] + ' - ' + message[i][4]);
-            $('table#nflAFCRankings tr:nth-child(' + (i + j) + ') td:nth-child(3)').html(message[i][5] + ' - ' + message[i][6]);
-        }
-        j = 2;
-        for (i = 0; i < 16; i += 1) {
-            if (i > 3 && i < 8) {
-                j = 3
-            } else if (i > 7 && i < 12) {
-                j = 4
-            } else if (i > 11) {
-                j = 5
-            }
-            $('table#nflNFCRankings tr:nth-child(' + (i + j) + ') td:nth-child(1)').html(message[i + 16][1]);
-            $('table#nflNFCRankings tr:nth-child(' + (i + j) + ') td:nth-child(2)').html(message[i + 16][3] + ' - ' + message[i][4]);
-            $('table#nflNFCRankings tr:nth-child(' + (i + j) + ') td:nth-child(3)').html(message[i + 16][5] + ' - ' + message[i][6]);
-        }
-    });*/
     sse.addEventListener('openingMovies', function (message) {
         message = JSON.parse(message.data);
         var i;
@@ -386,6 +256,7 @@ $(document).ready(function () {
             }
             $('table#openingMovies tr:nth-child(' + (i + j) + ') td:nth-child(4)').html(message[i][5]);
             $('table#openingMovies tr:nth-child(' + (i + j) + ') td:nth-child(5)').html(message[i][6]);
+
             $('#movie' + (i + 1) + 'sum .synopsis').html(message[i][7]);
             $('#movie' + (i + 1) + 'sum .movieName').html(message[i][0]);
             $('#movie' + (i + 1) + 'sum .rating').html('Rating: ' + message[i][1]);
@@ -399,6 +270,7 @@ $(document).ready(function () {
                 $(this).animate({backgroundColor: '#30ba6f'}, {duration: 500}).html('Sent').css('pointer-events', 'none');
             });
             $('#movie' + (i + 1) + 'sum .actors').html('Cast: <br />' + String(message[i][9]).replace(/,/g, '<br />'));
+
             (function (e) {
                 $('table#openingMovies tr:nth-child(' + (e + j) + ')').click(function () {
                     $('#movie' + (e + 1) + 'sum, #screenCover, #popupContent').fadeIn(300);
@@ -472,41 +344,41 @@ $(document).ready(function () {
         holiday(holiday2);
         countdownTimer(hday);
     });
-    var infoOn = false;
+//    var infoOn = false;
     sse.addEventListener('jeopardy', function (message) {
         message = JSON.parse(message.data);
         console.log(message);
+        var answ = message[0];
         $('#jeopardyReview').html('I\'ll take <i>"' + message[3] + '"</i> for ' + message[2] + ' Alex.').click(function(){
-            console.log(infoOn);
-            if (infoOn === true) {
-                display();
-            } else {
-                go()
-            }
+            display();
         });
 
         function display(){
-            $('#jeopardyPopup2').css({backgroundImage: img()}).show();
-            $('#jeopardyPopup').show();
+            $('#jeopardyPopup, #infoBlurBG').fadeIn(300);
+            $('#catText').html(message[3]);
+            $('#jepCategory').delay(500).show("scale", {}, 200);
+            $('#jepValue').html(message[2]).delay(1000).show("scale", {}, 200);
+            $('#jepQuestion').html(message[1]).delay(1500).show("scale", {}, 200);
+            $('#jepAnswer').html('-Click To Show Answer-').delay(1700).show(10).click(function(){$(this).html(answ)});
+        }
+
+        function go() {
+            infoOn = true;
+            $('#jeopardyPopup, #infoBlurBG').fadeIn(300);
             $('#catText').html(message[3]);
             $('#jepCategory').delay(500).show("scale", {}, 200);
             $('#jepValue').html(message[2]).delay(1000).show("scale", {}, 200);
             $('#jepQuestion').html(message[1]).delay(1500).show("scale", {}, 200);
             $('#jepAnswer').delay(1700).show(10);
-        }
-
-        function go() {
-            infoOn = true;
-            display();
 
             var t = 30;
-            var answer = setInterval(function () {
+            answer = setInterval(function () {
                 if (t === 0) {
-                    $('#jepAnswer').html(message[0]);
+                    $('#jepAnswer').html(answ);
                     clearInterval(answer);
-                    setTimeout(function () {
-                        $('#screenCover, #jepCategory, #jepValue, #jepQuestion, #jepAnswer, #jeopardyPopup2').hide();
-                        $('#jeopardyPopup').hide();
+                    infoTime = setTimeout(function () {
+                        $('#jepCategory, #jepValue, #jepQuestion, #jepAnswer').hide();
+                        $('#jeopardyPopup, #infoBlurBG').fadeOut(300);
                         infoOn = false;
                     }, 10000)
                 } else {
@@ -535,14 +407,12 @@ $(document).ready(function () {
         });
         function go(){
             infoOn = true;
-            $('#jeopardyPopup2').css({backgroundImage: img()}).show();
-            $('#jeopardyPopup').show();
             $('div#imageLogo img').attr('src', '/static/images/logos/cheezburger.png');
-            $('div#cheezImg img').attr('src', message.data);
-            $('#cheezImg, #imageLogo').delay(200).show(1);
-            setTimeout(function(){
-                $('#cheezImg, #imageLogo, #jeopardyPopup2').hide();
-                $('#jeopardyPopup').hide();
+            $('div#imageImg img').attr('src', message.data);
+            $('#infoBlurBG').fadeIn(500);
+            $('#imagePopup').delay(250).fadeIn(500);
+            infoTime = setTimeout(function(){
+                $('#imagePopup, #infoBlurBG').fadeOut(500);
                 infoOn = false;
             }, 30000);
         }
@@ -560,22 +430,31 @@ $(document).ready(function () {
     });
 
     sse.addEventListener('flickr', function (message) {
-        console.log(message.data);
-        $('#flickrReview').css({backgroundImage: 'url(' + message.data + ')'}).click(function(){go()});
+        message = JSON.parse(message.data);
+        $('#flickrReview').css({backgroundImage: 'url(' + message[3] + ')'}).click(function(){go()});
         function go(){
             infoOn = true;
-            $('#jeopardyPopup').show("scale",{}, 200);
-            $('div#imageLogo img').attr('src', '/static/images/logos/flickr.png');
+            var loc = '';
 
-            $('div#cheezImg img').attr('src', message.data);
-            $('#cheezImg, #imageLogo').delay(200).show(1);
-            setTimeout(function(){
-                $('#cheezImg, #imageLogo').hide();
-                $('#jeopardyPopup').hide("scale",{}, 200);
+            $('div#imageLogo img').attr('src', '/static/images/logos/flickr.png');
+            if(message[2] != ''){loc = ' - ' + message[2]}
+            if(message[1] === '' || message[1].length > 100) {
+                $('#flickrInfo').html(message[0] + loc);
+            } else {
+                $('#flickrInfo').html(message[1] + loc);
+            }
+
+            $('div#imageImg img').attr('src', message[3]);
+            $('#infoBlurBG').fadeIn(500);
+            $('#imagePopup').delay(250).fadeIn(500);
+            $('#flickrInfo').delay(600).show(1);
+            infoTime = setTimeout(function(){
+                $('#flickrInfo').hide();
+                $('#imagePopup, #infoBlurBG').fadeOut(500);
                 infoOn = false;
             }, 30000);
         }
-
+;
         if(infoOn){
             var int = setInterval(function(){
                 if (infoOn === false) {
@@ -593,18 +472,18 @@ $(document).ready(function () {
 
         function go(){
             infoOn = true;
-            $('#jeopardyPopup').show("scale",{}, 200);
+
             if((message.data).split('.')[1] === 'lolsotrue'){
                 $('#imageLogo img').attr('src', '/static/images/logos/lol.png');
             } else {
                 $('#imageLogo img').attr('src', '/static/images/logos/sotrue.png');
             }
 
-            $('#cheezImg img').attr('src', message.data);
-            $('#cheezImg, #imageLogo').delay(200).show(1);
-            setTimeout(function(){
-                $('#cheezImg, #imageLogo').hide();
-                $('#jeopardyPopup').hide("scale",{}, 200);
+            $('#imageImg img').attr('src', message.data);
+            $('#infoBlurBG').fadeIn(500);
+            $('#imagePopup').delay(250).fadeIn(500);
+            infoTime = setTimeout(function(){
+                $('#imagePopup, #infoBlurBG').fadeOut(500);
                 infoOn = false;
             }, 30000);
         }
