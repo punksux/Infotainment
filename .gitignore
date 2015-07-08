@@ -6,3 +6,4 @@
 pandora.txt
 *.pyc
 \__pycache__
+*.pyc

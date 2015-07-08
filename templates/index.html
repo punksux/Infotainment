@@ -393,9 +393,8 @@
     <div id="screenCover"></div>
     <div id="popupContent" class="movieCover">
         <div id="rss1sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="sendToPhone">Send to phone</div><div class="closeButton">X</div></div>
-        {% for x in range(1,11) %}
-        <div id="movie{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div><div class="trailer"><iframe class='trailerSrc' width="930" height="544" src="" frameborder="0" allowfullscreen></iframe></div><div class="sendToPhone">Send to phone</div></div>
-        <div id="ent{{ x }}sum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="sendToPhone">Send to phone</div></div>{% endfor %}
+        <div id="movieSum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="actors"></div><div class="trailer"><iframe class='trailerSrc' width="930" height="544" src="" frameborder="0" allowfullscreen></iframe></div><div class="sendToPhone">Send to phone</div></div>
+        <div id="entSum" class="popupText"><div class="movieName"></div><div class="image"></div><div class="synopsis"></div><div class="rating"></div><div class="length"></div><div class="sendToPhone">Send to phone</div></div>
         <div id="alertDescription" class="popupText"><div class="movieName"></div><div class="synopsis"></div><div class="closeButton">X</div></div>
         <div id="day1description" class="popupText"><div class="movieName"></div><div class="synopsis"></div><div class="closeButton">X</div></div>
     </div>
@@ -423,12 +422,18 @@
 </div>
 
 <script>
-        $('.movieName, .synopsis, .rating, .length, .actors, #screenCover, .closeButton, #jeopardyCover, #infoBlur, #imageCover').click(function(){
+        $('.movieName, .synopsis, .rating, .length, .actors, #screenCover, .closeButton, #jeopardyCover, #infoBlur').click(function(){
             infoOn = false;
             clearTimeout(infoTime);
             clearInterval(answer);
-            $('.popupText, #popupContent, #screenCover, #alertDescription, #day1description, #jeopardyPopup, #infoBlurBG, #jepCategory, #jepValue, #jepQuestion, #jepAnswer, #flickrInfo, #imagePopup').hide();
+            $('#movieSum .synopsis').show();
+            $('#movieSum .trailer').hide();
+            $('.popupText, #popupContent, #screenCover, #alertDescription, #day1description, #jeopardyPopup, #infoBlurBG, #jepCategory, #jepValue, #jepQuestion, #jepAnswer').hide();
             $('.sendToPhone').css('background', 'rgba(255, 255, 255, 0.25)').css('pointer-events', 'auto').html('Send to phone')
+        });
+
+        $('#imageCover').click(function(){
+            $('#infoBlurBG, #flickrInfo, #imagePopup').hide();
         });
 
         function sendToPhone(name, link){

@@ -6,7 +6,7 @@ import requests
 import bs4
 from urllib.parse import quote
 import random
-
+from time import sleep
 
 def get_opening_movies():
     rotten_tomatoes_website = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/opening.json?' \
@@ -117,10 +117,16 @@ def jeopardy():
     id_no = parsed_json[0]['id']
 
     if id_no in j_ids:
+        sleep(2)
         jeopardy()
+        return
     else:
         answer = parsed_json[0]['answer']
         question = parsed_json[0]['question']
+        if answer == '' or question == '':
+            sleep(2)
+            jeopardy()
+            return
         value = parsed_json[0]['value']
         category = parsed_json[0]['category']['title']
 

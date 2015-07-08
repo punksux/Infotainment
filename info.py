@@ -33,6 +33,8 @@ day_night_old = ''
 full_weather = []
 current_rain = ''
 yield_me = ''
+forecast_high = []
+forecast_cond = []
 
 
 #######  --== Set Platform ==--  #######
@@ -79,7 +81,7 @@ allergy_website = 'http://www.claritin.com/weatherpollenservice/weatherpollenser
 
 
 def check_weather():
-    global icon, day_night, current_rain, full_weather
+    global icon, day_night, current_rain, full_weather, forecast_cond, forecast_high
     if weather_test is False:
         global something_wrong
         global f, g
@@ -635,7 +637,7 @@ try:
     @app.route('/weather.json', methods=['GET'])
     def give_weather():
         return jsonify({'weather': full_weather[2], 'ssHour': full_weather[3], 'ssMinute': full_weather[4],
-                        'rain': current_rain})
+                        'rain': current_rain, 'forecast_temp': forecast_high, 'forecast_cond': forecast_cond})
 
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=88)

@@ -257,23 +257,26 @@ $(document).ready(function () {
             $('table#openingMovies tr:nth-child(' + (i + j) + ') td:nth-child(4)').html(message[i][5]);
             $('table#openingMovies tr:nth-child(' + (i + j) + ') td:nth-child(5)').html(message[i][6]);
 
-            $('#movie' + (i + 1) + 'sum .synopsis').html(message[i][7]);
-            $('#movie' + (i + 1) + 'sum .movieName').html(message[i][0]);
-            $('#movie' + (i + 1) + 'sum .rating').html('Rating: ' + message[i][1]);
-            $('#movie' + (i + 1) + 'sum .length').html('Runtime: ' + message[i][2] + ' min.');
-            $('#movie' + (i + 1) + 'sum .image').css({'background': 'url(' + message[i][8].replace('tmb', 'det') + ') no-repeat center'}).click(function(){
-                $(this).parent().find('.synopsis').toggle(300);
-                $(this).parent().find('.trailer').toggle(300);
-            });
-            $('#movie' + (i + 1) + 'sum iframe.trailerSrc').attr('src', message[i][11]);
-            $('#movie' + (i + 1) + 'sum .sendToPhone').attr('onclick', 'sendToPhone("' + message[i][0] + '","' + message[i][10] + '")').click(function(){
-                $(this).animate({backgroundColor: '#30ba6f'}, {duration: 500}).html('Sent').css('pointer-events', 'none');
-            });
-            $('#movie' + (i + 1) + 'sum .actors').html('Cast: <br />' + String(message[i][9]).replace(/,/g, '<br />'));
-
             (function (e) {
                 $('table#openingMovies tr:nth-child(' + (e + j) + ')').click(function () {
-                    $('#movie' + (e + 1) + 'sum, #screenCover, #popupContent').fadeIn(300);
+                    $('#movieSum .synopsis').html(message[e][7]);
+                    $('#movieSum .movieName').html(message[e][0]);
+                    $('#movieSum .rating').html('Rating: ' + message[e][1]);
+                    $('#movieSum .length').html('Runtime: ' + message[e][2] + ' min.');
+                    $('#movieSum .image').css({'background': 'url(' + message[e][8].replace('tmb', 'det') + ') no-repeat center'}).unbind('click').click(function(){
+                        if ($('#movieSum iframe.trailerSrc').attr('src') != message[e][11]){
+                            $('#movieSum iframe.trailerSrc').attr('src', message[e][11]);
+                        }
+                        $('#movieSum .synopsis').toggle(300);
+                        $('#movieSum .trailer').toggle(300);
+                    });
+
+                    $('#movieSum .sendToPhone').attr('onclick', 'sendToPhone("' + message[e][0] + '","' + message[e][10] + '")').click(function(){
+                        $(this).animate({backgroundColor: '#30ba6f'}, {duration: 500}).html('Sent').css('pointer-events', 'none');
+                    });
+                    $('#movieSum .actors').html('Cast: <br />' + String(message[e][9]).replace(/,/g, '<br />'));
+
+                    $('#movieSum, #screenCover, #popupContent').fadeIn(300);
                     $('#popupContent').addClass('movieCover');
                 });
             })(i);
@@ -290,18 +293,18 @@ $(document).ready(function () {
             $('table#localEvents tr:nth-child(' + (i + j) + ') td:nth-child(2)').html(message[i][0]);
             $('table#localEvents tr:nth-child(' + (i + j) + ') td:nth-child(3)').html(message[i][2]);
 
-            $('#ent' + (i + 1) + 'sum .synopsis').html(message[i][1]);
-            $('#ent' + (i + 1) + 'sum .rating').html('Venue: <br />' + message[i][4]);
-            $('#ent' + (i + 1) + 'sum .movieName').html(message[i][0]);
-            if(message[i][5] != '') {
-                $('#ent' + (i + 1) + 'sum .image').css({'background': 'url(' + message[i][5].replace('small', 'medium') + ') no-repeat center'});
-            }
-            $('#ent' + (i + 1) + 'sum .sendToPhone').attr('onclick', 'sendToPhone("' + message[i][0] + '","' + message[i][6] + '")').click(function(){
-                $(this).animate({backgroundColor: '#30ba6f'}, {duration: 500}).html('Sent').css('pointer-events', 'none');
-            });
             (function (e) {
                 $('table#localEvents tr:nth-child(' + (e + j) + ')').click(function () {
-                    $('#ent' + (e + 1) + 'sum, #screenCover, #popupContent').fadeIn(300);
+                    $('#entSum .synopsis').html(message[e][1]);
+                    $('#entSum .rating').html('Venue: <br />' + message[e][4]);
+                    $('#entSum .movieName').html(message[e][0]);
+                    if(message[e][5] != '') {
+                        $('#entSum .image').css({'background': 'url(' + message[e][5].replace('small', 'medium') + ') no-repeat center'});
+                    }
+                    $('#entSum .sendToPhone').attr('onclick', 'sendToPhone("' + message[e][0] + '","' + message[e][6] + '")').click(function(){
+                        $(this).animate({backgroundColor: '#30ba6f'}, {duration: 500}).html('Sent').css('pointer-events', 'none');
+                    });
+                    $('#entSum, #screenCover, #popupContent').fadeIn(300);
                     $('#popupContent').addClass('movieCover');
                 });
             })(i);
@@ -347,7 +350,6 @@ $(document).ready(function () {
 //    var infoOn = false;
     sse.addEventListener('jeopardy', function (message) {
         message = JSON.parse(message.data);
-        console.log(message);
         var answ = message[0];
         $('#jeopardyReview').html('I\'ll take <i>"' + message[3] + '"</i> for ' + message[2] + ' Alex.').click(function(){
             display();
@@ -401,7 +403,6 @@ $(document).ready(function () {
             }
     });
     sse.addEventListener('cheezburger', function (message) {
-        console.log(message.data);
         $('#cheezReview').css({backgroundImage: 'url(' + message.data + ')'}).click(function(){
             go()
         });
@@ -467,7 +468,6 @@ $(document).ready(function () {
         }
     });
     sse.addEventListener('facts', function (message) {
-        console.log(message.data);
         $('#factsReview').css({backgroundImage: 'url(' + message.data + ')'}).click(function(){go()});
 
         function go(){
